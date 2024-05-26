@@ -1,10 +1,54 @@
-h1{
-    color: red;
+/* Box Model Hack */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
-.completed{
-    text-decoration: line-through;
-    color: gray;
+:root{
+
 }
-.not{
-    text-decoration: underline;
+/******************************************
+/* BASE STYLES
+/*******************************************/
+
+body {
+height: 100vh;
+background: #f6f5f7;
+display: grid;
+place-content: center;
+
 }
+
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+.receipt-container{
+    position: relative;
+    width: 850px;
+    height: 500px;
+    background-color: #fff;
+    box-shadow: 25px 30px 55px #5557;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.form-container{
+    position: absolute;
+    width: 60%;
+    height: 100%;
+    padding: 0px 40px;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-up-container{
+    opacity: 0;
+}
+
+footer {
+
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
