@@ -6,74 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
 
-   
-    <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Create Account</h1>
+<section id="login-form">
+    <div class="container">
+        <div class="signin-signup">
+            <form action="" class="sign-in-form" method="post">
+                <h2 class="title">Sign in</h2>
+                <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Username" />
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Password" />
+                </div>
+                <input type="submit" value="login" class="btn">
+                <p class="social-txt">Or Sign in with socal platform</p>
+                
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span>or use your email for registration</span>
-                <div class="field">
-                    <input type="text" placeholder="Name" />
-                    <label></label>
-                </div>
-                <div class="field">
-                    <input type="email" placeholder="Email" name="email"/>
-                    <label></label>
-                </div>
-                <div class="field">
-                    <input type="password" placeholder="Password" />
-                    <label></label>
-                </div>
-                <button>Sign Up</button>
             </form>
-        </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Sign in</h1>
+            <form action="" class="sign-up-form" method="post">
+                <h2 class="title">Sign Up</h2>
+                <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Username" />
+                </div>
+
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="Email" name="email"/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Password" />
+                </div>
+                <input type="submit" value="Sign up" class="btn">
+                <p class="social-txt">Or Sign in with socal platform</p>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span>or use your account</span>
-                <div class="field">
-                    <input type="email" placeholder="Email" name="email"/>
-                    <label></label>
-                </div>
-                <div class="field">
-                    <input type="password" placeholder="Password" />
-                    <label></label>
-                </div>
-                <a href="#" class="forgot">Forgot your password?</a>
-                <button>Sign In</button>
             </form>
         </div>
-        <div class="overlay-container" id="overlayCon">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button>Sign In</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <button>Sign Up</button>
-                </div>
+            
+            <div class="panels-container">
+                <div class="panel left-panel">
+                    <div class="content">
+                    <h3>Explore new Recipes</h3>
+                    <p>Discover new dishes, save your favorites, and enjoy step-by-step instructions to create mouthwatering meals for any occasion. 
+                        Let's embark on a flavorful journey together and make every meal a delightful experience!</p>
+                        <button class="panel-btn">Sign In</button>
+                    </div>
+                <img src="/image/undraw_sign_in_re_o58h.svg" alt="" class="image">
             </div>
-            <button id="overlayBtn"></button>
+
+            <div class="panel right-panel">
+                <div class="content">
+                <h3>Explore new Recipes</h3>
+                <p></p>
+                    <button class="panel-btn">Sign In</button>
+                </div>
+            <img src="/image/undraw_login.svg" alt="" class="image">
+        </div>
         </div>
     </div>
+</section>
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
 
     <a href="/todos"> New Todo List</a>
     <script src='js/main.js'></script>
