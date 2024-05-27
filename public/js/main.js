@@ -69,15 +69,14 @@ async function markIncomplete(){
 }
 
 // --------------------------Sign-in Form------------------------------------//
-const container = document.getElementById('container');
-const overlayCon = document.getElementById('overlayCon');
-const overlayBtn = document.getElementById('overlayBtn');
+const sign_in_btn = document.querySelector('#sign-in-btn');
+const sign_up_btn = document.querySelector('#sign-up-btn');
+const container = document.querySelector('.container');
 
-overlayBtn.addEventListener('click', ()=> {
-    container.classList.toggle('right-panel-active');
+sign_up_btn.addEventListener('click',() =>{
+    container.classList.add('sign-up-mode');
+});
 
-    overlayBtn.classList.remove('btnScaled');
-    window.requestAnimationFrame( () => {
-        overlayBtn.classList.add('btnScaled');
-    })
-} )
+sign_in_btn.addEventListener('click', ()=> {
+    container.classList.remove('sign-up-mode')
+});
