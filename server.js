@@ -3,6 +3,7 @@ const app = express()
 // const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
 const todoRoutes = require('./routes/todos')
+const recipeRoutes = require('./routes/recipe') // Corrected path to the recipe route
 
 // require('dotenv').config({path: './config/.env'})
 
@@ -15,6 +16,7 @@ app.use(express.json())
 
 app.use('/', homeRoutes)
 app.use('/todos', todoRoutes)
+app.use('/recipe', recipeRoutes) // Use the correct route for recipes
 
 const PORT = process.env.PORT || 3000; // Use the port from the environment variables or default to 3000
  
