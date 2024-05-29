@@ -1,11 +1,9 @@
-const express = require('express')
-const router = express.Router()
+// routes/recipe.js
+const express = require('express');
+const router = express.Router();
+const recipeController = require('../controllers/recipe');
 
+router.get('/', recipeController.getRandomRecipes); // Route to fetch random recipes
+router.get('/view', recipeController.viewRecipes); // Route to render the recipe page
 
-// router.get('/', homeController.getIndex) 
-
-router.get('/', (req, res) => {
-    res.render('recipe') // Render the recipe.ejs file
-})
-
-module.exports = router
+module.exports = router;

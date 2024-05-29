@@ -5,7 +5,7 @@ const homeRoutes = require('./routes/home')
 const todoRoutes = require('./routes/todos')
 const recipeRoutes = require('./routes/recipe') // Corrected path to the recipe route
 
-// require('dotenv').config({path: './config/.env'})
+ require('dotenv').config({path: './config/.env'})
 
 // connectDB()
 
