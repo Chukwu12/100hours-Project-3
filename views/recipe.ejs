@@ -27,6 +27,19 @@
             <button></button>
         </div>
     </div>
+
+
+    <section id="trending">
+        <h1>Trending Recipe</h1>
+        <% recipeData.forEach(recipe => { %>
+            <div>
+                <h2><%= recipe.title %></h2>
+                <p><%= recipe.instructions %></p>
+                <!-- Add more fields as needed -->
+            </div>
+        <% }); %>
+    </section>
+  
     <script src='js/main.js'></script>
 </body>
 </html>

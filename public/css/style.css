@@ -655,11 +655,18 @@ transform: translateX(-150%);
     color: white; /* Adjust color as needed *
 }
 
-footer {
 
+/* -----------------------------Random Recipe ------------------------------------- */
+#trending{
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
+#trending h1{
+    margin: 0 20px;
+}
 
 /******************************************
 /* ADDITIONAL STYLES
