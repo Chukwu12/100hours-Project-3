@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
+    <!--Swiper CSS  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -31,15 +35,25 @@
 
     <section id="trending">
         <h1>Trending Recipe</h1>
-        <% recipeData.forEach(recipe => { %>
-            <div>
-                <h2><%= recipe.title %></h2>
-                <p><%= recipe.instructions %></p>
-                <!-- Add more fields as needed -->
-            </div>
-        <% }); %>
-    </section>
-  
+       <!-- Swiper -->
+       <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <% recipeData.forEach(recipe => { %>
+                <div class="swiper-slide">
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <p><%= recipe.title %></p>
+                </div>
+                
+            <% }); %>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src='js/main.js'></script>
 </body>
 </html>

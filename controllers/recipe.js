@@ -1,8 +1,8 @@
 // controllers/recipe.js
 const axios = require('axios'); // Add this line to import axios
 
-const RECIPES_API_KEY = '15b2edef64f24d2c95b3cc72e3ad8f87';
-const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random?number=5&include-tags=vegetarian,dessert';
+const RECIPES_API_KEY =  process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
+const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 
 module.exports = {
     getRandomRecipes: async (req, res) => {
@@ -15,7 +15,7 @@ module.exports = {
                 const response = await axios.get(RECIPES_API_URL, {
                 params: {
                     apiKey: RECIPES_API_KEY,
-                    number: 1,  // Number of random recipes to fetch
+                    number: 5,  // Number of random recipes to fetch
                     includeNutrition: true,
                     limitLicense: true,
                 }
@@ -31,6 +31,6 @@ module.exports = {
 },
 
     viewRecipes: (req, res) => {
-        res.render('recipe.ejs'); // Render the recipe.ejs file
+        res.render('recipe'); // Render the recipe.ejs file
     }
 };

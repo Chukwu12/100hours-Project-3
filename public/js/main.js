@@ -80,3 +80,16 @@ sign_up_btn.addEventListener('click',() =>{
 sign_in_btn.addEventListener('click', ()=> {
     container.classList.remove('sign-up-mode')
 });
+
+
+// --------------------------------------  Initialize Swiper ----------------------------------//
+const swiper = new swiper('.mySwiper', {
+    slidesPerView: 1,
+    centeredSlides: true,
+    spaceBetween: 30,
+    grabCursor: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
