@@ -83,13 +83,13 @@ sign_in_btn.addEventListener('click', ()=> {
 
 
 // --------------------------------------  Initialize Swiper ----------------------------------//
-const swiper = new swiper('.mySwiper', {
-    slidesPerView: 1,
-    centeredSlides: true,
-    spaceBetween: 30,
-    grabCursor: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-  });
+    // const swiper = new Swiper(".mySwiper", {
+    //   slidesPerView: 5,
+    //   centeredSlides: true,
+    //   spaceBetween: 30,
+    //   grabCursor: true,
+    //   pagination: {
+    //     el: ".swiper-pagination",
+    //     clickable: true,
+    //   },
+    // });
