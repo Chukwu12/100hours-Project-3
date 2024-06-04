@@ -672,7 +672,7 @@ transform: translateX(-150%);
     height: 100%;
   }
 
-  .mySwiper .swiper-slide {
+  .my-swiper .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -680,9 +680,10 @@ transform: translateX(-150%);
     justify-content: center;
     align-items: center;
     width: 10%;
+    
   }
 
-  .mySwiper .swiper-slide img {
+  .my-swiper .swiper-slide img {
     display: block;
     width: 400px;
     height: 300px;

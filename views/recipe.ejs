@@ -14,6 +14,17 @@
 </head>
 <body>
 
+    <style>
+          .my-swiper .swiper-slide img {
+    display: block;
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+
+    </style>
+
     <nav>
         <img src="/image/onice-high-resolution-logo-transparent (1).png" alt="logo-img">
         <ul>
@@ -36,19 +47,22 @@
     <section id="trending">
         <h1>Trending Recipe</h1>
        <!-- Swiper -->
-       <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-            <% recipeData.forEach(recipe => { %>
-                <div class="swiper-slide">
-                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-                    <p><%= recipe.title %></p>
-                </div>
-                
-            <% }); %>
+       <div class="swiper-container my-swiper">
+        <div class="swiperRecipes mySwiper">
+            <div class="swiper-wrapper">
+                <% recipeData.forEach(recipe => { %>
+                    <div class="swiper-slide">
+                        <!-- <img src="<%= recipe.image %>" alt="<%= recipe.title %>"> -->
+                        <p><%= recipe.title %></p>
+                    </div>
+                    
+                <% }); %>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-    </div>
+       </div>
+      
 </section>
 
 
@@ -56,7 +70,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <!-- Initialize Swiper -->
   <script>
-    var swiper = new Swiper(".mySwiper", {
+    const swiperRecipes = new Swiper(".mySwiper", {
       slidesPerView: 3,
       centeredSlides: false,
       spaceBetween: 30,
