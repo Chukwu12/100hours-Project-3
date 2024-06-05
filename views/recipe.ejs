@@ -27,6 +27,17 @@
             <button></button>
         </div>
     </div>
+
+    <h1>Random Recipes</h1>
+    <ul>
+        <% recipes.forEach(recipe => { %>
+            <li>
+                <h2><%= recipe.title %></h2>
+                <p><%= recipe.summary %></p>
+                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+            </li>
+        <% }) %>
+    </ul>
     <script src='js/main.js'></script>
 </body>
 </html>

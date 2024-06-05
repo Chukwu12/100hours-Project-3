@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express()
-// const connectDB = require('./config/database')
+ const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
 const todoRoutes = require('./routes/todos')
 const recipeRoutes = require('./routes/recipe') // Corrected path to the recipe route
 
- require('dotenv').config({path: './config/.env'})
+require('dotenv').config({ path: './config/.env' });// Correctly load .env from config folder
 
-// connectDB()
+connectDB()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -19,7 +19,6 @@ app.use('/todos', todoRoutes)
 app.use('/recipe', recipeRoutes) // Use the correct route for recipes
 
 const PORT = process.env.PORT || 3000; // Use the port from the environment variables or default to 3000
- 
-app.listen(PORT, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log('Server is running, you better catch it!')
-})    
+})
