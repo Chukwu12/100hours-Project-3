@@ -1,7 +1,5 @@
-// import Swiper JS
-import Swiper from 'swiper';
-// import Swiper styles
-import 'swiper/css';
+
+
 
 const swiper = new Swiper('.swiperRecipes');
 const deleteBtn = document.querySelectorAll('.del')
@@ -90,13 +88,13 @@ sign_in_btn.addEventListener('click', ()=> {
 
 
 // --------------------------------------  Initialize Swiper ----------------------------------//
-    // const swiper = new Swiper(".mySwiper", {
-    //   slidesPerView: 5,
-    //   centeredSlides: true,
-    //   spaceBetween: 30,
-    //   grabCursor: true,
-    //   pagination: {
-    //     el: ".swiper-pagination",
-    //     clickable: true,
-    //   },
-    // });
+// const swiperRecipes = new Swiper(".my-swiper", {
+//     slidesPerView: 3,
+//     centeredSlides: false,
+//     spaceBetween: 10,
+//     grabCursor: true,
+//     pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true,
+//     },
+// });

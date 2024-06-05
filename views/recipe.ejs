@@ -7,10 +7,14 @@
     <title>Document</title>
     <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
-    <!--Swiper CSS  -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+     <!--Swiper CSS  -->
+     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+     <!-- Swiper JS -->
+     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+   
   <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
 
@@ -22,6 +26,42 @@
     object-fit: cover;
     border-radius: 25px;
   }
+
+  .swiper-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; 
+  }
+
+    #trending{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#trending h1{
+    margin: 0 20px;
+}
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .my-swiper .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    
+  }
+
+
 
     </style>
 
@@ -48,40 +88,38 @@
         <h1>Trending Recipe</h1>
        <!-- Swiper -->
        <div class="swiper-container my-swiper">
-        <div class="swiperRecipes mySwiper">
-            <div class="swiper-wrapper">
-                <% recipeData.forEach(recipe => { %>
-                    <div class="swiper-slide">
-                        <!-- <img src="<%= recipe.image %>" alt="<%= recipe.title %>"> -->
-                        <p><%= recipe.title %></p>
-                    </div>
-                    
-                <% }); %>
-            </div>
-            <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
+        <div class="swiper-wrapper">
+            <% recipeData.forEach(recipe => { %>
+                <div class="swiper-slide">
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <p><%= recipe.title %></p>
+                </div>
+            <% }); %>
         </div>
-       </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    
       
 </section>
 
 
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+   
     <!-- Initialize Swiper -->
-  <script>
-    const swiperRecipes = new Swiper(".mySwiper", {
-      slidesPerView: 3,
-      centeredSlides: false,
-      spaceBetween: 30,
-      grabCursor: true,
-      pagination: {
+   <script>
+ const swiperRecipes = new Swiper(".my-swiper", {
+    slidesPerView: 3,
+    centeredSlides: false,
+    spaceBetween: 10,
+    grabCursor: true,
+    pagination: {
         el: ".swiper-pagination",
         clickable: true,
-      },
-    });
-  </script>
+    },
+});
+  </script> 
     
-    <script src='js/main.js'></script>
+    <script src="js/main.js"></script>
+
 </body>
 </html>

@@ -672,6 +672,13 @@ transform: translateX(-150%);
     height: 100%;
   }
 
+  .swiper-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust height as needed */
+}
+
   .my-swiper .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -690,6 +697,9 @@ transform: translateX(-150%);
     object-fit: cover;
     border-radius: 25px;
   }
+
+
+  
 
 
 

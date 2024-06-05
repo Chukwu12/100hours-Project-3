@@ -6,7 +6,7 @@ const { ensureAuth } = require('../middleware/auth');
 
 
 
- router.get('/', ensureAuth, recipeController.getRandomRecipes); // Route to fetch random recipes
+ router.get('/', recipeController.getRandomRecipes); // Route to fetch random recipes
 router.get('/view', recipeController.viewRecipes); // Route to render the recipe page
 
 module.exports = router;
