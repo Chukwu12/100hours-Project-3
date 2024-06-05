@@ -655,12 +655,44 @@ transform: translateX(-150%);
     color: white; /* Adjust color as needed *
 }
 
-footer {
 
+/* -----------------------------Random Recipe ------------------------------------- */
+#trending{
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+#trending h1{
+    margin: 0 20px;
+}
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .my-swiper .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    
+  }
+
+  .my-swiper .swiper-slide img {
+    display: block;
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 25px;
+  }
 
 
 
 /******************************************
 /* ADDITIONAL STYLES
-/*******************************************/
+/*******************************************

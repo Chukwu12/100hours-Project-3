@@ -5,10 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
+    <!--Swiper CSS  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <style>
+          .my-swiper .swiper-slide img {
+    display: block;
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+
+    </style>
 
     <nav>
         <img src="/image/onice-high-resolution-logo-transparent (1).png" alt="logo-img">
@@ -28,16 +43,45 @@
         </div>
     </div>
 
-    <h1>Random Recipes</h1>
-    <ul>
-        <% recipes.forEach(recipe => { %>
-            <li>
-                <h2><%= recipe.title %></h2>
-                <p><%= recipe.summary %></p>
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-            </li>
-        <% }) %>
-    </ul>
+
+    <section id="trending">
+        <h1>Trending Recipe</h1>
+       <!-- Swiper -->
+       <div class="swiper-container my-swiper">
+        <div class="swiperRecipes mySwiper">
+            <div class="swiper-wrapper">
+                <% recipeData.forEach(recipe => { %>
+                    <div class="swiper-slide">
+                        <!-- <img src="<%= recipe.image %>" alt="<%= recipe.title %>"> -->
+                        <p><%= recipe.title %></p>
+                    </div>
+                    
+                <% }); %>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+       </div>
+      
+</section>
+
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+  <script>
+    const swiperRecipes = new Swiper(".mySwiper", {
+      slidesPerView: 3,
+      centeredSlides: false,
+      spaceBetween: 30,
+      grabCursor: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
+    
     <script src='js/main.js'></script>
 </body>
 </html>

@@ -1,6 +1,13 @@
+// import Swiper JS
+import Swiper from 'swiper';
+// import Swiper styles
+import 'swiper/css';
+
+const swiper = new Swiper('.swiperRecipes');
 const deleteBtn = document.querySelectorAll('.del')
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
+
 
 Array.from(deleteBtn).forEach((el)=>{
     el.addEventListener('click', deleteTodo)
@@ -80,3 +87,16 @@ sign_up_btn.addEventListener('click',() =>{
 sign_in_btn.addEventListener('click', ()=> {
     container.classList.remove('sign-up-mode')
 });
+
+
+// --------------------------------------  Initialize Swiper ----------------------------------//
+    // const swiper = new Swiper(".mySwiper", {
+    //   slidesPerView: 5,
+    //   centeredSlides: true,
+    //   spaceBetween: 30,
+    //   grabCursor: true,
+    //   pagination: {
+    //     el: ".swiper-pagination",
+    //     clickable: true,
+    //   },
+    // });

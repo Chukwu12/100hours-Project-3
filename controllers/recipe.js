@@ -1,30 +1,37 @@
 // controllers/recipe.js
-import { get } from 'axios';
+const axios = require('axios'); // Add this line to import axios
 
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_KEY =  process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 
-console.log('API Key:', RECIPES_API_KEY); // Add this line to check if the API key is being read correctly
-
-const viewRecipes = (req, res) => {
-    console.log('viewRecipes called'); // Debugging output
-    res.render('recipe.ejs');
-};
-
-const getRandomRecipes = async (req, res) => {
-    console.log('getRandomRecipes called'); // Debugging output
-    try {
-        const res = await get(RECIPES_API_URL, {
-            params: {
-                number: 5, // Number of random recipes to fetch
-                apiKey: RECIPES_API_KEY
+module.exports = {
+    getRandomRecipes: async (req, res) => {
+        try {
+              // Check if the API key is available
+              if (!RECIPES_API_KEY) {
+                return res.status(401).json({ message: 'API key is missing' });
             }
-        });
-        const recipes = res.data.recipes;
-        res.render('recipes.ejs', { recipes }); // Render the recipes view with fetched recipes
-    } catch (error) {
-        console.error('Error fetching data from Spoonacular:', error.message);
-        res.status(500).json({ message: error.message });
+                // Make the API request with the API key in the headers
+                const response = await axios.get(RECIPES_API_URL, {
+                params: {
+                    apiKey: RECIPES_API_KEY,
+                    number: 5,  // Number of random recipes to fetch
+                    includeNutrition: true,
+                    limitLicense: true,
+                }
+            });
+  // Pass the recipe data to the template
+  res.render('recipe', { recipeData: response.data.recipes });
+} catch (error) {
+    // Handle errors
+    console.error('Error fetching data from Spoonacular:', error);
+    // Handle the error response
+    res.status(500).send('Server Error');
+}
+},
+
+    viewRecipes: (req, res) => {
+        res.render('recipe'); // Render the recipe.ejs file
     }
 };
 
