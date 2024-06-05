@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
 const flash = require('express-flash')
-//  const MongoStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo'); 
 const logger = require('morgan')
-//  const connectDB = require('./config/database')
+ const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
 const todoRoutes = require('./routes/todos')
 const recipeRoutes = require('./routes/recipe') // Corrected path to the recipe route
@@ -17,11 +17,12 @@ const recipeRoutes = require('./routes/recipe') // Corrected path to the recipe 
 require('./config/passport')(passport)
 
 
-//  connectDB()
+// Import connectDB from your database.js file
+const connectDB = require('./config/database'); // Adjust the path as needed
 
- 
 
 
+// Middleware
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
@@ -34,7 +35,7 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
-    // store: new MongoStore({ mongooseConnection: mongoose.connection }),
+     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 )
 

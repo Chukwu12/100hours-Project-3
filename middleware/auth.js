@@ -1,3 +1,4 @@
+// middleware/auth.js
 module.exports = {
     ensureAuth: function (req, res, next) {
       if (req.isAuthenticated()) {
