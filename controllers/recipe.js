@@ -1,8 +1,9 @@
 // controllers/recipe.js
 const axios = require('axios');
 
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY || 'your-default-api-key';
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY ||'15b2edef64f24d2c95b3cc72e3ad8f87';
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
+
 
 const getRandomRecipes = async (req, res) => {
     try {
@@ -15,7 +16,7 @@ const getRandomRecipes = async (req, res) => {
         const response = await axios.get(RECIPES_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 5,  // Number of random recipes to fetch
+                number: 8,  // Number of random recipes to fetch
                 includeNutrition: true,
                 limitLicense: true,
             }

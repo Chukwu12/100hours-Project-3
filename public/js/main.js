@@ -88,13 +88,14 @@ sign_in_btn.addEventListener('click', ()=> {
 
 
 // --------------------------------------  Initialize Swiper ----------------------------------//
-// const swiperRecipes = new Swiper(".my-swiper", {
-//     slidesPerView: 3,
-//     centeredSlides: false,
-//     spaceBetween: 10,
-//     grabCursor: true,
-//     pagination: {
-//         el: ".swiper-pagination",
-//         clickable: true,
-//     },
-// });
+
+const swiperRecipes = new Swiper(".swiper-container", {
+ slidesPerView: 1,
+ centeredSlides: false,
+ spaceBetween: 10,
+ grabCursor: true,
+ pagination: {
+     el: ".swiper-pagination",
+     clickable: true,
+ },
+});

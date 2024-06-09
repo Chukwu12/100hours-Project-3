@@ -7,64 +7,13 @@
     <title>Document</title>
     <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
-     <!--Swiper CSS  -->
-     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-     <!-- Swiper JS -->
-     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-   
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
+    <!-- Glide.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <style>
-          .my-swiper .swiper-slide img {
-    display: block;
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 25px;
-  }
-
-  .swiper-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh; 
-  }
-
-    #trending{
-    height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#trending h1{
-    margin: 0 20px;
-}
-.swiper {
-    width: 100%;
-    height: 100%;
-  }
-
-
-  .my-swiper .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
-    
-  }
-
-
-
-    </style>
-
     <nav>
         <img src="/image/onice-high-resolution-logo-transparent (1).png" alt="logo-img">
         <ul>
@@ -74,52 +23,56 @@
         </ul>
     </nav>
 
-  
     <div class="search-bar">
         <div class="row">
-            <input  type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
+            <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
             <i class="fa-solid fa-magnifying-glass"></i>
             <button></button>
         </div>
     </div>
 
-
     <section id="trending">
-        <h1>Trending Recipe</h1>
-       <!-- Swiper -->
-       <div class="swiper-container my-swiper">
-        <div class="swiper-wrapper">
-            <% recipeData.forEach(recipe => { %>
-                <div class="swiper-slide">
-                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-                    <p><%= recipe.title %></p>
-                </div>
-            <% }); %>
+        <h1>Trending Recipes</h1>
+        <!-- Glide -->
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <% recipeData.forEach(recipe => { %>
+                        <li class="glide__slide">
+                            <div class="glide-card">
+                                <div class="glide-card-image">
+                                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                                    <div class="overlay"></div>
+                                </div>
+                                <p><%= recipe.title %></p>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+                <button class="glide__bullet" data-glide-dir="=0"></button>
+                <button class="glide__bullet" data-glide-dir="=1"></button>
+                <button class="glide__bullet" data-glide-dir="=2"></button>
+                <button class="glide__bullet" data-glide-dir="=3"></button>
+                <button class="glide__bullet" data-glide-dir="=4"></button>
+            </div>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-    </div>
-    
-      
-</section>
+    </section>
 
+    <!-- Glide.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+    <!-- Initialize Glide -->
+    <script>
+        new Glide('.glide', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 3,
+            gap: 20
+        }).mount();
+    </script>
 
-   
-    <!-- Initialize Swiper -->
-   <script>
- const swiperRecipes = new Swiper(".my-swiper", {
-    slidesPerView: 3,
-    centeredSlides: false,
-    spaceBetween: 10,
-    grabCursor: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});
-  </script> 
-    
+    <!-- Custom JS -->
     <script src="js/main.js"></script>
-
 </body>
 </html>
