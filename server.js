@@ -18,7 +18,7 @@ require('dotenv').config({ path: './config/.env' });
 require('./config/passport')(passport);
 
 // Connect to database
-connectDB();
+// connectDB();
 
 
 // Middleware
@@ -50,6 +50,6 @@ app.use('/recipe', recipeRoutes); // Use the correct route for recipes
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log('Server is running, you better catch it!');
+// app.listen(PORT, () => {
+//    console.log('Server is running, you better catch it!');
 });

@@ -1,3 +1,4 @@
+const { getRandomRecipes } = require("../../controllers/recipe");
 
 
 
@@ -99,3 +100,10 @@ const swiperRecipes = new Swiper(".swiper-container", {
      clickable: true,
  },
 });
+
+// --------------------------------------  Get random recipe info ----------------------------------//
+let getInfo = document.querySelector('glide-card');
+
+// getInfo.addEventListener('click', getRandomFood){
+//    let getRandomFood =
+// }
