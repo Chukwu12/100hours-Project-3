@@ -17,14 +17,14 @@ const getHealthRecipes = async (req, res) => {
             params: {
                 apiKey: RECIPES_API_KEY,
                 number: 8,  // Number of random recipes to fetch
-                includeNutrition: vegetarian,
+                tags: vegetarian,  // Specify that we want vegetarian recipes
                 limitLicense: true,
             }
         });
 
          
         // Pass the recipe data to the template
-        res.render('recipe', { recipeData: response.data.recipes });
+        res.render('recipe', { healthRecipes: response.data.recipes });
     } catch (error) {
         // Handle errors
         console.error('Error fetching data from Spoonacular:', error.message);

@@ -68,10 +68,10 @@
         <div class="healthy-glide">
             <div class="glide__track" data-glide-el="track">
                 <ul class="healthy glide__slides">
-                    <% recipeData.forEach(recipe => { %>
-                        <li class="healthy-glide__slide">
-                            <div class="healthy-glide-card">
-                                <div class="healthy-glide-card-image">
+                    <% healthRecipes.forEach(recipe => { %>
+                        <li class="glide__slide">
+                            <div class="glide-card">
+                                <div class="glide-card-image">
                                     <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
                                     <div class="overlay"></div>
                                 </div>
@@ -83,7 +83,7 @@
             </div>
             <div class="healthy-glide__bullets" data-glide-el="controls[nav]">
                 <!-- Adjust bullets dynamically based on recipe count -->
-                <% for (let i = 0; i < recipeData.length; i++) { %>
+                <% for (let i = 0; i < healthRecipes.length; i++) { %>
                     <button class="glide__bullet" data-glide-dir="<%= '=' + i %>"></button>
                 <% } %>
             </div>

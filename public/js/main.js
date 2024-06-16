@@ -1,4 +1,4 @@
-const { getRandomRecipes } = require("../../controllers/recipe");
+ const { getRandomRecipes } = require("../../controllers/recipe");
 
 
 

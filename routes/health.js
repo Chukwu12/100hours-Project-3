@@ -1,11 +1,12 @@
 // routes/health.js
 const express = require('express');
 const router = express.Router();
-const healthyrecipeController = require('../controllers/healthy');
+const healthyController = require('../controllers/healthy');
 
 
-
- router.get('/', healthyrecipeController.getHealthRecipes); // Route to fetch random recipes
-router.get('/view', healthyrecipeController.viewHealthRecipes); // Route to render the recipe page
+// Route to get random vegetarian recipes
+ router.get('/', healthyController.getHealthRecipes); // Route to fetch random recipes
+ // Route to view the recipes
+router.get('/view', healthyController.viewHealthRecipes); // Route to render the recipe page
 
 module.exports = router;
