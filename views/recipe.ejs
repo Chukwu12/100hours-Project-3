@@ -60,11 +60,51 @@
         </div>
     </section>
 
+
+    
+    <section id="healthy">
+        <h2>healthy Recipes</h2>
+        <!-- Glide -->
+        <div class="healthy-glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="healthy glide__slides">
+                    <% recipeData.forEach(recipe => { %>
+                        <li class="healthy-glide__slide">
+                            <div class="healthy-glide-card">
+                                <div class="healthy-glide-card-image">
+                                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                                    <div class="overlay"></div>
+                                </div>
+                                <p><%= recipe.title %></p>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="healthy-glide__bullets" data-glide-el="controls[nav]">
+                <!-- Adjust bullets dynamically based on recipe count -->
+                <% for (let i = 0; i < recipeData.length; i++) { %>
+                    <button class="glide__bullet" data-glide-dir="<%= '=' + i %>"></button>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
     <!-- Glide.js -->
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
     <!-- Initialize Glide -->
     <script>
         new Glide('.glide', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 3,
+            gap: 20
+        }).mount();
+    </script>
+
+    <!-- Initialize Glide for Healthy Recipes -->
+    <script>
+        new Glide('.healthy-glide', {
             type: 'carousel',
             startAt: 0,
             perView: 3,

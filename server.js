@@ -11,6 +11,7 @@ const connectDB = require('./config/database');
 const homeRoutes = require('./routes/home');
 const todoRoutes = require('./routes/todos');
 const recipeRoutes = require('./routes/recipe');
+const healthyRoutes = require('./routes/health');
 
 require('dotenv').config({ path: './config/.env' });
 
@@ -47,6 +48,7 @@ app.use(flash());
 app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Use the correct route for recipes
+app.use('/health', healthyRoutes);
 
 const PORT = process.env.PORT || 3000;
 
