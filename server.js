@@ -46,10 +46,11 @@ app.use(passport.session());
 
 app.use(flash());
 
+// Routes
 app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Use the correct route for recipes
-app.use('/health', healthRoutes);
+app.use('/healthy', healthRoutes); // Include health routes
 
 const PORT = process.env.PORT || 3000;
 
