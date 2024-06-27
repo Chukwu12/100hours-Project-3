@@ -621,7 +621,7 @@ transform: translateX(-150%);
 .search-bar{
     position: relative;
     width: 700px;
-    margin: 200px auto 0;
+    margin: 100px auto 0;
     border-radius: 5px;
 }
 
@@ -655,6 +655,41 @@ transform: translateX(-150%);
     color: white; 
 }
 
+/* Cusines Section */
+.cuisenes{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 30px 0px;
+    width: 100%;
+    height: 100px;
+}
+
+.cuisnes-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.cuisnes-list h2{
+    margin: 10px 0;
+}
+
+.cuisnes-list div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cuisnes-list img{
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+
 
 /* -----------------------------Random Recipe ------------------------------------- */
 /* Custom styles for trending section */
@@ -666,6 +701,7 @@ transform: translateX(-150%);
     align-items: center;
     flex-direction: column;
     padding: 20px 0;
+    margin-top: 50px;
 }
 
 #trending h1 {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= cuisine %> Recipes</title>
+    <!-- Font-awesome -->
+    <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
+   
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<nav>
+    <img src="/image/onice-high-resolution-logo-transparent (1).png" alt="logo-img">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/recipe">Recipes</a></li>
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="search-bar">
+    <div class="row">
+        <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <button></button>
+    </div>
+</div>
+<body>
+    <nav>
+        <div class="cuisenes">
+            <div class="cuisnes-list">
+                <div>
+                    <h2>African</h2>
+                    <a href="/cuisine/african"><img src="/image/african-cusine.png" alt="african food icon"></a>
+                </div>
+        
+                <div>
+                    <h2>American</h2>
+                    <a href="/cuisine/american"><img src="/image/american-cusine.png" alt="american food icon"></a>
+                </div>
+                
+                <div>
+                    <h2>Asian</h2>
+                    <a href="/cuisine/asian"><img src="/image/asain-cusine.png" alt="asian food icon"></a>
+                </div>
+               
+                <div>
+                    <h2>Mexican</h2>
+                    <a href="/cuisine/mexican"><img src="/image/mexican-cusine.png" alt="mexican food icon"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <h1><%= cuisine %> Recipes</h1>
+    <div class="recipes">
+        <% recipes.forEach(recipe => { %>
+            <div class="recipe">
+                <h2><%= recipe.title %></h2>
+                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+            </div>
+        <% }); %>
+    </div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- Custom JS -->
+   <script src="js/main.js"></script>
+</body>
+</html>

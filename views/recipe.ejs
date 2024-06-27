@@ -31,6 +31,35 @@
         </div>
     </div>
 
+    <nav>
+        <div class="cuisenes">
+            <div class="cuisnes-list">
+                <div>
+                    <h2>African</h2>
+                    <a href="/cuisine/african"><img src="/image/african-cusine.png" alt="african food icon"></a>
+                </div>
+        
+                <div>
+                    <h2>American</h2>
+                    <a href="/cuisine/american"><img src="/image/american-cusine.png" alt="american food icon"></a>
+                </div>
+                
+                <div>
+                    <h2>Asian</h2>
+                    <a href="/cuisine/asian"><img src="/image/asain-cusine.png" alt="asian food icon"></a>
+                </div>
+               
+                <div>
+                    <h2>Mexican</h2>
+                    <a href="/cuisine/mexican"><img src="/image/mexican-cusine.png" alt="mexican food icon"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+
+
     <section id="trending">
         <h1>Trending Recipes</h1>
         <!-- Glide -->
@@ -68,7 +97,7 @@
         <div class="healthy-glide">
             <div class="glide__track" data-glide-el="track">
                 <ul class="healthy glide__slides">
-                    <% healthRecipes.forEach(recipe => { %>
+                    <% recipeData.forEach(recipe => { %>
                         <li class="glide__slide">
                             <div class="glide-card">
                                 <div class="glide-card-image">
@@ -83,7 +112,7 @@
             </div>
             <div class="healthy-glide__bullets" data-glide-el="controls[nav]">
                 <!-- Adjust bullets dynamically based on recipe count -->
-                <% for (let i = 0; i < healthRecipes.length; i++) { %>
+                <% for (let i = 0; i <  recipeData.length; i++) { %>
                     <button class="glide__bullet" data-glide-dir="<%= '=' + i %>"></button>
                 <% } %>
             </div>
