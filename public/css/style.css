@@ -656,6 +656,10 @@ transform: translateX(-150%);
 }
 
 /* Cusines Section */
+#cuisenes{
+    height: 180px;
+}
+
 .cuisenes{
     display: flex;
     justify-content: space-evenly;
@@ -701,7 +705,6 @@ transform: translateX(-150%);
     align-items: center;
     flex-direction: column;
     padding: 20px 0;
-    margin-top: 50px;
 }
 
 #trending h1 {
