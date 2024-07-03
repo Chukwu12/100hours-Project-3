@@ -53,7 +53,7 @@ app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Use the correct route for recipes
 app.use('/health', healthRoutes);
-app.use('/cuisine', cuisineRoutes); // Include cuisine routes
+app.use('/', cuisineRoutes); // Include cuisine routes
 
 const PORT = process.env.PORT || 3000;
 
