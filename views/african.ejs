@@ -65,18 +65,21 @@
             </div>
         </div>
     </nav>
-    <h1>African Recipes</h1>
-    <ul>
-        <% recipes.forEach(recipe => { %>
-            <li>
-                <h2><%= recipe.title %></h2>
-                <p><%= recipe.summary %></p>
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-                <a href="<%= recipe.sourceUrl %>">View Recipe</a>
-            </li>
-        <% }); %>
-    </ul>
 
+    
+    <div class="recipe-list">
+        <h1>African Recipes</h1>
+        <ul>
+            <% recipes.forEach(recipe => { %>
+                <li>
+                    <h2><%= recipe.title %></h2>
+                    <p><%= recipe.summary %></p>
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <a href="<%= recipe.sourceUrl %>">View Recipe</a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
 
     
      <!-- Custom JS -->
