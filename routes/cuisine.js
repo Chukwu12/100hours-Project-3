@@ -1,12 +1,11 @@
-// routes/cuisine.js
 const express = require('express');
 const router = express.Router();
-const cuisineController = require('../controllers/cuisine');
+const { getCuisineRecipes, viewCuisineRecipes } = require('../controllers/cuisine'); // Destructure both functions
 
-// Routes for each cuisine
-router.get('/cusine/african', cuisineController.getAfricanRecipes);
-router.get('/cusine/american', cuisineController.getAmericanRecipes);
-router.get('/cusine/asian', cuisineController.getAsianRecipes);
-router.get('/cusine/mexican', cuisineController.getMexicanRecipes);
+// Route to get recipes by cuisine type
+router.get('/:type', getCuisineRecipes);
+
+// Route to view cuisine recipes
+router.get('/view', viewCuisineRecipes); 
 
 module.exports = router;

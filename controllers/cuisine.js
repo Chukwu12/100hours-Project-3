@@ -2,39 +2,39 @@
 const axios = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
-const CUSINE_API_KEY = 'https://api.spoonacular.com/recipes/complexSearch';
+const CUSINE_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 
-const getCuisineRecipes = async (req, res, cuisineType) => {
+const getCuisineRecipes = async (req, res) => {
+    const { type } = req.params; // Extract the type parameter from the request URL
+    console.log(`Requested cuisine type: ${type}`);  // Log the requested type
+
     try {
-        if (!RECIPES_API_KEY) {
+        if (!RECIPES_API_KEY) {  // Check if the API key is available
             return res.status(401).json({ message: 'API key is missing' });
         }
-
-        const response = await axios.get(CUSINE_API_KEY, {
+         // Make a request to the external API to get recipes
+        const response = await axios.get(CUSINE_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
                 number: 8,
-                cuisine: type,
+                cuisine: type,  // Use the type parameter to filter recipes by cuisine
                 limitLicense: true,
             }
         });
 
-        console.log(response.data.results);
-        res.render('recipe', { recipes: response.data.results });
+        console.log(response.data.results);  // Log the results for debugging
+        res.render('recipe', { cusineRecipes: response.data.results });
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);
         res.status(500).send('Server Error');
     }
 };
 
-const getAfricanRecipes = (req, res) => getCuisineRecipes(req, res, 'African');
-const getAmericanRecipes = (req, res) => getCuisineRecipes(req, res, 'American');
-const getAsianRecipes = (req, res) => getCuisineRecipes(req, res, 'Asian');
-const getMexicanRecipes = (req, res) => getCuisineRecipes(req, res, 'Mexican');
+const viewCuisineRecipes = (req, res) => {
+    res.render('recipe');
+};
 
 module.exports = {
-    getAfricanRecipes,
-    getAmericanRecipes,
-    getAsianRecipes,
-    getMexicanRecipes
+    getCuisineRecipes,
+    viewCuisineRecipes
 };

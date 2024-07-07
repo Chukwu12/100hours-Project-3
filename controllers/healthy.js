@@ -2,6 +2,7 @@
 const axios = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const HEAlTHY_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 
 const getHealthRecipes = async (req, res) => {
     try {
@@ -11,34 +12,29 @@ const getHealthRecipes = async (req, res) => {
         }
         
         // Make the API request with the API key in the headers
-        const healthResponse = await axios.get('https://api.spoonacular.com/recipes/complexSearch', {
+        const response = await axios.get(HEAlTHY_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 8,  // Number of random recipes to fetch
-                diet: 'vegetarian',  // Specify that we want vegetarian recipes
+                number: 8,
+                diet: 'vegetarian',
                 limitLicense: true,
             }
         });
 
          // Log the response data
-         console.log(healthResponse.data.results);
+         console.log(response.data.results);  // Log for debugging
 
-
-         
         // Pass the recipe data to the template
-        res.render('recipe', { healthRecipes: healthResponse.data.recipes });
+        res.render('recipe', { healthRecipes: response.data.results, recipeData: [] });  // Add an empty array for recipeData if necessary
     } catch (error) {
-        // Handle errors
         console.error('Error fetching data from Spoonacular:', error.message);
         res.status(500).send('Server Error');
     }
 };
 
 const viewHealthRecipes = (req, res) => {
-    res.render('recipe', { healthRecipes: [] }); // Render the recipe.ejs file
+    res.render('recipe'); // Render the recipe.ejs file
 };
-
-
 
 
 module.exports = {
