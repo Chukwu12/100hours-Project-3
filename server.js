@@ -52,7 +52,7 @@ app.use(passport.session());
 
 app.use(flash());
 
-// Routes
+//Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes

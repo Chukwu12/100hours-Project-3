@@ -6,10 +6,10 @@ const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const CUSINE_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 
 
-
+// Function to get recipes by cuisine type
 const getCuisineRecipes = async (req, res) => {
     const { type } = req.params; // 'african', 'american', 'asian', 'mexican', etc.
-    
+    res.send(`Recipes for cuisine type: ${type}`);
  
     try 
     {
@@ -41,8 +41,9 @@ const getCuisineRecipes = async (req, res) => {
 
 
 
-
+// Function to view all cuisine recipes
 const viewCuisineRecipes = (req, res) => {
+res.send('Viewing all cuisine recipes');
 res.render('recipe');
 };
 
