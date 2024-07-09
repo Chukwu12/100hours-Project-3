@@ -55,15 +55,20 @@
         </div>
     </nav>
 
-    <h1><%= cuisine %> Recipes</h1>
-    <div class="recipes">
-        <% recipes.forEach(recipe => { %>
-            <div class="recipe">
-                <h2><%= recipe.title %></h2>
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-            </div>
-        <% }); %>
+    <h1>Recipes by <%= cuisineType %> Cuisine</h1>
+    <div id="recipes">
+        <% if (recipes.length > 0) { %>
+            <% recipes.forEach(recipe => { %>
+                <div class="recipe">
+                    <h2><%= recipe.title %></h2>
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No recipes found for this cuisine.</p>
+        <% } %>
     </div>
+
 </body>
 
 

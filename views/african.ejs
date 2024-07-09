@@ -67,19 +67,45 @@
     </nav>
 
     
-    <div class="recipe-list">
-        <h1>African Recipes</h1>
-        <ul>
+    <h1>Recipes by Cuisine: <%= cuisineType.charAt(0).toUpperCase() + cuisineType.slice(1) %></h1>
+    <div id="recipes">
+        <% if (recipes && recipes.length > 0) { %>
             <% recipes.forEach(recipe => { %>
-                <li>
+                <div>
                     <h2><%= recipe.title %></h2>
-                    <p><%= recipe.summary %></p>
                     <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-                    <a href="<%= recipe.sourceUrl %>">View Recipe</a>
-                </li>
-            <% }); %>
-        </ul>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No recipes found for this cuisine.</p>
+        <% } %>
     </div>
+
+    <script>
+        async function fetchRecipes(cuisine) {
+            try {
+                const response = await fetch(`/cuisine/${cuisine}`);
+                const data = await response.json();
+
+                const recipesContainer = document.getElementById('recipes');
+                recipesContainer.innerHTML = '';
+
+                data.results.forEach(recipe => {
+                    const recipeElement = document.createElement('div');
+                    recipeElement.innerHTML = `
+                        <h2>${recipe.title}</h2>
+                        <img src="${recipe.image}" alt="${recipe.title}">
+                    `;
+                    recipesContainer.appendChild(recipeElement);
+                });
+            } catch (error) {
+                console.error('Error fetching recipes:', error);
+            }
+        }
+
+        // Fetch recipes for a specific cuisine, for example 'African'
+        fetchRecipes('<%= cuisineType %>');
+    </script>
 
     
      <!-- Custom JS -->
