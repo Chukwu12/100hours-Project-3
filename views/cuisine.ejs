@@ -9,7 +9,8 @@
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
    
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
 </head>
 
 <nav>
@@ -29,7 +30,9 @@
     </div>
 </div>
 <body>
-    <nav>
+
+
+    
         <nav id="cuisenes">
             <div class="cuisnes-list">
                 <div>
@@ -55,15 +58,22 @@
         </div>
     </nav>
 
-    <h1><%= type %> Recipes</h1>
-    <ul>
-        <% recipes.forEach(recipe => { %>
-            <li>
-                <h2><%= recipe.title %></h2>
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-            </li>
-        <% }) %>
-    </ul>
+    <section id="cuisine">
+        
+        <h1><%= type %> Recipes</h1>
+        <div class="cuisine-content">
+            <ul>
+                <% recipes.forEach(recipe => { %>
+                    <li>
+                        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                        <h2><%= recipe.title %></h2>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+        
+    </section>
+ 
 </body>
 
 

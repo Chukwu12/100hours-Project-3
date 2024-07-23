@@ -80,12 +80,19 @@
                 <ul class="glide__slides">
                     <% recipeData.forEach(recipe => { %>
                         <li class="glide__slide">
-                            <div class="glide-card">
+                            <div class="glide-card" >
                                 <div class="glide-card-image">
+                                    <a href="/recipe/<%= recipe.id %>">
                                     <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
                                     <div class="overlay"></div>
                                 </div>
                                 <p><%= recipe.title %></p>
+                                <div class="glide-card-content">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Servings <%= recipe.servings %></p>
+                                <p><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> minutes</p>
+                                <p> <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
+                                </div>
                             </div>
                         </li>
                     <% }); %>
@@ -104,33 +111,8 @@
 
     
 
-    <section id="healthy">
-        <h2>Healthy Recipes</h2>
-        <div class="healthy-glide">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="healthy glide__slides">
-                    <% recipeData.forEach(recipe => { %>
-                        <li class="glide__slide">
-                            <div class="glide-card">
-                                <div class="glide-card-image">
-                                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-                                    <div class="overlay"></div>
-                                </div>
-                                <p><%= recipe.title %></p>
-                            </div>
-                        </li>
-                    <% }); %>
-                </ul>
-            </div>
-            <div class="healthy-glide__bullets" data-glide-el="controls[nav]">
-                <button class="healthy-glide__bullet" data-glide-dir="=0"></button>
-                <button class="healthy-glide__bullet" data-glide-dir="=1"></button>
-                <button class="healthy-glide__bullet" data-glide-dir="=2"></button>
-                <button class="healthy-glide__bullet" data-glide-dir="=3"></button>
-                <button class="healthy-glide__bullet" data-glide-dir="=4"></button>
-            </div>
-        </div>
-    </section>
+
+    
 
     <!-- Glide.js -->
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= recipeDetails.title %></title>
     <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
     <!-- Glide.js CSS -->
@@ -19,12 +19,35 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/recipe">Recipes</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/Saved Recipes">Saved Recipes</a></li>
         </ul>
     </nav>
 
-    
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
+    <div class="search-bar">
+        <div class="row">
+            <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <button></button>
+        </div>
+    </div>
+
+    <section>
+        <h1><%= recipeDetails.title %></h1>
+        <img src="<%= recipeDetails.image %>" alt="<%= recipeDetails.title %>">
+        <h2>Ingredients</h2>
+        <ul>
+            <% recipeDetails.extendedIngredients.forEach(ingredient => { %>
+                <li><%= ingredient.original %></li>
+            <% }); %>
+        </ul>
+        <h2>Instructions</h2>
+        <p><%= recipeDetails.instructions %></p>
+        <h2>Ready in <%= recipeDetails.readyInMinutes %> minutes</h2>
+        <h2>Servings: <%= recipeDetails.servings %></h2>
+    </section>
+
+    <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

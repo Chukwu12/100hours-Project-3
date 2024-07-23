@@ -13,10 +13,8 @@ const todoRoutes = require('./routes/todos');
 const recipeRoutes = require('./routes/recipe');
 const healthRoutes = require('./routes/health');
 const cuisineRoutes = require('./routes/cuisine');
+const recipeInfo = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
-
-
-
 
 
 require('dotenv').config({ path: './config/.env' });
@@ -37,6 +35,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger('dev'))
 // Serve static files like images
+
+
 
 
 // Sessions
@@ -61,8 +61,9 @@ app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
 app.use('/health', healthRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
-
-// Define your route
+ // Use the recipe routes
+app.use(recipeRoutes);
+ // Define your route
  app.get('/cuisine/:type', recipeController.getCuisineRecipes);
 
 
