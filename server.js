@@ -16,6 +16,23 @@ const cuisineRoutes = require('./routes/cuisine');
 const recipeInfo = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
 
+// Assuming recipeData is populated with recipe information
+const recipeData = [
+  // Example recipe data objects
+];
+
+app.get('/recipeInfo/:recipeId', (req, res) => {
+  const recipeId = req.params.recipeId;
+  const recipe = recipeData.find(recipe => recipe.id === recipeId);
+
+  if (!recipe) {
+      // Handle case where recipe is not found
+      res.status(404).send('Recipe not found');
+      return;
+  }
+
+  res.render('recipeInfo', { recipe });
+});
 
 require('dotenv').config({ path: './config/.env' });
 
@@ -60,11 +77,13 @@ app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
 app.use('/health', healthRoutes);
+app.use('/recipeInfo', recipeInfo);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  // Use the recipe routes
 app.use(recipeRoutes);
  // Define your route
  app.get('/cuisine/:type', recipeController.getCuisineRecipes);
+ 
 
 
 const PORT = process.env.PORT || 3000;

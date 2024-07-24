@@ -77,7 +77,6 @@
                         <li class="glide__slide">
                             <div class="glide-card" >
                                 <div class="glide-card-image">
-                                    <!-- <a href="/recipe/<%= recipe.id %>"> -->
                                     <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
                                     <div class="overlay"></div>
                                 </div>
@@ -88,7 +87,7 @@
                                 <p><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> minutes</p>
                                 <p> <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
                                 </div>
-                                <button class="btn1">View Recipe</button>
+                                <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
                             </div>
                         </li>
                     <% }); %>
