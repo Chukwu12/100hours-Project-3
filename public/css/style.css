@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 /* Box Model Hack */
 * {
     box-sizing: border-box;
@@ -14,12 +12,12 @@
 }
 
 h1,h2,h3,h4{
-    font-family: "Playfair Display", serif;
+    font-family: "Edu AU VIC WA NT Hand", cursive;
     font-optical-sizing: auto;
 }
 
 p{
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -63,6 +61,48 @@ nav ul li a:hover {
 }
 
 /* Home page */
+
+.recipe-hero{
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    background: url(/image/coking-hero.jpg);
+    background-size: contain;
+    background-position: center;
+}
+
+.hero-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-content h2{
+    font-size:  5em;
+    animation: HeroHeader 1s ease-in-out;
+    font-family: "Caveat", cursive;
+    font-weight: 500;
+    color: darkred;
+    
+}
+
+.hero-content p {
+    color: darkred;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+@keyframes HeroHeader {
+    0%{
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
 
 #login-form{
     display: flex;
@@ -621,7 +661,7 @@ transform: translateX(-150%);
 .search-bar{
     position: relative;
     width: 700px;
-    margin: 200px auto 0;
+    margin: 100px auto 0;
     border-radius: 5px;
 }
 
@@ -654,6 +694,47 @@ transform: translateX(-150%);
     transform: translateY(-50%);
     color: white; 
 }
+
+/* Cusines Section */
+#cuisenes{
+    height: 180px;
+}
+
+.cuisenes{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 30px 0px;
+    width: 100%;
+    height: 100px;
+}
+
+.cuisnes-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.cuisnes-list h2{
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.cuisnes-list div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cuisnes-list img{
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 
 
 /* -----------------------------Random Recipe ------------------------------------- */
@@ -690,12 +771,61 @@ transform: translateX(-150%);
     align-items: center;
     justify-content: center;
     background: #fff;
-    border-radius: 15px;
+    border-radius: 25px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 350px;
+    height: 400px;
     position: relative;
+    background-color: whitesmoke;
+}
+
+.glide-card-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.glide-card button{
+    cursor: pointer;
+    border: 1px solid;
+    text-transform: uppercase;
+    background: darkred;
+    padding: 5px 5px;
+    transition: color 0.4s linear;
+    position: relative;
+    transition: 0.5s;
+    color: black;
+    text-decoration: none;
+    z-index: 1;
+}
+
+.glide-card button:hover{
+    color: none;
+  
+}
+
+.glide-card button::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: -1;
+    transition: transform 0.5s ease;
+    transform-origin: left;
+   transform: scaleX(1);
+}
+
+
+.glide-card button:hover::before{
+transform-origin: right;
+transition: transform 0.5s ease;
+transform: scaleX(0);
 }
 
 .glide__bullet{
@@ -715,13 +845,102 @@ bottom: 0%;
 
 .glide-card-image img {
     width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 25px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.glide-card-image .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    border-radius: 15px;
+}
+
+
+.glide-card p {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+
+#healthy {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+#healthy h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.healthy-glide {
+    width: 80%;
+    padding: 20px 0;
+}
+
+.healthy glide__slides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.healthy-glide-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 350px;
+    position: relative;
+}
+
+.healthy-glide__bullets{
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border: none;
+    justify-content: center;
+    gap: 10px;
+    
+}
+
+.healthy-glide__bullets
+
+.glide__bullets {
+bottom: 0%;
+}
+
+
+
+
+.healthy-glide-card-image {
+    width: 100%;
+    position: relative;
+}
+
+.healthy-glide-card-image img {
+    width: 100%;
     height: auto;
     object-fit: cover;
     border-radius: 15px;
     display: block;
 }
 
-.glide-card-image .overlay {
+.healthy-glide-card-image .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -732,8 +951,34 @@ bottom: 0%;
 }
 
 
-.glide-card p {
+.healthy-glide-card p {
     margin-top: 10px;
     font-size: 18px;
     text-align: center;
+}
+/* Cuisine Nav Type */
+
+#cuisine h1{
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin: 15px 0;
+}
+
+.cuisine-content{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cuisine-content ul{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    gap: 15px;
+}
+
+.cuisine-content h2{
+    text-align: center;
+    font-size: 1.2em;
+   font-weight: 500;
 }

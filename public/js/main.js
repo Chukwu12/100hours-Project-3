@@ -1,7 +1,4 @@
 
-
-
-const swiper = new Swiper('.swiperRecipes');
 const deleteBtn = document.querySelectorAll('.del')
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
@@ -87,15 +84,25 @@ sign_in_btn.addEventListener('click', ()=> {
 });
 
 
-// --------------------------------------  Initialize Swiper ----------------------------------//
-
-const swiperRecipes = new Swiper(".swiper-container", {
- slidesPerView: 1,
- centeredSlides: false,
- spaceBetween: 10,
- grabCursor: true,
- pagination: {
-     el: ".swiper-pagination",
-     clickable: true,
- },
+// --------------------------------------  View recipe info ----------------------------------//
+document.addEventListener('DOMContentLoaded', function() {
+    const recipeButtons = document.querySelectorAll('.view-recipe-btn');
+    
+    recipeButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            const recipeId = this.getAttribute('data-recipe-id');
+            
+            fetch(`/recipeInfo/${recipeId}`)
+                .then(response => response.text())
+                .then(data => {
+                    // Assuming recipeInfoContent is a container where recipe details will be shown
+                    document.getElementById('recipeInfoContent').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error fetching recipe details:', error);
+                });
+        });
+    });
 });

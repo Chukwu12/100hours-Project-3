@@ -11,6 +11,28 @@ const connectDB = require('./config/database');
 const homeRoutes = require('./routes/home');
 const todoRoutes = require('./routes/todos');
 const recipeRoutes = require('./routes/recipe');
+const healthRoutes = require('./routes/health');
+const cuisineRoutes = require('./routes/cuisine');
+const recipeInfo = require('./routes/recipeInfo');
+const recipeController = require('./controllers/cuisine');
+
+// Assuming recipeData is populated with recipe information
+const recipeData = [
+  // Example recipe data objects
+];
+
+app.get('/recipeInfo/:recipeId', (req, res) => {
+  const recipeId = req.params.recipeId;
+  const recipe = recipeData.find(recipe => recipe.id === recipeId);
+
+  if (!recipe) {
+      // Handle case where recipe is not found
+      res.status(404).send('Recipe not found');
+      return;
+  }
+
+  res.render('recipeInfo', { recipe });
+});
 
 require('dotenv').config({ path: './config/.env' });
 
@@ -18,15 +40,21 @@ require('dotenv').config({ path: './config/.env' });
 require('./config/passport')(passport);
 
 // Connect to database
-connectDB();
+//connectDB();
 
 
 // Middleware
 app.set('view engine', 'ejs')
+app.set('views', './views');
+// app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger('dev'))
+// Serve static files like images
+
+
+
 
 // Sessions
 app.use(
@@ -44,12 +72,22 @@ app.use(passport.session());
 
 app.use(flash());
 
+//Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
-app.use('/recipe', recipeRoutes); // Use the correct route for recipes
+app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
+app.use('/health', healthRoutes);
+app.use('/recipeInfo', recipeInfo);
+ app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
+ // Use the recipe routes
+app.use(recipeRoutes);
+ // Define your route
+ app.get('/cuisine/:type', recipeController.getCuisineRecipes);
+ 
+
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log('Server is running, you better catch it!');
+   console.log('Server is running, you better catch it!');
 });
