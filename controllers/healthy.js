@@ -1,12 +1,11 @@
 // controllers/healthy.js
 const axios = require('axios');
 
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 
 const getHealthRecipes = async (req, res) => {
     try {
-        const { page = 1, diet = 'vegetarian' } = req.query;
 
         // Check if the API key is available
         if (!RECIPES_API_KEY) {
@@ -17,21 +16,28 @@ const getHealthRecipes = async (req, res) => {
         const response = await axios.get(HEALTHY_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 8, // Number of recipes to fetch
+                number: 5, // Number of recipes to fetch
                 diet: 'vegetarian', // Filter recipes for vegetarians
                 sort: 'popularity', // Sort by popularity
-                   offset: (page - 1) * 8,  // Pagination logic
+                includeNutrition: true,
+                limitLicense: true,
+                   
             }
         });
 
           // Extract recipes from the response
-          const healthRecipes = response.data.results;
+          const healthRecipes = response.data.recipes.map(recipe => ({
+            ...recipe,
+            servings: recipe.servings,  // Get the number of servings
+            readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
+            numberOfIngredients: recipe.extendedIngredients.length  // Number of ingredients
+        }));
 
          // Log the response data
          console.log('Fetched Health Recipes:', healthRecipes); // Log for debugging
 
         // Pass the recipe data to the template
-        res.render('recipe', { healthRecipes });  // Shorthand for { healthRecipes: healthRecipes }  // Add an empty array for recipeData if necessary
+        res.render('recipe', { recipeData: healthRecipes });
     
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);

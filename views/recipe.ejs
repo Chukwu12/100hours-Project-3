@@ -100,15 +100,48 @@
                 <button class="glide__bullet" data-glide-dir="=3"></button>
                 <button class="glide__bullet" data-glide-dir="=4"></button>
                 <button class="glide__bullet" data-glide-dir="=5"></button>
-                <button class="glide__bullet" data-glide-dir="=6"></button>
-                <button class="glide__bullet" data-glide-dir="=7"></button>
-                <button class="glide__bullet" data-glide-dir="8"></button>
             </div>
         </div>
     </section>
 
 
-    
+    <section id="healthy">
+        <h1>Healthy Recipes</h1>
+        <!-- Glide -->
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <% recipeData.forEach(recipe => { %>
+                        <li class="glide__slide">
+                            <div class="glide-card" >
+                                <div class="glide-card-image">
+                                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                                    <div class="overlay"></div>
+                                </div>
+                                <p><%= recipe.title %></p>
+                                <div class="glide-card-content">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Servings <%= recipe.servings %></p>
+                                <p><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> minutes</p>
+                                <p> <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
+                                </div>
+                                <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+                <button class="glide__bullet" data-glide-dir="=0"></button>
+                <button class="glide__bullet" data-glide-dir="=1"></button>
+                <button class="glide__bullet" data-glide-dir="=2"></button>
+                <button class="glide__bullet" data-glide-dir="=3"></button>
+                <button class="glide__bullet" data-glide-dir="=4"></button>
+                <button class="glide__bullet" data-glide-dir="=5"></button>
+            </div>
+        </div>
+    </section>
+
 
 
     

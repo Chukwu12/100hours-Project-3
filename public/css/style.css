@@ -752,7 +752,25 @@ transform: translateX(-150%);
     flex-direction: column;
     align-items: center;
     text-align: center;
+    border-radius: 25px;
 }
+
+.cuisine-container li img {
+    border-radius: 25px;
+    border: 1px solid;
+    object-fit: cover;
+}
+
+.cuisine-container li img:hover{
+    transform: scale(1.1);
+}
+
+.cuisine-container h2{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 20px 0;
+}
+
 
 
 /* -----------------------------Random Recipe ------------------------------------- */

@@ -15,6 +15,7 @@ const healthRoutes = require('./routes/health');
 const cuisineRoutes = require('./routes/cuisine');
 const recipeInfo = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
+const healthyController = require('./controllers/healthy');
 
 // Assuming recipeData is populated with recipe information
 const recipeData = [
@@ -83,6 +84,8 @@ app.use('/recipeInfo', recipeInfo);
 app.use(recipeRoutes);
  // Define your route
  app.get('/cuisine/:type', recipeController.getCuisineRecipes);
+ 
+ 
  
 
 
