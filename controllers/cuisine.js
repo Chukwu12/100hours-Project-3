@@ -13,7 +13,7 @@ const getCuisineRecipes = async (req, res) => {
         const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch`, {
             params: {
                 cuisine: type,
-                number: 5,
+                number: 6,
                 instructionsRequired: true,
                 sort: 'random',
                 apiKey: apiKey

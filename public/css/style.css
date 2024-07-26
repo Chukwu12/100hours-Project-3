@@ -735,6 +735,24 @@ transform: translateX(-150%);
     cursor: pointer;
 }
 
+.cuisine-container{
+    display: flex;
+    justify-content: center;
+}
+
+.cuisine-container ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    list-style: none;
+}
+
+.cuisine-container li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
 
 /* -----------------------------Random Recipe ------------------------------------- */
