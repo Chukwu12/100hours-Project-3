@@ -1,7 +1,7 @@
 // routes/health.js
 const express = require('express');
 const router = express.Router();
-const healthyController = require('../controllers/healthy')
+const healthyController = require('../controllers/health')
 
 
 // Route to get random vegetarian recipes

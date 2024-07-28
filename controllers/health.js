@@ -37,7 +37,7 @@ const getHealthRecipes = async (req, res) => {
          console.log('Fetched Health Recipes:', healthRecipes); // Log for debugging
 
         // Pass the recipe data to the template
-        res.render('recipe', { recipeData: healthRecipes });
+        res.render('recipe', { healthData: healthRecipes });
     
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);

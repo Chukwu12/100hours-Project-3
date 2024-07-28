@@ -13,9 +13,10 @@ const todoRoutes = require('./routes/todos');
 const recipeRoutes = require('./routes/recipe');
 const healthRoutes = require('./routes/health');
 const cuisineRoutes = require('./routes/cuisine');
+const dessertRoutes = require('./routes/dessert');
 const recipeInfo = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
-const healthyController = require('./controllers/healthy');
+
 
 // Assuming recipeData is populated with recipe information
 const recipeData = [
@@ -80,8 +81,10 @@ app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe rout
 app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfo);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
+ app.use('/dessert', dessertRoutes);
  // Use the recipe routes
 app.use(recipeRoutes);
+
  // Define your route
  app.get('/cuisine/:type', recipeController.getCuisineRecipes);
  
@@ -89,7 +92,7 @@ app.use(recipeRoutes);
  
 
 
-const PORT = process.env.PORT || 3000;
+ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
    console.log('Server is running, you better catch it!');

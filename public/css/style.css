@@ -738,6 +738,7 @@ transform: translateX(-150%);
 .cuisine-container{
     display: flex;
     justify-content: center;
+    margin-top: 100px;
 }
 
 .cuisine-container ul {
@@ -763,6 +764,7 @@ transform: translateX(-150%);
 
 .cuisine-container li img:hover{
     transform: scale(1.1);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 
 .cuisine-container h2{
@@ -771,6 +773,20 @@ transform: translateX(-150%);
     margin: 20px 0;
 }
 
+.cuisine-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.cuisine-container:hover .overlay{
+    opacity: 1;
+}
 
 
 /* -----------------------------Random Recipe ------------------------------------- */
