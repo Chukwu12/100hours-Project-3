@@ -16,6 +16,8 @@ const cuisineRoutes = require('./routes/cuisine');
 const dessertRoutes = require('./routes/dessert');
 const recipeInfo = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
+const dessertController = require('./controllers/dessert');
+const healthController = require('./controllers/health');
 
 
 // Assuming recipeData is populated with recipe information
@@ -82,12 +84,11 @@ app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfo);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/dessert', dessertRoutes);
- // Use the recipe routes
-app.use(recipeRoutes);
 
  // Define your route
- app.get('/cuisine/:type', recipeController.getCuisineRecipes);
- 
+app.get('/cuisine/:type', recipeController.getCuisineRecipes);
+app.get('/dessert', dessertController.getDessertRecipes);
+app.get('/health', healthController.getHealthRecipes);
  
  
 

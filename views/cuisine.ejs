@@ -14,7 +14,7 @@
 </head>
 
 <nav>
-    <img src="/image/onice-high-resolution-logo-transparent (1).png" alt="logo-img">
+    <img src="/image/onice-logo.png" alt="logo-img">
     <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/recipe">Recipes</a></li>
@@ -59,21 +59,24 @@
     </nav>
 
     <section id="cuisine">
-        
         <h1><%= type %> Recipes</h1>
         <div class="cuisine-container">
             <ul>
                 <% recipes.forEach(recipe => { %>
-                    <li>
-                        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <li class="recipe-item">
+                        <div class="image-container">
+                            <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                            <div class="cusine-overlay">
+                                <a href="#" class="get-recipe-link">Get Recipe</a>
+                            </div>
+                        </div>
                         <h2><%= recipe.title %></h2>
                     </li>
                 <% }) %>
-                </ul>
-                <div class="cuisine-overlay"></div>
+            </ul>
         </div>
-        
     </section>
+    
  
 </body>
 

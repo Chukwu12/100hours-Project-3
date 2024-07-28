@@ -37,6 +37,7 @@ nav{
     display: flex;
     justify-content: center;
     width: 100%;
+    align-items: center;
 }
 
 nav ul{
@@ -45,6 +46,9 @@ nav ul{
     justify-content: space-evenly;
     list-style: none;
     width: 100%; 
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 nav ul li {
@@ -739,6 +743,7 @@ transform: translateX(-150%);
     display: flex;
     justify-content: center;
     margin-top: 100px;
+    flex-wrap: wrap;
 }
 
 .cuisine-container ul {
@@ -754,12 +759,22 @@ transform: translateX(-150%);
     align-items: center;
     text-align: center;
     border-radius: 25px;
+    list-style: none;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
 }
 
 .cuisine-container li img {
     border-radius: 25px;
-    border: 1px solid;
+    border: 2px solid;
     object-fit: cover;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .cuisine-container li img:hover{
@@ -773,18 +788,30 @@ transform: translateX(-150%);
     margin: 20px 0;
 }
 
-.cuisine-overlay{
+.cusine-overlay{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
+    border-radius: 25px;
 }
 
-.cuisine-container:hover .overlay{
+.get-recipe-link {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.image-container:hover .cusine-overlay {
     opacity: 1;
 }
 
@@ -821,13 +848,13 @@ transform: translateX(-150%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background: #fff;
     border-radius: 25px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 400px;
+    height: 500px;
     position: relative;
     background-color: whitesmoke;
 }
