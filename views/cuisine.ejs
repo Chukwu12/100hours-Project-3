@@ -10,17 +10,16 @@
    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
-    
 </head>
-
-<nav>
-    <img src="/image/onice-logo.png" alt="logo-img">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/recipe">Recipes</a></li>
-        <li><a href="/contact">Contact</a></li>
-    </ul>
-</nav>
+<body>
+    <nav>
+        <img src="/image/onice-logo.png" alt="logo-img">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/recipe">Recipes</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+    </nav>
 
 <div class="search-bar">
     <div class="row">
@@ -29,10 +28,7 @@
         <button></button>
     </div>
 </div>
-<body>
 
-
-    
         <nav id="cuisenes">
             <div class="cuisnes-list">
                 <div>
@@ -55,8 +51,7 @@
                     <a href="/cuisine/mexican"><img src="/image/mexican-cusine.png" alt="mexican food icon"></a>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
     <section id="cuisine">
         <h1><%= type %> Recipes</h1>
@@ -67,7 +62,7 @@
                         <div class="image-container">
                             <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
                             <div class="cusine-overlay">
-                                <a href="#" class="get-recipe-link">Get Recipe</a>
+                                <a href="#" class="get-recipe-link" data-id="<%= recipe.id %>">Get Recipe</a>
                             </div>
                         </div>
                         <h2><%= recipe.title %></h2>
@@ -76,25 +71,10 @@
             </ul>
         </div>
     </section>
-    
- 
-</body>
 
+    <div id="recipeInfoContent"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
    <!-- Custom JS -->
    <script src="js/main.js"></script>

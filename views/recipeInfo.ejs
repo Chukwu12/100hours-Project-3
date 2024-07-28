@@ -32,22 +32,18 @@
     </div>
 
     <section>
-        <h1><%= recipe.title %></h1>
-        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-        
-        <h2>Ingredients</h2>
-        <ul>
-            <% recipe.ingredients.forEach(ingredient => { %>
-                <li><%= ingredient %></li>
-            <% }); %>
-        </ul>
-    
-        <h2>Instructions</h2>
-        <ol>
-            <% recipe.instructions.forEach((instruction, index) => { %>
-                <li><%= instruction %></li>
-            <% }); %>
-        </ol>
+        <div class="recipe-info-container">
+            <h1><%= recipeDetails.title %></h1>
+            <img src="<%= recipeDetails.image %>" alt="<%= recipeDetails.title %>">
+            <h2>Ingredients</h2>
+            <ul>
+                <% recipeDetails.extendedIngredients.forEach(ingredient => { %>
+                    <li><%= ingredient.original %></li>
+                <% }) %>
+            </ul>
+            <h2>Instructions</h2>
+            <p><%= recipeDetails.instructions %></p>
+        </div>
     </section>
 
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>

@@ -14,7 +14,7 @@ const recipeRoutes = require('./routes/recipe');
 const healthRoutes = require('./routes/health');
 const cuisineRoutes = require('./routes/cuisine');
 const dessertRoutes = require('./routes/dessert');
-const recipeInfo = require('./routes/recipeInfo');
+const recipeInfoRoutes = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
 const dessertController = require('./controllers/dessert');
 const healthController = require('./controllers/health');
@@ -81,7 +81,7 @@ app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
 app.use('/health', healthRoutes);
-app.use('/recipeInfo', recipeInfo);
+app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/dessert', dessertRoutes);
 
