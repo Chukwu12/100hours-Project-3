@@ -7,6 +7,7 @@ const session = require('express-session');
 const flash = require('express-flash');
 // const MongoStore = require('connect-mongo')(session);
 const logger = require('morgan');
+const methodOverride = require("method-override");
 const connectDB = require('./config/database');
 const homeRoutes = require('./routes/home');
 const todoRoutes = require('./routes/todos');
@@ -20,23 +21,6 @@ const dessertController = require('./controllers/dessert');
 const healthController = require('./controllers/health');
 
 
-// Assuming recipeData is populated with recipe information
-const recipeData = [
-  // Example recipe data objects
-];
-
-app.get('/recipeInfo/:recipeId', (req, res) => {
-  const recipeId = req.params.recipeId;
-  const recipe = recipeData.find(recipe => recipe.id === recipeId);
-
-  if (!recipe) {
-      // Handle case where recipe is not found
-      res.status(404).send('Recipe not found');
-      return;
-  }
-
-  res.render('recipeInfo', { recipe });
-});
 
 require('dotenv').config({ path: './config/.env' });
 
@@ -46,6 +30,15 @@ require('./config/passport')(passport);
 // Connect to database
 //connectDB();
 
+//Body Parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//Logging
+app.use(logger("dev"));
+
+//Use forms for put / delete
+app.use(methodOverride("_method"));
 
 // Middleware
 app.set('view engine', 'ejs')

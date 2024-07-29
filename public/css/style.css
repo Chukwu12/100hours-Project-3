@@ -11,7 +11,14 @@
 --grid-clr2: #24eb55;
 }
 
-h1,h2,h3,h4{
+h1{
+    font-family: "Gupter", serif;
+    font-weight: 500;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+h2{
     font-family: "Edu AU VIC WA NT Hand", cursive;
     font-optical-sizing: auto;
 }
@@ -771,6 +778,8 @@ transform: translateX(-150%);
     width: 100%;
     max-width: 400px;
 }
+
+
 
 .cuisine-container li img {
     border-radius: 25px;

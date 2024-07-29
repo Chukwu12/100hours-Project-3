@@ -1,5 +1,8 @@
 // controllers/recipe.js
 const axios = require('axios');
+const Favorite = require("../models/Favorite");
+const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
+
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
@@ -31,8 +34,8 @@ const getRandomRecipes = async (req, res) => {
             numberOfIngredients: recipe.extendedIngredients.length  // Number of ingredients
         }));
         
-        // Pass the recipe data to the template
-        res.render('recipe', { recipeData: recipes });
+         // Pass recipe data and user to the template
+        res.render('recipe', { recipeData: recipes, user: req.user });
     } catch (error) {
         // Handle errors
         console.error('Error fetching data from Spoonacular:', error.message);
@@ -64,6 +67,68 @@ const getRecipeDetails = async (req, res) => {
 
 
 
+const favoriteRecipe = async (req, res) => {
+    try {
+      //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
+      await Favorite.create({
+        user: req.user.id,
+        recipe: req.params.id,
+      });
+      console.log("Favorite has been added!");
+      res.redirect(`/recipe/${req.params.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+}
+
+ const likeRecipe = async (req, res) => {
+        try {
+          await Recipe.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+              $inc: { likes: 1 },
+            }
+          );
+          console.log("Likes +1");
+          res.redirect(`/recipe/${req.params.id}`);
+        } catch (err) {
+          console.log(err);
+        }
+    }
+
+    const getFavorites = async (req, res) => { 
+        console.log(req.user)
+        try {
+          //Since we have a session each request (req) contains the logged-in users info: req.user
+          //console.log(req.user) to see everything
+          //Grabbing just the posts of the logged-in user
+          const recipes = await Favorite.find({ user: req.user.id }).populate('recipe');
+    
+          console.log(recipes)
+    
+          //Sending post data from mongodb and user data to ejs template
+          res.render("favorites.ejs", { recipes: recipes, user: req.user });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+    const deleteRecipe = async (req, res) => {
+        try {
+          // Find post by id
+          let recipe = await recipe.findById({ _id: req.params.id });
+          // Delete image from cloudinary
+          await cloudinary.uploader.destroy(recipe.cloudinaryId);
+          // Delete post from db
+          await Recipe.remove({ _id: req.params.id });
+          console.log("Deleted Recipe");
+          res.redirect("/profile");
+        } catch (err) {
+          res.redirect("/profile");
+        }
+      }
+    
+
 const viewRecipes = (req, res) => {
     res.render('recipe'); // Render the recipe.ejs file
 };
@@ -71,5 +136,9 @@ const viewRecipes = (req, res) => {
 module.exports = {
     getRandomRecipes,
     getRecipeDetails,
-    viewRecipes
+    viewRecipes,
+    favoriteRecipe,
+    likeRecipe,
+    getFavorites,
+    deleteRecipe   
 };
