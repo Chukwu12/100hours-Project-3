@@ -160,7 +160,15 @@ nav ul li a:hover {
     justify-content: space-around;
     z-index: 5;
 }
-form {
+
+.sign-in-form > h2{
+    font-family: "Raleway", sans-serif;
+}
+
+.sign-up-form > h2 {
+    font-family: "Raleway", sans-serif;
+}
+.container > form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,6 +267,10 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.panels-container h3 {
+    font-family: "Raleway", sans-serif;
 }
 .panel {
     display: flex;
@@ -908,7 +920,7 @@ transform: translateX(-150%);
 .glide-card-content{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-self: center;
     gap: 15px;
     margin: 10px 0;
 }
@@ -927,12 +939,12 @@ transform: translateX(-150%);
     z-index: 1;
 }
 
-.glide-card button:hover{
+.glide-card > button:hover{
     color: none;
   
 }
 
-.glide-card button::before{
+.glide-card > button::before{
     content: '';
     position: absolute;
     left: 0;
@@ -991,6 +1003,22 @@ bottom: 0%;
 .glide-card p {
     font-size: 0.9rem;
     text-align: center;
+}
+
+.glide-card-memory{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 30px;
+}
+
+.glide-card-memory button{
+    border-radius: 20px;
+    border: 1px solid var(--grid-clr1);
+    background: #00d4ff;
+    color: #ffffff;
+    padding: 20px 20px;
+    border-radius: 100%;
 }
 
 
