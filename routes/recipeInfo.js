@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+
 
 
 const recipeController = require('../controllers/recipe');
@@ -11,8 +11,8 @@ router.get('/recipe', recipeController.getRandomRecipes);
 
 // Route for fetching specific recipe details
 router.get('/recipe/:id', recipeController.getRecipeDetails);
+router.get('/recipeInfo/:recipeId', recipeInfoController.getRecipeDetails);
 
-router.get('/:id', recipeInfoController.getRecipeDetails);
 
 
 module.exports = router;

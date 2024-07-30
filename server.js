@@ -13,12 +13,14 @@ const homeRoutes = require('./routes/home');
 const todoRoutes = require('./routes/todos');
 const recipeRoutes = require('./routes/recipe');
 const healthRoutes = require('./routes/health');
+// const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
 const dessertRoutes = require('./routes/dessert');
 const recipeInfoRoutes = require('./routes/recipeInfo');
 const recipeController = require('./controllers/cuisine');
 const dessertController = require('./controllers/dessert');
 const healthController = require('./controllers/health');
+// const profileController = require('./controllers/profile');
 
 
 
@@ -77,13 +79,36 @@ app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/dessert', dessertRoutes);
+ app.use('/', recipeInfoRoutes);
+//  app.use('/profile', profileRoutes);
+
+
 
  // Define your route
 app.get('/cuisine/:type', recipeController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/health', healthController.getHealthRecipes);
+// app.get('/profile', profileController.createRecipes);
  
- 
+ // Route to get recipe details and render it
+app.get('/recipeInfo/:recipeId', async (req, res) => {
+  try {
+      const recipeId = req.params.recipeId;
+      const response = await axios.get(`${RECIPE_DETAILS_API_URL}/${recipeId}/information`, {
+          params: {
+              apiKey: RECIPES_API_KEY
+          }
+      });
+
+      const recipeDetails = response.data;
+      res.render('recipeInfo', { recipe: recipeDetails }); // Render the EJS template with recipe details
+  } catch (error) {
+      console.error('Error fetching recipe details from Spoonacular:', error.message);
+      res.status(500).send('Server Error');
+  }
+});
+
+
 
 
  const PORT = process.env.PORT || 3000;

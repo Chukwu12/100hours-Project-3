@@ -25,6 +25,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="/recipe">Recipes</a></li>
             <li><a href="/Saved Recipes">Saved Recipes</a></li>
+            <li><a href="/Create Recipes">Create Recipes</a></li>
         </ul>
     </nav>
 
@@ -97,9 +98,11 @@
                                     </form>
                                     <h3 class="col-1"> <%= recipe.likes %></h3>
                                     <% if (recipe.user && recipe.user.id === user.id) { %>
-                                        <form action="/recipe/deleteRecipe/<%= recipe.id %>?_method=DELETE" method="POST" class="col-3">
-                                            <button class="btn btn-primary fa fa-trash" type="submit"></button>
+                                        <form action="/recipe/deleteRecipe/<%= recipe.id %>?_method=DELETE" method="POST" class="col-1">
+                                            <button class="btn btn-primary fa fa-trash" type="submit">                                           
+                                            </button>
                                         </form>
+                                        
                                     <% } %>
                                 </div>
                                 <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>

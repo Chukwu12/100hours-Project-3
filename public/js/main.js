@@ -71,22 +71,30 @@ async function markIncomplete(){
 }
 
 // --------------------------Sign-in Form------------------------------------//
+document.addEventListener('DOMContentLoaded', () => {
 const sign_in_btn = document.querySelector('#sign-in-btn');
 const sign_up_btn = document.querySelector('#sign-up-btn');
 const container = document.querySelector('.container');
 
+if (sign_up_btn && sign_in_btn && container) {
 sign_up_btn.addEventListener('click',() =>{
     container.classList.add('sign-up-mode');
 });
 
 sign_in_btn.addEventListener('click', ()=> {
-    container.classList.remove('sign-up-mode')
+    container.classList.remove('sign-up-mode');
 });
+} else {
+    console.error('Required elements are not found in the DOM');
+}
+});
+
 
 
 // --------------------------------------  View recipe info ----------------------------------//
 document.addEventListener('DOMContentLoaded', function() {
     const recipeButtons = document.querySelectorAll('.view-recipe-btn');
+    const recipeInfoContent = document.getElementById('recipeInfoContent');
     
     recipeButtons.forEach(button => {
         button.addEventListener('click', function(event) {
@@ -98,7 +106,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.text())
                 .then(data => {
                     // Assuming recipeInfoContent is a container where recipe details will be shown
-                    document.getElementById('recipeInfoContent').innerHTML = data;
+                    if (recipeInfoContent) {
+                        recipeInfoContent.innerHTML = data;
+                    } else {
+                        console.error('Element with id "recipeInfoContent" not found');
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching recipe details:', error);

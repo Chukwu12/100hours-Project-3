@@ -221,13 +221,13 @@ form.sign-up-form {
 .btn {
     border-radius: 20px;
     border: 1px solid var(--grid-clr1);
-    background: #00d4ff;
     color: #ffffff;
     font-size: 12px;
     font-weight: bold;
     padding: 12px 45px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    cursor: pointer;
 }
 .btn:hover {
     background: var(--grid-clr1);
@@ -912,7 +912,7 @@ transform: translateX(-150%);
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 500px;
+    height: 550px;
     position: relative;
     background-color: whitesmoke;
 }
@@ -937,6 +937,9 @@ transform: translateX(-150%);
     color: black;
     text-decoration: none;
     z-index: 1;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 0 auto;
 }
 
 .glide-card > button:hover{
@@ -1009,13 +1012,13 @@ bottom: 0%;
     display: flex;
     justify-content: center;
     width: 100%;
-    gap: 30px;
+    gap: 60px;
+    margin: 15px 0;
 }
 
 .glide-card-memory button{
     border-radius: 20px;
     border: 1px solid var(--grid-clr1);
-    background: #00d4ff;
     color: #ffffff;
     padding: 20px 20px;
     border-radius: 100%;
