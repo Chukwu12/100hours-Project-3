@@ -25,7 +25,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="/recipe">Recipes</a></li>
             <li><a href="/Saved Recipes">Saved Recipes</a></li>
-            <li><a href="/Create Recipes">Create Recipes</a></li>
+            <li><a href="/create-recipes">Create Recipes</a></li>
         </ul>
     </nav>
 
@@ -143,6 +143,7 @@
                                     <p>Ingredients: <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
                                 </div>
                                 <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
+
                             </div>
                         </li>
                     <% }); %>

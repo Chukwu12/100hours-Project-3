@@ -5,21 +5,23 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
-// const MongoStore = require('connect-mongo')(session);
+// const MongoStore = require("connect-mongo")(session);
 const logger = require('morgan');
 const methodOverride = require("method-override");
 const connectDB = require('./config/database');
 const homeRoutes = require('./routes/home');
-const todoRoutes = require('./routes/todos');
 const recipeRoutes = require('./routes/recipe');
 const healthRoutes = require('./routes/health');
 // const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
+const path = require('path');
 const dessertRoutes = require('./routes/dessert');
 const recipeInfoRoutes = require('./routes/recipeInfo');
-const recipeController = require('./controllers/cuisine');
+const cuisineController = require('./controllers/cuisine');
 const dessertController = require('./controllers/dessert');
-const healthController = require('./controllers/health');
+const healthyController = require('./controllers/health');
+const recipeInfoController = require('./controllers/recipeInfo');
+const recipeController = require('./controllers/recipe');
 // const profileController = require('./controllers/profile');
 
 
@@ -45,7 +47,7 @@ app.use(methodOverride("_method"));
 // Middleware
 app.set('view engine', 'ejs')
 app.set('views', './views');
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -60,8 +62,8 @@ app.use(
   session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
-    //  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    saveUninitialized: false
+      // store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 
@@ -73,7 +75,6 @@ app.use(flash());
 
 //Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
-app.use('/todos', todoRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
 app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
@@ -85,9 +86,11 @@ app.use('/recipeInfo', recipeInfoRoutes);
 
 
  // Define your route
-app.get('/cuisine/:type', recipeController.getCuisineRecipes);
+app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
-app.get('/health', healthController.getHealthRecipes);
+app.get('/recipe/:id', recipeController.getRecipeDetails);
+app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
+app.get('/create-recipes', healthyController.getHealthRecipes);
 // app.get('/profile', profileController.createRecipes);
  
  // Route to get recipe details and render it

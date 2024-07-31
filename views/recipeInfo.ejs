@@ -46,6 +46,26 @@
             <p><%= recipeDetails.instructions %></p>
             <p><%= recipe.summary %></p>
         </div>
+
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <% healthData.forEach(recipe => { %>
+                        <li class="glide__slide">
+                            <div class="glide-card">
+                                <div class="glide-card-image">
+                                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                                </div>
+                                <div class="glide-card-content">
+                                    <h3><%= recipe.title %></h3>
+                                    <p><%= recipe.summary %></p>
+                                </div>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>

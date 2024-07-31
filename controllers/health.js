@@ -1,6 +1,5 @@
 // controllers/healthController.js
 const axios = require('axios');
-
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 
@@ -9,7 +8,7 @@ const getHealthRecipes = async (req, res) => {
         if (!RECIPES_API_KEY) {
             return res.status(401).json({ message: 'API key is missing' });
         }
-
+             // Fetch healthy recipes from the API
         const response = await axios.get(HEALTHY_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
@@ -31,7 +30,7 @@ const getHealthRecipes = async (req, res) => {
         console.log('Fetched Health Recipes:', healthRecipes);
 
         // Render the template with both healthData and dessertData
-        res.render('recipe', { healthData: healthRecipes, dessertData: null });
+        res.render('recipeInfo', {healthRecipes});
 
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);
@@ -39,6 +38,7 @@ const getHealthRecipes = async (req, res) => {
     }
 };
 
+
 module.exports = {
-    getHealthRecipes
+    getHealthRecipes,
 };
