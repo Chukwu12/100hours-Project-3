@@ -5,7 +5,7 @@ const healthyController = require('../controllers/health')
 
 
 // Route to get random vegetarian recipes
- router.get('/', healthyController.getHealthRecipes); // Route to fetch random  healthy recipes
+ router.get('/health', healthyController.getHealthRecipes); // Route to fetch random  healthy recipes
 
  // Route to view the recipes
 

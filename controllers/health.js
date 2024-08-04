@@ -29,14 +29,23 @@ const getHealthRecipes = async (req, res) => {
 
         console.log('Fetched Health Recipes:', healthRecipes);
 
+
+        // Check if healthRecipes is correctly defined
+        if (!healthRecipes || healthRecipes.length === 0) {
+            console.log('No healthRecipes found');
+        } else {
+            console.log('HealthRecipes count:', healthRecipes.length);
+        }
+
         // Render the template with both healthData and dessertData
-        res.render('recipeInfo', {healthRecipes});
+        res.render('recipe', {healthRecipes, user: req.user});
 
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);
         res.status(500).json({ message: 'Server Error', error: error.message });
     }
 };
+
 
 
 module.exports = {

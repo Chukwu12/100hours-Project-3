@@ -76,7 +76,7 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
-app.use('/health', healthRoutes);
+app.use('/', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/dessert', dessertRoutes);
