@@ -47,6 +47,8 @@ nav{
    
 }
 
+
+
 nav img{
     height: 40px;
 }
@@ -687,9 +689,33 @@ transform: translateX(-150%);
 /* Recipe Page */
 .search-bar{
     position: relative;
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: 100px auto 0;
     border-radius: 5px;
+}
+
+#suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
 }
 
 .row{

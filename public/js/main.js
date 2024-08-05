@@ -119,4 +119,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// --------------------------------------  Cuisine button ----------------------------------//
+// --------------------------------------  SearchBar ----------------------------------//
+document.addEventListener('DOMContentLoaded', () => {
+    const inputBox = document.getElementById('input-box');
+    const suggestionsBox = document.getElementById('suggestions');
+
+    inputBox.addEventListener('input', async () => {
+        const query = inputBox.value.trim();
+        if (query.length < 2) {
+            suggestionsBox.style.display = 'none'; // Hide suggestions if input is too short
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${query}&number=5&apiKey=15b2edef64f24d2c95b3cc72e3ad8f87`);
+            const data = await response.json();
+
+             // Clear previous suggestions
+             suggestionsBox.innerHTML = '';
+
+              // Populate new suggestions
+            data.forEach(item => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.textContent = item.title;
+                suggestionItem.addEventListener('click', () => {
+                    inputBox.value = item.title;
+                    suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                });
+                suggestionsBox.appendChild(suggestionItem);
+            });
+
+            suggestionsBox.style.display = 'block'; // Show suggestions
+        } catch (error) {
+            console.error('Error fetching suggestions:', error);
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!suggestionsBox.contains(event.target) && event.target !== inputBox) {
+            suggestionsBox.style.display = 'none'; // Hide suggestions if clicking outside
+        }
+    });
+});

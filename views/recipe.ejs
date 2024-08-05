@@ -33,7 +33,9 @@
         <div class="recipe-hero">
             <div class="hero-content">
                 <h2>Onice Gourmet Guide</h2>
+                <p>Find and share recipes with ease. Explore thousands of mouth-watering dishes and save your favorites.</p>
                 <p>Your Guide to Flavorful Journeys.</p>
+                <a href="/Saved Recipes" class="btn-primary">Saved Recipes</a>
             </div>
         </div>
     </section>
@@ -42,8 +44,8 @@
         <div class="row">
             <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <button></button>
         </div>
+        <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
     </div>
 
     <nav id="cuisenes">
@@ -84,8 +86,8 @@
                                 </div>
                                 <p><%= recipe.title %></p>
                                 <div class="glide-card-content">
-                                    <i class="fa-regular fa-user"></i>
-                                    <p>Servings: <%= recipe.servings %></p>
+                                
+                                    <p>Servings: <i class="fa-regular fa-user"></i> <%= recipe.servings %></p>
                                     <p><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> minutes</p>
                                     <p>Ingredients: <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
                                 </div>
