@@ -695,6 +695,13 @@ transform: translateX(-150%);
     border-radius: 5px;
 }
 
+#input-box {
+    width: 100%; /* Ensure the input box takes up the full width of the container */
+    padding: 10px 50px; /* Add padding to accommodate the icon and button */
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Includes padding in the element's total width and height */
+}
+
 #suggestions {
     position: absolute;
     top: 100%;
@@ -742,10 +749,11 @@ transform: translateX(-150%);
 
 .search-bar .fa-magnifying-glass {
     position: absolute;
-    right: 50px;
+    left: 90%;
     top: 50%;
     transform: translateY(-50%);
-    color: white; 
+    color: white;
+    font-size: 16px;
 }
 
 /* Cusines Section */
