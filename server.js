@@ -94,22 +94,22 @@ app.get('/create-recipes', healthyController.getHealthRecipes);
 // app.get('/profile', profileController.createRecipes);
  
  // Route to get recipe details and render it
-app.get('/recipeInfo/:recipeId', async (req, res) => {
-  try {
-      const recipeId = req.params.recipeId;
-      const response = await axios.get(`${RECIPE_DETAILS_API_URL}/${recipeId}/information`, {
-          params: {
-              apiKey: RECIPES_API_KEY
-          }
-      });
+// app.get('/recipeInfo/:recipeId', async (req, res) => {
+//   try {
+//       const recipeId = req.params.recipeId;
+//       const response = await axios.get(`${RECIPE_DETAILS_API_URL}/${recipeId}/information`, {
+//           params: {
+//               apiKey: RECIPES_API_KEY
+//           }
+//       });
 
-      const recipeDetails = response.data;
-      res.render('recipeInfo', { recipe: recipeDetails }); // Render the EJS template with recipe details
-  } catch (error) {
-      console.error('Error fetching recipe details from Spoonacular:', error.message);
-      res.status(500).send('Server Error');
-  }
-});
+//       const recipeDetails = response.data;
+//       res.render('recipeInfo', { recipe: recipeDetails }); // Render the EJS template with recipe details
+//   } catch (error) {
+//       console.error('Error fetching recipe details from Spoonacular:', error.message);
+//       res.status(500).send('Server Error');
+//   }
+// });
 
 
 

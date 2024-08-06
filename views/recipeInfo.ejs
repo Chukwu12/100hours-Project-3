@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= recipeDetails.title %></title>
+    <title><%= healthRecipes.title %></title>
     <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
     <!-- Glide.js CSS -->
@@ -15,11 +15,11 @@
 </head>
 <body>
     <nav>
-        <img src="/image/onice-high-resolution-logo-transparent (1).png" alt="logo-img">
+        <img src="/image/onice-logo.png" alt="logo-img">
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/recipe">Recipes</a></li>
-            <li><a href="/Saved Recipes">Saved Recipes</a></li>
+            <li><a href="/recipeInfo">Saved Recipes</a></li>
             <li><a href="/profile.ejs">Create Recipes</a></li>
         </ul>
     </nav>
@@ -32,41 +32,56 @@
         </div>
     </div>
 
-    <section>
-        <div id="recipeInfoContent" class="recipe-info-container">
-            <h1><%= recipeDetails.title %></h1>
-            <img src="<%= recipeDetails.image %>" alt="<%= recipeDetails.title %>">
-            <h2>Ingredients</h2>
-            <ul>
-                <% recipeDetails.extendedIngredients.forEach(ingredient => { %>
-                    <li><%= ingredient.original %></li>
-                <% }) %>
-            </ul>
-            <h2>Instructions</h2>
-            <p><%= recipeDetails.instructions %></p>
-            <p><%= recipe.summary %></p>
-        </div>
 
-        <div class="glide">
+
+    <section id="healthy">
+        <h1>Healthy Recipes</h1>
+        <!-- Glide -->
+        <div class="glide healthy-glide">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
-                    <% healthData.forEach(recipe => { %>
-                        <li class="glide__slide">
-                            <div class="glide-card">
-                                <div class="glide-card-image">
-                                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <% if (healthRecipes && healthRecipes.length > 0) { %>
+                        <% healthRecipes.forEach(recipe => { %>
+                            <li class="glide__slide">
+                                <div class="glide-card">
+                                    <div class="glide-card-image">
+                                        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                                        <div class="overlay"></div>
+                                    </div>
+                                    <p><%= recipe.title %></p>
+                                    <div class="glide-card-content">
+                                        <i class="fa-regular fa-user"></i>
+                                        <p>Servings: <%= recipe.servings %></p>
+                                        <p><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> minutes</p>
+                                        <p>Ingredients: <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
+                                    </div>
+                                    <div class="glide-card-memory">
+                                        <!-- Example like button (no user logic needed) -->
+                                        <form class="col-1" action="/recipe/likeRecipe/<%= recipe.id %>?_method=PUT" method="POST">
+                                            <button class="btn btn-primary fa fa-heart" type="submit"></button>
+                                        </form>
+                                        <!-- Example favorite button (no user logic needed) -->
+                                        <form class="col-1" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST">
+                                            <button class="btn btn-primary fa fa-star" type="submit"></button>
+                                        </form>
+                                        <!-- No user-specific delete button -->
+                                        <button class="btn btn-primary fa fa-trash" type="submit"> <%= recipe.likes %></button>
+                                    </div>
+                                    <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
                                 </div>
-                                <div class="glide-card-content">
-                                    <h3><%= recipe.title %></h3>
-                                    <p><%= recipe.summary %></p>
-                                </div>
-                            </div>
-                        </li>
-                    <% }); %>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No recipes found.</p>
+                    <% } %>
                 </ul>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+                <!-- Bullet navigation -->
             </div>
         </div>
     </section>
+    
 
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>

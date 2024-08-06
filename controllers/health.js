@@ -1,5 +1,8 @@
 // controllers/healthController.js
 const axios = require('axios');
+const Recipe = require("../models/Recipe"); 
+
+
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 
@@ -24,7 +27,7 @@ const getHealthRecipes = async (req, res) => {
             ...recipe,
             servings: recipe.servings,
             readyInMinutes: recipe.readyInMinutes,
-            numberOfIngredients: recipe.extendedIngredients.length,
+            numberOfIngredients:recipe.extendedIngredients ? recipe.extendedIngredients.length : 0,
         }));
 
         console.log('Fetched Health Recipes:', healthRecipes);
@@ -38,7 +41,8 @@ const getHealthRecipes = async (req, res) => {
         }
 
         // Render the template with both healthData and dessertData
-        res.render('recipe', {healthRecipes, user: req.user});
+        res.render('recipeInfo', {healthRecipes});
+        console.log(req.user); 
 
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);
