@@ -1,4 +1,3 @@
-// controllers/recipe.js
 // controllers/dessertController.js
 const axios = require('axios');
 
@@ -16,7 +15,6 @@ const getDessertRecipes = async (req, res) => {
                 apiKey: RECIPES_API_KEY,
                 number: 5,
                 type: 'dessert',
-                sort: 'popularity',
                 includeNutrition: true,
                 limitLicense: true,
             }
@@ -26,13 +24,13 @@ const getDessertRecipes = async (req, res) => {
             ...recipe,
             servings: recipe.servings,
             readyInMinutes: recipe.readyInMinutes,
-            numberOfIngredients: recipe.extendedIngredients.length,
+            numberOfIngredients:recipe.extendedIngredients ? recipe.extendedIngredients.length : 0,
         }));
 
         console.log('Fetched Dessert Recipes:', dessertRecipes);
 
         // Render the template with both dessertData and healthData
-        res.render('recipe', { dessertData: dessertRecipes, healthData: null });
+        res.render('recipeInfo', {dessertRecipes});
 
     } catch (error) {
         console.error('Error fetching data from Spoonacular:', error.message);

@@ -15,9 +15,8 @@ const getHealthRecipes = async (req, res) => {
         const response = await axios.get(HEALTHY_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 5,
+                number: 8,
                 diet: 'vegetarian',
-                sort: 'popularity',
                 includeNutrition: true,
                 limitLicense: true,
             }
@@ -32,13 +31,6 @@ const getHealthRecipes = async (req, res) => {
 
         console.log('Fetched Health Recipes:', healthRecipes);
 
-
-        // Check if healthRecipes is correctly defined
-        if (!healthRecipes || healthRecipes.length === 0) {
-            console.log('No healthRecipes found');
-        } else {
-            console.log('HealthRecipes count:', healthRecipes.length);
-        }
 
         // Render the template with both healthData and dessertData
         res.render('recipeInfo', {healthRecipes});
