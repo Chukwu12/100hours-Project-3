@@ -9,23 +9,29 @@ const flash = require('express-flash');
 const logger = require('morgan');
 const methodOverride = require("method-override");
 const connectDB = require('./config/database');
+const path = require('path');
+
+// Import routes
 const homeRoutes = require('./routes/home');
 const recipeRoutes = require('./routes/recipe');
 const healthRoutes = require('./routes/health');
-// const profileRoutes = require('./routes/profile');
-const cuisineRoutes = require('./routes/cuisine');
-const path = require('path');
 const dessertRoutes = require('./routes/dessert');
 const recipeInfoRoutes = require('./routes/recipeInfo');
+const mainRoutes = require('./routes/main');
+// const profileRoutes = require('./routes/profile');
+const cuisineRoutes = require('./routes/cuisine');
+
+// Import controllers
 const cuisineController = require('./controllers/cuisine');
 const dessertController = require('./controllers/dessert');
 const healthyController = require('./controllers/health');
-const recipeInfoController = require('./controllers/recipeInfo');
+ const recipeInfoController = require('./controllers/recipeInfo');
 const recipeController = require('./controllers/recipe');
+const mainController = require('./controllers/main');
 // const profileController = require('./controllers/profile');
 
 
-
+// Load environment variables
 require('dotenv').config({ path: './config/.env' });
 
 // Passport config
@@ -33,6 +39,7 @@ require('./config/passport')(passport);
 
 // Connect to database
 //connectDB();
+//require('./config/database')();
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
@@ -41,19 +48,18 @@ app.use(express.json());
 //Logging
 app.use(logger("dev"));
 
-//Use forms for put / delete
-app.use(methodOverride("_method"));
+
+
 
 // Middleware
 app.set('view engine', 'ejs')
-app.set('views', './views');
+ app.set('views', './views');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static('public'))
+app.use(express.static('public')); // Serve static files
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger('dev'))
-// Serve static files like images
-
+app.use(methodOverride("_method")); //Use forms for put / delete
 
 
 
@@ -76,16 +82,14 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
-app.use('/', healthRoutes);
+app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/dessert', dessertRoutes);
- app.use('/', recipeInfoRoutes);
+ app.use('/', mainRoutes);
 //  app.use('/profile', profileRoutes);
 
-
-
- // Define your route
+ // Define your route directly if necessary
 app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
@@ -111,10 +115,14 @@ app.get('/create-recipes', healthyController.getHealthRecipes);
 //   }
 // });
 
+// Global error handling middleware (optional)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
 
 
-
- const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
    console.log('Server is running, you better catch it!');

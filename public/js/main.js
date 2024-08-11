@@ -133,32 +133,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${query}&number=5&apiKey=15b2edef64f24d2c95b3cc72e3ad8f87`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             const data = await response.json();
-
-             // Clear previous suggestions
-             suggestionsBox.innerHTML = '';
-
-              // Populate new suggestions
-            data.forEach(item => {
-                const suggestionItem = document.createElement('div');
-                suggestionItem.className = 'suggestion-item';
-                suggestionItem.textContent = item.title;
-                suggestionItem.addEventListener('click', () => {
-                    inputBox.value = item.title;
-                    suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+        
+            // Clear previous suggestions
+            suggestionsBox.innerHTML = '';
+        
+            // Populate new suggestions
+            if (Array.isArray(data)) {
+                data.forEach(item => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.textContent = item.title;
+                    suggestionItem.addEventListener('click', () => {
+                        inputBox.value = item.title;
+                        suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                    });
+                    suggestionsBox.appendChild(suggestionItem);
                 });
-                suggestionsBox.appendChild(suggestionItem);
-            });
-
-            suggestionsBox.style.display = 'block'; // Show suggestions
+                suggestionsBox.style.display = 'block'; // Show suggestions
+            } else {
+                console.error('Unexpected response format:', data);
+            }
         } catch (error) {
             console.error('Error fetching suggestions:', error);
-        }
-    });
-
-    document.addEventListener('click', (event) => {
-        if (!suggestionsBox.contains(event.target) && event.target !== inputBox) {
-            suggestionsBox.style.display = 'none'; // Hide suggestions if clicking outside
-        }
+        }        
     });
 });

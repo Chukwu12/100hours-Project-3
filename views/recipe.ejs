@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Recipe Page</title>
     <!-- Font-awesome -->
     <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
     <!-- Glide.js CSS -->
@@ -77,7 +77,7 @@
         <div class="glide">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
-                    <% recipeData.forEach(recipe => { %>
+                    <% recipes.forEach(recipe => { %>
                         <li class="glide__slide">
                             <div class="glide-card">
                                 <div class="glide-card-image">
@@ -123,8 +123,111 @@
         </div>
     </section>
 
- 
-    
+
+    <section id="trending-desserts">
+        <h1>Dessert Recipes</h1>
+        <!-- Glide -->
+        <div class="glide-desserts">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <% desserts.forEach(dessert => { %>
+                        <li class="glide__slide">
+                            <div class="glide-card">
+                                <div class="glide-card-image">
+                                    <img src="<%= dessert.image %>" alt="<%= dessert.title %>">
+                                    <div class="overlay"></div>
+                                </div>
+                                <p><%= dessert.title %></p>
+                                <div class="glide-card-content">
+                                    <p>Servings: <i class="fa-regular fa-user"></i> <%= dessert.servings %></p>
+                                    <p><i class="fa-solid fa-clock"></i> <%= dessert.readyInMinutes %> minutes</p>
+                                    <p>Ingredients: <i class="fa-solid fa-book"></i> <%= dessert.numberOfIngredients %></p>
+                                </div>
+                                <div class="glide-card-memory">
+                                    <form class="col-1" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST">
+                                        <button class="btn btn-primary fa fa-heart" type="submit"></button>
+                                    </form>
+                                    <form class="col-1" action="/recipe/favoriteRecipe/<%= dessert.id %>" method="POST">
+                                        <button class="btn btn-primary fa fa-star" type="submit"></button>
+                                    </form>
+                                    <button class="btn btn-primary fa fa-trash" type="submit"><%= dessert.likes %></button>
+                                    <% if (dessert.user && dessert.user.id === user.id) { %>
+                                        <form class="col-1" action="/recipe/deleteRecipe/<%= dessert.id %>?_method=DELETE" method="POST">
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <button class="view-recipe-btn" data-recipe-id="<%= dessert.id %>">View Recipe</button>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+                <button class="glide__bullet" data-glide-dir="=0"></button>
+                <button class="glide__bullet" data-glide-dir="=1"></button>
+                <button class="glide__bullet" data-glide-dir="=2"></button>
+                <button class="glide__bullet" data-glide-dir="=3"></button>
+                <button class="glide__bullet" data-glide-dir="=4"></button>
+                <button class="glide__bullet" data-glide-dir="=5"></button>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="trending-healthy">
+        <h1>Healthy Recipes</h1>
+        <!-- Glide -->
+        <div class="glide-healthy">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <% healthTips.forEach(tip => { %>
+                        <li class="glide__slide">
+                            <div class="glide-card">
+                                <div class="glide-card-image">
+                                    <img src="<%= tip.image %>" alt="<%= tip.title %>">
+                                    <div class="overlay"></div>
+                                </div>
+                                <p><%= tip.title %></p>
+                                <div class="glide-card-content">
+                                    <p>Servings: <i class="fa-regular fa-user"></i> <%= tip.servings %></p>
+                                    <p><i class="fa-solid fa-clock"></i> <%= tip.readyInMinutes %> minutes</p>
+                                    <p>Ingredients: <i class="fa-solid fa-book"></i> <%= tip.numberOfIngredients %></p>
+                                </div>
+                                <div class="glide-card-memory">
+                                    <form class="col-1" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST">
+                                        <button class="btn btn-primary fa fa-heart" type="submit"></button>
+                                    </form>
+                                    <form class="col-1" action="/recipe/favoriteRecipe/<%= tip.id %>" method="POST">
+                                        <button class="btn btn-primary fa fa-star" type="submit"></button>
+                                    </form>
+                                    <button class="btn btn-primary fa fa-trash" type="submit"><%= tip.likes %></button>
+                                    <% if (tip.user && tip.user.id === user.id) { %>
+                                        <form class="col-1" action="/recipe/deleteRecipe/<%= tip.id %>?_method=DELETE" method="POST">
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <button class="view-recipe-btn" data-recipe-id="<%= tip.id %>">View Recipe</button>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+                <button class="glide__bullet" data-glide-dir="=0"></button>
+                <button class="glide__bullet" data-glide-dir="=1"></button>
+                <button class="glide__bullet" data-glide-dir="=2"></button>
+                <button class="glide__bullet" data-glide-dir="=3"></button>
+                <button class="glide__bullet" data-glide-dir="=4"></button>
+                <button class="glide__bullet" data-glide-dir="=5"></button>
+            </div>
+        </div>
+    </section>
+
+
+
+
     
     
 
@@ -132,6 +235,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
     <!-- Initialize Glide -->
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
         new Glide('.glide', {
             type: 'carousel',
             startAt: 0,
@@ -139,12 +243,21 @@
             gap: 20
         }).mount();
 
-        new Glide('.healthy-glide', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 3,
-            gap: 20
-        }).mount();
+          
+    new Glide('.glide-desserts', {
+        type: 'carousel',
+        startAt: 0,
+        perView: 3,
+        gap: 20
+    }).mount();
+    
+    new Glide('.glide-healthy', {
+        type: 'carousel',
+        startAt: 0,
+        perView: 3,
+        gap: 20
+    }).mount();
+});
     </script>
 
     <!-- Bootstrap JS -->

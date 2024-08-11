@@ -20,11 +20,12 @@ const getRandomRecipes = async (req, res) => {
         const response = await axios.get(RECIPES_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 5,  // Number of random recipes to fetch
+                number: 8,  // Number of random recipes to fetch
                 includeNutrition: true,
                 limitLicense: true,
             }
         });
+        console.log('API Response:', response.data); // Log response for debugging
         
         // Extract recipes and add the readyInMinutes field
         const recipes = response.data.recipes.map(recipe => ({
@@ -34,35 +35,30 @@ const getRandomRecipes = async (req, res) => {
             numberOfIngredients: recipe.extendedIngredients.length  // Number of ingredients
         }));
         
-         // Pass recipe data and user to the template
-        res.render('recipe', { recipeData: recipes, user: req.user });
-    } catch (error) {
-        // Handle errors
-        console.error('Error fetching data from Spoonacular:', error.message);
-        res.status(500).send('Server Error');
+        return recipes;
+      } catch (error) {
+        console.error('Error fetching random recipes:', error.message);
+        res.status(500).json({ message: 'Error fetching random recipes' });
     }
 };
+// Fetch detailed recipe information
+const getRecipeDetails = async (id) => {
+  try {
+      if (!RECIPES_API_KEY) {
+          throw new Error('API key is missing');
+      }
 
-const getRecipeDetails = async (req, res) => {
-    try {
-        if (!RECIPES_API_KEY) {
-            return res.status(401).json({ message: 'API key is missing' });
-        }
+      const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', id), {
+          params: {
+              apiKey: RECIPES_API_KEY,
+          }
+      });
 
-        const recipeId = req.params.id;
-        const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
-            params: {
-                apiKey: RECIPES_API_KEY,
-            }
-        });
-
-        const recipeDetails = response.data;
-
-        res.render('recipeInfo', { recipeDetails });
-    } catch (error) {
-        console.error('Error fetching recipe details from Spoonacular:', error.message);
-        res.status(500).send('Server Error');
-    }
+      return response.data;
+  } catch (error) {
+      console.error('Error fetching recipe details:', error.message);
+      throw new Error('Error fetching recipe details');
+  }
 };
 
 
@@ -140,5 +136,5 @@ module.exports = {
     favoriteRecipe,
     likeRecipe,
     getFavorites,
-    deleteRecipe   
+    deleteRecipe,  
 };

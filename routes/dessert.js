@@ -5,8 +5,8 @@ const dessertController = require('../controllers/dessert');
 
 
 // Routes for random recipes
- router.get('/', dessertController.getDessertRecipes); // Route to fetch random recipes
-//  router.get('/recipe/:id', recipeController.getRecipeDetails); // Route to fetch recipeInfo from the ID 
+  router.get('/', dessertController.getDessertRecipes); // Route to fetch random recipes
+  //router.get('/recipe/:id', recipeController.getRecipeDetails); // Route to fetch recipeInfo from the ID 
 
 
 module.exports = router;
