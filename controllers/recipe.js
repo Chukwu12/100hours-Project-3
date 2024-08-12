@@ -54,11 +54,28 @@ const getRecipeDetails = async (id) => {
           }
       });
 
+<<<<<<< HEAD
       return response.data;
   } catch (error) {
       console.error('Error fetching recipe details:', error.message);
       throw new Error('Error fetching recipe details');
   }
+=======
+        const recipeId = req.params.id;
+        const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
+            params: {
+                apiKey: RECIPES_API_KEY
+            }
+        });
+
+        const recipeDetails = response.data;
+
+        res.render('recipeInfo', { recipeDetails });
+    } catch (error) {
+        console.error('Error fetching recipe details from Spoonacular:', error.message);
+        res.status(500).send('Server Error');
+    }
+>>>>>>> 4c05ab8 (update)
 };
 
 

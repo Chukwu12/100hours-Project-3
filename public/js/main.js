@@ -103,17 +103,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const recipeId = this.getAttribute('data-recipe-id');
             
             fetch(`/recipeInfo/${recipeId}`)
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Assuming the server returns JSON
+                })
                 .then(data => {
                     // Assuming recipeInfoContent is a container where recipe details will be shown
                     if (recipeInfoContent) {
-                        recipeInfoContent.innerHTML = data;
+                        recipeInfoContent.innerHTML = `
+                            <h2>${data.title}</h2>
+                            <p>${data.description}</p>
+                            <h3>Instructions:</h3>
+                            <p>${data.instructions}</p>
+                        `;
                     } else {
                         console.error('Element with id "recipeInfoContent" not found');
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching recipe details:', error);
+                    // Optionally, display a user-friendly message
+                    if (recipeInfoContent) {
+                        recipeInfoContent.innerHTML = '<p>Error loading recipe details. Please try again later.</p>';
+                    }
                 });
         });
     });
