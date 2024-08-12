@@ -5,7 +5,7 @@ const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/informa
 
 const getCuisineRecipes = async (req, res) => {
     const type = req.params.type;
-    const apiKey = process.env.RECIPES_API_KEY;
+    const apiKey = process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
 
     if (!apiKey) {
         return res.status(500).send('API Key is not defined');
