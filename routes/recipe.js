@@ -6,8 +6,7 @@ const recipeController = require('../controllers/recipe');
 
 
 // Routes for random recipes
-router.get('/', recipeController.getRandomRecipes ); // Handles GET /recipe
-router.get('/random', recipeController.getRandomRecipes);
+// router.get('/', recipeController.getRandomRecipes ); // Handles GET /recipe
 router.get('/:id', recipeController.getRecipeDetails);
 
 router.post("/favoriteRecipe/:id", recipeController.favoriteRecipe);

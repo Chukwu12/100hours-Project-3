@@ -41,6 +41,8 @@ const getRandomRecipes = async (req, res) => {
         res.status(500).json({ message: 'Error fetching random recipes' });
     }
 };
+
+
 // Fetch detailed recipe information
 const getRecipeDetails = async (id) => {
   try {
@@ -54,28 +56,12 @@ const getRecipeDetails = async (id) => {
           }
       });
 
-<<<<<<< HEAD
-      return response.data;
+        // Render the page with the recipe data
+        return response.data;
   } catch (error) {
       console.error('Error fetching recipe details:', error.message);
       throw new Error('Error fetching recipe details');
   }
-=======
-        const recipeId = req.params.id;
-        const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
-            params: {
-                apiKey: RECIPES_API_KEY
-            }
-        });
-
-        const recipeDetails = response.data;
-
-        res.render('recipeInfo', { recipeDetails });
-    } catch (error) {
-        console.error('Error fetching recipe details from Spoonacular:', error.message);
-        res.status(500).send('Server Error');
-    }
->>>>>>> 4c05ab8 (update)
 };
 
 
@@ -140,16 +126,11 @@ const favoriteRecipe = async (req, res) => {
           res.redirect("/profile");
         }
       }
-    
-
-const viewRecipes = (req, res) => {
-    res.render('recipe'); // Render the recipe.ejs file
-};
+  
 
 module.exports = {
     getRandomRecipes,
     getRecipeDetails,
-    viewRecipes,
     favoriteRecipe,
     likeRecipe,
     getFavorites,

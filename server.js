@@ -53,7 +53,6 @@ app.use(logger("dev"));
 
 // Middleware
 app.set('view engine', 'ejs')
- app.set('views', './views');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public')); // Serve static files
 app.use(express.urlencoded({ extended: true }))
@@ -86,7 +85,8 @@ app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/dessert', dessertRoutes);
- app.use('/', mainRoutes);
+ app.use('/main', mainRoutes);
+ app.use('/', mainController);
 //  app.use('/profile', profileRoutes);
 
  // Define your route directly if necessary
@@ -95,6 +95,7 @@ app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/create-recipes', healthyController.getHealthRecipes);
+
 // app.get('/profile', profileController.createRecipes);
  
  // Route to get recipe details and render it

@@ -4,18 +4,18 @@ const recipeController = require('../controllers/recipe');
 const dessertController = require('../controllers/dessert');
 const healthController = require('../controllers/health');
 
-router.get('/recipe',async(req, res) => {
+router.get('/recipe', async(req, res) => {
     try{
           // Fetch data from each controller
-        const recipeData = await recipeController.getRandomRecipes();
-        const dessertData = await dessertController.getDessertRecipes();
-        const healthData = await healthController.getHealthRecipes ();
+        const recipes = await recipeController.getRandomRecipes();
+        const desserts = await dessertController.getDessertRecipes();
+        const healthTips = await healthController.getHealthRecipes ();
 
          // Combine the data
     const combinedData = {
-        recipes: recipeData.recipes,
-        desserts: dessertData.desserts,
-        healthTips: healthData.healthTips
+        recipes,
+        desserts, 
+        healthTips
       };
 
       // Render the EJS template with the combined data
