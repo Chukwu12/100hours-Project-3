@@ -943,7 +943,7 @@ transform: translateX(-150%);
 /* -----------------------------Random Recipe ------------------------------------- */
 /* Custom styles for trending section */
 
-#trending {
+#trending, #trending-desserts, #trending-healthy {
     height: auto;
     display: flex;
     justify-content: center;
@@ -952,12 +952,12 @@ transform: translateX(-150%);
     padding: 20px 0;
 }
 
-#trending h1 {
+#trending h1, #trending-desserts h1, #trending-healthy h1 {
     margin-bottom: 20px;
     font-size: 24px;
 }
 
-.glide {
+.glide, .glide-desserts, .glide-healthy {
     width: 80%;
     padding: 20px 0;
 }
