@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY || '15b2edef64f24d2c95b3cc72e3ad8f87';
-const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
+const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/random';
 
 const getHealthRecipes = async (req, res) => {
     try {
@@ -14,13 +14,12 @@ const getHealthRecipes = async (req, res) => {
             params: {
                 apiKey: RECIPES_API_KEY,
                 number: 8,
-                diet: 'vegetarian',
+                tags: 'vegetarian', // Filter to only include healthy options
                 includeNutrition: true,
-                limitLicense: true,
             }
         });
 
-        const healthRecipes = response.data.results.map(recipe => ({
+        const healthRecipes = response.data.recipes.map(recipe => ({
             ...recipe,
             servings: recipe.servings,
             readyInMinutes: recipe.readyInMinutes,

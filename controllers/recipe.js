@@ -44,27 +44,35 @@ const getRandomRecipes = async (req, res) => {
 
 
 // Fetch detailed recipe information
-const getRecipeDetails = async (id) => {
+const getRecipeDetails = async (req, res) => {
   try {
-      if (!RECIPES_API_KEY) {
-          throw new Error('API key is missing');
-      }
+      const recipeId = req.params.id;
 
-      const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', id), {
+      // Fetch recipe details from the API
+      const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
           params: {
               apiKey: RECIPES_API_KEY,
           }
       });
 
-        // Render the page with the recipe data
-        return response.data;
+      const recipe = response.data;
+
+      // Render the recipe details page
+      res.render('recipeInfo', {
+          recipe: {
+              title: recipe.title,
+              image: recipe.image,
+              servings: recipe.servings,
+              readyInMinutes: recipe.readyInMinutes,
+              instructions: recipe.instructions,
+              ingredients: recipe.extendedIngredients
+          }
+      });
   } catch (error) {
       console.error('Error fetching recipe details:', error.message);
-      throw new Error('Error fetching recipe details');
+      res.status(500).send('Error fetching recipe details');
   }
 };
-
-
 
 const favoriteRecipe = async (req, res) => {
     try {

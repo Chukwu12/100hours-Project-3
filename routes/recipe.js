@@ -7,7 +7,8 @@ const recipeController = require('../controllers/recipe');
 
 // Routes for random recipes
 // router.get('/', recipeController.getRandomRecipes ); // Handles GET /recipe
-router.get('/:id', recipeController.getRecipeDetails);
+router.get('/recipe/:id', recipeController.getRecipeDetails);
+
 
 router.post("/favoriteRecipe/:id", recipeController.favoriteRecipe);
 router.put("/likeRecipe/:id", recipeController.likeRecipe);//Enables user to like post. In controller, uses POST model to update likes by 1
