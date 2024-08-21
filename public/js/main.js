@@ -92,46 +92,69 @@ sign_in_btn.addEventListener('click', ()=> {
 
 
 // --------------------------------------  View recipe info ----------------------------------//
-document.addEventListener('DOMContentLoaded', function() {
-    const recipeButtons = document.querySelectorAll('.view-recipe-btn');
-    const recipeInfoContent = document.getElementById('recipeInfoContent');
+// document.addEventListener('DOMContentLoaded', function() {
+//     const recipeButtons = document.querySelectorAll('.view-recipe-btn');
     
-    recipeButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
+//     recipeButtons.forEach(button => {
+//         button.addEventListener('click', function(event) {
+//             event.preventDefault();
+
+//             const recipeId = this.getAttribute('data-recipe-id');
+//             const recipeInfoContent = document.getElementById('recipeInfoContent');
             
-            const recipeId = this.getAttribute('data-recipe-id');
-            
-            fetch(`/recipeInfo/${recipeId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json(); // Assuming the server returns JSON
-                })
-                .then(data => {
-                    // Assuming recipeInfoContent is a container where recipe details will be shown
-                    if (recipeInfoContent) {
-                        recipeInfoContent.innerHTML = `
-                            <h2>${data.title}</h2>
-                            <p>${data.description}</p>
-                            <h3>Instructions:</h3>
-                            <p>${data.instructions}</p>
-                        `;
-                    } else {
-                        console.error('Element with id "recipeInfoContent" not found');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching recipe details:', error);
-                    // Optionally, display a user-friendly message
-                    if (recipeInfoContent) {
-                        recipeInfoContent.innerHTML = '<p>Error loading recipe details. Please try again later.</p>';
-                    }
-                });
-        });
-    });
-});
+//             if (recipeInfoContent) {
+//                 // Create and show loading indicator
+//                 const loadingIndicator = document.createElement('div');
+//                 loadingIndicator.className = 'loading'; // Style this in your CSS
+//                 loadingIndicator.textContent = 'Loading...';
+//                 recipeInfoContent.innerHTML = ''; // Clear existing content
+//                 recipeInfoContent.appendChild(loadingIndicator);
+
+//                 fetch(`/recipeInfo/${recipeId}`)
+//                     .then(response => {
+//                         if (!response.ok) {
+//                             throw new Error('Network response was not ok');
+//                         }
+//                         return response.json(); // Expecting JSON data
+//                     })
+//                     .then(data => {
+//                         // Clear loading indicator
+//                         recipeInfoContent.removeChild(loadingIndicator);
+
+//                         // Ensure data is valid before rendering
+//                         if (data && data.title && data.instructions && data.ingredients) {
+//                             recipeInfoContent.innerHTML = `
+//                                 <h2>${data.title}</h2>
+//                                 <img src="${data.image}" alt="${data.title}">
+//                                 <p>Servings: ${data.servings}</p>
+//                                 <p>Ready in: ${data.readyInMinutes} minutes</p>
+//                                 <h3>Ingredients:</h3>
+//                                 <ul>
+//                                     ${data.ingredients.map(ingredient => `
+//                                         <li>${ingredient.amount} ${ingredient.unit} of ${ingredient.name}</li>
+//                                     `).join('')}
+//                                 </ul>
+//                                 <h3>Instructions:</h3>
+//                                 <p>${data.instructions}</p>
+//                             `;
+//                         } else {
+//                             recipeInfoContent.innerHTML = '<p>Recipe details are not available.</p>';
+//                         }
+//                     })
+//                     .catch(error => {
+//                         console.error('Error fetching recipe details:', error);
+//                         // Clear loading indicator
+//                         recipeInfoContent.removeChild(loadingIndicator);
+                        
+//                         // Display a user-friendly message
+//                         recipeInfoContent.innerHTML = '<p>Error loading recipe details. Please try again later.</p>';
+//                     });
+//             } else {
+//                 console.error('Element with id "recipeInfoContent" not found');
+//             }
+//         });
+//     });
+// });
 
 // --------------------------------------  SearchBar ----------------------------------//
 document.addEventListener('DOMContentLoaded', () => {

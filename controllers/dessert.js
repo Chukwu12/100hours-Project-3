@@ -13,7 +13,7 @@ const getDessertRecipes = async (req, res) => {
         const response = await axios.get(DESSERT_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 8,
+                number: 5,
                 tags: 'dessert', // Filter to only include desserts
                 includeNutrition: true,
             }

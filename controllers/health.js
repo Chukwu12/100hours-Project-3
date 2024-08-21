@@ -13,7 +13,7 @@ const getHealthRecipes = async (req, res) => {
         const response = await axios.get(HEALTHY_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 8,
+                number: 5,
                 tags: 'vegetarian', // Filter to only include healthy options
                 includeNutrition: true,
             }

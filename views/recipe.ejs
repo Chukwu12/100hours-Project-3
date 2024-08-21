@@ -85,27 +85,31 @@
                                 </div>
                                 <p><%= recipe.title %></p>
                                 <div class="glide-card-content">
-                                
                                     <p>Servings: <i class="fa-regular fa-user"></i> <%= recipe.servings %></p>
                                     <p><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> minutes</p>
                                     <p>Ingredients: <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
                                 </div>
                                 <div class="glide-card-memory">
+                                        <!-- Like Recipe Form -->
                                     <form class="col-1" action="/recipe/likeRecipe/<%= recipe.id %>?_method=PUT" method="POST">
                                         <button class="btn btn-primary fa fa-heart" type="submit"></button>
                                     </form>
+                                          <!-- Favorite Recipe Form -->
                                     <form class="col-1" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST">
                                         <button class="btn btn-primary fa fa-star" type="submit"></button>
                                     </form>
+                                         <!-- Delete Recipe Form (conditional) -->
+                                         <% if (recipe.user && recipe.user.id === user.id) { %>
+                                            <form action="/recipe/deleteRecipe/<%= recipe.id %>?_method=DELETE" method="POST" style="display:inline;">
+                                                <button class="btn btn-primary fa fa-trash" type="submit"><%= recipe.likes %></button>
+                                            </form>
+                                        <% } %>
+                                     <!-- View Recipe Button -->
                                     <button class=" btn btn-primary fa fa-trash"  type="submit"> <%= recipe.likes %>
-                                    <% if (recipe.user && recipe.user.id === user.id) { %>
-                                        <form class="col-1" action="/recipe/deleteRecipe/<%= recipe.id %>?_method=DELETE" method="POST" class="col-1">
-                                         
-                                        </form>
-                                        
-                                    <% } %>
                                 </div>
+                                <form action="/recipeInfo/<%= recipe.id %>" method="GET">
                                 <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
+                            </form>
                             </div>
                         </li>
                     <% }); %>

@@ -3,15 +3,16 @@ const express = require('express');
 const router = express.Router();
 const recipeController = require('../controllers/recipe');
 
+// Route to fetch recipe details by ID
+router.get('/recipeInfo/:id', recipeController.getRecipeDetails);
 
+// Route to mark a recipe as favorite
+router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 
-// Routes for random recipes
-// router.get('/', recipeController.getRandomRecipes ); // Handles GET /recipe
-router.get('/recipe/:id', recipeController.getRecipeDetails);
+// Route to like a recipe
+router.put('/likeRecipe/:id', recipeController.likeRecipe);
 
-
-router.post("/favoriteRecipe/:id", recipeController.favoriteRecipe);
-router.put("/likeRecipe/:id", recipeController.likeRecipe);//Enables user to like post. In controller, uses POST model to update likes by 1
-router.delete("/deleteRecipe/:id", recipeController.deleteRecipe);//Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
+// Route to delete a recipe
+router.delete('/deleteRecipe/:id', recipeController.deleteRecipe);
 
 module.exports = router;
