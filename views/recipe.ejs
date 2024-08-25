@@ -104,9 +104,9 @@
                                                 <button class="btn btn-primary fa fa-trash" type="submit"><%= recipe.likes %></button>
                                             </form>
                                         <% } %>
-                                     <!-- View Recipe Button -->
                                     <button class=" btn btn-primary fa fa-trash"  type="submit"> <%= recipe.likes %>
                                 </div>
+                                <!-- View Recipe Button -->
                                 <form action="/recipeInfo/<%= recipe.id %>" method="GET">
                                 <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
                             </form>
@@ -160,7 +160,9 @@
                                         </form>
                                     <% } %>
                                 </div>
-                                <button class="view-recipe-btn" data-recipe-id="<%= dessert.id %>">View Recipe</button>
+                                <form action="/recipeInfo/<%= dessert.id %>" method="GET">
+                                    <button class="view-recipe-btn" data-recipe-id="<%= dessert.id %>">View Recipe</button>
+                                </form>
                             </div>
                         </li>
                     <% }); %>

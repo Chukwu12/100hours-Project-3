@@ -83,6 +83,7 @@ app.use('/', homeRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
 app.use('/api', recipeRoutes);
 app.use('/', recipeRoutes);
+app.use('/', dessertRoutes);
 app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes

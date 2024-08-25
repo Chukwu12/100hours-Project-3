@@ -63,7 +63,6 @@
 
 
     <section id="recipeInfo">  
-        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
         <div class="recipeInfo-container">
             <h1><%= recipe.title %></h1>
             <div class="recipeInfo-content">
@@ -72,18 +71,23 @@
             </div>
         
             <div class="recipe-details">
-                <h2>Ingredients</h2>
-                <ul class="ingredient-icons">
-                    <% recipe.ingredients.forEach(ingredient => { %>
-                        <li>
-                            <img src="/image/recipeInfo-icon.png" alt="icon">
-                            <%= ingredient.amount %> <%= ingredient.unit %> of <%= ingredient.name %>
-                        </li>
-                    <% }); %>
-                </ul>
-                <h2>Instructions</h2>
-                <div><%= recipe.instructions %></div>
+                <div class="ingredient-list">
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <ul class="ingredient-icons">
+                        <h2>Ingredients</h2>
+                        <% recipe.ingredients.forEach(ingredient => { %>
+                            <li>
+                                <img src="/image/recipeInfo-icon.png" alt="icon">
+                                <%= ingredient.amount %> <%= ingredient.unit %> of <%= ingredient.name %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>           
             </div>
+                <div class="instructions-content">
+                    <h2>Instructions</h2>
+                    <%= recipe.instructions %>
+                </div>
         </div>
         <a href="/api">Back to Recipes</a>
         
