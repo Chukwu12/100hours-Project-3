@@ -441,7 +441,7 @@ a {
         width: 90%;
     }
 }
-/* .form-container{
+ .form-container{
     position: absolute;
     width: 60%;
     height: 100%;
@@ -490,7 +490,7 @@ span{
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
-    pointer-events: none; /* Ensure the icon does not block input events 
+     pointer-events: none; /* Ensure the icon does not block input events  */
 }
 
 .field input[type="password"] {
@@ -506,7 +506,7 @@ span{
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
-    pointer-events: none; /* Ensure the icon does not block input events 
+    pointer-events: none; 
 }
 
 .field input[type="text"] {
@@ -522,7 +522,7 @@ span{
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
-    pointer-events: none; /* Ensure the icon does not block input events 
+    pointer-events: none; 
 }
 
 
@@ -822,9 +822,7 @@ transform: translateX(-150%);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 30px 0px;
     width: 100%;
-    height: 100px;
 }
 
 .cuisnes-list{
@@ -978,7 +976,6 @@ transform: translateX(-150%);
 }
 
 #trending h1, #trending-desserts h1, #trending-healthy h1 {
-    margin-bottom: 20px;
     font-size: 24px;
 }
 
@@ -1001,11 +998,14 @@ transform: translateX(-150%);
     background: #fff;
     border-radius: 25px;
     padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgb(0 0 0 / 63%);
     width: 100%;
+    margin: 10px 0;
+    max-width: 350px;
     height: 550px;
     position: relative;
     background-color: whitesmoke;
+    justify-content: space-evenly;
 }
 
 .glide-card-content{
@@ -1016,7 +1016,7 @@ transform: translateX(-150%);
     margin: 10px 0;
 }
 
-.glide-card button{
+.view-recipe-btn{
     cursor: pointer;
     border: 1px solid;
     text-transform: uppercase;
@@ -1080,6 +1080,7 @@ position: relative;
 .glide-card-image {
     width: 100%;
     position: relative;
+    max-width: 350px;
 }
 
 .glide-card-image img {
@@ -1109,20 +1110,25 @@ position: relative;
 
 .glide-card-memory{
     display: flex;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-evenly;
     gap: 60px;
     margin: 15px 0;
 }
 
 .glide-card-memory button{
-    border-radius: 20px;
-    border: 1px solid var(--grid-clr1);
-    color: #ffffff;
-    padding: 20px 20px;
-    border-radius: 100%;
-    margin: 0;
-}
+    cursor: pointer;
+    border: 1px solid;
+    background: burlywood;
+    padding: 10px 10px;
+    transition: color 0.4s linear;
+    position: relative;
+    transition: 0.5s;
+    color: black;
+    text-decoration: none;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 5px; 
+    }
 
 
 #healthy {
