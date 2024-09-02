@@ -63,7 +63,9 @@
                         <div class="image-container">
                             <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
                             <div class="cusine-overlay">
-                                <a href="#" class="get-recipe-link" data-id="<%= recipe.id %>">Get Recipe</a>
+                                <form action="/recipeInfo/<%= recipe.id %>" method="GET">
+                                    <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
+                                </form>
                             </div>
                         </div>
                         <h2><%= recipe.title %></h2>
