@@ -1020,7 +1020,7 @@ transform: translateX(-150%);
     cursor: pointer;
     border: 1px solid;
     text-transform: uppercase;
-    background: burlywood;
+    background: #FFECE5;
     padding: 5px 5px;
     transition: color 0.4s linear;
     position: relative;
@@ -1118,18 +1118,20 @@ position: relative;
 .glide-card-memory button{
     cursor: pointer;
     border: 1px solid;
-    background: burlywood;
+    background: none;
     padding: 10px 10px;
-    transition: color 0.4s linear;
     position: relative;
     transition: 0.5s;
     color: black;
     text-decoration: none;
-    z-index: 1;
     overflow: hidden;
     border-radius: 5px; 
     }
 
+
+.glide-card-memory button:hover{
+    background-color: #FFECE5;
+}
 
 #healthy {
     height: auto;
