@@ -19,15 +19,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav>
-        <img src="/image/onice-logo.png" alt="logo-img">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/recipe">Recipes</a></li>
-            <li><a href="/recipeInfo">Saved Recipes</a></li>
-            <li><a href="/create-recipes">Create Recipes</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <a href="/" aria-label="Homepage">
+                <img src="/image/onice-logo.png" alt="Onice Logo">
+            </a>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/recipe">Recipes</a></li>
+                <li><a href="/recipeInfo">Saved Recipes</a></li>
+                <li><a href="/create-recipes">Create Recipes</a></li>
+            </ul>
+        </nav>
+    </header>
+    
 
     <section id="hero-section">
         <div class="recipe-hero">
@@ -47,31 +52,37 @@
         <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
     </div>
 
-    <nav id="cuisenes">
-        <div class="cuisenes">
-            <div class="cuisnes-list">
-                <div>
-                    <h2>African</h2>
-                    <a href="/cuisine/african"><img src="/image/african-cusine.png" alt="african food icon"></a>
-                </div>
-                <div>
-                    <h2>American</h2>
-                    <a href="/cuisine/american"><img src="/image/american-cusine.png" alt="american food icon"></a>
-                </div>
-                <div>
-                    <h2>Asian</h2>
-                    <a href="/cuisine/asian"><img src="/image/asain-cusine.png" alt="asian food icon"></a>
-                </div>
-                <div>
-                    <h2>Mexican</h2>
-                    <a href="/cuisine/mexican"><img src="/image/mexican-cusine.png" alt="mexican food icon"></a>
+    <header>
+        <nav id="cuisenes">
+            <div class="cuisenes">
+                <div class="cuisnes-list">
+                    <div>
+                        <h2>African</h2>
+                        <a href="/cuisine/african"><img src="/image/african-cusine.png" alt="african food icon"></a>
+                    </div>
+                    <div>
+                        <h2>American</h2>
+                        <a href="/cuisine/american"><img src="/image/american-cusine.png" alt="american food icon"></a>
+                    </div>
+                    <div>
+                        <h2>Asian</h2>
+                        <a href="/cuisine/asian"><img src="/image/asain-cusine.png" alt="asian food icon"></a>
+                    </div>
+                    <div>
+                        <h2>Mexican</h2>
+                        <a href="/cuisine/mexican"><img src="/image/mexican-cusine.png" alt="mexican food icon"></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
+  
 
     <section id="trending">
-        <h1>Trending Recipes</h1>
+        <div class="recipe-headers">
+            <h1>Trending Recipes</h1>
+            <img src="/image/book.png" alt="random-header-icon">
+        </div>
         <!-- Glide -->
         <div class="glide">
             <div class="glide__track" data-glide-el="track">
@@ -135,7 +146,10 @@
 
 
     <section id="trending-desserts">
-        <h1>Dessert Recipes</h1>
+        <div class="recipe-headers">
+            <h1>Dessert Recipes</h1>
+            <img src="/image/cupcake.png" alt="dessert-header-icon">
+        </div>
         <!-- Glide -->
         <div class="glide-desserts">
             <div class="glide__track" data-glide-el="track">
@@ -194,7 +208,10 @@
 
 
     <section id="trending-healthy">
-        <h1>Healthy Recipes</h1>
+        <div class="recipe-headers">
+            <h1>Healthy Recipes</h1>
+            <img src="/image/diet.png" alt="healthy-header-icon">
+        </div>
         <!-- Glide -->
         <div class="glide-healthy">
             <div class="glide__track" data-glide-el="track">

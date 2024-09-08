@@ -1,6 +1,6 @@
 // controllers/dessertController.js
 const axios = require('axios');
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY || 'a5636a2c775f4403b4fa800a596d426e';
 const DESSERT_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
 
