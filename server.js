@@ -1,15 +1,16 @@
 // server.js
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 // const MongoStore = require("connect-mongo")(session);
 const logger = require('morgan');
 const methodOverride = require("method-override");
-const connectDB = require('./config/database');
+//const connectDB = require('./config/database');
 const path = require('path');
+
 
 // Import routes
 const homeRoutes = require('./routes/home');

@@ -3,12 +3,12 @@ const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
 
-
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY || 'a5636a2c775f4403b4fa800a596d426e';
+require('dotenv').config({ path: './config/.env' });
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
 
-
+console.log('API Key:', process.env.RECIPES_API_KEY);
 const getRandomRecipes = async (req, res) => {
     try {
         // Check if the API key is available
@@ -25,7 +25,7 @@ const getRandomRecipes = async (req, res) => {
                 limitLicense: true,
             }
         });
-        console.log('API Response:', response.data); // Log response for debugging
+        //console.log('API Response:', response.data); // Log response for debugging
         
         // Extract recipes and add the readyInMinutes field
         const recipes = response.data.recipes.map(recipe => ({

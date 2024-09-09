@@ -1,8 +1,9 @@
 // controllers/healthController.js
 const axios = require('axios');
 
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY || 'a5636a2c775f4403b4fa800a596d426e';
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/random';
+require('dotenv').config({ path: './config/.env' });
 
 const getHealthRecipes = async (req, res) => {
     try {
