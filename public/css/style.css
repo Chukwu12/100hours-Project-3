@@ -44,6 +44,7 @@ nav{
     display: flex;
     justify-content: center;
     width: 100%;
+    align-items: center;
    
 }
 
@@ -985,9 +986,9 @@ transform: translateX(-150%);
 	padding: 50px;
 	color: #FFF;
     text-shadow: 1px 1px 1px #333;
-    background-image: linear-gradient( 360deg, #FFECE5, 10%,  #62beb6 100%);
-    border-bottom: 4px solid #333;
-    border-top: 4px solid #333;
+    /* background-image: linear-gradient( 360deg, #FFECE5, 10%,  #62beb6 100%); */
+    /* border-bottom: 4px solid #333;
+    border-top: 4px solid #333; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1088,8 +1089,7 @@ transform: scaleX(0);
 }
 
 .glide__bullet{
-    background-color: #665;
-    border: 1px solid black;
+    border: 1.5px solid black;
 }
 
 .glide__bullets {
@@ -1102,7 +1102,9 @@ position: relative;
 
 .glide__bullet--active{
     background-color: burlywood;
+    border: 1px solid black;
 }
+
 
 
 .glide-card-image {
@@ -1147,15 +1149,15 @@ position: relative;
 
 .glide-card-memory button{
     cursor: pointer;
-    border: 2px solid;
+    border: 1.5px solid;
     background: none;
-    padding: 10px 10px;
+    padding: 15px 15px;
     position: relative;
     transition: 0.5s;
     color: black;
     text-decoration: none;
     overflow: hidden;
-    border-radius: 5px; 
+    border-radius: 100%; 
     }
 
     .glide-card-memory .btn .fa-heart {
@@ -1305,6 +1307,8 @@ bottom: 0%;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .recipeInfo-container h1 {
@@ -1334,7 +1338,9 @@ bottom: 0%;
 }
 
 .recipe-details  {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .recipe-details img {
@@ -1364,9 +1370,11 @@ bottom: 0%;
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
+    display: grid;
     flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
 }
 
 .ingredient-icons h2 {
