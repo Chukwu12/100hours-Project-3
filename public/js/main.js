@@ -160,8 +160,18 @@ sign_in_btn.addEventListener('click', ()=> {
 document.addEventListener('DOMContentLoaded', () => {
     const inputBox = document.getElementById('input-box');
     const suggestionsBox = document.getElementById('suggestions');
+    let timeoutId;
 
-    inputBox.addEventListener('input', async () => {
+    // Debounce function to limit the number of API calls
+    function debounce(func, delay) {
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    // Function to fetch and display suggestions
+    const fetchSuggestions = async () => {
         const query = inputBox.value.trim();
         if (query.length < 2) {
             suggestionsBox.style.display = 'none'; // Hide suggestions if input is too short
@@ -169,24 +179,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${query}&number=5&apiKey=15b2edef64f24d2c95b3cc72e3ad8f87`);
+            const encodedQuery = encodeURIComponent(query);
+            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=63a6ef094a164a9a8b3f902b8c5d74f5`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
-        
+
             // Clear previous suggestions
             suggestionsBox.innerHTML = '';
-        
+
             // Populate new suggestions
             if (Array.isArray(data)) {
                 data.forEach(item => {
                     const suggestionItem = document.createElement('div');
                     suggestionItem.className = 'suggestion-item';
                     suggestionItem.textContent = item.title;
+                    suggestionItem.tabIndex = 0; // Make items focusable
                     suggestionItem.addEventListener('click', () => {
                         inputBox.value = item.title;
                         suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                    });
+                    suggestionItem.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            inputBox.value = item.title;
+                            suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                        }
                     });
                     suggestionsBox.appendChild(suggestionItem);
                 });
@@ -196,6 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Error fetching suggestions:', error);
-        }        
-    });
+            suggestionsBox.innerHTML = '<div class="error-message">Failed to load suggestions.</div>';
+            suggestionsBox.style.display = 'block'; // Show error message
+        }
+    };
+
+    // Apply debounce to input event
+    inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
 });
+
