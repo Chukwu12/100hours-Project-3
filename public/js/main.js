@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const encodedQuery = encodeURIComponent(query);
-            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=63a6ef094a164a9a8b3f902b8c5d74f5`);
+            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
