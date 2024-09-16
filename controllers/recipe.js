@@ -84,73 +84,9 @@ const getRecipeDetails = async (req, res) => {
   }
 };
 
-const favoriteRecipe = async (req, res) => {
-    try {
-      //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
-      await Favorite.create({
-        user: req.user.id,
-        recipe: req.params.id,
-      });
-      console.log("Favorite has been added!");
-      res.redirect(`/recipe/${req.params.id}`);
-    } catch (err) {
-      console.log(err);
-    }
-}
 
- const likeRecipe = async (req, res) => {
-        try {
-          await Recipe.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-              $inc: { likes: 1 },
-            }
-          );
-          console.log("Likes +1");
-          res.redirect(`/recipe/${req.params.id}`);
-        } catch (err) {
-          console.log(err);
-        }
-    }
-
-    const getFavorites = async (req, res) => { 
-        console.log(req.user)
-        try {
-          //Since we have a session each request (req) contains the logged-in users info: req.user
-          //console.log(req.user) to see everything
-          //Grabbing just the posts of the logged-in user
-          const recipes = await Favorite.find({ user: req.user.id }).populate('recipe');
-    
-          console.log(recipes)
-    
-          //Sending post data from mongodb and user data to ejs template
-          res.render("favorites.ejs", { recipes: recipes, user: req.user });
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-    const deleteRecipe = async (req, res) => {
-        try {
-          // Find post by id
-          let recipe = await recipe.findById({ _id: req.params.id });
-          // Delete image from cloudinary
-          await cloudinary.uploader.destroy(recipe.cloudinaryId);
-          // Delete post from db
-          await Recipe.remove({ _id: req.params.id });
-          console.log("Deleted Recipe");
-          res.redirect("/profile");
-        } catch (err) {
-          res.redirect("/profile");
-        }
-      }
-  
 
 module.exports = {
     getRandomRecipes,
-    getRecipeDetails,
-    favoriteRecipe,
-    likeRecipe,
-    getFavorites,
-    deleteRecipe,  
+    getRecipeDetails, 
 };

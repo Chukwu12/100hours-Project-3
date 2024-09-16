@@ -1,9 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/multer");
+const authController = require("../controllers/auth");
+const homeController = require("../controllers/home");
 const profileController = require('../controllers/profile');
+const { ensureAuth } = require("../middleware/auth");
 
-//Enables user to create post w/ cloudinary for media uploads
-router.post("/createRecipe", upload.single("file"), profileController.createRecipe);
+//Main Routes 
+router.get("/", homeController.getIndex);
+router.get("/profile", ensureAuth, profileController.getProfile);
+router.get("/favorites", ensureAuth, profileController.getFavorites);
+
+//Routes for user login/signup
+router.get("/login", authController.getLogin);
+router.post("/login", authController.postLogin);
+router.get("/logout", authController.logout);
+router.get("/signup", authController.getSignup);
+router.post("/signup", authController.postSignup);
 
 module.exports = router;

@@ -34,8 +34,8 @@ const healthyController = require('./controllers/health');
  const recipeInfoController = require('./controllers/recipeInfo');
 const recipeController = require('./controllers/recipe');
 const mainController = require('./controllers/main');
-const authController = require("../controllers/auth");
- const profileController = require('./controllers/profile');
+//const authController = require("../controllers/auth");
+//const profileController = require('./controllers/profile');
 
 
 // Load environment variables
@@ -110,6 +110,7 @@ app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/create-recipes', healthyController.getHealthRecipes);
+
 
 
 

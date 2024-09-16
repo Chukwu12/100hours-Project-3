@@ -16,25 +16,30 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/recipe">Recipes</a></li>
-            <li><a href="/recipeInfo">Saved Recipes</a></li>
+            <li><a href="/profile">Profile</a></li>
             <li><a href="/create-recipes">Create Recipes</a></li>
         </ul>
     </nav>
 
 
-
+<!-- Login Form -->
 <section id="login-form">
     <div class="container">
         <div class="signin-signup">
-            <form action="" class="sign-in-form">
+            <form action="/login" class="sign-in-form" method="POST">
                 <h2 class="title">Sign in</h2>
-                <div class="input-field">
+                <% if (messages && messages.length > 0) { %>
+                    <% messages.forEach((msg) => { %>
+                      <div class="alert alert-danger"><%= msg.msg %></div>
+                    <% }) %>
+                  <% } %>
+                  <div class="input-field">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Username">
-                </div>
+                    <input type="text" name="email" placeholder="Email">
+                  </div>
                 <div class="input-field">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Password">
+                    <input type="password" name="password"  id="exampleInputPassword1" placeholder="Password">
                 </div>
                 <input type="submit" value="Login" class="btn">
                 <p class="social-text">Or Sign in with social platform</p>
@@ -54,19 +59,26 @@
                 </div>
                 <p class="account-text">Don't have an account? <a href="#" id="sign-up-btn2">Sign up</a></p>
             </form>
-            <form action="login" class="sign-up-form" method="POST">
+
+      <!-- Signup Form -->
+            <form action="/signup" class="sign-up-form" method="POST">
                 <h2 class="title">Sign up</h2>
+                <% if (messages && messages.length > 0) { %>
+                    <% messages.forEach((msg) => { %>
+                      <div class="alert alert-danger"><%= msg.msg %></div>
+                    <% }) %>
+                  <% } %>
                 <div class="input-field">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Username">
+                    <input type="text"  name="userName" placeholder="Username">
                 </div>
                 <div class="input-field">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="text" placeholder="Email">
+                    <input type="email"  name="email" aria-describedby="emailHelp" placeholder="Email">
                 </div>
                 <div class="input-field">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="Password">
                 </div>
                 <input type="submit" value="Sign up" class="btn">
                 <p class="social-text">Or Sign in with social platform</p>
