@@ -1,4 +1,5 @@
 const Recipe = require("../models/Recipe");
+const Favorite = require("../models/Favorite"); 
 const cloudinary = require("../middleware/cloudinary");
 
 
@@ -10,7 +11,7 @@ const cloudinary = require("../middleware/cloudinary");
         //Grabbing just the posts of the logged-in user
         const recipes = await Recipe.find({ user: req.user.id });
         //Sending post data from mongodb and user data to ejs template
-        res.render("profile.ejs", { recipes: recipes, user: req.user });
+        res.render("profile", { recipes: recipes, user: req.user });
       } catch (err) {
         console.log(err);
       }
@@ -23,7 +24,7 @@ const cloudinary = require("../middleware/cloudinary");
           //http://localhost:2121/post/631a7f59a3e56acfc7da286f
           //id === 631a7f59a3e56acfc7da286f
           const recipe = await Recipe.findById(req.params.id);
-          res.render("recipe.ejs", { recipe: recipe, user: req.user});
+          res.render("profile", { recipe: recipe, user: req.user});
         } catch (err) {
           console.log(err);
         }
@@ -77,7 +78,7 @@ const cloudinary = require("../middleware/cloudinary");
           console.log("Deleted Recipe");
           res.redirect("/profile");
         } catch (err) {
-          res.redirect("/profile");
+          res.redirect("profile");
         }
       }
     
@@ -93,7 +94,7 @@ const cloudinary = require("../middleware/cloudinary");
           console.log(recipes)
     
           //Sending post data from mongodb and user data to ejs template
-          res.render("favorites.ejs", { recipes: recipes, user: req.user });
+          res.render("favorites", { recipes: recipes, user: req.user });
         } catch (err) {
           console.log(err);
         }

@@ -113,6 +113,29 @@
     </div>
   </div> 
 
+  <div class="favorite-container">
+    <div class="col-6">
+      <ul class="row list-unstyled">
+      <% for(var i=0; i<recipes.length; i++) {%>
+        <li class="col-6 justify-content-between mt-5">
+          <a href="/recipe/<%= recipes[i].recipe._id%>">
+            <h2><%= recipes[i].recipe.name%></h2>
+            <img class="img-fluid" src="<%= recipes[i].recipe.image%>">
+            <p><%= recipes[i].recipe.ingredients%></p>
+            <p><%= recipes[i].recipe.directions%></p>
+          </a>
+        </li>
+      <% } %>
+      </ul>
+      <div class="row justify-content-center mt-5">
+        <a class="btn btn-primary" href="/feed">Return to Feed</a>
+      </div>  
+    </div>  
+  </div>
+</div>
+</div>
+  </div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <!-- Custom JS -->
