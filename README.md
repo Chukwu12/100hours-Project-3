@@ -12,9 +12,8 @@ Recipe Browsing: Explore a variety of recipes categorized into:
 
 * Favorite: Mark recipes you love. :hearts: <br> 
 * Like: Show your appreciation for a recipe. :thumbsup: <br> 
-* Delete: :wastebasket: Remove recipes you no longer wish to see.<br>
-* View: :mag: <br>
- _See detailed information about the recipe including ingredients and instructions_.
+* Delete: Remove recipes you no longer wish to see. :wastebasket: <br>
+* View: See detailed information about the recipe including ingredients and instructions. :mag:
 
 **Cuisine Categories: Navigate through various cuisines using the navbar**:
 * African :rice:
