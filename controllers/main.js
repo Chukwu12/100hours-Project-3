@@ -17,7 +17,7 @@ router.get('/recipe', async(req, res) => {
           recipes,
           desserts,
           healthTips,
-          //user: req.user // Pass user data if needed
+          user: req.user // Pass user data if needed
       };
 
 

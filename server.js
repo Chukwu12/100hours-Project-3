@@ -12,11 +12,6 @@ const connectDB = require('./config/database');
 const path = require('path');
 const multer = require('multer');
 
-
-// Import Models 
-const Recipe = require('./models/Recipe');
-
-
 // Import routes
 const homeRoutes = require('./routes/home');
 const recipeRoutes = require('./routes/recipe');
@@ -93,9 +88,8 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
-app.use('/api', recipeRoutes);
 app.use('/', recipeRoutes);
-app.use('/', dessertRoutes);
+app.use('/dessert', dessertRoutes);
 app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
@@ -107,6 +101,7 @@ app.use('/recipeInfo', recipeInfoRoutes);
  // Define your route directly if necessary
 app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
+app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/create-recipes', healthyController.getHealthRecipes);

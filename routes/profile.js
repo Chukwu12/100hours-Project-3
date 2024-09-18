@@ -1,15 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth");
-const homeController = require("../controllers/home");
 const profileController = require('../controllers/profile');
 const upload = require("../middleware/multer");
 const { ensureAuth } = require("../middleware/auth");
 
 //Main Routes 
-// router.get("/", homeController.getIndex);
-router.get("/profile", profileController.getProfile);
-router.get("/favorites", ensureAuth, profileController.getFavorites);
+router.get("/profile", ensureAuth, profileController.getProfile);
+router.get("/favorites", profileController.getFavorites);
 
 //Routes for user login/signup
 router.get("/login", authController.getLogin);
