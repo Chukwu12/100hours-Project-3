@@ -1,44 +1,45 @@
 # Recipe App
 Welcome to the Recipe App! This application is designed to help you explore and manage a diverse collection of recipes. Whether you're looking for healthy options, sweet desserts, or recipes from different cuisines, this app has got you covered.
-##Features
-User Accounts: Create an account to start using the app. Once registered, you can fully access all features.
+## Features
+**User Accounts: Create an account to start using the app. Once registered, you can fully access all features**.<br>
 
-Recipe Browsing: Explore a variety of recipes categorized into:
+Recipe Browsing: Explore a variety of recipes categorized into: 
+* Random Recipes: Discover a new recipe at random.<br>
+* Healthy Recipes: Find recipes that are good for your health.<br>
+* Dessert Recipes: Indulge in sweet treats.<br>
 
-Random Recipes: Discover a new recipe at random.
-Healthy Recipes: Find recipes that are good for your health.
-Dessert Recipes: Indulge in sweet treats.
-Recipe Management: Each recipe card provides the following options:
+**Recipe Management: Each recipe card provides the following options**:
 
-Favorite: Mark recipes you love.
-Like: Show your appreciation for a recipe.
-Delete: Remove recipes you no longer wish to see.
-View: See detailed information about the recipe including ingredients and instructions.
+* Favorite: Mark recipes you love. :hearts: <br> 
+* Like: Show your appreciation for a recipe. :thumbsup: <br> 
+* Delete: :wastebasket: Remove recipes you no longer wish to see.<br>
+* View: :mag: <br>
+ _See detailed information about the recipe including ingredients and instructions_.
 
-Cuisine Categories: Navigate through various cuisines using the navbar:
-African
-American
-Asian
-Mexican
-Each category generates recipes specific to that cuisine.
+**Cuisine Categories: Navigate through various cuisines using the navbar**:
+* African :rice:
+* American :hamburger:
+* Asian :ramen:
+* Mexican :taco: <br>
+_Each category generates recipes specific to that cuisine_.
 
-Search Bar: Use the search bar to find any recipe provided by the Spoonacular API. This feature allows you to search for recipes based on ingredients, dish names, or other criteria.
+**Search Bar: Use the search bar to find any recipe provided by the Spoonacular API. This feature allows you to search for recipes based on ingredients, dish names, or other criteria**.<br>
 
-Profile Management: Access your profile to:
+  Profile Management: Access your profile to:
 
-Create Recipes: Share your own recipes with details and a photo.
-Leave Feedback: Comment on recipes and provide feedback.
-View Favorite Recipes: Review all the recipes you have favorited.
+* Create Recipes: Share your own recipes with details and a photo.
+* Leave Feedback: Comment on recipes and provide feedback.
+* View Favorite Recipes: Review all the recipes you have favorited.
 
-##Tech Stack
-HTML/CSS: For styling and layout.
-JavaScript: For dynamic interactions.
-EJS: Embedded JavaScript templates for rendering HTML.
-Bootstrap: For responsive design and components.
-Node.js: Backend server environment to handle requests and manage data.
-Spoonacular API: Provides access to a vast collection of recipes and their details.
+## Tech Stack :man_technologist: 
+* HTML/CSS: For styling and layout.<br>
+* JavaScript: For dynamic interactions.<br>
+* EJS: Embedded JavaScript templates for rendering HTML.<br>
+* Bootstrap: For responsive design and components.<br>
+* Node.js: Backend server environment to handle requests and manage data.<br>
+* Spoonacular API: Provides access to a vast collection of recipes and their details.
 
-##Contribution
+## Contribution
 Feel free to contribute to this project by submitting issues or pull requests. Your feedback and suggestions are welcome!
 
 License
