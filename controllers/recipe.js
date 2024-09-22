@@ -32,8 +32,15 @@ const getRandomRecipes = async (req, res) => {
             ...recipe,
             servings: recipe.servings,  // Get the number of servings
             readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
-            numberOfIngredients: recipe.extendedIngredients.length  // Number of ingredients
+            numberOfIngredients: recipe.extendedIngredients.length,  // Number of ingredients
+            instructions: recipe.instructions,
+            spoonacularId: recipe.id, // Save the Spoonacular ID
+        
         }));
+
+         // Use insertMany for batch processing
+         await Recipe.insertMany(recipes);
+         console.log('Recipes saved successfully');
         
         return recipes;
       } catch (error) {
@@ -86,7 +93,88 @@ const getRecipeDetails = async (req, res) => {
 
 
 
+const favoriteRecipe = async (req, res) => {
+    try {
+      //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
+      await Favorite.create({
+        user: req.user.id,
+        recipe: req.params.id,
+      });
+      console.log("Favorite has been added!");
+      res.redirect(`/recipe/${req.params.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const likeRecipe = async (req, res) => {
+    try {
+        const recipeId = req.params.id;  // This should be the MongoDB ObjectId
+
+        // Find the recipe by ID and increment the likes
+        const recipe = await Recipe.findByIdAndUpdate(
+            recipeId,
+            { $inc: { likes: 1 } }, // Increment likes
+            { new: true } // Return the updated recipe
+        );
+
+        if (!recipe) {
+            return res.status(404).send('Recipe not found');
+        }
+
+        // Redirect back to the recipe page or return JSON
+        res.redirect(`/recipe/${recipe._id}`); // Adjust based on your routing
+    } catch (error) {
+        console.error('Error liking recipe:', error.message);
+        res.status(500).send('Error liking recipe');
+    }
+};
+
+const saveRecipe = async (recipeData) => {
+    const { id, servings, readyInMinutes, ingredients, likes, user ,createdAt } = recipeData;
+
+    // Create a new Recipe instance
+    const newRecipe = new Recipe({
+        spoonacularId: id, // Use the Spoonacular ID
+        servings,
+        readyInMinutes,
+        instructions,
+        ingredients,
+        likes,
+        user,
+        createdAt,
+        // Other fields...
+    });
+
+    try {
+        await newRecipe.save(); // Save to the database
+        console.log('Recipe saved successfully');
+    } catch (error) {
+        console.error('Error saving recipe:', error.message);
+    }
+};
+
+   // Function to get a recipe by Spoonacular ID
+   const getRecipeBySpoonacularId = async (spoonacularId) => {
+    try {
+        const recipe = await Recipe.findOne({ spoonacularId });
+        if (!recipe) {
+            throw new Error('Recipe not found');
+        }
+        return recipe;
+    } catch (error) {
+        console.error('Error retrieving recipe:', error.message);
+    }
+};
+
+
+
+
 module.exports = {
     getRandomRecipes,
     getRecipeDetails, 
+    favoriteRecipe,
+    likeRecipe,
+    saveRecipe,
+    getRecipeBySpoonacularId,   
 };

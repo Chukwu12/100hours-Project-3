@@ -64,8 +64,12 @@ const cloudinary = require("../middleware/cloudinary");
           res.redirect(`/recipe/${req.params.id}`);
         } catch (err) {
           console.log(err);
+          console.log("Recipe ID:", req.params.id);
+          res.status(500).send('Error liking recipe');
         }
       }
+
+      
 
       const deleteRecipe = async (req, res) => {
         try {
