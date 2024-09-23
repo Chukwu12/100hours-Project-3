@@ -5,15 +5,16 @@ const homeController = require('../controllers/home');
 const authController = require("../controllers/auth");
 const profileController = require("../controllers/profile");
 const mainController = require("../controllers/main");
-const { ensureAuth, ensureGuest } = require("../middleware/auth");
+const { ensureAuth } = require("../middleware/auth");
 
 // Home Route
-router.get('/', homeController.getIndex) 
-// Profile Route
-router.get("/profile", profileController.getProfile);
+router.get('/', homeController.getIndex);
 
-//Favorite Route
-router.get("/favorites", ensureAuth, profileController.getFavorites);
+// Profile Route
+router.get("/profile",ensureAuth, profileController.getProfile);
+
+// Recipe Route - Combined Data
+router.get("/main", ensureAuth, mainController.combinedData); // Ensure the user is authenticated
 
 // Login Routes
 router.get("/login", authController.getLogin);
@@ -25,9 +26,5 @@ router.get("/logout", authController.logout);
 // Signup Routes
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-
-// Recipe Route - Protected
-// router.get("/recipe", ensureAuth, mainController.combinedData);
-
 
 module.exports = router

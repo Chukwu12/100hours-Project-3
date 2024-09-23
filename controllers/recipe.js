@@ -109,11 +109,11 @@ const favoriteRecipe = async (req, res) => {
 
   const likeRecipe = async (req, res) => {
     try {
-        const recipeId = req.params.id;  // This should be the MongoDB ObjectId
+        const spoonacularId = req.params.id;  // This should be the MongoDB ObjectId
 
         // Find the recipe by ID and increment the likes
-        const recipe = await Recipe.findByIdAndUpdate(
-            recipeId,
+        const recipe = await Recipe.findOneAndUpdate(
+            { spoonacularId: spoonacularId }, // Use spoonacularId here
             { $inc: { likes: 1 } }, // Increment likes
             { new: true } // Return the updated recipe
         );
@@ -122,8 +122,8 @@ const favoriteRecipe = async (req, res) => {
             return res.status(404).send('Recipe not found');
         }
 
-        // Redirect back to the recipe page or return JSON
-        res.redirect(`/recipe/${recipe._id}`); // Adjust based on your routing
+     // Return the updated recipe
+     return res.status(200).json(recipe);
     } catch (error) {
         console.error('Error liking recipe:', error.message);
         res.status(500).send('Error liking recipe');
@@ -131,28 +131,31 @@ const favoriteRecipe = async (req, res) => {
 };
 
 const saveRecipe = async (recipeData) => {
-    const { id, servings, readyInMinutes, ingredients, likes, user ,createdAt } = recipeData;
+    const { id, servings, readyInMinutes, instructions, ingredients, likes = 0, user, createdAt = new Date() } = recipeData;
 
-    // Create a new Recipe instance
-    const newRecipe = new Recipe({
+     // Create a new Recipe instance
+     const newRecipe = new Recipe({
         spoonacularId: id, // Use the Spoonacular ID
         servings,
         readyInMinutes,
-        instructions,
-        ingredients,
+        instructions, // Ensure this field is included
+        ingredients, // Directly assign the ingredients array
         likes,
         user,
         createdAt,
-        // Other fields...
+        // Other fields can be added here if needed
     });
-
+    
     try {
-        await newRecipe.save(); // Save to the database
-        console.log('Recipe saved successfully');
+        const savedRecipe = await newRecipe.save(); // Save to the database
+        console.log('Recipe saved successfully:', savedRecipe);
+        return savedRecipe; // Return the saved recipe
     } catch (error) {
         console.error('Error saving recipe:', error.message);
+        throw new Error('Could not save recipe'); // Rethrow for further handling
     }
 };
+
 
    // Function to get a recipe by Spoonacular ID
    const getRecipeBySpoonacularId = async (spoonacularId) => {
