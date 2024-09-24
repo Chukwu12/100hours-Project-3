@@ -1,7 +1,7 @@
 const User = require('../models/User'); // Adjust the path based on your structure
 const bcrypt = require('bcrypt');
- const passport = require('passport');
-const validator = require('validator');
+//  const passport = require('passport');
+ const validator = require('validator');
 
 exports.getLogin = (req, res) => {
     res.render('index', { messages: req.flash('error') }); // Render index.ejs with error messages
@@ -43,10 +43,20 @@ exports.postSignup = async (req, res) => {
     const { userName, email, password } = req.body;
 
     // Simple email validation
-    if (!validator.isEmail(email)) {
-      req.flash('error', 'Invalid email format.');
-      return res.redirect('/signup');
+    if (!userName || !email || !password) {
+        req.flash('error', 'All fields are required.');
+        return res.redirect('/signup');
   }
+
+  if (!validator.isEmail(email)) {
+    req.flash('error', 'Invalid email format.');
+    return res.redirect('/signup');
+}
+
+if (password.length < 6) {
+    req.flash('error', 'Password must be at least 6 characters long.');
+    return res.redirect('/signup');
+}
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);

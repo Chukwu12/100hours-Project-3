@@ -3,7 +3,7 @@ const router = express.Router();
 const recipeController = require('../controllers/recipe');
 const dessertController = require('../controllers/dessert');
 const healthController = require('../controllers/health');
-const {ensureAuth} = require('../middleware/auth')
+ const {ensureAuth} = require('../middleware/auth')
 
 router.get('/recipe', ensureAuth, async(req, res) => {
     try{
@@ -16,7 +16,8 @@ router.get('/recipe', ensureAuth, async(req, res) => {
     const combinedData = {
         recipes,
         desserts, 
-        healthTips
+        healthTips,
+        user: req.user // Pass user data if needed
       };
 
       // Render the EJS template with the combined data

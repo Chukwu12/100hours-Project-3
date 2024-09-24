@@ -17,10 +17,50 @@
             <div class="alert alert-danger"><%= el.msg %></div>
         <% }) %>    
     <% } %>
-    <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit">
-    </form>
+
+    
+    <section id="login-form">
+        <div class="container">
+            <div class="signin-signup">
+                <form action="/login" class="sign-in-form" method="POST">
+                    <h2 class="title">Sign in</h2>
+                    <% if (messages && messages.length > 0) { %>
+                        <% messages.forEach((msg) => { %>
+                          <div class="alert alert-danger"><%= msg.msg %></div>
+                        <% }) %>
+                      <% } %>
+                      <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="email" placeholder="Email">
+                      </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="password"  id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <input type="submit" value="Login" class="btn">
+                    <p class="social-text">Or Sign in with social platform</p>
+                    <div class="social-media">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="" class="social-icon">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="account-text">Don't have an account? <a href="#" id="sign-up-btn2">Sign up</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <% if (messages.error) { %>
+        <div class="alert alert-danger"><%= messages.error %></div>
+      <% } %>
 </body>
 </html>

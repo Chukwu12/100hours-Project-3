@@ -127,6 +127,10 @@
     messages.info.forEach( el => { %>
     <div class="alert alert-info"><%= el.msg %></div>
     <% }) %> <% } %>
+
+    <% if (messages.error) { %>
+        <div class="alert alert-danger"><%= messages.error %></div>
+      <% } %>
     
     <script src='js/main.js'></script>
 </body>

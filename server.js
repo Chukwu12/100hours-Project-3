@@ -28,9 +28,10 @@ const dessertController = require('./controllers/dessert');
 const healthyController = require('./controllers/health');
  const recipeInfoController = require('./controllers/recipeInfo');
 const recipeController = require('./controllers/recipe');
-const mainController = require('./controllers/main');
-//const authController = require("../controllers/auth");
+// const mainController = require('./controllers/main');
+// const authController = require("../controllers/auth");
 //const profileController = require('./controllers/profile');
+
 
 
 // Load environment variables
@@ -94,10 +95,9 @@ app.use('/dessert', dessertRoutes);
 app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
- app.use('/dessert', dessertRoutes);
- app.use('/main', mainRoutes);
- app.use('/', mainController);
+ app.use('/', mainRoutes);
  app.use('/createRecipe', profileRoutes);
+
 
  // Define your route directly if necessary
 app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
@@ -106,6 +106,7 @@ app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/create-recipes', healthyController.getHealthRecipes);
+app.get('/auth,authController.')
 
 
 

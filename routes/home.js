@@ -6,6 +6,18 @@ const authController = require("../controllers/auth");
 const profileController = require("../controllers/profile");
 const mainController = require("../controllers/main");
 const { ensureAuth } = require("../middleware/auth");
+const passport = require('passport'); // Import passport
+
+
+
+// Log the imported controllers to check for any issues
+// console.log(homeController, authController, profileController, mainController);
+console.log('Home Controller:', homeController);
+console.log('Auth Controller:', authController);
+console.log('Main Controller:', mainController);
+
+
+
 
 // Home Route
 router.get('/', homeController.getIndex);
@@ -18,7 +30,12 @@ router.get("/main", ensureAuth, mainController.combinedData); // Ensure the user
 
 // Login Routes
 router.get("/login", authController.getLogin);
-router.post("/login", authController.postLogin);
+router.post("/login", passport.authenticate('local', {
+    successRedirect: '/profile',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
 
 // Logout Route
 router.get("/logout", authController.logout);

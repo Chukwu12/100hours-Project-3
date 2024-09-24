@@ -12,12 +12,55 @@
             <div class="alert alert-danger"><%= el.msg %></div>
         <% }) %>    
     <% } %>
-    <form action="/signup" method="POST">
-        <input type="text" name="userName" placeholder="User Name">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="password" name="confirmPassword" placeholder="Confirm Password">
-        <input type="submit">
-    </form>
+   <!-- Signup Form -->
+
+   <section id="login-form">
+    <div class="container">
+        <div class="signin-signup">
+        <form action="/signup" class="sign-up-form" method="POST">
+            <h2 class="title">Sign up</h2>
+            <% if (messages && messages.length > 0) { %>
+                <% messages.forEach((msg) => { %>
+                  <div class="alert alert-danger"><%= msg.msg %></div>
+                <% }) %>
+              <% } %>
+            <div class="input-field">
+                <i class="fa-solid fa-user"></i>
+                <input type="text"  name="userName" placeholder="Username">
+            </div>
+            <div class="input-field">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email"  name="email" aria-describedby="emailHelp" placeholder="Email">
+            </div>
+            <div class="input-field">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <input type="submit" value="Sign up" class="btn">
+            <p class="social-text">Or Sign in with social platform</p>
+            <div class="social-media">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="" class="social-icon">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="" class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <p class="account-text">Already have an account? <a href="#" id="sign-in-btn2">Sign in</a></p>
+        </form>
+        </div>
+    </div>
+    </section>
+
+    <% if (messages.error) { %>
+        <div class="alert alert-danger"><%= messages.error %></div>
+      <% } %>
+   
 </body>
 </html>
