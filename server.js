@@ -28,9 +28,9 @@ const dessertController = require('./controllers/dessert');
 const healthyController = require('./controllers/health');
  const recipeInfoController = require('./controllers/recipeInfo');
 const recipeController = require('./controllers/recipe');
-// const mainController = require('./controllers/main');
-// const authController = require("../controllers/auth");
-//const profileController = require('./controllers/profile');
+ const mainController = require('./controllers/main');
+//  const authController = require('./controllers/auth'); 
+const profileController = require('./controllers/profile');
 
 
 
@@ -58,7 +58,6 @@ app.use(logger("dev"));
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public')); // Serve static files
-app.use(session({ secret: 'yourSecret', resave: false, saveUninitialized: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger('dev'))
@@ -69,7 +68,7 @@ app.use(methodOverride("_method")); //Use forms for put / delete
 // Sessions
 app.use(
   session({
-    secret: 'keyboard cat', // Change this to a more secure and unique secret in production
+    secret: 'SESSION_SECRET', // Change this to a more secure and unique secret in production
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -106,9 +105,9 @@ app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/create-recipes', healthyController.getHealthRecipes);
-app.get('/auth,authController.')
-
-
+// app.get('/login', authController.getLogin);
+app.get('/profile', profileController.getProfile);
+app.get('/main', mainController.combinedData );
 
 
 // Global error handling middleware (optional)

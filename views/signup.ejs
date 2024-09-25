@@ -4,63 +4,134 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Receipt App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/bb1892d46f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
-    <% if (locals.messages.errors) { %>
-        <% messages.errors.forEach( el => { %>
-            <div class="alert alert-danger"><%= el.msg %></div>
-        <% }) %>    
-    <% } %>
-   <!-- Signup Form -->
+    <nav>
+        <img src="/image/onice-logo.png" alt="logo-img">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/recipe">Recipes</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/create-recipes">Create Recipes</a></li>
+        </ul>
+    </nav>
 
-   <section id="login-form">
+
+<!-- Login Form -->
+<section id="login-form">
     <div class="container">
         <div class="signin-signup">
-        <form action="/signup" class="sign-up-form" method="POST">
-            <h2 class="title">Sign up</h2>
-            <% if (messages && messages.length > 0) { %>
-                <% messages.forEach((msg) => { %>
-                  <div class="alert alert-danger"><%= msg.msg %></div>
-                <% }) %>
-              <% } %>
-            <div class="input-field">
-                <i class="fa-solid fa-user"></i>
-                <input type="text"  name="userName" placeholder="Username">
+            <form action="/login" class="sign-in-form" method="POST">
+                <h2 class="title">Sign in</h2>
+                <% if (messages && messages.length > 0) { %>
+                    <% messages.forEach((msg) => { %>
+                      <div class="alert alert-danger"><%= msg.msg %></div>
+                    <% }) %>
+                  <% } %>
+                  <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="email" placeholder="Email">
+                  </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password"  id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <input type="submit" value="Login" class="btn">
+                <p class="social-text">Or Sign in with social platform</p>
+                <div class="social-media">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="" class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <p class="account-text">Don't have an account? <a href="#" id="sign-up-btn2">Sign up</a></p>
+            </form>
+
+      <!-- Signup Form -->
+            <form action="/signup" class="sign-up-form" method="POST">
+                <h2 class="title">Sign up</h2>
+                <% if (messages && messages.length > 0) { %>
+                    <% messages.forEach((msg) => { %>
+                      <div class="alert alert-danger"><%= msg.msg %></div>
+                    <% }) %>
+                  <% } %>
+                <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text"  name="userName" placeholder="Username">
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email"  name="email" aria-describedby="emailHelp" placeholder="Email">
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <input type="submit" value="Sign up" class="btn">
+                <p class="social-text">Or Sign in with social platform</p>
+                <div class="social-media">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="" class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p class="account-text">Already have an account? <a href="#" id="sign-in-btn2">Sign in</a></p>
+            </form>
+        </div>
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Find your Recipe</h3>
+                    <p>Discover new dishes, save your favorites, and enjoy step-by-step instructions to create mouthwatering meals for any occasion. 
+                        Let's embark on a flavorful journey together and make every meal a delightful experience!</p>
+                    <button class="btn" id="sign-in-btn">Sign in</button>
+                </div>
+                <img src="/image/sign-in-logo.svg" alt="" class="image">
             </div>
-            <div class="input-field">
-                <i class="fa-solid fa-envelope"></i>
-                <input type="email"  name="email" aria-describedby="emailHelp" placeholder="Email">
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>New to the App?</h3>
+                    <p>Welcome back! Please log in to access your saved recipes, personalized meal plans, and continue your culinary adventure with our Recipe App.</p>
+                    <button class="btn" id="sign-up-btn">Sign up</button>
+                </div>
+                <img src="/image/sign-up-logo.svg" alt="" class="image">
             </div>
-            <div class="input-field">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" name="password" placeholder="Password">
-            </div>
-            <input type="submit" value="Sign up" class="btn">
-            <p class="social-text">Or Sign in with social platform</p>
-            <div class="social-media">
-                <a href="#" class="social-icon">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="" class="social-icon">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="" class="social-icon">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-            <p class="account-text">Already have an account? <a href="#" id="sign-in-btn2">Sign in</a></p>
-        </form>
         </div>
     </div>
-    </section>
+</section>
+
+<% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
+    <div class="alert alert-danger"><%= el.msg %></div>
+    <% }) %> <% } %> <% if (locals.messages.info) { %> <%
+    messages.info.forEach( el => { %>
+    <div class="alert alert-info"><%= el.msg %></div>
+    <% }) %> <% } %>
 
     <% if (messages.error) { %>
         <div class="alert alert-danger"><%= messages.error %></div>
       <% } %>
-   
+    
+    <script src='js/main.js'></script>
 </body>
 </html>

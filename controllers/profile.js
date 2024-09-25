@@ -4,7 +4,7 @@ const cloudinary = require("../middleware/cloudinary");
 
 
    const getProfile = async (req, res) => { 
-      console.log(req.user)
+      console.log(req.user) // Logs the current user object from the session v
       try {
         //Since we have a session each request (req) contains the logged-in users info: req.user
         //console.log(req.user) to see everything

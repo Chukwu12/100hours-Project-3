@@ -1,10 +1,11 @@
+
 const User = require('../models/User'); // Adjust the path based on your structure
 const bcrypt = require('bcrypt');
 //  const passport = require('passport');
  const validator = require('validator');
 
 exports.getLogin = (req, res) => {
-    res.render('index', { messages: req.flash('error') }); // Render index.ejs with error messages
+    res.render('login', { messages: req.flash('error') }); // Render index.ejs with error messages
 };
 
 exports.postLogin = async (req, res, next) => {
