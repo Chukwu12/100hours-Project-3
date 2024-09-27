@@ -4,14 +4,17 @@ const profileController = require('../controllers/profile');
 const upload = require("../middleware/multer");
 // const { ensureAuth } = require("../middleware/auth");
 
-//Post Routes
-//Since linked from server js treat each path as:
-//post/:id, post/createPost, post/likePost/:id, post/deletePost/:id
-router.get("recipe/:id",  profileController.getRecipe);
+
+// Get user profile
+router.get("/profile", profileController.getProfile); // Make sure to create this method in your controller
+
+// Get a specific recipe
+router.get("/recipe/:id", profileController.getRecipe); // Ensure this method exists
 
 //Enables user to create post w/ cloudinary for media uploads
 router.post("/createRecipe", upload.single("file"), profileController.createRecipe);
 
+// Enables user to favorite a recipe
 router.post("/recipe/favoriteRecipe/:id", profileController.favoriteRecipe);
 
 //Enables user to like post. In controller, uses POST model to update likes by 1

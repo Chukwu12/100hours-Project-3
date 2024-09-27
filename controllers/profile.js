@@ -3,19 +3,25 @@ const Favorite = require("../models/Favorite");
 const cloudinary = require("../middleware/cloudinary");
 
 
-   const getProfile = async (req, res) => { 
-      console.log(req.user) // Logs the current user object from the session v
-      try {
-        //Since we have a session each request (req) contains the logged-in users info: req.user
-        //console.log(req.user) to see everything
-        //Grabbing just the posts of the logged-in user
-        const recipes = await Recipe.find({ user: req.user.id });
-        //Sending post data from mongodb and user data to ejs template
-        res.render("profile.ejs", { recipes: recipes, user: req.user });
-      } catch (err) {
-        console.log(err);
+const getProfile = async (req, res) => {
+  try {
+      const recipes = await Recipe.find({ user: req.user.id });
+
+      // Check if a specific recipe ID is requested
+      const recipeId = req.query.recipeId;
+      let likedRecipe = null;
+      if (recipeId) {
+          likedRecipe = await Recipe.findById(recipeId);
       }
-    }
+
+      // Render the profile with all recipes and the liked recipe if exists
+      res.render("profile.ejs", { recipes, user: req.user, likedRecipe });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching profile');
+  }
+};
+
 
     const getRecipe = async (req, res) => {
         try {
@@ -27,47 +33,68 @@ const cloudinary = require("../middleware/cloudinary");
           res.render("profile", { recipe: recipe, user: req.user});
         } catch (err) {
           console.log(err);
+          res.status(500).send("Error retrieving recipe");
         }
       }
 
-    const createRecipe = async (req, res) => {
+      const createRecipe = async (req, res) => {
         try {
-          // Upload image to cloudinary
-          const result = await cloudinary.uploader.upload(req.file.path);
+            // Check if the recipe with the same spoonacularId already exists
+            const existingRecipe = await Recipe.findOne({ spoonacularId: req.body.spoonacularId });
+            if (existingRecipe) {
+                return res.status(400).json({ error: "Recipe with this spoonacularId already exists." });
+            }
     
-          //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
-          await Recipe.create({
-            name: req.body.name,
-            image: result.secure_url,
-            cloudinaryId: result.public_id,
-            ingredients: req.body.ingredients,
-            directions: req.body.directions,
-            likes: 0,
-            user: req.user.id,
-          });
-          console.log("Post has been added!");
-          res.redirect("/profile");
+            // Upload image to Cloudinary
+            const result = await cloudinary.uploader.upload(req.file.path);
+            
+            // Create the recipe
+            await Recipe.create({
+                name: req.body.name,
+                image: result.secure_url,
+                cloudinaryId: result.public_id,
+                ingredients: req.body.ingredients,
+                directions: req.body.directions,
+                likes: 0,
+                spoonacularId: req.body.spoonacularId, // Make sure to include this field
+                user: req.user.id,
+            });
+    
+            console.log("Recipe has been added!");
+            res.redirect("/profile");
         } catch (err) {
-          console.log(err);
+            console.error(err);
+            res.status(500).send('Error creating recipe');
         }
-      }
+    };
+    
 
       const likeRecipe = async (req, res) => {
         try {
-          await Recipe.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-              $inc: { likes: 1 },
+            const recipe = await Recipe.findById(req.params.id);
+            
+            if (!recipe) {
+                return res.status(404).send('Recipe not found'); // Handle not found case
             }
-          );
-          console.log("Likes +1");
-          res.redirect(`/recipe/${req.params.id}`);
+    
+            await Recipe.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    $inc: { likes: 1 },
+                }
+            );
+            console.log("Likes +1");
+          // Fetch the updated recipe data
+        const updatedRecipe = await Recipe.findById(req.params.id);
+         // Redirect to the profile page with updated recipe data
+         res.redirect(`/profile?recipeId=${updatedRecipe._id}`);
         } catch (err) {
-          console.log(err);
-          console.log("Recipe ID:", req.params.id);
-          res.status(500).send('Error liking recipe');
+            console.log(err);
+            console.log("Recipe ID:", req.params.id);
+            res.status(500).send('Error liking recipe');
         }
-      }
+    };
+    
 
       
 
@@ -98,7 +125,7 @@ const cloudinary = require("../middleware/cloudinary");
           console.log(recipes)
     
           //Sending post data from mongodb and user data to ejs template
-          res.render("favorites", { recipes: recipes, user: req.user });
+          res.render("profile", { recipes: recipes, user: req.user });
         } catch (err) {
           console.log(err);
         }
@@ -112,7 +139,7 @@ const cloudinary = require("../middleware/cloudinary");
             recipe: req.params.id,
           });
           console.log("Favorite has been added!");
-          res.redirect(`/recipe/${req.params.id}`);
+          res.redirect(`/profile/${req.params.id}`);
         } catch (err) {
           console.log(err);
         }
