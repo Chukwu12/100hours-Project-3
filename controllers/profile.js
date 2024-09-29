@@ -3,35 +3,21 @@ const Favorite = require("../models/Favorite");
 const cloudinary = require("../middleware/cloudinary");
 
 
-const getProfile = async (req, res) => {
-  try {
-    if (!req.user || !req.user.id) {
-        return res.status(401).send('User not authenticated'); // Redirect to login if necessary
-    }
-
+const getProfile = async (req, res) => { 
+    console.log(req.user)
+    try {
+      //Since we have a session each request (req) contains the logged-in users info: req.user
+      //console.log(req.user) to see everything
+      //Grabbing just the posts of the logged-in user
       const recipes = await Recipe.find({ user: req.user.id });
-
-      // Check if a specific recipe ID is requested
-      const recipeId = req.query.recipeId;
-      let likedRecipe = null;
-      if (recipeId) {
-          likedRecipe = await Recipe.findById(recipeId);
-          if (!likedRecipe) {
-              return res.status(404).send('Recipe not found');
-          }
-      }
-
-      // Render the profile with all recipes and the liked recipe if exists
-      res.render("profile.ejs", { recipes, user: req.user, likedRecipe });
-  } catch (err) {
-      console.error(err);
-      res.status(500).send('Error fetching profile');
+      //Sending post data from mongodb and user data to ejs template
+      res.render("profile.ejs", { recipes: recipes, user: req.user });
+    } catch (err) {
+      console.log(err);
+    }
   }
-};
 
-      
-    
-
+  
       const likeRecipe = async (req, res) => {
         try {
             const recipe = await Recipe.findById(req.params.id);
