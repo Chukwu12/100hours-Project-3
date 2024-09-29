@@ -25,8 +25,12 @@ const getRandomRecipes = async (req, res) => {
                 limitLicense: true,
             }
         });
-        //console.log('API Response:', response.data); // Log response for debugging
-        
+
+         // Check if recipes exist in the response
+         if (!response.data || !response.data.recipes || response.data.recipes.length === 0) {
+            return res.status(404).json({ message: 'No recipes found' });
+        }
+
         // Extract recipes and add the readyInMinutes field
         const recipes = response.data.recipes.map(recipe => ({
             ...recipe,
@@ -35,8 +39,14 @@ const getRandomRecipes = async (req, res) => {
             numberOfIngredients: recipe.extendedIngredients.length,  // Number of ingredients
             instructions: recipe.instructions,
             spoonacularId: recipe.id, // Save the Spoonacular ID
-        
         }));
+
+         // Check for the required fields before inserting
+         const validRecipes = recipes.filter(recipe => recipe.image); // Ensure image is present
+
+         if (validRecipes.length === 0) {
+             return res.status(400).json({ message: 'No valid recipes to save' });
+         }
 
          // Use insertMany for batch processing
          await Recipe.insertMany(recipes);

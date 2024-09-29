@@ -21,14 +21,17 @@ const mainController = require("../controllers/main");
 router.get('/', homeController.getIndex);
 
 // Profile Route
-router.get("/profile", profileController.getProfile);
+router.get("/profile", ensureAuth, (req, res) => {
+  console.log('User:', req.user); // Log the user object
+  profileController.getProfile(req, res);
+});
 
 // Recipe Route - Combined Data
 router.get("/main", mainController.combinedData); // Ensure the user is authenticated
 
 
 // Login Routes
-router.get("/login", authController.getLogin);
+router.get("/login", ensureAuth, authController.getLogin);
 
 // Updated POST /login route with detailed error handling
 router.post("/login", (req, res, next) => {
@@ -49,6 +52,8 @@ router.post("/login", (req, res, next) => {
         return res.redirect('/recipe'); // Redirect to profile after successful login
       });
     })(req, res, next);
+ 
+
   });
 
 // Logout Route

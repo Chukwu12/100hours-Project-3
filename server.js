@@ -29,7 +29,7 @@ const healthyController = require('./controllers/health');
  const recipeInfoController = require('./controllers/recipeInfo');
 const recipeController = require('./controllers/recipe');
  const mainController = require('./controllers/main');
-//  const authController = require('./controllers/auth'); 
+ const authController = require('./controllers/auth'); 
 const profileController = require('./controllers/profile');
 
 
@@ -105,7 +105,7 @@ app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/create-recipes', healthyController.getHealthRecipes);
-// app.get('/login', authController.getLogin);
+ app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
 app.get('/main', mainController.combinedData );
 

@@ -9,10 +9,12 @@ exports.getLogin = (req, res) => {
 };
 
 exports.postLogin = async (req, res, next) => {
+    console.log('Login attempt:', req.body);  // Log the login attempt data
   const { email, password } = req.body;
   try {
       const user = await User.findOne({ email });
       if (!user) {
+        console.log('Login failed: User not found');
           req.flash('error', 'Invalid email or password.');
           return res.redirect('/login');
       }
@@ -27,6 +29,7 @@ exports.postLogin = async (req, res, next) => {
           if (err) {
               return next(err);
           }
+          console.log('Login successful:', user.email);
           res.redirect('/profile'); // Redirect to profile on success
       });
   } catch (error) {
