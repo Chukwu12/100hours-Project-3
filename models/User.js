@@ -31,12 +31,14 @@ const UserSchema = new mongoose.Schema({
 
 
 // Helper method for validating user's password.
-UserSchema.methods.comparePassword = function comparePassword(
-  candidatePassword,
-  cb
-) {
+UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
+  // If cb is not a function, throw an error
+  if (typeof cb !== 'function') {
+      throw new TypeError('cb must be a function');
+  }
+
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    cb(err, isMatch);
+      cb(err, isMatch);
   });
 };
 

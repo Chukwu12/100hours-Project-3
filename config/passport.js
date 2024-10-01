@@ -30,13 +30,13 @@ module.exports = function (passport) {
   
 
   passport.serializeUser((user, done) => {
-    done(null, user.id)
+    done(null, user.id) // Store user ID in session
   })
 
   passport.deserializeUser(async (id, done) => {
     try {
         const user = await User.findById(id);
-        done(null, user);
+        done(null, user); // Attach user object to req.user
     } catch (err) {
         done(err);
     }

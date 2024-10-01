@@ -9,11 +9,21 @@ const getProfile = async (req, res) => {
       //Since we have a session each request (req) contains the logged-in users info: req.user
       //console.log(req.user) to see everything
       //Grabbing just the posts of the logged-in user
+      // Check if user is authenticated
+      if (!req.user) {
+        return res.status(401).render("login", { error: "Please log in to access your profile." });
+    }
+     // Grabbing just the recipes of the logged-in user
       const recipes = await Recipe.find({ user: req.user.id });
+
+      console.log('Session:', req.session);
+      console.log('User:', req.user);  
+
       //Sending post data from mongodb and user data to ejs template
       res.render("profile.ejs", { recipes: recipes, user: req.user });
     } catch (err) {
-      console.log(err);
+      console.error('Error fetching profile:', err);
+        res.status(500).render("error", { error: "An error occurred while fetching your profile." });
     }
   }
 

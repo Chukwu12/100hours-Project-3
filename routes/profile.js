@@ -5,7 +5,7 @@ const profileController = require('../controllers/profile');
 
 
 // Get user profile
-router.get("/profile", ensureAuth, profileController.getProfile); // Make sure to create this method in your controller
+router.get("/", ensureAuth, profileController.getProfile); // Make sure to create this method in your controller
 
 // Enables user to favorite a recipe
 router.post("/recipe/favoriteRecipe/:id", profileController.favoriteRecipe);

@@ -4,7 +4,7 @@ const recipeController = require('../controllers/recipe');
 
 
 // Route to fetch recipe details by ID
-router.get('/recipeInfo/:id', recipeController.getRecipeDetails);
+router.get('/recipe/:id', recipeController.getRecipeDetails);
 
 // Route to like a recipe
 router.put('/recipe/likeRecipe/:id', recipeController.likeRecipe);

@@ -11,94 +11,84 @@ const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/informa
 console.log('API Key:', process.env.RECIPES_API_KEY);
 const getRandomRecipes = async (req, res) => {
     try {
-        // Check if the API key is available
         if (!RECIPES_API_KEY) {
             return res.status(401).json({ message: 'API key is missing' });
         }
-        
-        // Make the API request with the API key in the headers
+
         const response = await axios.get(RECIPES_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
-                number: 5,  // Number of random recipes to fetch
+                number: 5,
                 includeNutrition: true,
                 limitLicense: true,
             }
         });
 
-         // Check if recipes exist in the response
-         if (!response.data || !response.data.recipes || response.data.recipes.length === 0) {
+        // Check the response validity
+        if (!response || !response.data) {
+            return res.status(500).json({ message: 'Invalid API response' });
+        }
+
+        // Check for recipes
+        if (!response.data.recipes || response.data.recipes.length === 0) {
             return res.status(404).json({ message: 'No recipes found' });
         }
 
-        // Extract recipes and add the readyInMinutes field
-        const recipes = response.data.recipes.map(recipe => ({
-            ...recipe,
-            servings: recipe.servings,  // Get the number of servings
-            readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
-            numberOfIngredients: recipe.extendedIngredients.length,  // Number of ingredients
-            instructions: recipe.instructions,
-            spoonacularId: recipe.id, // Save the Spoonacular ID
-        }));
-
-         // Check for the required fields before inserting
-         const validRecipes = recipes.filter(recipe => recipe.image); // Ensure image is present
-
-         if (validRecipes.length === 0) {
-             return res.status(400).json({ message: 'No valid recipes to save' });
-         }
-
-         // Use insertMany for batch processing
-         await Recipe.insertMany(recipes);
-         console.log('Recipes saved successfully');
-        
-        return recipes;
-      } catch (error) {
-        console.error('Error fetching random recipes:', error.message);
-        res.status(500).json({ message: 'Error fetching random recipes' });
+        // Process recipes...
+        return response.data.recipes || []; 
+    } catch (error) {
+        console.error('Error fetching random recipes:', error);
+        return res.status(500).json({ message: 'Error fetching random recipes', error: error.message });
     }
 };
 
 
+
 // Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {
-  try {
-      const recipeId = req.params.id;
+    try {
+        // Check for API key
+        if (!RECIPES_API_KEY) {
+            return res.status(401).json({ message: 'API key is missing' });
+        }
 
-      if (!recipeId) {
-        return res.status(400).send('Recipe ID is required');
-      }
+        const recipeId = req.params.id;
+        if (!recipeId) {
+            return res.status(400).send('Recipe ID is required');
+        }
 
-      // Fetch recipe details from the API
-      const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
-          params: {
-              apiKey: RECIPES_API_KEY,
-          }
-      });
+        // Fetch recipe details from the API
+        const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
+            params: {
+                apiKey: RECIPES_API_KEY,
+            }
+        });
 
-      const recipe = response.data;
+        const recipe = response.data;
 
-      // Validate that the recipe data contains the expected fields
-    if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {
-      return res.status(500).send('Recipe data is incomplete');
+        // Validate recipe data
+        if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {
+            return res.status(500).send('Recipe data is incomplete');
+        }
+
+        // Render the recipe details page
+        res.render('recipeInfo', {
+            recipe: {
+                title: recipe.title,
+                image: recipe.image,
+                servings: recipe.servings,
+                readyInMinutes: recipe.readyInMinutes,
+                instructions: recipe.instructions,
+                ingredients: recipe.extendedIngredients
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching recipe details:', error.message);
+        if (error.response && error.response.status === 404) {
+            return res.status(404).send('Recipe not found');
+        }
+        res.status(500).send('Error fetching recipe details');
     }
-
-
-      // Render the recipe details page
-      res.render('recipeInfo', {
-          recipe: {
-              title: recipe.title,
-              image: recipe.image,
-              servings: recipe.servings,
-              readyInMinutes: recipe.readyInMinutes,
-              instructions: recipe.instructions,
-              ingredients: recipe.extendedIngredients
-          }
-      });
-  } catch (error) {
-      console.error('Error fetching recipe details:', error.message);
-      res.status(500).send('Error fetching recipe details');
-  }
 };
 
 

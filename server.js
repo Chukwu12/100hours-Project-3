@@ -52,19 +52,6 @@ app.use(express.json());
 app.use(logger("dev"));
 
 
-
-
-// Middleware
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static('public')); // Serve static files
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-app.use(logger('dev'))
-app.use(methodOverride("_method")); //Use forms for put / delete
-
-
-
 // Sessions
 app.use(
   session({
@@ -78,6 +65,15 @@ app.use(
   })
 );
 
+// Middleware
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('public')); // Serve static files
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(logger('dev'))
+app.use(methodOverride("_method")); //Use forms for put / delete
+
 
 // Passport middleware
 app.use(passport.initialize());
@@ -89,13 +85,13 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
-app.use('/', recipeRoutes);
+// app.use('/', recipeRoutes);
 app.use('/dessert', dessertRoutes);
 app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/', mainRoutes);
- app.use('/createRecipe', profileRoutes);
+ app.use('/profile', profileRoutes);
 
 
  // Define your route directly if necessary
@@ -103,8 +99,7 @@ app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
-app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
-app.get('/create-recipes', healthyController.getHealthRecipes);
+// app.get('/create-recipes', healthyController.getHealthRecipes);
  app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
 app.get('/main', mainController.combinedData );
