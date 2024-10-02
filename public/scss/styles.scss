@@ -1,0 +1,43 @@
+$size: 35vw;
+$shadow: 35;
+$primary: white;
+$secondary: black;
+
+
+
+.recipe-headers .title {
+    background: var(--primary);
+    font-size: 4rem;
+    letter-spacing: 1vw;
+    line-height: 35vh;
+    margin: 0;
+    mix-blend-mode: lighten;
+    text-transform: uppercase;
+    $text-shadow: ();
+  @for $i from 1 through $shadow {
+    $text-shadow: $text-shadow, 1px * $i 1px * $i $secondary;
+  }
+  text-shadow: 0 0 0px, $text-shadow;
+} 
+
+  
+    &:before {
+      color: $primary;
+      content: attr(data-text);
+      margin-left: -1%;
+      margin-top: -1%;
+      position: absolute;
+    }
+  
+  
+  @keyframes sliding-background {
+    0%,
+    100% {
+      background-position: 0 40%;
+    }
+  
+    50% {
+      background-position: 100% 40%;
+    }
+  }
+  
