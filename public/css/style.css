@@ -985,12 +985,15 @@ transform: translateX(-150%);
 }
 
 .recipe-headers{
-    animation: sliding-background 50s linear infinite;
-    background: url(/public/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left / 120%;
     width: 100%;
     height: 30vh;
     margin-bottom: 100px;
     background-size: contain;
+}
+
+.random {
+    animation: sliding-background 50s linear infinite;
+    background: url(/public/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left / 120%;
 }
 
 .dessert {
@@ -1000,7 +1003,7 @@ transform: translateX(-150%);
 }
 
 .healthy{
-    background: url(/image/dan-gold-4_jhDO54BYg-unsplash.jpg) no-repeat left / 120%;;
+    background: url(/image/dan-gold-4_jhDO54BYg-unsplash.jpg) no-repeat left / 120%;
     animation: sliding-background 50s linear infinite;
     background-size: contain;
 }
@@ -1030,16 +1033,7 @@ transform: translateX(-150%);
   }
   
 
-.recipe-headers .title::before{
-    color: var(--primary);
-    content: attr(data-text);
-    margin-left: -1%;
-    margin-top: -1%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Behind the main text */
-}
+
 
 .recipe-headers img {
     width: 50px;
