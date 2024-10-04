@@ -3,41 +3,65 @@ $shadow: 35;
 $primary: white;
 $secondary: black;
 
+.random {
+  animation: sliding-background 50s linear infinite;
+  background: url(/public/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left / 120%;
+  background-size: contain;
+}
 
+.dessert {
+  background: url(/image/kobby-mendez-q54Oxq44MZs-unsplash.jpg) no-repeat left / 120%;
+  animation: sliding-background 50s linear infinite;
+  background-size: contain;
+}
 
-.recipe-headers .title {
+.healthy {
+  background: url(/image/dan-gold-4_jhDO54BYg-unsplash.jpg) no-repeat left / 120%;
+  animation: sliding-background 50s linear infinite;
+  background-size: contain;
+}
+
+.recipe-headers {
+  width: 100%;
+  height: 30vh;
+  margin-bottom: 100px;
+  background-size: contain;
+}
+
+.recipe-headers {
+  & .titles {
     background: var(--primary);
-    font-size: 4rem;
+    font-size: 8rem !important;
+    text-align: center;
     letter-spacing: 1vw;
-    line-height: 35vh;
+    line-height: 30vh;
     margin: 0;
     mix-blend-mode: lighten;
     text-transform: uppercase;
     $text-shadow: ();
-  @for $i from 1 through $shadow {
-    $text-shadow: $text-shadow, 1px * $i 1px * $i $secondary;
+    @for $i from 1 through $shadow {
+      $text-shadow: append($text-shadow, 1px * $i 1px * $i $secondary);
+    }
+    text-shadow:
+      0 0 0px,
+      $text-shadow;
   }
-  text-shadow: 0 0 0px, $text-shadow;
-} 
 
-  
-    &:before {
-      color: $primary;
-      content: attr(data-text);
-      margin-left: -1%;
-      margin-top: -1%;
-      position: absolute;
-    }
-  
-  
-  @keyframes sliding-background {
-    0%,
-    100% {
-      background-position: 0 40%;
-    }
-  
-    50% {
-      background-position: 100% 40%;
-    }
+  &:before {
+    color: $primary;
+    content: attr(data-text);
+    margin-left: -1%;
+    margin-top: -1%;
+    position: absolute;
   }
-  
+}
+
+@keyframes sliding-background {
+  0%,
+  100% {
+    background-position: 0 40%;
+  }
+  50% {
+    background-position: 100% 40%;
+  }
+}
