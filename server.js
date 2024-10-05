@@ -97,6 +97,7 @@ app.use('/recipeInfo', recipeInfoRoutes);
  // Define your route directly if necessary
 app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
+app.get('/dessert', dessertController.getRecipeDetails )
 app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
 // app.get('/create-recipes', healthyController.getHealthRecipes);

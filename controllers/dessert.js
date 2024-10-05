@@ -44,6 +44,10 @@ const getDessertRecipes = async (req, res) => {
 
 const getRecipeDetails = async (req, res) => {
     try {
+           // Check for API key
+           if (!RECIPES_API_KEY) {
+            return res.status(401).json({ message: 'API key is missing' });
+        }
         const recipeId = req.params.id;
   
         if (!recipeId) {
@@ -84,5 +88,5 @@ const getRecipeDetails = async (req, res) => {
 
 module.exports = {
     getDessertRecipes,
-    getRecipeDetails
+    getRecipeDetails,
 };

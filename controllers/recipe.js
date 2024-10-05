@@ -2,8 +2,6 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
-
-require('dotenv').config({ path: './config/.env' });
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';

@@ -988,56 +988,9 @@ transform: translateX(-150%);
     width: 100%;
     /* height: 30vh; */
     margin-bottom: 100px;
-    background-size: contain;
+    background-size: cover;
    
 }
-
-
-.recipe-headers .titles {
-      background: var(--primary);
-      font-size: 7rem !important;
-      text-align: center;
-      letter-spacing: 1vw;
-      /* line-height: 30vh; */
-      margin: 0;
-      mix-blend-mode: lighten;
-      text-transform: uppercase;
-    }
-
-    @keyframes sliding-background {
-        0%,
-        100% {
-          background-position: 0 40%;
-        }
-        50% {
-          background-position: 100% 40%;
-        }
-      }
-      
-  
-
-
-
-/* Recipes Headers animations */
-.random {
-    animation: sliding-background 50s linear infinite;
-    background: url(/public/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left / 120%;
-   
-  }
-  
-  .dessert {
-    background: url(/image/kobby-mendez-q54Oxq44MZs-unsplash.jpg) no-repeat left / 120%;
-    animation: sliding-background 50s linear infinite;
-    
-  }
-  
-  .healthy {
-    background: url(/image/dan-gold-4_jhDO54BYg-unsplash.jpg) no-repeat left / 120%;
-    animation: sliding-background 50s linear infinite;
-   
-  }
-
-
 
 
 .recipe-headers img {
