@@ -989,8 +989,7 @@ transform: translateX(-150%);
     /* height: 30vh; */
     margin-bottom: 100px;
     background-size: contain;
-    display: flex;
-    flex-wrap: wrap;
+   
 }
 
 
