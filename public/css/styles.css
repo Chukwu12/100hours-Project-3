@@ -1,6 +1,6 @@
 .random {
+  background: url(/image/recipeimg.jpg) no-repeat left/120%;
   animation: sliding-background 50s linear infinite;
-  background: url(/public/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left/120%;
 }
 
 .dessert {
@@ -16,7 +16,7 @@
 }
 
 .recipe-headers {
-  width: 100%;
+  width: 100vh;
   margin-bottom: 100px;
 }
 
