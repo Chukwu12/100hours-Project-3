@@ -1,5 +1,5 @@
 .random {
-  background: url(/image/recipeimg.jpg) no-repeat left/120%;
+  background: url(/image/recipesbg.jpg) no-repeat left/120%;
   animation: sliding-background 50s linear infinite;
 }
 
@@ -22,7 +22,7 @@
 
 .recipe-headers .titles {
   background: var(--primary);
-  font-size: 8rem !important;
+  font-size: 8rem;
   text-align: center;
   letter-spacing: 1vw;
   margin: 0;
@@ -30,6 +30,7 @@
   text-transform: uppercase;
   text-shadow: 0 0 0px, 1px 1px black 2px 2px black 3px 3px black 4px 4px black 5px 5px black 6px 6px black 7px 7px black 8px 8px black 9px 9px black 10px 10px black 11px 11px black 12px 12px black 13px 13px black 14px 14px black 15px 15px black 16px 16px black 17px 17px black 18px 18px black 19px 19px black 20px 20px black 21px 21px black 22px 22px black 23px 23px black 24px 24px black 25px 25px black 26px 26px black 27px 27px black 28px 28px black 29px 29px black 30px 30px black 31px 31px black 32px 32px black 33px 33px black 34px 34px black 35px 35px black;
 }
+
 .recipe-headers:before {
   color: white;
   content: attr(data-text);

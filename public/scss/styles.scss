@@ -25,11 +25,6 @@ $secondary: black;
 }
 
 .recipe-headers {
-  width: 100%;
-  margin-bottom: 100px;
-}
-
-.recipe-headers {
   & .titles {
     background: var(--primary);
     font-size: 8rem !important;

@@ -821,6 +821,7 @@ transform: translateX(-150%);
 /* Cusines Section */
 #cuisenes{
     height: 180px;
+    margin: 100px 0px;
 }
 
 .cuisenes{
@@ -986,7 +987,7 @@ transform: translateX(-150%);
 
 .recipe-headers{
     width: 100vh;
-    margin-bottom: 100px;
+    margin: 100px 0px;
 }
 
 
@@ -1443,4 +1444,33 @@ a[href="/api"]:hover {
     width: 20px; 
     height: 20px;
      margin-right: 10px;
+}
+
+
+/* Media Quries  */
+/* extra small devices */
+@media screen and (min-width: 575px) {
+    .nav ul {
+        margin-bottom: 0;
+    }
+    .hero-content h2 {
+        font-size: 3em;
+    }
+    .hero-content p{
+        font-size: 1rem;
+    }
+    .recipe-headers{
+        max-width: 600px;
+    }
+    .recipe-headers .titles{
+        font-size: 5rem !important;
+    }
+    #cuisenes{
+        margin: 0;
+    }
+    .glide form,
+    .glide-desserts form,
+    .glide-healthy form {
+        text-align: center;
+    }
 }
