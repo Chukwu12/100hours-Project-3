@@ -90,6 +90,10 @@ nav ul li a:hover {
     width: 100%;
 }
 
+#main-nav{
+    padding: 0 15px;
+}
+
 .recipe-hero{
     height: 50vh;
     display: flex;
@@ -1449,6 +1453,17 @@ a[href="/api"]:hover {
 
 /* Media Quries  */
 /* extra small devices */
+@media screen and (min-width: 320px) {
+    .cuisnes-list {
+        gap: 10px;
+    }
+}
+
+
+
+
+
+
 @media screen and (min-width: 575px) {
     .nav ul {
         margin-bottom: 0;
