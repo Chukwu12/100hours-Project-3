@@ -1453,10 +1453,87 @@ a[href="/api"]:hover {
 
 /* Media Quries  */
 /* extra small devices */
+/* Recipe Page */
 @media screen and (min-width: 320px) {
-    .cuisnes-list {
+    #trending h1,
+    #trending-dessert h1,
+    #trending-healthy h1 {
+    font-size: 1.9em;
+    padding: 5px
+    }
+.recipe-hero {
+    height: 50vh;
+}
+.hero-content h2{
+   font-size: 2em; 
+   font-family: "Raleway", sans-serif;
+}
+.hero-content p{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.search-bar .fa-magnifying-glass{
+    left: 5%;
+}
+
+#cuisenes{
+    margin: 50px 0px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+}
+.cuisnes-list {
         gap: 10px;
     }
+    .cuisnes-list h2 {
+ font-size: 1.1rem;      
+    }
+.cuisnes-list img {
+height: 45px;
+width: 45px;   
+}
+.recipe-headers{
+    margin: 30px;
+    border: 2px solid;
+}
+.glide-card {
+height: 480px;
+}
+.glide-card-image img{
+    height: 200px;
+}
+.glide-card-image .overlay{
+    height: 200px;
+}
+.glide-card p {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.glide-card-memory{
+    gap: 40px;
+}
+.glide-card-memory button {
+    padding: 10px 10px;
+}
+.glide-card form {
+  text-align: center;  
+}
+
+/* Cussine Page */
+.cuisine-container{
+    margin-top: 50px;
+}
+.cuisine-container ul{
+    padding: 15px;
+}
+.cuisine-container li img {
+    height: 200px;
+}
+.cuisine-container h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 }
 
 
@@ -1465,6 +1542,13 @@ a[href="/api"]:hover {
 
 
 @media screen and (min-width: 575px) {
+    .cuisnes-list h2 {
+        font-size:  1.5rem;
+    }
+    .cuisnes-list img {
+        height: 50px;
+        width: 50px;
+    }
     .nav ul {
         margin-bottom: 0;
     }
