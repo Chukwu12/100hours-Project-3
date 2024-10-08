@@ -15,9 +15,6 @@
 
 }
 
-.recipe-headers {
-  width: 100vh;
-}
 
 .recipe-headers .titles {
   background: var(--primary);
