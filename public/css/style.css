@@ -816,7 +816,7 @@ transform: translateX(-150%);
 
 .search-bar .fa-magnifying-glass {
     position: absolute;
-    left: 0;
+    left: 3%;
     top: 50%;
     transform: translateY(-50%);
     color: white;
@@ -865,7 +865,7 @@ transform: translateX(-150%);
 .cuisine-container{
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin: 0px 100px;
     flex-wrap: wrap;
 }
 
