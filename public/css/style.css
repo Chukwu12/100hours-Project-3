@@ -64,7 +64,6 @@ nav ul{
     justify-content: space-evenly;
     list-style: none;
     width: 100%; 
-    font-size: 1.2rem;
     text-transform: uppercase;
     font-weight: 500;
     font-family: "Raleway", sans-serif;
@@ -1293,7 +1292,7 @@ bottom: 0%;
     font-size: 1.2em;
    font-weight: 500;
 }
-
+/* Recipe Page End */
 
 /* RecipeInfo page */
 #recipeInfo{
@@ -1452,7 +1451,53 @@ a[href="/api"]:hover {
     height: 20px;
      margin-right: 10px;
 }
+/* RecipeInfo End */
 
+/* Create Recipe */
+.create-container{
+    position: relative;
+    width: 70vw;
+    height: 80vh;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    color: white;
+    margin: auto;
+}
+
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1; /* Send video to back */
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Cover the entire container */
+}
+
+.create-content {
+    position: relative;
+    z-index: 2; /* Bring content to front */
+    background: rgba(0, 0, 0, 0.5); /* Optional: Add a background for better contrast */
+    padding: 20px;
+    border-radius: 15px; /* Match the outer container */
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.create-content h2{
+    text-align: center;
+    font-family: "Gupter", serif;
+    font-weight: 500;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
 
 /* Media Quries  */
 /* extra small devices */

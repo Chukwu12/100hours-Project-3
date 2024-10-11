@@ -2,6 +2,10 @@
 
 const createRecipe = async (req, res) => {
     try {
+          // Validate spoonacularId
+          if (!req.body.spoonacularId) {
+            return res.status(400).json({ error: "spoonacularId is required." });
+        }
         // Check if the recipe with the same spoonacularId already exists
         const existingRecipe = await Recipe.findOne({ spoonacularId: req.body.spoonacularId });
         if (existingRecipe) {
@@ -9,7 +13,10 @@ const createRecipe = async (req, res) => {
         }
 
         // Upload image to Cloudinary
-        const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path).catch(err => {
+            console.error("Cloudinary upload error:", err);
+            return res.status(500).send('Error uploading image to Cloudinary');
+        });
         
         // Create the recipe
         await Recipe.create({
@@ -24,13 +31,18 @@ const createRecipe = async (req, res) => {
         });
 
         console.log("Recipe has been added!");
-        res.redirect("/profile");
+        res.redirect("/create");
     } catch (err) {
         console.error(err);
         res.status(500).send('Error creating recipe');
     }
 };
 
+const getCreateRecipePage = (req, res) => {
+    res.render('createRecipes'); // Adjust according to your view engine and file name
+};
+
 module.exports = {
-    createRecipe 
+    createRecipe,
+    getCreateRecipePage,
   }

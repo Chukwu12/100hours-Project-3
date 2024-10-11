@@ -21,6 +21,7 @@ const recipeInfoRoutes = require('./routes/recipeInfo');
 const mainRoutes = require('./routes/main');
  const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
+const createRoutes = require ('./routes/create');
 
 // Import controllers
 const cuisineController = require('./controllers/cuisine');
@@ -31,6 +32,7 @@ const recipeController = require('./controllers/recipe');
  const mainController = require('./controllers/main');
  const authController = require('./controllers/auth'); 
 const profileController = require('./controllers/profile');
+const createController = require('./controllers/create');
 
 
 
@@ -92,6 +94,7 @@ app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/', mainRoutes);
  app.use('/profile', profileRoutes);
+ app.use('/', createRoutes);
 
 
  // Define your route directly if necessary
@@ -100,7 +103,7 @@ app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/dessert', dessertController.getRecipeDetails )
 app.get('/health', healthyController.getHealthyDetails);
 app.get('/recipe/:id', recipeController.getRecipeDetails);
-// app.get('/create-recipes', healthyController.getHealthRecipes);
+app.get('/createRecipes', createController.createRecipe);
  app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
 app.get('/main', mainController.combinedData );
