@@ -87,12 +87,14 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/recipe', recipeRoutes); // Ensure this path corresponds to recipe routes
-// app.use('/', recipeRoutes);
-app.use('/dessert', dessertRoutes);
-app.use('/health', healthRoutes);
+app.use('/', dessertRoutes);
+app.use('/', healthRoutes);
+app.use('/', recipeRoutes);
 app.use('/recipeInfo', recipeInfoRoutes);
  app.use('/cuisine', cuisineRoutes); // Ensure this path corresponds to cuisine routes
  app.use('/', mainRoutes);
+ app.use('/dessert', dessertRoutes);
+ app.use('/health', healthRoutes);
  app.use('/profile', profileRoutes);
  app.use('/', createRoutes);
 
@@ -102,7 +104,8 @@ app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/dessert', dessertController.getRecipeDetails )
 app.get('/health', healthyController.getHealthyDetails);
-app.get('/recipe/:id', recipeController.getRecipeDetails);
+app.get('/recipe/:id', recipeInfoController.getRecipeDetails);
+app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/createRecipes', createController.createRecipe);
  app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
