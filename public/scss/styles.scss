@@ -60,3 +60,20 @@ $secondary: black;
     background-position: 100% 40%;
   }
 }
+
+
+hr{
+  display: block;
+position: relative;
+width: auto;
+height: 2px;
+margin: 3rem 0 5rem -50vw;
+left: 50%;
+border: none;
+border-bottom: 2px dashed rgba($purple, .25);
+  transform: rotate(90deg);
+float: left;
+~ * {
+  clear: both;
+}
+}
