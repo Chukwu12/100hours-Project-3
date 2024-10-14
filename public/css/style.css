@@ -759,41 +759,7 @@ transform: translateX(-150%);
     max-width: 700px;
     margin: 100px auto 0;
     border-radius: 5px;
-}
 
-#input-box {
-    width: 100%; /* Ensure the input box takes up the full width of the container */
-    padding: 10px 50px; /* Add padding to accommodate the icon and button */
-    border: 1px solid #ccc;
-    box-sizing: border-box; /* Includes padding in the element's total width and height */
-}
-
-#suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: white;
-    z-index: 10;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.suggestion-item:hover {
-    background-color: #f0f0f0;
-}
-
-.row{
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
 }
 
 .search-bar input{
@@ -820,6 +786,58 @@ transform: translateX(-150%);
     color: white;
     font-size: 16px;
 }
+
+
+#input-box {
+    width: 100%; /* Ensure the input box takes up the full width of the container */
+    padding: 10px 50px; /* Add padding to accommodate the icon and button */
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Includes padding in the element's total width and height */
+}
+
+#suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+#suggestions.show {
+    opacity: 1; 
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+
+
+#input-box:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Search bar end  */
 
 /* Cusines Section */
 #cuisenes{

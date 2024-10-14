@@ -94,8 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputBox = document.getElementById('input-box');
     const suggestionsBox = document.getElementById('suggestions');
     const searchButton = document.getElementById('search-button');
-    
-    const apiKey = process.env.API_KEY;
     let timeoutId;
 
 
