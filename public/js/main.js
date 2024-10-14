@@ -89,78 +89,17 @@ sign_in_btn.addEventListener('click', ()=> {
 }
 });
 
-
-
-// --------------------------------------  View recipe info ----------------------------------//
-// document.addEventListener('DOMContentLoaded', function() {
-//     const recipeButtons = document.querySelectorAll('.view-recipe-btn');
-    
-//     recipeButtons.forEach(button => {
-//         button.addEventListener('click', function(event) {
-//             event.preventDefault();
-
-//             const recipeId = this.getAttribute('data-recipe-id');
-//             const recipeInfoContent = document.getElementById('recipeInfoContent');
-            
-//             if (recipeInfoContent) {
-//                 // Create and show loading indicator
-//                 const loadingIndicator = document.createElement('div');
-//                 loadingIndicator.className = 'loading'; // Style this in your CSS
-//                 loadingIndicator.textContent = 'Loading...';
-//                 recipeInfoContent.innerHTML = ''; // Clear existing content
-//                 recipeInfoContent.appendChild(loadingIndicator);
-
-//                 fetch(`/recipeInfo/${recipeId}`)
-//                     .then(response => {
-//                         if (!response.ok) {
-//                             throw new Error('Network response was not ok');
-//                         }
-//                         return response.json(); // Expecting JSON data
-//                     })
-//                     .then(data => {
-//                         // Clear loading indicator
-//                         recipeInfoContent.removeChild(loadingIndicator);
-
-//                         // Ensure data is valid before rendering
-//                         if (data && data.title && data.instructions && data.ingredients) {
-//                             recipeInfoContent.innerHTML = `
-//                                 <h2>${data.title}</h2>
-//                                 <img src="${data.image}" alt="${data.title}">
-//                                 <p>Servings: ${data.servings}</p>
-//                                 <p>Ready in: ${data.readyInMinutes} minutes</p>
-//                                 <h3>Ingredients:</h3>
-//                                 <ul>
-//                                     ${data.ingredients.map(ingredient => `
-//                                         <li>${ingredient.amount} ${ingredient.unit} of ${ingredient.name}</li>
-//                                     `).join('')}
-//                                 </ul>
-//                                 <h3>Instructions:</h3>
-//                                 <p>${data.instructions}</p>
-//                             `;
-//                         } else {
-//                             recipeInfoContent.innerHTML = '<p>Recipe details are not available.</p>';
-//                         }
-//                     })
-//                     .catch(error => {
-//                         console.error('Error fetching recipe details:', error);
-//                         // Clear loading indicator
-//                         recipeInfoContent.removeChild(loadingIndicator);
-                        
-//                         // Display a user-friendly message
-//                         recipeInfoContent.innerHTML = '<p>Error loading recipe details. Please try again later.</p>';
-//                     });
-//             } else {
-//                 console.error('Element with id "recipeInfoContent" not found');
-//             }
-//         });
-//     });
-// });
-
 // --------------------------------------  SearchBar ----------------------------------//
 document.addEventListener('DOMContentLoaded', () => {
     const inputBox = document.getElementById('input-box');
     const suggestionsBox = document.getElementById('suggestions');
+    const searchButton = document.getElementById('search-button');
+    
+    const apiKey = process.env.API_KEY;
     let timeoutId;
+
+
+
 
     // Debounce function to limit the number of API calls
     function debounce(func, delay) {
@@ -180,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const encodedQuery = encodeURIComponent(query);
-            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=`);
+            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=${apiKey}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -219,7 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Apply debounce to input event
-    inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
+     // Apply debounce to input event
+     inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
+
+     // Fetch suggestions when the search button is clicked
+     searchButton.addEventListener('click', fetchSuggestions);
 });
 

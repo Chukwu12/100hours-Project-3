@@ -49,7 +49,9 @@
     <div class="search-bar">
         <div class="row">
             <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <button id="search-button" aria-label="Search Recipes">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
         </div>
         <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
     </div>
@@ -84,10 +86,12 @@
 
     <section id="recipeInfo">  
         <div class="recipeInfo-container">
-            <div class="recipe-header">
+            <header class="recipe-header">
                 <h1><%= recipe.title %></h1>
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-            </div>
+                <figure>
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>" loading="lazy">
+                </figure>
+            </header>
             <div class="recipe-details">
                 <!-- <div class="instruction-icons">
                     <p><i class="fa-regular fa-user"></i><strong>Servings:</strong> <%= recipe.servings %></p>
@@ -97,8 +101,8 @@
                         <h2>Ingredients</h2>
                         <% recipe.ingredients.forEach(ingredient => { %>
                             <li>
+                                <img src="/image/cooking-list-icon.png" alt="<%= ingredient.name %>">
                                 <%= ingredient.amount %> <%= ingredient.unit %> of <%= ingredient.name %>
-                            </li>
                         <% }); %>
                     </ul>
                    
@@ -106,9 +110,9 @@
                         <h2>Instructions</h2>
                         <ol>
                             <% recipe.instructions.split("\n").forEach(function(step) { %>
-                                <li><%= step %></li>
+                                <li><%- step %></li>
                             <% }); %>
-                        </ol>
+                        </ol>   
                     </div>                    
                 </div>     
         </div>
