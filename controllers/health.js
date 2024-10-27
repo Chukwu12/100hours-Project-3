@@ -5,7 +5,7 @@ const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/random';
 require('dotenv').config({ path: './config/.env' });
 
-const getHealthRecipes = async (req, res) => {
+const getHealthRecipes = async () => {
     try {
         if (!RECIPES_API_KEY) {
             throw new Error('API key is missing');
@@ -13,7 +13,7 @@ const getHealthRecipes = async (req, res) => {
              // Fetch healthy recipes from the API
         const response = await axios.get(HEALTHY_API_URL, {
             params: {
-                apiKey: RECIPES_API_KEY,
+                apiKey: '479270df5629469ab4974af598b4474d',
                 number: 5,
                 tags: 'vegetarian', // Filter to only include healthy options
                 includeNutrition: true,

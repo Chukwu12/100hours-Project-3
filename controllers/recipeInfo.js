@@ -1,6 +1,8 @@
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
-
+const axios = require('axios');
+const mongoose = require('mongoose');
 
 
 // Fetch detailed recipe information

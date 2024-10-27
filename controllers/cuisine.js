@@ -71,5 +71,5 @@ const getRecipeDetails = async (req, res) => {
 
 module.exports = {
     getCuisineRecipes,
-    getRecipeDetails
+    getRecipeDetails,
 };

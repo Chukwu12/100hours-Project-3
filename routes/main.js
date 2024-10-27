@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const recipeController = require('../controllers/recipe');
+ const recipeController = require('../controllers/recipe');
 const dessertController = require('../controllers/dessert');
 const healthController = require('../controllers/health');
 //  const {ensureAuth} = require('../middleware/auth')
@@ -8,7 +8,7 @@ const healthController = require('../controllers/health');
 router.get('/recipe', async(req, res) => {
     try{
           // Fetch data from each controller
-        const recipes = await recipeController.getRandomRecipes();
+         const recipes = await recipeController.getRandomRecipes();
         const desserts = await dessertController.getDessertRecipes();
         const healthTips = await healthController.getHealthRecipes ();
 
@@ -20,6 +20,11 @@ router.get('/recipe', async(req, res) => {
         user: req.user // Pass user data if needed
       };
 
+      // Log fetched data for debugging
+      console.log('Fetched recipes:', recipes);
+      console.log('Fetched desserts:', desserts);
+      console.log('Fetched health tips:', healthTips);
+
       // Render the EJS template with the combined data
     res.render('recipe', combinedData);
 } catch (error) {
@@ -27,5 +32,7 @@ router.get('/recipe', async(req, res) => {
   res.status(500).send('Internal Server Error');
 }
 });
+
+
 
 module.exports = router;
