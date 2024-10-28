@@ -9,7 +9,7 @@ const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/informa
 
  console.log('API Key:', process.env.RECIPES_API_KEY);
 
- const getRandomRecipes = async () => {
+ const getRandomRecipes = async (req, res) => {
     try {
         if (!process.env.RECIPES_API_KEY) {
             throw new Error('API key is missing');
@@ -29,6 +29,12 @@ const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/informa
             throw new Error('Invalid API response');
         }
 
+             // Check for recipes
+             if (!response.data.recipes || response.data.recipes.length === 0) {
+                return res.status(404).json({ message: 'No recipes found' });
+            }
+
+          // Process recipes...
         return response.data.recipes || []; 
     } catch (error) {
         console.error('Error fetching random recipes:', error.message);
@@ -54,7 +60,7 @@ const getRecipeDetails = async (req, res) => {
         // Fetch recipe details from the API
         const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
             params: {
-                apiKey: RECIPES_API_KEY,
+                apiKey: '479270df5629469ab4974af598b4474d',
             }
         });
 

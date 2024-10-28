@@ -93,10 +93,10 @@
                 </figure>
             </header>
             <div class="recipe-details">
-                <!-- <div class="instruction-icons">
+                <div class="instruction-icons">
                     <p><i class="fa-regular fa-user"></i><strong>Servings:</strong> <%= recipe.servings %></p>
                         <p><i class="fa-solid fa-clock"></i><strong>Ready in:</strong> <%= recipe.readyInMinutes %> minutes</p>
-                </div> -->
+                </div>
                     <ul class="ingredients">
                         <h2>Ingredients</h2>
                         <% recipe.ingredients.forEach(ingredient => { %>
@@ -118,8 +118,6 @@
         </div>
         <!-- Back to Recipe Page -->
         <a href="/recipe">Back to Recipes</a>            
-            </div>
-        
     </section>
 
 
@@ -127,7 +125,7 @@
      <!-- Glide.js -->
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
     <!-- Initialize Glide -->
-    <script>
+    <!-- <script>
         new Glide('.glide', {
             type: 'carousel',
             startAt: 0,
@@ -136,7 +134,7 @@
         }).mount();
 
        
-    </script>
+    </script> -->
     
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

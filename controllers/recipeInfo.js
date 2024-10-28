@@ -1,9 +1,4 @@
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
-
-const axios = require('axios');
-const mongoose = require('mongoose');
-
 
 // Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {
@@ -21,7 +16,7 @@ const getRecipeDetails = async (req, res) => {
         // Fetch recipe details from the API
         const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
             params: {
-                apiKey: RECIPES_API_KEY,
+                apiKey: '479270df5629469ab4974af598b4474d',
             }
         });
 
