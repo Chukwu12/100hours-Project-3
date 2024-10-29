@@ -87,16 +87,16 @@
     <section id="recipeInfo">  
         <div class="recipeInfo-container">
             <header class="recipe-header">
-                <h1><%= recipe.title %></h1>
+                <div class="recipeInfo-details">
+                    <h1><%= recipe.title %></h1>
+                    <p><i class="fa-regular fa-user"></i><strong>Servings:</strong> <%= recipe.servings %></p>
+                        <p><i class="fa-solid fa-clock"></i><strong>Ready in:</strong> <%= recipe.readyInMinutes %> minutes</p>
+                </div>
                 <figure>
                     <img src="<%= recipe.image %>" alt="<%= recipe.title %>" loading="lazy">
                 </figure>
             </header>
             <div class="recipe-details">
-                <div class="instruction-icons">
-                    <p><i class="fa-regular fa-user"></i><strong>Servings:</strong> <%= recipe.servings %></p>
-                        <p><i class="fa-solid fa-clock"></i><strong>Ready in:</strong> <%= recipe.readyInMinutes %> minutes</p>
-                </div>
                     <ul class="ingredients">
                         <h2>Ingredients</h2>
                         <% recipe.ingredients.forEach(ingredient => { %>
