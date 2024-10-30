@@ -755,7 +755,8 @@ transform: translateX(-150%);
 /* Recipe Page */
 .search-bar{
     position: relative;
-    width: 100%;
+    width: 90%;
+    max-width: 600px;
     margin: 200px auto 0;
     border-radius: 5px;
     display: flex;
@@ -773,20 +774,38 @@ transform: translateX(-150%);
     color: white;
 }
 
-.search-bar button{
-    background: transparent;
-    border: 0;
-    outline: 0;
+.form .fa-search{
+    position: absolute;
+    top: 35%;
+    right: 5%;
+    color: var(--bs-body-bg);
 }
 
-.search-bar .fa-magnifying-glass {
+.form span{
     position: absolute;
-    left: 3%;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 16px;
-}
+    left: 90%;
+    top: 15px;
+    padding: 2px;
+    border-left: 1.5px solid white;
+    
+    }
+    
+    .left-pan{
+        padding-left: 7px;
+    }
+    
+    .left-pan i{
+        padding-left: 10px;
+        color: white;
+        font-size: 15px;
+    }
+    
+    
+    .form-input:focus{
+        box-shadow: none;
+        border:none;
+    }
+
 
 
 #input-box {
@@ -863,6 +882,7 @@ transform: translateX(-150%);
 .cuisnes-list h2{
     margin: 10px 0;
     font-weight: 500;
+    font-size: 1.8rem;
 }
 
 .cuisnes-list div {
@@ -872,8 +892,8 @@ transform: translateX(-150%);
 }
 
 .cuisnes-list img{
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     border: 2px solid black;
     border-radius: 50%;
     cursor: pointer;
@@ -1006,7 +1026,7 @@ transform: translateX(-150%);
 }
 
 #trending h1, #trending-desserts h1, #trending-healthy h1 {
-    font-size: 4.5em;
+    font-size: 6rem;
 }
 
 .recipe-headers{
@@ -1620,7 +1640,7 @@ a[href="/api"]:hover {
 #input-box{
     width: 300px;
 }
-}
+
 .hero-content{
     padding: 0 10px;
 }
@@ -1636,9 +1656,19 @@ a[href="/api"]:hover {
 .search-bar {
     max-width: 270px;
 }
-.search-bar .fa-magnifying-glass{
-    left: 0;
+.cuisnes-list h2{
+    font-size: 1.1rem;
 }
+.cuisnes-list img{
+    width: 50px;
+    height: 50px;
+}
+.cuisnes-list{
+    gap: 30px;
+}
+}
+
+
 
 #second-nav{
     display: flex;
@@ -1660,8 +1690,7 @@ a[href="/api"]:hover {
  .cuisnes-list{
     flex-direction: column; 
  }     
-}
-    
+   
 .cuisnes-list {
         gap: 15px;
     }
@@ -1693,13 +1722,7 @@ height: 500px;
 .glide-card form {
   text-align: center;  
 }
-
-
-
-
-
-
-
+}
 
 @media screen and (min-width: 575px) {
     .cuisnes-list h2 {
@@ -1735,5 +1758,55 @@ height: 500px;
     .glide-desserts form,
     .glide-healthy form {
         text-align: center;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px){
+    .cuisnes-list h2{
+        font-size: 1.5rem;
+    }
+    .cuisnes-list img {
+        width: 50px;
+        height: 50px;
+    }
+    .search-bar input{
+        width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        margin: 100px auto; /* Adjust margin for smaller screens */
+    }
+
+    .search-bar input {
+        font-size: 16px; /* Smaller font size for mobile */
+        padding: 10px 30px 10px 15px; /* Adjust padding */
+        width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        margin: 50px auto; /* Further adjust margin for very small screens */
+    }
+
+    .search-bar input {
+        height: 40px; /* Reduce height for smaller screens */
+        font-size: 14px; /* Even smaller font size */
+        padding: 10px 25px 10px 10px; /* Adjust padding */
+        width: 400px;
+    }
+
+    .form .fa-search {
+        top: 30%; /* Adjust icon position */
+    }
+
+    .form span {
+        top: 10px; /* Adjust position for smaller screens */
+    }
+
+    .left-pan i {
+        font-size: 14px; /* Smaller icon size */
     }
 }
