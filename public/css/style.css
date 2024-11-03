@@ -133,7 +133,7 @@ nav ul li a:hover {
 .hero-content h2{
     font-size:  5em;
     animation: HeroHeader 1s ease-in-out;
-    font-family: "Caveat", cursive;
+    font-family: "Raleway", sans-serif;
     font-weight: 500;
     color: antiquewhite;
     margin-bottom: 20px;
@@ -809,7 +809,7 @@ transform: translateX(-150%);
 
 
 #input-box {
-    width: 600px; /* Ensure the input box takes up the full width of the container */
+    width: 100%; /* Ensure the input box takes up the full width of the container */
     padding: 10px 50px; /* Add padding to accommodate the icon and button */
     border: 1px solid #ccc;
     box-sizing: border-box; /* Includes padding in the element's total width and height */
@@ -937,7 +937,7 @@ transform: translateX(-150%);
     border: 2px solid;
     object-fit: cover;
     width: 100%;
-    height: auto;
+    height: 300px;
     display: block;
 }
 
@@ -1193,6 +1193,18 @@ position: relative;
     gap: 50px;
     margin: 15px 0;
 }
+.glide-card-content .fa-regular fa-user {
+    color: red;
+}
+
+.glide-card-content .fa-solid fa-clock{
+    color: gold;
+}
+
+.glide-card-content .fa-solid fa-book{
+    color: steelblue;
+}
+
 
 .glide-card-memory button{
     cursor: pointer;
@@ -1552,20 +1564,7 @@ a[href="/api"]:hover {
 
 
 /* Cussine Page */
-.cuisine-container{
-    margin-top: 50px;
-}
-.cuisine-container ul{
-    padding: 15px;
-    grid-template-columns: repeat(1, 1fr);
-}
-.cuisine-container li img {
-    height: 200px;
-}
-.cuisine-container h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
+
 /* Cussine Page End */
 
 /* Create Recipe */
@@ -1622,10 +1621,40 @@ a[href="/api"]:hover {
 /* extra small devices */
 /* Recipe Page */
 @media only screen and (min-width: 320px) and (max-width: 480px) {
+
+    .search-bar {
+        margin: 50px auto; /* Further adjust margin for very small screens */
+    }
+
+    .search-bar input {
+        height: 40px; /* Reduce height for smaller screens */
+        font-size: 14px; /* Even smaller font size */
+        padding: 10px 25px 10px 10px; /* Adjust padding */
+        width: 400px;
+    }
+
+    .form{
+        width: 100%;
+    }
+
+    .form .fa-search {
+        top: 30%; /* Adjust icon position */
+        left: 5%;
+        position: absolute;
+    }
+
+    .form span {
+        top: 10px; /* Adjust position for smaller screens */
+    }
+
+    .left-pan i {
+        font-size: 14px; /* Smaller icon size */
+    }
+
     #trending h1,
-     #trending-desserts h1,
-      #trending-healthy h1 {
-    font-size: 2.5rem;
+    #trending-desserts h1,
+    #trending-healthy h1 {
+    font-size: 3rem;
     padding: 5px
     }
 .recipe-hero {
@@ -1637,8 +1666,9 @@ a[href="/api"]:hover {
     /* border: 2px solid; */
     width: auto;
 }
+
 #input-box{
-    width: 300px;
+    width: 100%;
 }
 
 .hero-content{
@@ -1683,6 +1713,52 @@ a[href="/api"]:hover {
 }
 
 
+@media (mix-width: 481px) and (max-width: 576px) {
+   #input-box{
+    width: 100%;
+    
+   }
+   .form span{
+    left: 85%;
+    top: 15px;
+   }
+   .cuisnes-list{
+    gap: 30px;
+   }
+   #trending h1,
+    #trending-desserts h1,
+    #trending-healthy h1{
+        font-size: 5rem;
+    }
+
+    .hero-content h2{
+        font-family: "Raleway", sans-serif;
+    }
+}
+
+@media (mix-width: 577px) and (max-width: 767px){
+    .hero-content h2{
+        font-family: "Raleway", sans-serif;
+        font-size: 4em;
+    }
+    .hero-content p{
+        font-size: 1.1rem;
+    }
+    .form span{
+        left: 90%;
+    }
+    .glide-card-memory{
+        gap: 30px;
+    }
+}
+
+@media (mix-width: 768px) and (max-width: 991px)
+{
+.glide-card-memory{
+    gap: 30px;
+}
+}
+
 
 
 
@@ -1724,7 +1800,7 @@ height: 500px;
 }
 }
 
-@media screen and (min-width: 575px) {
+@media screen and (max-width: 575px) {
     .cuisnes-list h2 {
         font-size:  1.5rem;
     }
@@ -1744,9 +1820,7 @@ height: 500px;
     .recipe-headers{
         max-width: 600px;
     }
-    .recipe-headers .titles{
-        font-size: 6.5rem !important;
-    }
+    
 
     .search-bar{
         max-width: 500px;
@@ -1758,6 +1832,21 @@ height: 500px;
     .glide-desserts form,
     .glide-healthy form {
         text-align: center;
+    }
+
+    .cuisine-container{
+        margin-top: 50px;
+    }
+    .cuisine-container ul{
+        padding: 15px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .cuisine-container li img {
+        height: 200px;
+    }
+    .cuisine-container h2 {
+        font-size: 1.5rem;
+        font-weight: 500;
     }
 }
 
@@ -1786,27 +1875,4 @@ height: 500px;
     }
 }
 
-@media (max-width: 480px) {
-    .search-bar {
-        margin: 50px auto; /* Further adjust margin for very small screens */
-    }
 
-    .search-bar input {
-        height: 40px; /* Reduce height for smaller screens */
-        font-size: 14px; /* Even smaller font size */
-        padding: 10px 25px 10px 10px; /* Adjust padding */
-        width: 400px;
-    }
-
-    .form .fa-search {
-        top: 30%; /* Adjust icon position */
-    }
-
-    .form span {
-        top: 10px; /* Adjust position for smaller screens */
-    }
-
-    .left-pan i {
-        font-size: 14px; /* Smaller icon size */
-    }
-}
