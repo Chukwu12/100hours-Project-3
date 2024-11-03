@@ -424,11 +424,12 @@ a {
     .container::before {
         display: none;
     }
-    form {
+    /* form {
         width: 80%;
-    }
-    form.sign-up-form {
+    } */
+    form .sign-up-form {
         display: none;
+        width: 80%;
     }
     .container.sign-up-mode2 form.sign-up-form {
         display: flex;
@@ -774,10 +775,14 @@ transform: translateX(-150%);
     color: white;
 }
 
+.form{
+    width: 100%;
+}
+
 .form .fa-search{
     position: absolute;
     top: 35%;
-    right: 5%;
+    left: 5%;
     color: var(--bs-body-bg);
 }
 
@@ -1651,6 +1656,18 @@ a[href="/api"]:hover {
         font-size: 14px; /* Smaller icon size */
     }
 
+    .cuisnes-list img {
+        height: 45px;
+        width: 45px;
+    }
+    .cuisnes-list h2{
+        font-size: 1.1rem;
+    }
+ 
+    .cuisnes-list{
+        gap: 30px;
+    }
+
     #trending h1,
     #trending-desserts h1,
     #trending-healthy h1 {
@@ -1686,20 +1703,6 @@ a[href="/api"]:hover {
 .search-bar {
     max-width: 270px;
 }
-.cuisnes-list h2{
-    font-size: 1.1rem;
-}
-.cuisnes-list img{
-    width: 50px;
-    height: 50px;
-}
-.cuisnes-list{
-    gap: 30px;
-}
-}
-
-
-
 #second-nav{
     display: flex;
 }
@@ -1711,6 +1714,11 @@ a[href="/api"]:hover {
     display: flex;
     height: auto;
 }
+}
+
+
+
+
 
 
 @media (mix-width: 481px) and (max-width: 576px) {
@@ -1724,6 +1732,9 @@ a[href="/api"]:hover {
    }
    .cuisnes-list{
     gap: 30px;
+   }
+   .cuisnes-list h2{
+    font-size: 1.2rem;
    }
    #trending h1,
     #trending-desserts h1,
@@ -1763,21 +1774,11 @@ a[href="/api"]:hover {
 
 
 @media only screen and (max-width: 400px) {
- .cuisnes-list{
-    flex-direction: column; 
- }     
-   
-.cuisnes-list {
-        gap: 15px;
+    .cuisnes-list{
+        display: flex;
+        flex-direction: column;
     }
-    .cuisnes-list h2 {
- font-size: 1.1rem;      
-    }
-.cuisnes-list img {
-height: 45px;
-width: 45px;   
-}
-
+ 
 .glide-card {
 height: 500px;
 }
@@ -1801,13 +1802,7 @@ height: 500px;
 }
 
 @media screen and (max-width: 575px) {
-    .cuisnes-list h2 {
-        font-size:  1.5rem;
-    }
-    .cuisnes-list img {
-        height: 50px;
-        width: 50px;
-    }
+
     .nav ul {
         margin-bottom: 0;
     }
