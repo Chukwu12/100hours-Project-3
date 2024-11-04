@@ -212,7 +212,7 @@ nav ul li a:hover {
 .sign-up-form > h2 {
     font-family: "Raleway", sans-serif;
 }
-.container > form {
+.container  form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -402,7 +402,7 @@ a {
     transform: translateX(0);
 }
 .container.sign-up-mode form.sign-in-form {
-    opacity: 0;
+    opacity: 1;
 }
 .container.sign-up-mode form.sign-up-form {
     opacity: 1;
@@ -424,12 +424,11 @@ a {
     .container::before {
         display: none;
     }
-    /* form {
-        width: 80%;
-    } */
-    form .sign-up-form {
+    form {
+        width: 80%!important;
+    } 
+    form.sign-up-form {
         display: none;
-        width: 80%;
     }
     .container.sign-up-mode2 form.sign-up-form {
         display: flex;
@@ -450,8 +449,8 @@ a {
     form {
         width: 90%;
     }
-}
- .form-container{
+
+ /* .form-container{
     position: absolute;
     width: 60%;
     height: 100%;
@@ -466,8 +465,8 @@ a {
 
 .sign-in-container{
     z-index: 2;
+} */
 }
-
 
 
 h1{
