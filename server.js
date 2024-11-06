@@ -52,17 +52,17 @@ app.use(express.json());
   //app.use(logger("dev")); 
 
 // Sessions
-//  app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET, // used to sign the session ID cookie
-//     resave: false, // forces session to be saved back to the session store
-//     saveUninitialized: false, // saves a new session, even if uninitialized
-//     store: MongoStore.create({
-//       mongoUrl: process.env.DB_STRING,  // Use environment variable for MongoDB URI
-//       collectionName: 'sessions' // Optional: Define the collection name for storing sessions
-//     })
-//   })
-// );
+ app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // used to sign the session ID cookie
+    resave: false, // forces session to be saved back to the session store
+    saveUninitialized: false, // saves a new session, even if uninitialized
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_STRING,  // Use environment variable for MongoDB URI
+      collectionName: 'sessions' // Optional: Define the collection name for storing sessions
+    })
+  })
+);
 
 // Middleware
 app.set('view engine', 'ejs');
