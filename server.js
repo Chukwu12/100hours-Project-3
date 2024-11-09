@@ -105,12 +105,14 @@ app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/dessert', dessertController.getRecipeDetails )
 app.get('/health', healthyController.getHealthyDetails);
+app.use('recipe', recipeController.getRandomRecipes);
 app.get('/recipe/:id', recipeInfoController.getRecipeDetails);
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/createRecipes', createController.createRecipe);
  app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
 app.get('/main', mainController.combinedData );
+
 
 
 // Global error handling middleware (optional)

@@ -2,15 +2,16 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY ;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
 
 console.log('API Key:', process.env.RECIPES_API_KEY);
-const getRandomRecipes = async (req, res) => {
+
+const getRandomRecipes = async () => {
     try {
         if (!RECIPES_API_KEY) {
-            return res.status(401).json({ message: 'API key is missing' });
+            throw new Error('API key is missing');
         }
 
         const response = await axios.get(RECIPES_API_URL, {
@@ -24,21 +25,24 @@ const getRandomRecipes = async (req, res) => {
 
         // Check the response validity
         if (!response || !response.data) {
-            return res.status(500).json({ message: 'Invalid API response' });
+            throw new Error('Invalid API response');
         }
 
         // Check for recipes
         if (!response.data.recipes || response.data.recipes.length === 0) {
-            return res.status(404).json({ message: 'No recipes found' });
+            throw new Error('No recipes found');
         }
 
-        // Process recipes...
-        return response.data.recipes || []; 
+        // Return the recipes
+        return response.data.recipes;
     } catch (error) {
-        console.error('Error fetching random recipes:', error);
-        return res.status(500).json({ message: 'Error fetching random recipes', error: error.message });
+        console.error('Error fetching random recipes:', error.message);
+        throw new Error(error.message);  // Propagate the error to the calling function
     }
 };
+
+module.exports = { getRandomRecipes };
+
 
 
 

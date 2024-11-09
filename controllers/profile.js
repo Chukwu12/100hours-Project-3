@@ -3,29 +3,39 @@ const Favorite = require("../models/Favorite");
 const cloudinary = require("../middleware/cloudinary");
 
 
-const getProfile = async (req, res) => { 
-    console.log(req.user)
-    try {
-      //Since we have a session each request (req) contains the logged-in users info: req.user
-      //console.log(req.user) to see everything
-      //Grabbing just the posts of the logged-in user
-      // Check if user is authenticated
-      if (!req.user) {
-        return res.status(401).render("login", { error: "Please log in to access your profile." });
+const getProfile = async (req, res) => {
+  try {
+    // Check if the user is authenticated
+    if (!req.user) {
+      return res.status(401).render("login", { error: "Please log in to access your profile." });
     }
-     // Grabbing just the recipes of the logged-in user
-      const recipes = await Recipe.find({ user: req.user.id });
 
-      console.log('Session:', req.session);
-      console.log('User:', req.user);  
+    // Log session and user data for debugging
+    console.log('Session:', req.session);
+    console.log('User:', req.user);
 
-      //Sending post data from mongodb and user data to ejs template
-      res.render("profile.ejs", { recipes: recipes, user: req.user });
-    } catch (err) {
-      console.error('Error fetching profile:', err);
-        res.status(500).render("error", { error: "An error occurred while fetching your profile." });
+    // Make sure req.user.id is valid before proceeding with the query
+    if (!req.user.id) {
+      return res.status(400).render("error", { error: "Invalid user data." });
     }
+
+    // Fetch the user's recipes from the database
+    const recipes = await Recipe.find({ user: req.user.id }).select("title createdAt"); // Only select necessary fields like title and created date
+    
+    if (!recipes.length) {
+      return res.status(404).render("profile.ejs", { message: "You have no recipes yet." });
+    }
+
+    // Send user data and recipes to the profile view
+    res.render("profile.ejs", { recipes, user: req.user });
+  } catch (err) {
+    console.error('Error fetching profile:', err);
+
+    // Handle errors gracefully
+    res.status(500).render("error", { error: "An error occurred while fetching your profile." });
   }
+};
+
 
   
       const likeRecipe = async (req, res) => {

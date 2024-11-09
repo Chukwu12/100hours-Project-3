@@ -8,26 +8,26 @@ const foodFacts = async (req, res) => {
         }
 
         const response = await axios.get(API_FOOD_TRIVA, {
-            params: {
-                apiKey: RECIPES_API_KEY,
-    
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': RECIPES_API_KEY // Send the API key in the headers
             }
         });
 
-         // Check for a valid response
-         if (!response || !response.data) {
+        // Check for a valid response
+        if (!response || !response.data) {
             return res.status(500).json({ message: 'Invalid API response' });
         }
 
         const trivia = response.data.text;
-         // Render or return the trivia as needed
-         res.render('createRecipes', { trivia });
+        // Render or return the trivia as needed
+        res.render('createRecipes', { trivia });
         
-        } catch (error) {
-            console.error('Error fetching food trivia:', error);
-            res.status(500).json({ message: 'An error occurred while fetching food trivia.' });
-        }
-    };
+    } catch (error) {
+        console.error('Error fetching food trivia:', error);
+        res.status(500).json({ message: 'An error occurred while fetching food trivia.' });
+    }
+};
 
 
 const createRecipe = async (req, res) => {
