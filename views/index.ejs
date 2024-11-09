@@ -15,30 +15,33 @@
 </head>
 <body>
     <header id="main-nav">
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand" href="/" aria-label="Homepage">
-                <img src="/image/onice-logo.png" alt="Onice Logo" height="30">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/recipe">Recipes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/createRecipes">Create Recipes</a>
-                    </li>                    
-                </ul>
-            </div>
-        </nav>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <a class="navbar-brand" href="/" aria-label="Homepage">
+                    <img src="/image/onice-logo.png" alt="Onice Logo" height="30">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/recipe">Recipes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/createRecipes">Create Recipes</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </header>
 
 
@@ -49,7 +52,7 @@
             <form action="/login" class="sign-in-form" method="POST">
                 <h2 class="title">Sign in</h2>
                
-                      <div class="alert alert-danger"></div>
+                      <!-- <div class="alert alert-danger"></div> -->
                    
                   <div class="input-field">
                     <i class="fa-solid fa-user"></i>
@@ -82,7 +85,7 @@
             <form action="/signup" class="sign-up-form" method="POST">
                 <h2 class="title">Sign up</h2>
                
-                      <div class="alert alert-danger"></div>
+                      <!-- <div class="alert alert-danger"></div> -->
              
                 <div class="input-field">
                     <i class="fa-solid fa-user"></i>

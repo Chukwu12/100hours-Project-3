@@ -14,7 +14,7 @@ const getDessertRecipes = async () => {
 
         const response = await axios.get(DESSERT_API_URL, {
             params: {
-                apiKey: '479270df5629469ab4974af598b4474d',
+                apiKey: RECIPES_API_KEY,
                 number: 5,
                 tags: 'dessert', // Filter to only include desserts
                 includeNutrition: true,

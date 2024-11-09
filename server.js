@@ -49,7 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Logging
-  //app.use(logger("dev")); 
+  app.use(logger("dev")); 
 
 // Sessions
  app.use(
@@ -74,11 +74,11 @@ app.use(express.urlencoded({ extended: true }))
  app.use(methodOverride("_method")); // Comment out if not needed
 
 // Passport middleware
-    // app.use(passport.initialize());
-    // app.use(passport.session());
+    app.use(passport.initialize());
+     app.use(passport.session());
 
 // Use flash messages for errors, info, etc...
-    //  app.use(flash());
+      app.use(flash());
 
 // Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
@@ -97,25 +97,13 @@ app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 app.get('/dessert', dessertController.getDessertRecipes);
 app.get('/dessert', dessertController.getRecipeDetails )
 app.get('/health', healthyController.getHealthyDetails);
-<<<<<<< HEAD
 app.use('recipe', recipeController.getRandomRecipes);
 app.get('/recipe/:id', recipeInfoController.getRecipeDetails);
-=======
-app.get('/recipe/:id', recipeController.getRecipeDetails);
->>>>>>> f4e82b1734431d02f1fae1ba1b9df3f0cdd4cc17
 app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
 app.get('/createRecipes', createController.createRecipe);
  app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
 app.get('/main', mainController.combinedData );
-
- console.log('Routes registered:');
-console.log('/home');
-console.log('/dessert');
-console.log('/health');
-console.log('/recipe');
-
-
 
 
 

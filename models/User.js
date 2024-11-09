@@ -1,46 +1,41 @@
-const bcrypt = require('bcrypt')
-const mongoose = require('mongoose')
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  userName: { type: String, unique: true},
+  userName: { type: String, unique: true },
   email: { type: String, unique: true },
-  password: { type: String}
+  password: { type: String },
 });
 
-
-// Password hash middleware.
- 
- UserSchema.pre('save', function save(next) {
-  const user = this
-    // Check if the password has been modified or if it's a new user
-  if (!user.isModified('password')) { return next()
-   }
+// Password hash middleware
+UserSchema.pre('save', async function(next) {
+  const user = this;
+  
+  // If the password has not been modified, skip hashing
+  if (!user.isModified('password')) return next();
+  
+  try {
     // Generate a salt and hash the password
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err)
-       { return next(err)
-        
-        }
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) { return next(err) }
-      user.password = hash // Replace plain password with hashed password
-      next()  // Proceed to save the user
-    })
-  })
-})
-
-
-// Helper method for validating user's password.
-UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
-  // If cb is not a function, throw an error
-  if (typeof cb !== 'function') {
-      throw new TypeError('cb must be a function');
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    
+    // Replace the plain password with the hashed password
+    user.password = hashedPassword;
+    
+    next();  // Proceed to save the user
+  } catch (err) {
+    return next(err);  // Pass errors to the next middleware
   }
+});
 
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-      cb(err, isMatch);
-  });
+// Helper method for validating the user's password
+UserSchema.methods.comparePassword = async function(candidatePassword) {
+  try {
+    const isMatch = await bcrypt.compare(candidatePassword, this.password);
+    return isMatch;  // Return the result
+  } catch (err) {
+    throw new Error(err);  // Handle any errors that occur
+  }
 };
 
-module.exports = mongoose.model("User", UserSchema);
-
+module.exports = mongoose.model('User', UserSchema);
