@@ -1,5 +1,5 @@
-const API_FOOD_TRIVA = 'https://api.spoonacular.com/food/trivia/random';
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+ const API_FOOD_TRIVA = 'https://api.spoonacular.com/food/trivia/random';
+  const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
 const foodFacts = async (req, res) => {
     try {
@@ -75,5 +75,5 @@ const getCreateRecipePage = (req, res) => {
 module.exports = {
     createRecipe,
     getCreateRecipePage,
-    foodFacts,
+     foodFacts,
   }

@@ -3,9 +3,10 @@ const axios = require('axios');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const DESSERT_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
-require('dotenv').config({ path: './config/.env' });
 
-const getDessertRecipes = async (req, res) => {
+// require('dotenv').config({ path: './config/.env' });
+
+const getDessertRecipes = async () => {
     try {
         if (!RECIPES_API_KEY) {
             throw new Error('API key is missing');
@@ -13,7 +14,7 @@ const getDessertRecipes = async (req, res) => {
 
         const response = await axios.get(DESSERT_API_URL, {
             params: {
-                apiKey: RECIPES_API_KEY,
+                apiKey: '479270df5629469ab4974af598b4474d',
                 number: 5,
                 tags: 'dessert', // Filter to only include desserts
                 includeNutrition: true,

@@ -48,11 +48,9 @@
         <div class="signin-signup">
             <form action="/login" class="sign-in-form" method="POST">
                 <h2 class="title">Sign in</h2>
-                <% if (messages && messages.length > 0) { %>
-                    <% messages.forEach((msg) => { %>
-                      <div class="alert alert-danger"><%= msg.msg %></div>
-                    <% }) %>
-                  <% } %>
+               
+                      <div class="alert alert-danger"></div>
+                   
                   <div class="input-field">
                     <i class="fa-solid fa-user"></i>
                     <input type="text" name="email" placeholder="Email">
@@ -83,11 +81,9 @@
       <!-- Signup Form -->
             <form action="/signup" class="sign-up-form" method="POST">
                 <h2 class="title">Sign up</h2>
-                <% if (messages && messages.length > 0) { %>
-                    <% messages.forEach((msg) => { %>
-                      <div class="alert alert-danger"><%= msg.msg %></div>
-                    <% }) %>
-                  <% } %>
+               
+                      <div class="alert alert-danger"></div>
+             
                 <div class="input-field">
                     <i class="fa-solid fa-user"></i>
                     <input type="text"  name="userName" placeholder="Username">
@@ -141,16 +137,7 @@
     </div>
 </section>
 
-<% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
-    <div class="alert alert-danger"><%= el.msg %></div>
-    <% }) %> <% } %> <% if (locals.messages.info) { %> <%
-    messages.info.forEach( el => { %>
-    <div class="alert alert-info"><%= el.msg %></div>
-    <% }) %> <% } %>
 
-    <% if (messages.error) { %>
-        <div class="alert alert-danger"><%= messages.error %></div>
-      <% } %>
     
 
        <!-- Bootstrap JS -->

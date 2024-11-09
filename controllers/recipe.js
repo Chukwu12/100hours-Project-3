@@ -2,6 +2,7 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
+<<<<<<< HEAD
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY ;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
@@ -11,12 +12,24 @@ console.log('API Key:', process.env.RECIPES_API_KEY);
 const getRandomRecipes = async () => {
     try {
         if (!RECIPES_API_KEY) {
+=======
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY || '479270df5629469ab4974af598b4474d' ;
+ const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
+const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
+
+
+ console.log('API Key:', process.env.RECIPES_API_KEY);
+
+ const getRandomRecipes = async (req, res) => {
+    try {
+        if (!process.env.RECIPES_API_KEY) {
+>>>>>>> f4e82b1734431d02f1fae1ba1b9df3f0cdd4cc17
             throw new Error('API key is missing');
         }
 
         const response = await axios.get(RECIPES_API_URL, {
             params: {
-                apiKey: RECIPES_API_KEY,
+                apiKey: '479270df5629469ab4974af598b4474d',
                 number: 5,
                 includeNutrition: true,
                 limitLicense: true,
@@ -24,6 +37,7 @@ const getRandomRecipes = async () => {
         });
 
         // Check the response validity
+<<<<<<< HEAD
         if (!response || !response.data) {
             throw new Error('Invalid API response');
         }
@@ -38,6 +52,22 @@ const getRandomRecipes = async () => {
     } catch (error) {
         console.error('Error fetching random recipes:', error.message);
         throw new Error(error.message);  // Propagate the error to the calling function
+=======
+        if (!response || !response.data || !response.data.recipes) {
+            throw new Error('Invalid API response');
+        }
+
+             // Check for recipes
+             if (!response.data.recipes || response.data.recipes.length === 0) {
+                return res.status(404).json({ message: 'No recipes found' });
+            }
+
+          // Process recipes...
+        return response.data.recipes || []; 
+    } catch (error) {
+        console.error('Error fetching random recipes:', error.message);
+        throw new Error('Error fetching random recipes');
+>>>>>>> f4e82b1734431d02f1fae1ba1b9df3f0cdd4cc17
     }
 };
 
@@ -62,7 +92,7 @@ const getRecipeDetails = async (req, res) => {
         // Fetch recipe details from the API
         const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
             params: {
-                apiKey: RECIPES_API_KEY,
+                apiKey: '479270df5629469ab4974af598b4474d',
             }
         });
 
@@ -176,7 +206,7 @@ const saveRecipe = async (recipeData) => {
 
 
 module.exports = {
-    getRandomRecipes,
+     getRandomRecipes,
     getRecipeDetails, 
     favoriteRecipe,
     likeRecipe,
