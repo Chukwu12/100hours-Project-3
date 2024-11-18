@@ -1,19 +1,24 @@
 const mongoose = require("mongoose");
 
+
 const FavoriteSchema = new mongoose.Schema({
   recipe: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Recipe",
+    ref: "Recipe", // Reference to the Recipe model
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User", // Reference to the User model
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+// Enforce uniqueness of recipe per user
+FavoriteSchema.index({ user: 1, spoonacularId: 1 }, { unique: true });
+
 
 //MongoDB Collection named here - will give lowercase plural of name 
 module.exports = mongoose.model("Favorite", FavoriteSchema);

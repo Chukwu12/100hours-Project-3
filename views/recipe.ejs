@@ -116,9 +116,9 @@
                                 </div>
                                 <p><%= recipe.title %></p>
                                 <div class="glide-card-content">
-                                    <p>Servings: <i class="fa-regular fa-user"></i> <%= recipe.servings %></p>
-                                    <p> minutes<i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %></p>
-                                    <p>Ingredients: <i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></p>
+                                    <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i> <%= recipes.servings %></span></p>
+                                    <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i> <%= recipes.readyInMinutes %></span></p>
+                                    <p>Ingredients:<span class="card-icons"><i class="fa-solid fa-book"></i> <%= recipes.numberOfIngredients %></span> </p>
                                 </div>
                                 <div class="glide-card-memory">
                                         <!-- Like Recipe Form -->
@@ -182,9 +182,9 @@
                                 </div>
                                 <p><%= dessert.title %></p>
                                 <div class="glide-card-content">
-                                    <p>Servings: <i class="fa-regular fa-user"></i> <%= dessert.servings %></p>
-                                    <p>minutes<i class="fa-solid fa-clock"></i> <%= dessert.readyInMinutes %></p>
-                                    <p>Ingredients: <i class="fa-solid fa-book"></i> <%= dessert.numberOfIngredients %></p>
+                                    <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i> <%= dessert.servings %></span></p>
+                                    <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i> <%= dessert.readyInMinutes %></span></p>
+                                    <p>Ingredients:<span class="card-icons"><i class="fa-solid fa-book"></i> <%= dessert.numberOfIngredients %></span> </p>
                                 </div>
                                 <div class="glide-card-memory">
                                     <form class="col" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST">
@@ -244,9 +244,9 @@
                                 </div>
                                 <p><%= tip.title %></p>
                                 <div class="glide-card-content">
-                                    <p>Servings: <i class="fa-regular fa-user"></i> <%= tip.servings %></p>
-                                    <p>minutes<i class="fa-solid fa-clock"></i> <%= tip.readyInMinutes %></p>
-                                    <p>Ingredients: <i class="fa-solid fa-book"></i> <%= tip.numberOfIngredients %></p>
+                                    <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i> <%= healthTips.servings %></span></p>
+                                    <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i> <%= healthTips.readyInMinutes %></span></p>
+                                    <p>Ingredients:<span class="card-icons"><i class="fa-solid fa-book"></i> <%= healthTips.numberOfIngredients %></span> </p>
                                 </div>
                                 <div class="glide-card-memory">
                                     <form class="col" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST">

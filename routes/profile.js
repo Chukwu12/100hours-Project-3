@@ -1,14 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const profileController = require('../controllers/profile');
+const recipesController = require("../controllers/recipe");
  const { ensureAuth } = require("../middleware/auth");
 
 
+
 // Get user profile
-router.get("/", ensureAuth, profileController.getProfile); // Make sure to create this method in your controller
+router.get("/profile", ensureAuth, profileController.getProfile); // Make sure to create this method in your controller
+
+// Get recipe
+router.get("/:id", ensureAuth, recipesController.getRecipe);
+
+//Enables user to create post w/ cloudinary for media uploads
+router.post("/createRecipe", upload.single("file"), profileController.createRecipe);
 
 // Enables user to favorite a recipe
-router.post("/recipe/favoriteRecipe/:id", profileController.favoriteRecipe);
+router.post("/favoriteRecipe/:id", profileController.favoriteRecipe);
 
 //Enables user to like post. In controller, uses POST model to update likes by 1
 router.put("/likeRecipe/:id", profileController.likeRecipe);
@@ -17,6 +25,6 @@ router.put("/likeRecipe/:id", profileController.likeRecipe);
 router.delete("/deleteRecipe/:id", profileController.deleteRecipe);
 
 // Get user favorites
-router.get("/profile", ensureAuth, profileController.getFavorites)
+router.get("/profile", ensureAuth, profileController.getFavorites);
 
 module.exports = router;

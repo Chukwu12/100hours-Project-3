@@ -43,7 +43,7 @@ const RecipeSchema = new mongoose.Schema({
     }],
     likes: {
         type: Number,
-        default: 0,
+        required: true,
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -53,6 +53,18 @@ const RecipeSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    name: {
+        type: String,
+        required: true,
+      },
+      cloudinaryId: {
+        type: String,
+        require: true,
+      },
+      directions: {
+        type: String,
+        required: true,
+      },
 });
 
 // MongoDB Collection named here - will give lowercase plural of name 

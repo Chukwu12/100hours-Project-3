@@ -97,40 +97,57 @@ const getRecipeDetails = async (req, res) => {
 
 const favoriteRecipe = async (req, res) => {
     try {
-      //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
-      await Favorite.create({
-        user: req.user.id,
-        recipe: req.params.id,
+      // Get the spoonacularId from the request parameters
+      const spoonacularId = req.params.id;
+  
+      // First, find the recipe by its spoonacularId
+      const recipe = await Recipe.findOne({ spoonacularId: spoonacularId });
+  
+      if (!recipe) {
+        return res.status(404).json({ message: 'Recipe not found' });
+      }
+  
+      // Now create a new favorite with the recipe's MongoDB ObjectId
+      const favorite = await Favorite.create({
+        user: req.user.id,       // assuming the user is attached to the request (via authentication)
+        recipe: recipe._id,      // Store the MongoDB ObjectId (not the spoonacularId)
+        spoonacularId: spoonacularId,  // Still store the spoonacularId for external reference
       });
-      console.log("Favorite has been added!");
-      res.redirect(`/recipe/${req.params.id}`);
+  
+      console.log('Favorite has been added!');
+      res.redirect(`/recipe/${spoonacularId}`);  // Redirect to the recipe page (using the spoonacularId)
+  
     } catch (err) {
-      console.log(err);
+      console.error('Error adding favorite:', err);
+      res.status(500).json({ message: 'Server error' });
     }
-  }
+  };
+  
 
   const likeRecipe = async (req, res) => {
     try {
-        const spoonacularId = req.params.id;  // This should be the MongoDB ObjectId
-
-        // Find the recipe by ID and increment the likes
-        const recipe = await Recipe.findOneAndUpdate(
-            { spoonacularId: spoonacularId }, // Use spoonacularId here
-            { $inc: { likes: 1 } }, // Increment likes
-            { new: true } // Return the updated recipe
-        );
-
-        if (!recipe) {
-            return res.status(404).send('Recipe not found');
-        }
-
-     // Return the updated recipe
-     return res.status(200).json(recipe);
-    } catch (error) {
-        console.error('Error liking recipe:', error.message);
-        res.status(500).send('Error liking recipe');
+      const spoonacularId = req.params.id;  // Spoonacular ID from URL parameter
+  
+      // Find the recipe by its spoonacularId and increment the likes by 1
+      const recipe = await Recipe.findOneAndUpdate(
+        { spoonacularId: spoonacularId },   // Match by spoonacularId
+        { $inc: { likes: 1 } },              // Increment the likes field
+        { new: true }                        // Return the updated recipe
+      );
+  
+      if (!recipe) {
+        return res.status(404).json({ message: 'Recipe not found' });  // Return 404 if recipe is not found
+      }
+  
+      // Return the updated recipe
+      res.status(200).json({ message: 'Recipe liked successfully!', recipe });
+    } catch (err) {
+      console.error('Error liking recipe:', err);
+      res.status(500).json({ message: 'Server error' });
     }
-};
+  };
+  
+  
 
 const saveRecipe = async (recipeData) => {
     const { id, servings, readyInMinutes, instructions, ingredients, likes = 0, user, createdAt = new Date() } = recipeData;

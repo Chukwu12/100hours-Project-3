@@ -1,27 +1,28 @@
 // server.js
 const express = require('express');
 const app = express();
-   const mongoose = require('mongoose'); 
-   const passport = require('passport');
-   const session = require('express-session');
-   const flash = require('express-flash');
-    const MongoStore = require("connect-mongo");
-  const logger = require('morgan');
- const methodOverride = require("method-override");
-  const connectDB = require('./config/database');
-  const path = require('path');
+const mongoose = require('mongoose'); 
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require("connect-mongo");
+const flash = require('express-flash');
+const logger = require('morgan');
+const connectDB = require('./config/database');
+const methodOverride = require("method-override");
+
+const path = require('path');
   
 
 // Import routes
 const homeRoutes = require('./routes/home');
-  const recipeRoutes = require('./routes/recipe');
- const healthRoutes = require('./routes/health');
- const dessertRoutes = require('./routes/dessert');
- const recipeInfoRoutes = require('./routes/recipeInfo');
+const recipeRoutes = require('./routes/recipe');
+const healthRoutes = require('./routes/health');
+const dessertRoutes = require('./routes/dessert');
+const recipeInfoRoutes = require('./routes/recipeInfo');
 const mainRoutes = require('./routes/main');
- const profileRoutes = require('./routes/profile');
- const cuisineRoutes = require('./routes/cuisine');
- const createRoutes = require('./routes/create');
+const profileRoutes = require('./routes/profile');
+const cuisineRoutes = require('./routes/cuisine');
+const createRoutes = require('./routes/create');
 
 // Import controllers
  const cuisineController = require('./controllers/cuisine');
@@ -42,7 +43,7 @@ require("./config/passport")(passport);
 
 
 // Connect to database
-  //connectDB();
+  connectDB();
 
 // Body Parsing
 app.use(express.urlencoded({ extended: true }));
@@ -52,17 +53,18 @@ app.use(express.json());
   app.use(logger("dev")); 
 
 // Sessions
- app.use(
+app.use(
   session({
     secret: process.env.SESSION_SECRET, // used to sign the session ID cookie
     resave: false, // forces session to be saved back to the session store
     saveUninitialized: false, // saves a new session, even if uninitialized
     store: MongoStore.create({
       mongoUrl: process.env.DB_STRING,  // Use environment variable for MongoDB URI
-      collectionName: 'sessions' // Optional: Define the collection name for storing sessions
+      // collectionName: 'sessions' // Optional: Define the collection name for storing sessions
     })
   })
 );
+
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -89,7 +91,7 @@ app.use('/', recipeRoutes);
   app.use('/recipeInfo', recipeInfoRoutes);
   app.use('/cuisine', cuisineRoutes);
   app.use('/', mainRoutes);
- app.use('/', profileRoutes);
+ app.use('/profile', profileRoutes);
  app.use('/', createRoutes);
 
   // Define your route directly if necessary

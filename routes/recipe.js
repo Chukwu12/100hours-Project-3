@@ -13,12 +13,15 @@ router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 
 
 // Route to like a recipe
-router.put('/recipe/likeRecipe/:id', recipeController.likeRecipe);
+router.put('/likeRecipe/:id', recipeController.likeRecipe);
 
 // Route to get favorite recipes
 router.get('/recipe/favoriteRecipe/:id', recipeController.favoriteRecipe); // 
 
 // Route to get a recipe by Spoonacular ID
 router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId);
+
+//Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
+router.delete("/deleteRecipe/:id", recipesController.deleteRecipe);
 
 module.exports = router;
