@@ -1889,6 +1889,14 @@ height: 500px;
 
 
 /* User Profile Page */
+.profile-container{
+    display: flex;
+}
+
+
+
+
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;

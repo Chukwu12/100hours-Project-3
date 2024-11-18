@@ -189,6 +189,21 @@ const saveRecipe = async (recipeData) => {
     }
 };
 
+ const deleteRecipe = async (req, res) => {
+    try {
+      // Find post by id
+      let recipe = await Recipe.findById({ _id: req.params.id });
+      // Delete image from cloudinary
+      await cloudinary.uploader.destroy(recipe.cloudinaryId);
+      // Delete post from db
+      await Recipe.remove({ _id: req.params.id });
+      console.log("Deleted Recipe");
+      res.redirect("/profile");
+    } catch (err) {
+      res.redirect("/profile");
+    }
+  };
+
 
 
 
@@ -198,5 +213,6 @@ module.exports = {
     favoriteRecipe,
     likeRecipe,
     saveRecipe,
-    getRecipeBySpoonacularId,   
+    getRecipeBySpoonacularId, 
+    deleteRecipe,  
 };

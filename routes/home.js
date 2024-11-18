@@ -16,11 +16,8 @@ router.get('/', homeController.getIndex);
 router.get("/profile", ensureAuth , profileController.getProfile);
    //console.log('User:', req.user); // Log the user object
 
-//Favorite Recipes
-//router.get("/favorites", ensureAuth, profileController.getFavorites);
-
 // Recipe Route - Combined Data
-router.get("/main", mainController.combinedData); // Ensure the user is authenticated
+router.get("/main",  ensureAuth, mainController.combinedData); // Ensure the user is authenticated
 
 
 // Login Routes
