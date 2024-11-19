@@ -1932,9 +1932,6 @@ height: 500px;
   }
   
   /* Recipe history grid layout */
-  .recipe-history {
-    grid-column: 1 / span 2; /* Make this section span across both columns */
-  }
   
   .recipe-history .recipe-cards-container {
     display: grid;

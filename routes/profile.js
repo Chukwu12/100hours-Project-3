@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const profileController = require('../controllers/profile');
-const recipesController = require("../controllers/recipe");
+const recipeController = require("../controllers/recipe");
  const { ensureAuth } = require("../middleware/auth");
 
 

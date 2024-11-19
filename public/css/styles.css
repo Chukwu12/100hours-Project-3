@@ -53,6 +53,12 @@
   margin-top: 30px;
 }
 
+.user-info  .fa-user,
+.user-info .fa-envelope{
+display: flex;
+gap: 5px;
+}
+
 .shadow{
   margin-top: 100px;
   max-width: 400px;
