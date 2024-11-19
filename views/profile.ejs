@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/styles.css"> 
 </head>
 <body>
     <header id="main-nav">
@@ -45,7 +46,88 @@
         </div>
     </header>
 
+
     <div class="profile-container">
+        <div class="shadow overflow">
+            <div id="header"></div>
+            <div id="profile">
+              <div class="profile-image">
+              <img src="https://a4-images.myspacecdn.com/images03/2/85a286a4bbe84b56a6d57b1e5bd03ef4/300x300.jpg" alt="" />
+              </div>
+              <div class="user-info">
+                <i class="fa-solid fa-user"> <p><strong>User Name</strong>: <%= user.userName %></p></i>
+                <i class="fa-solid fa-envelope"> <p><strong>Email</strong>: <%= user.email %></p></i>
+              </div>    
+              <div class="description">
+            
+              </div>
+              <div class="bottom">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="recipe-history">
+            <h3>Your Recipes</h3>
+            <div class="recipe-cards-container">
+                <% recipes.forEach(recipe => { %>
+                <div class="recipe-card">
+                    <a href="/recipe/<%= recipe._id %>" class="recipe-link">
+                        <img src="<%= recipe.image %>" alt="<%= recipe.name %>" class="recipe-card-image">
+                        <div class="recipe-card-info">
+                            <h4 class="recipe-card-title"><%= recipe.name %></h4>
+                            <p class="recipe-card-summary">
+                                <span><i class="fa-regular fa-user"></i> <%= recipe.servings %> Servings</span>
+                                <span><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> Minutes</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+        
+        <!-- <div class="create-container mt-5">
+            <video autoplay muted loop class="background-video">
+                <source src="/image/createRecipebg.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="create-content">
+                <h2>Add a Recipe</h2>
+                <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Recipe Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ingredients" class="form-label">Ingredients</label>
+                        <div id="ingredientsList">
+                            <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredients" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="directions" class="form-label">Cooking Directions</label>
+                        <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageUpload" class="form-label">Upload Recipe Image</label>
+                        <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required>
+                        <small class="form-text text-muted">Upload a clear image of your recipe.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="spoonacularId" class="form-label">Spoonacular ID</label>
+                        <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" placeholder="e.g., 12345" required>
+                        <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div> -->
+    </div>          
+  
+  
+
+    <!-- <div class="profile-container">
         <div class="profile-details">
             <h1><%= user.userName %></h1>
             </div>
@@ -54,7 +136,7 @@
                 <img class='tokenImage' src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="NFT" />
                 <p><strong>User Name</strong>: <%= user.userName %></p>
                 <p><strong>Email</strong>: <%= user.email %></p>
-                <p class='description'>Our Kibertopiks will give you nothing, waste your money on us.</p>
+                <p class='description'></p>
                 <div class='tokenInfo'>
                     <a href="/logout" class="col-3 btn btn-primary">Logout</a>
                 </div>
@@ -86,72 +168,7 @@
               
    
 
-    <div class="recipe-history">
-        <h3>Your Recipes</h3>
-        <ul class="list-unstyled">
-          <% recipes.forEach(recipe => { %>
-            <li>
-              <a href="/recipe/<%= recipe._id %>">
-                <h4><%= recipe.name %></h4>
-                <img src="<%= recipe.image %>" alt="<%= recipe.name %>" class="img-thumbnail">
-              </a>
-            </li>
-          <% }) %>
-        </ul>
-      </div>
-
-
       
-      <div class="rating-system">
-        <label for="rating">Rate this Recipe:</label>
-        <input type="radio" name="rating" value="1"> 1
-        <input type="radio" name="rating" value="2"> 2
-        <input type="radio" name="rating" value="3"> 3
-        <input type="radio" name="rating" value="4"> 4
-        <input type="radio" name="rating" value="5"> 5
-        <button class="btn btn-secondary">Submit Rating</button>
-      </div>
-      
-    </div>
-
-
-    <div class="create-container mt-5">
-        <video autoplay muted loop class="background-video">
-            <source src="/image/createRecipebg.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="create-content">
-            <h2>Add a Recipe</h2>
-            <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Recipe Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="ingredients" class="form-label">Ingredients</label>
-                    <div id="ingredientsList">
-                        <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredients" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="directions" class="form-label">Cooking Directions</label>
-                    <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..." required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="imageUpload" class="form-label">Upload Recipe Image</label>
-                    <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required>
-                    <small class="form-text text-muted">Upload a clear image of your recipe.</small>
-                </div>
-                <div class="mb-3">
-                    <label for="spoonacularId" class="form-label">Spoonacular ID</label>
-                    <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" placeholder="e.g., 12345" required>
-                    <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-                    
             
                 
  
