@@ -106,7 +106,11 @@ app.get('/createRecipes', createController.createRecipe);
  app.get('/login', authController.getLogin);
 app.get('/profile', profileController.getProfile);
 app.get('/main', mainController.combinedData );
-
+app.get('/recipe/wine/:wineType', async (req, res) => {
+  const wineType = req.params.wineType;
+  const wineData = await getWineData(wineType);  // Call the controller function
+  res.json(wineData);  // Return the data to the client
+});
 
 
 // Global error handling middleware (optional)

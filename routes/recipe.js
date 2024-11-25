@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const recipeController = require('../controllers/recipe');
-
+const { getWineData } = require('../controllers/recipe');
 
 // router.get('/', recipeController.getRandomRecipes); 
 
@@ -22,5 +22,8 @@ router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId)
 
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
 // router.delete("/deleteRecipe/:id", recipesController.deleteRecipe);
+
+//Fetch Random Wine parried with Dish 
+
 
 module.exports = router;

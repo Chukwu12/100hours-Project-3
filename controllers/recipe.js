@@ -2,6 +2,7 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
+const Wine = require('../models/wine'); // Import the wine model
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY ;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
@@ -204,6 +205,38 @@ const saveRecipe = async (recipeData) => {
     }
   };
 
+// Helper function to fetch wine pairing, description, and dishes
+async function getWinePairingAndDescription(wineType) {
+    try {
+        // Query MongoDB to get the wine data based on wineType
+        const wineData = await Wine.findOne({ 'white_wine.dry_white_wine': wineType });  // Update to search for the wine type
+        if (!wineData) {
+            return {
+                winePairing: [],
+                wineRecommendation: 'Wine not found in the database',
+                wineDescription: 'Wine description not available',
+                dishPairing: 'Dish pairing not available'
+            };
+        }
+
+        // If found, return the data
+        return {
+            winePairing: wineData.white_wine.dry_white_wine,  // Adjust according to the structure
+            wineRecommendation: `Recommended wine: ${wineType}`,  // Example, customize as needed
+            wineDescription: 'Wine description from MongoDB',  // You can add a description field to the schema
+            dishPairing: 'Random dish pairing from MongoDB or your app logic'
+        };
+
+    } catch (error) {
+        console.error('Error fetching wine data from MongoDB:', error);
+        return {
+            winePairing: [],
+            wineRecommendation: 'Error fetching wine recommendation',
+            wineDescription: 'Error fetching wine description',
+            dishPairing: 'Error fetching dish pairing'
+        };
+    }
+}
 
 
 
@@ -215,4 +248,5 @@ module.exports = {
     saveRecipe,
     getRecipeBySpoonacularId, 
     deleteRecipe,  
+    getWinePairingAndDescription,
 };
