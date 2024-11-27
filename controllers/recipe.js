@@ -205,38 +205,47 @@ const saveRecipe = async (recipeData) => {
     }
   };
 
-// Helper function to fetch wine pairing, description, and dishes
-async function getWinePairingAndDescription(wineType) {
-    try {
-        // Query MongoDB to get the wine data based on wineType
-        const wineData = await Wine.findOne({ 'white_wine.dry_white_wine': wineType });  // Update to search for the wine type
-        if (!wineData) {
-            return {
-                winePairing: [],
-                wineRecommendation: 'Wine not found in the database',
-                wineDescription: 'Wine description not available',
-                dishPairing: 'Dish pairing not available'
-            };
-        }
 
-        // If found, return the data
-        return {
-            winePairing: wineData.white_wine.dry_white_wine,  // Adjust according to the structure
-            wineRecommendation: `Recommended wine: ${wineType}`,  // Example, customize as needed
-            wineDescription: 'Wine description from MongoDB',  // You can add a description field to the schema
-            dishPairing: 'Random dish pairing from MongoDB or your app logic'
-        };
+// Function to get a random wine pairing and description
+// async function getRandomWinePairingAndDescription(req, res) {
+//     try {
+//         const wineData = await Wine.aggregate([{ $sample: { size: 1 } }]);  // Fetch a random wine
 
-    } catch (error) {
-        console.error('Error fetching wine data from MongoDB:', error);
-        return {
-            winePairing: [],
-            wineRecommendation: 'Error fetching wine recommendation',
-            wineDescription: 'Error fetching wine description',
-            dishPairing: 'Error fetching dish pairing'
-        };
-    }
-}
+//         if (wineData.length === 0) {
+//             return res.render('recipe', {
+//                 wineRecommendation: 'No wine found',
+//                 dishPairing: 'No dish pairing found'
+//             });
+//         }
+
+//         const wine = wineData[0];  // Select the random wine
+//         const wineName = wine.name || 'Unknown Wine';  // If name exists, use it; otherwise, default
+//         const dishPairing = 'Suggested dish for ' + wineName;  // You can add logic to dynamically pair dishes based on the wine
+
+//         // Assuming recipes is an array of recipes related to the wine (fetch or define it here)
+//         const recipes = [
+//             { title: 'Wine Pairing Recipe 1', description: 'A great recipe to pair with ' + wineName },
+//             { title: 'Wine Pairing Recipe 2', description: 'Another recipe for ' + wineName }
+//         ];
+
+//         res.render('recipe', {
+//             wineRecommendation: wineName,
+//             dishPairing: dishPairing,
+//             recipes: recipes  // Pass recipes array to the view
+//         });
+
+//     } catch (error) {
+//         console.error('Error fetching wine pairing:', error);
+//         res.render('recipe', {
+//             wineRecommendation: 'Error fetching wine pairing',
+//             dishPairing: 'Error fetching dish pairing',
+//             recipes: []  // Pass an empty array for recipes
+//         });
+//     }
+// }
+
+// module.exports = { getRandomWinePairingAndDescription };
+
 
 
 
@@ -248,5 +257,5 @@ module.exports = {
     saveRecipe,
     getRecipeBySpoonacularId, 
     deleteRecipe,  
-    getWinePairingAndDescription,
+    // getRandomWinePairingAndDescription,
 };

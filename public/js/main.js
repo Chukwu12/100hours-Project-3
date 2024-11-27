@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sign_in_btn = document.querySelector('#sign-in-btn');
     const sign_up_btn = document.querySelector('#sign-up-btn');
     const container = document.querySelector('.container');
+    const sign_up_btn2 = document.querySelector('#sign_up_btn2');
     const sign_in_btn2 = document.querySelector('#sign-in-btn2');
-    const sign_up_btn2 = document.querySelector('#sign-up-btn2');
   
     // Check if all required elements are present
     if (sign_up_btn && sign_in_btn && container) {
@@ -118,71 +118,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById('search-button');
     let timeoutId;
 
-
-
-
-    // Debounce function to limit the number of API calls
-    function debounce(func, delay) {
-        return function(...args) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
-
-    // Function to fetch and display suggestions
-    const fetchSuggestions = async () => {
-        const query = inputBox.value.trim();
-        if (query.length < 2) {
-            suggestionsBox.style.display = 'none'; // Hide suggestions if input is too short
-            return;
+    // Ensure elements exist before adding event listeners
+    if (inputBox && suggestionsBox && searchButton) {
+        // Debounce function to limit the number of API calls
+        function debounce(func, delay) {
+            return function(...args) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => func.apply(this, args), delay);
+            };
         }
 
-        try {
-            const encodedQuery = encodeURIComponent(query);
-            const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=${apiKey}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+        // Function to fetch and display suggestions
+        const fetchSuggestions = async () => {
+            const query = inputBox.value.trim();
+            if (query.length < 2) {
+                suggestionsBox.style.display = 'none'; // Hide suggestions if input is too short
+                return;
             }
-            const data = await response.json();
 
-            // Clear previous suggestions
-            suggestionsBox.innerHTML = '';
+            try {
+                const encodedQuery = encodeURIComponent(query);
+                const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=${apiKey}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
 
-            // Populate new suggestions
-            if (Array.isArray(data)) {
-                data.forEach(item => {
-                    const suggestionItem = document.createElement('div');
-                    suggestionItem.className = 'suggestion-item';
-                    suggestionItem.textContent = item.title;
-                    suggestionItem.tabIndex = 0; // Make items focusable
-                    suggestionItem.addEventListener('click', () => {
-                        inputBox.value = item.title;
-                        suggestionsBox.style.display = 'none'; // Hide suggestions after selection
-                    });
-                    suggestionItem.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter') {
+                // Clear previous suggestions
+                suggestionsBox.innerHTML = '';
+
+                // Populate new suggestions
+                if (Array.isArray(data)) {
+                    data.forEach(item => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.className = 'suggestion-item';
+                        suggestionItem.textContent = item.title;
+                        suggestionItem.tabIndex = 0; // Make items focusable
+                        suggestionItem.addEventListener('click', () => {
                             inputBox.value = item.title;
                             suggestionsBox.style.display = 'none'; // Hide suggestions after selection
-                        }
+                        });
+                        suggestionItem.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') {
+                                inputBox.value = item.title;
+                                suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                            }
+                        });
+                        suggestionsBox.appendChild(suggestionItem);
                     });
-                    suggestionsBox.appendChild(suggestionItem);
-                });
-                suggestionsBox.style.display = 'block'; // Show suggestions
-            } else {
-                console.error('Unexpected response format:', data);
+                    suggestionsBox.style.display = 'block'; // Show suggestions
+                } else {
+                    console.error('Unexpected response format:', data);
+                }
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+                suggestionsBox.innerHTML = '<div class="error-message">Failed to load suggestions.</div>';
+                suggestionsBox.style.display = 'block'; // Show error message
             }
-        } catch (error) {
-            console.error('Error fetching suggestions:', error);
-            suggestionsBox.innerHTML = '<div class="error-message">Failed to load suggestions.</div>';
-            suggestionsBox.style.display = 'block'; // Show error message
-        }
-    };
+        };
 
-     // Apply debounce to input event
-     inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
+        // Apply debounce to input event
+        inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
 
-     // Fetch suggestions when the search button is clicked
-     searchButton.addEventListener('click', fetchSuggestions);
+        // Fetch suggestions when the search button is clicked
+        searchButton.addEventListener('click', fetchSuggestions);
+    } else {
+        console.error('Required elements are not found in the DOM');
+    }
 });
 
 // --------------------------------Profile Card ---------------------------------------------------------//

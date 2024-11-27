@@ -50,7 +50,7 @@
 .user-info{
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 90px;
 }
 
 .user-info  .fa-user,
@@ -60,8 +60,9 @@ gap: 5px;
 }
 
 .shadow{
-  margin-top: 100px;
   max-width: 400px;
+  height: 400px;
+  transform: translateY(-50%);
 }
 #header{
   width:50vw;
@@ -75,6 +76,8 @@ gap: 5px;
 }
 
 #profile{
+  display: flex;
+  align-items: center;
   width:50vw;
   max-width:400px;
   min-width:300px;
@@ -151,6 +154,85 @@ gap: 5px;
   font-family: 'Open Sans', sans-serif;
   font-size:0.9rem;
   font-weight:700;
+}
+.profile-hero {
+  height: 60vh;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Star fields */
+#stars, #stars2, #stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+}
+
+#stars {
+  box-shadow: 
+      0px 0px 1000px #FFF, 
+      2000px 2000px #FFF, 
+      3000px 3000px #FFF, 
+      1500px 1500px #FFF, 
+      1000px 1000px #FFF; /* 700 random shadows for small stars */
+  animation: animStar 50s linear infinite;
+}
+
+#stars2 {
+  width: 2px;
+  height: 2px;
+  box-shadow: 
+      0px 0px 500px #FFF, 
+      2000px 2000px #FFF, 
+      1500px 1500px #FFF; /* 200 random shadows for medium stars */
+  animation: animStar 100s linear infinite;
+}
+
+#stars3 {
+  width: 3px;
+  height: 3px;
+  box-shadow: 
+      0px 0px 200px #FFF, 
+      2000px 2000px #FFF; /* 100 random shadows for big stars */
+  animation: animStar 150s linear infinite;
+}
+
+/* Title styling */
+#title {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 50px;
+  letter-spacing: 10px;
+  margin-top: -60px;
+  padding-left: 10px;
+}
+
+#title span {
+  background: -webkit-linear-gradient(white, #38495a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Star animation keyframes */
+@keyframes animStar {
+  from {
+      transform: translateY(0px);
+  }
+  to {
+      transform: translateY(-2000px);
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

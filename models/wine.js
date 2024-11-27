@@ -2,28 +2,20 @@ const mongoose = require('mongoose');
 
 // Define the wine schema
 const wineSchema = new mongoose.Schema({
-    white_wine: {
-        dry_white_wine: [String],
-        mueller_thurgau: [String],
-        grechetto: [String],
-        gewurztraminer: [String],
-        chenin_blanc: [String],
-        // Add other white wine categories...
+    name: String,                 // Wine name, e.g., 'Chardonnay'
+    category: {                    // Main wine category (white, red, etc.)
+        type: String,
+        enum: ['white_wine', 'red_wine', 'dessert_wine', 'rose_wine', 'sparkling_wine', 'sherry', 'vermouth', 'fruit_wine', 'mead'],
+        required: true
     },
-    red_wine: {
-        dry_red_wine: [String],
-        bordeaux: [String],
-        marsala: [String],
-        port: [String],
-        // Add other red wine categories...
+    subcategory: {                 // Specific subcategory (dry, sweet, etc.)
+        type: String,
+        enum: ['dry', 'sweet', 'semi-dry', 'fortified', 'sparkling'],
+        required: true
     },
-    dessert_wine: [String],
-    rose_wine: [String],
-    sparkling_wine: [String],
-    sherry: [String],
-    vermouth: [String],
-    fruit_wine: [String],
-    mead: [String]
+    flavors: [String],            // List of flavors, e.g., 'fruity', 'spicy'
+    region: String,               // Region of the wine (e.g., 'Bordeaux', 'Champagne')
+    vintage: Number               // Optional vintage year
 });
 
 // Create and export the Wine model

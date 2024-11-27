@@ -47,12 +47,25 @@
     </header>
 
 
+    <!-- Profile Hero -->
+     <section>
+        <div class="profile-hero">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+     </section>
+
+
+<!-- Profile Card -->
     <div class="profile-container">
         <div class="shadow overflow">
             <div id="header"></div>
             <div id="profile">
               <div class="profile-image">
-              <img src="https://a4-images.myspacecdn.com/images03/2/85a286a4bbe84b56a6d57b1e5bd03ef4/300x300.jpg" alt="" />
+                <img src="<%= user.profileImage || 'user-profilepic.png' %>" alt="<%= user.userName %>'s profile">
+                <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" />
+                <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
               </div>
               <div class="user-info">
                 <i class="fa-solid fa-user"> <p><strong>User Name</strong>: <%= user.userName %></p></i>
