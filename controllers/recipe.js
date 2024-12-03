@@ -6,6 +6,8 @@ const Wine = require('../models/wine'); // Import the wine model
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY ;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
+const WINE_DESCRIPTION_API  = 'https://api.spoonacular.com/food/wine/description';
+const WINE_PARING_API = 'https://api.spoonacular.com/food/wine/pairing';
 
 console.log('API Key:', process.env.RECIPES_API_KEY);
 
@@ -204,48 +206,95 @@ const saveRecipe = async (recipeData) => {
       res.redirect("/profile");
     }
   };
-
+ // Fetch a random wine from your local database
 
 // Function to get a random wine pairing and description
-async function getRandomWinePairingAndDescription(req, res) {
-    try {
-        const wineData = await Wine.aggregate([{ $sample: { size: 1 } }]);  // Fetch a random wine
+// async function getRandomWinePairingAndDescription(req, res) {
+//     try {
+//         // Fetch a random wine from your local database
+//         const wineData = await Wine.aggregate([{ $sample: { size: 1 } }]);
 
-        if (wineData.length === 0) {
-            return res.render('recipe', {
-                wineRecommendation: 'No wine found',
-                dishPairing: 'No dish pairing found'
-            });
-        }
+//         if (wineData.length === 0) {
+//             return res.render('recipe', {
+//                 randomWinePairing: {
+//                     wineName: 'No wine found',
+//                     wineDescription: 'No description available for this wine',
+//                     dishPairing: 'No dish pairing found'
+//                 }
+//             });
+//         }
 
-        const wine = wineData[0];  // Select the random wine
-        const wineName = wine.name || 'Unknown Wine';  // If name exists, use it; otherwise, default
-        const dishPairing = 'Suggested dish for ' + wineName;  // You can add logic to dynamically pair dishes based on the wine
+//         const wine = wineData[0];  // Select the random wine
+//         const wineName = wine.name || 'Unknown Wine';  // If name exists, use it; otherwise, default
 
-        // Assuming recipes is an array of recipes related to the wine (fetch or define it here)
-        const recipes = [
-            { title: 'Wine Pairing Recipe 1', description: 'A great recipe to pair with ' + wineName },
-            { title: 'Wine Pairing Recipe 2', description: 'Another recipe for ' + wineName }
-        ];
+//         // Fetch wine description from Spoonacular API
+//         const wineDescription = await getWineDescription(wineName);
 
-        res.render('recipe', {
-            wineRecommendation: wineName,
-            dishPairing: dishPairing,
-            recipes: recipes  // Pass recipes array to the view
-        });
+//         // Fetch food pairing suggestion for the wine from Spoonacular API
+//         const dishPairing = await getWinePairing(wineName);
 
-    } catch (error) {
-        console.error('Error fetching wine pairing:', error);
-        res.render('recipe', {
-            wineRecommendation: 'Error fetching wine pairing',
-            dishPairing: 'Error fetching dish pairing',
-            recipes: []  // Pass an empty array for recipes
-        });
-    }
-}
+//         // Render the response with the wine, dish pairing, and description
+//         res.render('recipe', {
+//             randomWinePairing: {
+//                 wineName: wine.name,
+//                 wineDescription: wineDescription,
+//                 dishPairing: dishPairing
+//             }
+//         });
 
-module.exports = { getRandomWinePairingAndDescription };
+//     } catch (error) {
+//         console.error('Error fetching wine pairing and description:', error.message);
+//         res.render('recipe', {
+//             randomWinePairing: {
+//                 wineName: 'Error fetching wine pairing',
+//                 wineDescription: 'Error fetching wine description',
+//                 dishPairing: 'Error fetching dish pairing'
+//             }
+//         });
+//     }
+// }
 
+// Function to fetch wine description from Spoonacular API
+// const getWineDescription = async (wineName) => {
+//     try {
+//         const response = await axios.get(WINE_DESCRIPTION_API, {
+//             params: {
+//                 apiKey: RECIPES_API_KEY,
+//                 wine: wineName
+//             }
+//         });
+
+//         if (response.data && response.data.description) {
+//             return response.data.description;
+//         } else {
+//             return 'No description available for this wine';
+//         }
+//     } catch (error) {
+//         console.error('Error fetching wine description:', error.message);
+//         return 'Error fetching wine description';
+//     }
+// };
+
+// Function to fetch wine pairing (dish pairing) from Spoonacular API
+// const getWinePairing = async (wineName) => {
+//     try {
+//         const response = await axios.get(WINE_PARING_API, {
+//             params: {
+//                 apiKey: RECIPES_API_KEY,
+//                 wine: wineName
+//             }
+//         });
+
+//         if (response.data && response.data.pairingText) {
+//             return response.data.pairingText; // The pairing text returned by Spoonacular
+//         } else {
+//             return 'No pairing found for this wine';
+//         }
+//     } catch (error) {
+//         console.error('Error fetching wine pairing:', error.message);
+//         return 'Error fetching dish pairing';
+//     }
+// };
 
 
 
@@ -257,5 +306,7 @@ module.exports = {
     saveRecipe,
     getRecipeBySpoonacularId, 
     deleteRecipe,  
-     getRandomWinePairingAndDescription,
+    // getRandomWinePairingAndDescription,
+    // getWinePairing,
+    // getWineDescription,  
 };

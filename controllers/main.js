@@ -3,12 +3,12 @@
 const dessertController = require('../controllers/dessert');
 const healthController = require('../controllers/health');
 
-exports.combinedData = async (req, res) => {
+exports.combinedData =  (req, res) => {
     try {
         // Fetch data from each controller
-         const recipes = await recipeController.getRandomRecipes();
-        const desserts = await dessertController.getDessertRecipes();
-        const healthTips = await healthController.getHealthRecipes();
+         const recipes =  recipeController.getRandomRecipes();
+        const desserts =  dessertController.getDessertRecipes();
+        const healthTips =  healthController.getHealthRecipes();
 
         // Combine the data
         const combinedData = {

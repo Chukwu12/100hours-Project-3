@@ -51,40 +51,24 @@
     
 
     <section id="hero-section" id="hero-section">
-       <!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
-        <h1 class="hero-title">Find Your Perfect Wine Pairing</h1>
+        <section id="hero-section">
+            <!-- Hero Section -->
+            <div class="hero-content">
+                <h1 class="hero-title">Find Your Perfect Wine Pairing</h1>
+                
+                <!-- Wine and Dish Pairing Information -->
+                <p class="hero-description">
+                    <!-- <strong>Wine of the Day:</strong> <%= randomWinePairing.wineName %> -->
+                </p>
+                <p class="hero-description">
+                    <!-- <strong>Wine Description:</strong> <%= randomWinePairing.wineDescription %> -->
+                </p>
+                <p class="hero-description">
+                    <!-- <strong>Perfect Dish:</strong> <%= randomWinePairing.dishPairing %> -->
+                </p>
+            </div>
+        </section>
         
-        <!-- Wine and Dish Pairing Information -->
-        <p class="hero-description">
-            <strong>Wine of the Day:</strong> <%= wineRecommendation %>
-        </p>
-        <p class="hero-description">
-            <strong>Perfect Dish:</strong> <%= dishPairing %>
-        </p>
-
-        <!-- Suggested Recipes -->
-        <div class="recipe-suggestions">
-            <h3>Suggested Recipes:</h3>
-            <ul id="recipe-list">
-                <% if (recipes.length > 0) { %>
-                    <% recipes.forEach(function(recipe) { %>
-                        <li>
-                            <a href="/recipe/<%= recipe.title %>" class="recipe-link"><%= recipe.title %></a>
-                            <p><%= recipe.description %></p>
-                        </li>
-                    <% }); %>
-                <% } else { %>
-                    <li>No recipes available at the moment.</li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-</section>
-
-    </section>
-
 
     <div class="search-bar">
         <div class="form">
