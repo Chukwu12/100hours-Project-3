@@ -207,44 +207,44 @@ const saveRecipe = async (recipeData) => {
 
 
 // Function to get a random wine pairing and description
-// async function getRandomWinePairingAndDescription(req, res) {
-//     try {
-//         const wineData = await Wine.aggregate([{ $sample: { size: 1 } }]);  // Fetch a random wine
+async function getRandomWinePairingAndDescription(req, res) {
+    try {
+        const wineData = await Wine.aggregate([{ $sample: { size: 1 } }]);  // Fetch a random wine
 
-//         if (wineData.length === 0) {
-//             return res.render('recipe', {
-//                 wineRecommendation: 'No wine found',
-//                 dishPairing: 'No dish pairing found'
-//             });
-//         }
+        if (wineData.length === 0) {
+            return res.render('recipe', {
+                wineRecommendation: 'No wine found',
+                dishPairing: 'No dish pairing found'
+            });
+        }
 
-//         const wine = wineData[0];  // Select the random wine
-//         const wineName = wine.name || 'Unknown Wine';  // If name exists, use it; otherwise, default
-//         const dishPairing = 'Suggested dish for ' + wineName;  // You can add logic to dynamically pair dishes based on the wine
+        const wine = wineData[0];  // Select the random wine
+        const wineName = wine.name || 'Unknown Wine';  // If name exists, use it; otherwise, default
+        const dishPairing = 'Suggested dish for ' + wineName;  // You can add logic to dynamically pair dishes based on the wine
 
-//         // Assuming recipes is an array of recipes related to the wine (fetch or define it here)
-//         const recipes = [
-//             { title: 'Wine Pairing Recipe 1', description: 'A great recipe to pair with ' + wineName },
-//             { title: 'Wine Pairing Recipe 2', description: 'Another recipe for ' + wineName }
-//         ];
+        // Assuming recipes is an array of recipes related to the wine (fetch or define it here)
+        const recipes = [
+            { title: 'Wine Pairing Recipe 1', description: 'A great recipe to pair with ' + wineName },
+            { title: 'Wine Pairing Recipe 2', description: 'Another recipe for ' + wineName }
+        ];
 
-//         res.render('recipe', {
-//             wineRecommendation: wineName,
-//             dishPairing: dishPairing,
-//             recipes: recipes  // Pass recipes array to the view
-//         });
+        res.render('recipe', {
+            wineRecommendation: wineName,
+            dishPairing: dishPairing,
+            recipes: recipes  // Pass recipes array to the view
+        });
 
-//     } catch (error) {
-//         console.error('Error fetching wine pairing:', error);
-//         res.render('recipe', {
-//             wineRecommendation: 'Error fetching wine pairing',
-//             dishPairing: 'Error fetching dish pairing',
-//             recipes: []  // Pass an empty array for recipes
-//         });
-//     }
-// }
+    } catch (error) {
+        console.error('Error fetching wine pairing:', error);
+        res.render('recipe', {
+            wineRecommendation: 'Error fetching wine pairing',
+            dishPairing: 'Error fetching dish pairing',
+            recipes: []  // Pass an empty array for recipes
+        });
+    }
+}
 
-// module.exports = { getRandomWinePairingAndDescription };
+module.exports = { getRandomWinePairingAndDescription };
 
 
 
@@ -257,5 +257,5 @@ module.exports = {
     saveRecipe,
     getRecipeBySpoonacularId, 
     deleteRecipe,  
-    // getRandomWinePairingAndDescription,
+     getRandomWinePairingAndDescription,
 };

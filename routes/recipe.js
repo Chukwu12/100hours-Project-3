@@ -24,6 +24,6 @@ router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId)
 // router.delete("/deleteRecipe/:id", recipesController.deleteRecipe);
 
 //Fetch Random Wine parried with Dish 
-// router.get('/recipe', recipeController.getRandomWinePairingAndDescription);
+ router.get('/recipe', recipeController.getRandomWinePairingAndDescription);
 
 module.exports = router;

@@ -84,6 +84,65 @@ nav ul li a:hover {
 }
 
 /* Home page */
+/* Hero Section Styling */
+.hero {
+    background: url('wine-hero-bg.jpg') no-repeat center center/cover; /* Replace with your background image */
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    margin: 10px 0;
+}
+
+.hero-description strong {
+    font-weight: bold;
+}
+
+.recipe-suggestions {
+    margin-top: 30px;
+}
+
+.recipe-suggestions h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#recipe-list {
+    list-style: none;
+    padding: 0;
+}
+
+#recipe-list li {
+    margin: 15px 0;
+}
+
+.recipe-link {
+    font-size: 1.25rem;
+    color: #ffb900; /* Gold color for wine theme */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.recipe-link:hover {
+    text-decoration: underline;
+}
+
 
 #hero-section{
     position: relative;
@@ -530,7 +589,7 @@ span{
     left: 10px; 
     top: 50%;
     transform: translateY(-50%);
-    color: #aaa;
+    color: red;
     pointer-events: none; 
 }
 
@@ -1083,16 +1142,21 @@ transform: translateX(-150%);
     position: relative;
     justify-content: space-evenly;
     background-repeat: no-repeat;
-    background-position: top left;
+    background-position: top;
     background-size: cover;
 }
 
 .glide-card-container{
     height: 100%;
     min-height: 500px;
+    width: 90%;
 }
 
 .glide-card-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 2rem 1.4rem;
     position: absolute;
@@ -1123,6 +1187,8 @@ transform: translateX(-150%);
     align-items: center;
     flex-direction: row;
     font-size: 12px;
+    justify-content: center;
+    column-gap: 1.2rem;
 }
 .glide-icons::before{
     width: 20px;
@@ -1239,7 +1305,7 @@ position: relative;
 }
 
 .card-icons .fa-regular{
-    color: red;
+    /* color: red; */
 }
 
 
@@ -1248,18 +1314,20 @@ position: relative;
     justify-content: space-evenly;
     gap: 45px;
     margin: 15px 0;
+    align-items: start;
+    flex-direction: column;
 }
-.glide-card-content .fa-solid .fa-user {
+/* .glide-icons .fa-solid .fa-user {
     color: red;
 }
 
-.glide-card-content .fa-solid .fa-clock{
+.glide-icons .fa-solid .fa-clock{
     color: gold;
 }
 
-.glide-card-content .fa-solid .fa-book{
+.glide-icons .fa-solid .fa-book{
     color: steelblue;
-}
+} */
 
 
 .glide-card-memory button{
@@ -1269,29 +1337,37 @@ position: relative;
     padding: 15px 15px;
     position: relative;
     transition: 0.5s;
-    color: black;
+    color: white;
     text-decoration: none;
     overflow: hidden;
     border-radius: 100%; 
     }
 
-    .glide-card-memory .btn .fa-heart {
-        color: red;
-    }
-    
-    .glide-card-memory .btn .fa-star {
-        color: gold;
-    }
-    
-    .glide-card-memory .btn .fa-trash {
-        color: lightsteelblue;
-    }
 
 .glide-card-memory button:hover{
-    background-color: #ffffff;
-    border:1px solid white;
+    /* background-color: #ffffff; */
+    border:1px solid black;
 }
 
+.glide-card-memory .fa-solid .fa-heart{
+    color: red;
+    font-size: 16px;
+}
+
+.glide-card-memory .fa-solid .fa-star{
+    color: gold;
+    font-size: 16px;
+}
+
+.custom-icon{
+    color: gold;
+    font-size: 16px;
+}
+
+.custom-icon2{
+    color: red;
+    font-size: 16px;
+}
 #healthy {
     height: auto;
     display: flex;
