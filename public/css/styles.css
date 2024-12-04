@@ -75,13 +75,25 @@ gap: 5px;
   transition: all .08s linear;
 }
 
+.profile-label{
+  display: flex;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    background: pink;
+    border-radius: 5px;
+    position: absolute;
+    left: 150px;
+}
+
 #profile{
   display: flex;
   align-items: center;
   width:50vw;
   max-width:400px;
   min-width:300px;
-  height:160px;
+  height:250px;
   background:white;
   position:relative;
   box-sizing:border-box;
@@ -89,16 +101,19 @@ gap: 5px;
   padding-left:25px;
   font-family: 'Open Sans', sans-serif;
   .profile-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position:absolute;
-    border:3px solid white;
-    top:-55px;
+    border:3px solid hotpink;
+    top:-50px;
     left: 20px;
     height:80px;
     width:80px;
     border-radius:10px;
     img{
-      width:inherit;
-      height:inherit;
+      width:40px;
+      height:40px;
       border-radius:8px;
     }
   }

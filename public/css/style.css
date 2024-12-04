@@ -322,7 +322,7 @@ form.sign-up-form {
     color: #444;
 }
 
-.btn{
+.home-btn{
     border-radius: 20px;
     border: 1px solid var(--grid-clr1);
     color: #ffffff;
@@ -351,7 +351,7 @@ form.sign-up-form {
     background-color: #f8ece3;
 }
 
-.btn:hover{
+.home-btn:hover{
     background: var(--grid-clr1);
     background-color: #f8ece3;
 }

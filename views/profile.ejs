@@ -63,8 +63,11 @@
             <div id="header"></div>
             <div id="profile">
               <div class="profile-image">
-                <img src="<%= user.profileImage || 'user-profilepic.png' %>" alt="<%= user.userName %>'s profile">
-                <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" />
+                 <!-- Display the user's profile image or the default image -->
+                 <img src="<%= user.profileImage || '/image/user-profilepic.png' %>" alt="<%= user.userName %>'s profile" id="profile-image-display">
+                 <!-- File input for uploading the image -->
+                <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" onchange="previewImage(event)" />
+                 <!-- Label to trigger the file input -->
                 <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
               </div>
               <div class="user-info">
