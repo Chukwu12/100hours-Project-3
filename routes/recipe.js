@@ -23,8 +23,9 @@ router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId)
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
 // router.delete("/deleteRecipe/:id", recipesController.deleteRecipe);
 
-// Define the route for fetching random wine pairing and description
-// router.get('/wine', recipeController.getRandomWinePairingAndDescription);
+
+
+
 
 
 module.exports = router;

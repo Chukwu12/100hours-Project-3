@@ -102,98 +102,50 @@
                 <% }) %>
             </div>
         </div>
+
+
+      
         
-        <div class="create-container mt-5">
-            <video autoplay muted loop class="background-video">
-                <source src="/image/createRecipebg.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="create-content">
-                <h2>Add a Recipe</h2>
-                <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Recipe Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required autocomplete="recipe-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="ingredients" class="form-label">Ingredients</label>
-                        <div id="ingredientsList">
-                            <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredient" required autocomplete="ingredients">
-                        </div>
-                        <!-- Optional: Button to add more ingredients dynamically -->
-                        <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Another Ingredient</button>
-                    </div>
-                    <div class="mb-3">
-                        <label for="directions" class="form-label">Cooking Directions</label>
-                        <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..." required autocomplete="directions"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imageUpload" class="form-label">Upload Recipe Image</label>
-                        <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required autocomplete="off">
-                        <small class="form-text text-muted">Upload a clear image of your recipe.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="spoonacularId" class="form-label">Spoonacular ID</label>
-                        <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" placeholder="e.g., 12345" required autocomplete="spoonacular-id">
-                        <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+        <!-- Create Recipes  -->
+<div class="create-container mt-5">
+    <h2>Cooking in Progress</h2>
+    <div class="create-content">
+        <h2>Add a Recipe</h2>
+        <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on">
+            <div class="mb-3">
+                <label for="name" class="form-label">Recipe Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required autocomplete="recipe-name">
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients</label>
+                <div id="ingredientsList">
+                    <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredient" required autocomplete="ingredients">
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Another Ingredient</button>
+            </div>
+            <div class="mb-3">
+                <label for="directions" class="form-label">Cooking Directions</label>
+                <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..." required autocomplete="directions"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="imageUpload" class="form-label">Upload Recipe Image</label>
+                <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required autocomplete="off">
+                <small class="form-text text-muted">Upload a clear image of your recipe.</small>
+            </div>
+            <div class="mb-3">
+                <label for="spoonacularId" class="form-label">Spoonacular ID</label>
+                <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" placeholder="e.g., 12345" required autocomplete="spoonacular-id">
+                <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
          
     </div>          
   
   
-
-    <!-- <div class="profile-container">
-        <div class="profile-details">
-            <h1><%= user.userName %></h1>
-            </div>
-            <div class="nft">
-            <div class='main'>
-                <img class='tokenImage' src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="NFT" />
-                <p><strong>User Name</strong>: <%= user.userName %></p>
-                <p><strong>Email</strong>: <%= user.email %></p>
-                <p class='description'></p>
-                <div class='tokenInfo'>
-                    <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="col-6">
-            <ul class="row list-unstyled">
-                <% for (var i = 0; i < recipes.length; i++) { %>
-                    <li class="col-6 justify-content-between mt-5">
-                        <a href="/recipe/<%= recipes[i]._id %>">
-                            <h2><%= recipes[i].name %></h2>
-                            <img class="img-fluid" src="<%= recipes[i].image %>">
-                            <p><%= recipes[i].ingredients %></p>
-                            <p><%= recipes[i].directions %></p>
-                            <p>Likes: <span id="likes-<%= recipes[i]._id %>"><%= recipes[i].likes %></span></p>
-                        </a>
-                        <form action="/likeRecipe/<%= recipes[i]._id %>?_method=PUT" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Like</button>
-                        </form>
-                    </li>
-                <% } %>
-            </ul>
-            <div class="row justify-content-center mt-5">
-                <a class="btn btn-primary" href="/feed">Return to Feed</a>
-            </div>
-        </div> -->
-
-              
-   
-
-      
-            
-                
- 
-      
-
-
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

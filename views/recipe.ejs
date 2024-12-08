@@ -54,15 +54,23 @@
         </div>
     </header>
     
-
+          <!-- Hero Section  -->
     <section id="hero-section" id="hero-section">
-            <!-- Hero Section -->
-            <div class="hero-content">
-                <h1 class="hero-title">Find Your Perfect Wine Pairing</h1>
-                
-             
-            </div>
-        </section>
+        <div class="wine-container">
+            <h1>Wine of the Day: <%= randomWinePairing.wineName %></h1>
+            <h2>Category: <%= randomWinePairing.wineCategory %></h2>
+            <h3>Subcategory: <%= randomWinePairing.wineSubcategory %></h3>
+            <p><strong>Flavors:</strong> <%= randomWinePairing.wineFlavors %></p>
+            <p><strong>Region:</strong> <%= randomWinePairing.wineRegion %></p>
+            <p><strong>Vintage:</strong> <%= randomWinePairing.wineVintage %></p>
+        
+            <h3>Description:</h3>
+            <p><%= randomWinePairing.wineDescription %></p>
+        
+            <h3>Suggested Pairings:</h3>
+            <p><%= randomWinePairing.winePairing %></p>
+          </div>
+        </section>      
         
 
     <div class="search-bar">
