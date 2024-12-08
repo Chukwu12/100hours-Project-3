@@ -955,6 +955,18 @@ transform: translateX(-150%);
     row-gap: 10px;
 }
 
+.cuisnes-list div a:hover img {
+    animation: animatebounce 1s ease infinite;
+  }
+
+@keyframes animatebounce {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
 .cuisnes-list img{
     width: 80px;
     height: 80px;
@@ -1241,11 +1253,11 @@ transform: translateX(-150%);
 }
 
 
-.glide-card button:hover::before{
+/* .glide-card button:hover::before{
 transform-origin: right;
 transition: transform 0.5s ease;
 transform: scaleX(0);
-}
+} */
 
 .glide__bullet{
     border: 1.5px solid black;
@@ -1291,9 +1303,12 @@ position: relative;
     border-radius: 15px;
 }
 
+.glide-card h2{
+    font-size: 1.2rem;
+}
 
 .glide-card p {
-    font-size: 1.2rem; 
+    font-size: 1rem; 
     font-weight: bold; 
     color: #fff;
     margin: 10px 0;
@@ -1312,11 +1327,12 @@ position: relative;
 
 .glide-card-memory{
     display: flex;
-    justify-content: space-evenly;
     gap: 45px;
     margin: 15px 0;
     align-items: start;
     flex-direction: column;
+    width: 20%;
+    align-items: center;
 }
 
 
@@ -1356,6 +1372,8 @@ position: relative;
     75% { transform: scale(1.1); }
     100% { transform: scale(1); }
   }
+
+ 
 
 .custom-icon{
     color: gold;
@@ -1911,6 +1929,9 @@ height: 500px;
 }
 .glide-card form {
   text-align: center;  
+}
+.glide-card-memory form {
+    width: 0;
 }
 }
 

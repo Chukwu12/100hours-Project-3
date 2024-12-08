@@ -56,20 +56,15 @@
     
           <!-- Hero Section  -->
     <section id="hero-section" id="hero-section">
-        <div class="wine-container">
-            <h1>Wine of the Day: <%= randomWinePairing.wineName %></h1>
-            <h2>Category: <%= randomWinePairing.wineCategory %></h2>
-            <h3>Subcategory: <%= randomWinePairing.wineSubcategory %></h3>
-            <p><strong>Flavors:</strong> <%= randomWinePairing.wineFlavors %></p>
-            <p><strong>Region:</strong> <%= randomWinePairing.wineRegion %></p>
-            <p><strong>Vintage:</strong> <%= randomWinePairing.wineVintage %></p>
-        
-            <h3>Description:</h3>
-            <p><%= randomWinePairing.wineDescription %></p>
-        
-            <h3>Suggested Pairings:</h3>
-            <p><%= randomWinePairing.winePairing %></p>
-          </div>
+        <div class="wine-info">
+            <h2>Wine Pairing Information</h2>
+            <p><strong>Name:</strong> <%= winePairing.wineName %></p>
+            <p><strong>Category:</strong> <%= winePairing.wineCategory %></p>
+            <p><strong>Subcategory:</strong> <%= winePairing.wineSubcategory %></p>
+            <p><strong>Flavors:</strong> <%= winePairing.wineFlavors %></p>
+            <p><strong>Region:</strong> <%= winePairing.wineRegion %></p>
+            <p><strong>Vintage:</strong> <%= winePairing.wineVintage %></p>
+        </div>        
         </section>      
         
 
@@ -91,19 +86,19 @@
                 <div class="cuisnes-list">
                     <div>
                         <h2>African</h2>
-                        <a href="/cuisine/african"><img src="/image/african-icon.gif" alt="african food icon"></a>
+                        <a href="/cuisine/african"><img src="/image/african-icon.gif" alt="african food icon" animate__animated animate__bounce></a>
                     </div>
                     <div>
                         <h2>American</h2>
-                        <a href="/cuisine/american"><img src="/image/american-icon.gif" alt="american food icon"></a>
+                        <a href="/cuisine/american"><img src="/image/american-icon.gif" alt="american food icon" animate__animated animate__bounce></a>
                     </div>
                     <div>
                         <h2>Asian</h2>
-                        <a href="/cuisine/asian"><img src="/image/asian-icon.gif" alt="asian food icon"></a>
+                        <a href="/cuisine/asian"><img src="/image/asian-icon.gif" alt="asian food icon" animate__animated animate__bounce></a>
                     </div>
                     <div>
                         <h2>Mexican</h2>
-                        <a href="/cuisine/mexican"><img src="/image/mexican-icon.gif" alt="mexican food icon"></a>
+                        <a href="/cuisine/mexican"><img src="/image/mexican-icon.gif" alt="mexican food icon" animate__animated animate__bounce></a>
                     </div>
                 </div>
             </div>
@@ -124,7 +119,7 @@
                             <div class="glide-card" style="background-image: url('<%= recipe.image %>');">
                                 <div class="glide-card-container">
                                     <div class="glide-card-info">
-                                        <p><%= recipe.title %></p>
+                                        <h2><%= recipe.title %></h2>
                                         <div class="glide-icons">
                                             <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i> <%= recipe.servings %></span></p>
                                             <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %></span></p>
@@ -142,13 +137,13 @@
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
                                         <form class="col" action="/recipe/likeRecipe/<%= recipe.id %>?_method=PUT" method="POST">
-                                            <button class="btn btn-primary  animate__animated animate__heartBeat" type="submit">
+                                            <button class="btn card-btn  animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-heart custom-icon2"></i>
                                             </button>
                                         </form>
                                               <!-- Favorite Recipe Form -->
                                         <form class="col" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST">
-                                            <button class="btn btn-primary animate__animated animate__heartBeat" type="submit">
+                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-star custom-icon"></i>
                                             </button>
                                         </form>
@@ -210,13 +205,13 @@
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
                                         <form class="col" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST">
-                                            <button class="btn btn-primary animate__animated animate__heartBeat" type="submit">
+                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-heart custom-icon2"></i>
                                             </button>
                                         </form>
                                               <!-- Favorite Recipe Form -->
                                         <form class="col" action="/recipe/favoriteRecipe/<%= dessert.id %>" method="POST">
-                                            <button class="btn btn-primary animate__animated animate__heartBeat" type="submit">
+                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-star custom-icon"></i>
                                             </button>
                                         </form>
@@ -279,13 +274,13 @@
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
                                         <form class="col" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST">
-                                            <button class="btn btn-primary animate__animated animate__heartBeat" type="submit">
+                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-heart custom-icon2"></i>
                                             </button>
                                         </form>
                                               <!-- Favorite Recipe Form -->
                                         <form class="col" action="/recipe/favoriteRecipe/<%= tip.id %>" method="POST">
-                                            <button class="btn btn-primary animate__animated animate__heartBeat" type="submit">
+                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-star custom-icon"></i>
                                             </button>
                                         </form>
