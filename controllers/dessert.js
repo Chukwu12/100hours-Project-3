@@ -21,20 +21,19 @@ const getDessertRecipes = async () => {
             }
         });
 
-          // If no recipes are found, handle it gracefully
-          const recipes = response.data.recipes;
-          if (!recipes || recipes.length === 0) {
-              return res.status(404).json({ message: 'No dessert recipes found' });
-          }
-          
-            // Extract recipes and add the readyInMinutes field
-            const  dessertRecipes = response.data.recipes.map(recipe => ({
-                ...recipe,
-                servings: recipe.servings,  // Get the number of servings
-                readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
-                numberOfIngredients: recipe.extendedIngredients.length  // Number of ingredients
-            }));
-          
+        // If no recipes are found, return an empty array
+        const recipes = response.data.recipes;
+        if (!recipes || recipes.length === 0) {
+            return []; // Return empty array if no recipes found
+        }
+
+        // Extract recipes and add the readyInMinutes field
+        const dessertRecipes = recipes.map(recipe => ({
+            ...recipe,
+            servings: recipe.servings,  // Get the number of servings
+            readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
+            numberOfIngredients: recipe.extendedIngredients ? recipe.extendedIngredients.length : 0  // Number of ingredients
+        }));
 
         return dessertRecipes;
     } catch (error) {
@@ -42,6 +41,7 @@ const getDessertRecipes = async () => {
         throw new Error('Error fetching dessert recipes');
     }
 };
+
 
 const getRecipeDetails = async (req, res) => {
     try {

@@ -1,70 +1,85 @@
- const axios = require('axios');
-const Wine = require('../models/Wine'); // Import the wine model
-//  const WINE_DESCRIPTION_API  = 'https://api.spoonacular.com/food/wine/description';
+// const axios = require('axios');
+// const Wine = require('../models/Wine'); // Import the wine model
+// const WINE_DESCRIPTION_API = 'https://api.spoonacular.com/food/wine/description';
 // const WINE_PARING_API = 'https://api.spoonacular.com/food/wine/pairing';
-//  const RECIPES_API_KEY = '479270df5629469ab4974af598b4474d'
+// const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
-// Function to fetch the wine description from Spoonacular API
-// Controller to get one wine (not random)
- const getWinePairingAndDescription = async (req, res) => {
-   let winePairing = {};  // Object to store the wine data
+// Function to get a random wine from the database
+// exports.getRandomWine = async (req, res) => {
+//     try {
+//         // Fetch a random wine from your database
+//         const wineCount = await Wine.countDocuments();
+//         const randomIndex = Math.floor(Math.random() * wineCount);
+//         const randomWine = await Wine.findOne().skip(randomIndex); // Skips to a random wine in the collection
 
-  try {
-      // Fetch the first wine from the database (instead of random)
-      const wineData = await Wine.findOne();  // This will get the first wine in the collection
+//         if (!randomWine) {
+//             return res.status(404).json({ message: 'No wines found' });
+//         }
 
-      if (!wineData) {
-          // If no wine is found in the database
-          winePairing = {
-              wineName: 'No wine found',
-              wineCategory: 'No category available',
-              wineSubcategory: 'No subcategory available',
-              wineFlavors: 'No flavors available',
-              wineRegion: 'No region available',
-              wineVintage: 'No vintage available',
-          };
-      } else {
-           // Get the wine data
-          winePairing = {
-              wineName: wineData.name || 'Unknown Wine',
-              wineCategory: wineData.category || 'Unknown Category',
-              wineSubcategory: wineData.subcategory || 'Unknown Subcategory',
-              wineFlavors: wineData.flavors.join(', ') || 'No flavors available',
-              wineRegion: wineData.region || 'Unknown Region',
-              wineVintage: wineData.vintage || 'Unknown Vintage',
-          };
-      }
+//         // Fetch wine pairing suggestion from Spoonacular API
+//         const pairingResponse = await axios.get(WINE_PARING_API, {
+//             params: {
+//                 apiKey: RECIPES_API_KEY, // Spoonacular API Key
+//                 wine: randomWine.name,  // Wine name to get a pairing
+//             }
+//         });
 
-      // Render the recipe page with the wine data
-      res.render('recipe', { winePairing });
+//         // Combine the wine data and pairing suggestion
+//         const pairedRecipes = pairingResponse.data.pairings;
 
-  } catch (error) {
-      console.error('Error fetching wine data:', error.message);
+//         // Fetch wine description from Spoonacular API
+//         const descriptionResponse = await axios.get(WINE_DESCRIPTION_API, {
+//             params: {
+//                 apiKey: RECIPES_API_KEY, // Spoonacular API Key
+//                 wine: randomWine.name,  // Wine name to fetch a description
+//             }
+//         });
 
-      // In case of an error, render with default values
-      winePairing = {
-          wineName: 'Error fetching wine',
-          wineCategory: 'Error fetching category',
-          wineSubcategory: 'Error fetching subcategory',
-          wineFlavors: 'Error fetching flavors',
-          wineRegion: 'Error fetching region',
-          wineVintage: 'Error fetching vintage',
-      };
-      res.render('recipe', { winePairing });
-  }
-};
+//         // Combine wine data, pairing and description
+//         const wineData = {
+//             name: randomWine.name,
+//             category: randomWine.category,
+//             description: descriptionResponse.data.text || 'No description available.',
+//             pairing: pairedRecipes.length > 0 ? pairedRecipes : 'No pairings available.',
+//         };
 
+//         // Render the page and pass the wine data
+//         res.render('recipe', {
+//             wine: wineData,
+//             // Include other data like recipes, desserts, health tips as needed
+//             user: req.user, // Example user data if needed
+//         });
 
+//     } catch (error) {
+//         console.error('Error fetching random wine:', error.message);
+//         res.status(500).json({ message: 'Error fetching random wine' });
+//     }
+// };
 
- //Finds all documents in the Wine collection
- Wine.find()
-  .then((wines) => {
-    console.log('All Wines:', wines); // Logs all wines
-  })
-  .catch((err) => {
-    console.log('Error fetching wines:', err.message);
-  });
+// Function to get wine details (like description, category, etc.)
+// exports.getWineDetails = async (req, res) => {
+//     try {
+//         const wineId = req.params.id;
+//         const wine = await Wine.findById(wineId);
 
-module.exports = {
-   getWinePairingAndDescription
-};
+//         if (!wine) {
+//             return res.status(404).json({ message: 'Wine not found' });
+//         }
+
+//         // Fetch wine description from Spoonacular API
+//         const descriptionResponse = await axios.get(WINE_DESCRIPTION_API, {
+//             params: {
+//                 apiKey: RECIPES_API_KEY,  // Spoonacular API Key
+//                 wine: wine.name,  // Wine name to fetch a description
+//             }
+//         });
+
+//         res.json({
+//             wine,
+//             description: descriptionResponse.data.text,  // Wine description
+//         });
+//     } catch (error) {
+//         console.error('Error fetching wine details:', error.message);
+//         res.status(500).json({ message: 'Error fetching wine details' });
+//     }
+// };

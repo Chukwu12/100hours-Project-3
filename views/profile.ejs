@@ -84,6 +84,7 @@
 
 
           <div class="recipe-history">
+            <h1>Cooking in progress..</h1>
             <h3>Your Recipes</h3>
             <div class="recipe-cards-container">
                 <% recipes.forEach(recipe => { %>
@@ -108,10 +109,31 @@
         
         <!-- Create Recipes  -->
 <div class="create-container mt-5">
-    <h2>Cooking in Progress</h2>
     <div class="create-content">
         <h2>Add a Recipe</h2>
-        <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on">
+        
+        <!-- Cooking animation: Initially hidden -->
+        <div id="cookingAnimation">
+            <div id="cooking">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div id="area">
+                    <div id="sides">
+                        <div id="pan"></div>
+                        <div id="handle"></div>
+                    </div>
+                    <div id="pancake">
+                        <div id="pastry"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe Form -->
+        <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on" onsubmit="showCookingAnimation()">
             <div class="mb-3">
                 <label for="name" class="form-label">Recipe Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required autocomplete="recipe-name">
@@ -141,9 +163,7 @@
         </form>
     </div>
 </div>
-
          
-    </div>          
   
   
 

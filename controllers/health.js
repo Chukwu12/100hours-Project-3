@@ -10,7 +10,8 @@ const getHealthRecipes = async () => {
         if (!RECIPES_API_KEY) {
             throw new Error('API key is missing');
         }
-             // Fetch healthy recipes from the API
+
+        // Fetch healthy recipes from the API
         const response = await axios.get(HEALTHY_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
@@ -20,19 +21,24 @@ const getHealthRecipes = async () => {
             }
         });
 
-        const healthRecipes = response.data.recipes.map(recipe => ({
+        // If no recipes are found, return an empty array
+        const healthRecipes = response.data.recipes || [];
+        
+        // Map the health recipes to add necessary fields
+        const mappedHealthRecipes = healthRecipes.map(recipe => ({
             ...recipe,
             servings: recipe.servings,
             readyInMinutes: recipe.readyInMinutes,
-            numberOfIngredients:recipe.extendedIngredients ? recipe.extendedIngredients.length : 0,
+            numberOfIngredients: recipe.extendedIngredients ? recipe.extendedIngredients.length : 0,
         }));
 
-        return healthRecipes;
+        return mappedHealthRecipes;
     } catch (error) {
         console.error('Error fetching health recipes:', error.message);
         throw new Error('Error fetching health recipes');
     }
 };
+
 
 const getHealthyDetails = async (req, res) => {
     try {

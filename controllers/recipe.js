@@ -2,7 +2,7 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
-const Wine = require('../models/Wine'); // Import the wine model
+// const Wine = require('../models/Wine'); // Import the wine model
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY ;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
@@ -35,10 +35,14 @@ const getRandomRecipes = async () => {
             throw new Error('No recipes found');
         }
 
-        // Return the recipes
-        return response.data.recipes;
+      
+        // Filter recipes to return only those with an image
+        const recipesWithImage = response.data.recipes.filter(recipe => recipe.image);
+
+        // Return the filtered recipes
+        return recipesWithImage;
     } catch (error) {
-        console.error('Error fetching random recipes:', error.message);
+        console.error('Error fetching random recipes:', error);  // Log the full error object
         throw new Error(error.message);  // Propagate the error to the calling function
     }
 };
@@ -67,7 +71,7 @@ const getRecipeDetails = async (req, res) => {
                 apiKey: RECIPES_API_KEY,
             }
         });
-  
+        console.log('API Response:', response.data); // Add this line to log the full response
         const recipe = response.data;
   
         // Validate that the recipe data contains the expected fields

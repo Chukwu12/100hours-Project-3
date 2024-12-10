@@ -1,5 +1,5 @@
 // controllers/mainController.js
- const recipeController = require('../controllers/recipe');
+const recipeController = require('../controllers/recipe');
 const dessertController = require('../controllers/dessert');
 const healthController = require('../controllers/health');
 
