@@ -102,30 +102,44 @@ const getRecipeDetails = async (req, res) => {
 const favoriteRecipe = async (req, res) => {
     try {
       // Get the spoonacularId from the request parameters
-      const spoonacularId = req.params.id;
-  
-      // First, find the recipe by its spoonacularId
-      const recipe = await Recipe.findOne({ spoonacularId: spoonacularId });
-  
-      if (!recipe) {
-        return res.status(404).json({ message: 'Recipe not found' });
-      }
-  
-      // Now create a new favorite with the recipe's MongoDB ObjectId
-      const favorite = await Favorite.create({
-        user: req.user.id,       // assuming the user is attached to the request (via authentication)
-        recipe: recipe._id,      // Store the MongoDB ObjectId (not the spoonacularId)
-        spoonacularId: spoonacularId,  // Still store the spoonacularId for external reference
-      });
-  
-      console.log('Favorite has been added!');
-      res.redirect(`/recipe/${spoonacularId}`);  // Redirect to the recipe page (using the spoonacularId)
-  
-    } catch (err) {
-      console.error('Error adding favorite:', err);
-      res.status(500).json({ message: 'Server error' });
+    const spoonacularId = req.params.id;
+
+    // First, find the recipe by its spoonacularId
+    const recipe = await Recipe.findOne({ spoonacularId: spoonacularId });
+
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
     }
-  };
+
+    // Check if this recipe has already been favorited by the user (to avoid duplicates)
+    const existingFavorite = await Favorite.findOne({
+      user: req.user.id,
+      spoonacularId: spoonacularId,  // Check for the same spoonacularId for the user
+    });
+
+    if (existingFavorite) {
+      return res.status(400).json({ message: 'You have already favorited this recipe' });
+    }
+
+    // Now create a new favorite with the recipe's MongoDB ObjectId and spoonacularId
+    const favorite = await Favorite.create({
+      user: req.user.id,       // assuming the user is attached to the request (via authentication)
+      recipe: recipe._id,      // Store the MongoDB ObjectId (not the spoonacularId)
+      spoonacularId: spoonacularId,  // Store the spoonacularId for external reference
+    });
+
+    console.log('Favorite has been added!');
+    // Respond with a success message and favorite data
+    res.status(201).json({
+      message: 'Recipe has been added to favorites!',
+      favorite: favorite,  // Optionally include the favorite object in the response
+    });
+
+  } catch (err) {
+    console.error('Error adding favorite:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
   
 
   const likeRecipe = async (req, res) => {

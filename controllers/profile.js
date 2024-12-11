@@ -118,17 +118,26 @@ module.exports = {
   getFavorites: async (req, res) => { 
     console.log(req.user)
     try {
-      //Since we have a session each request (req) contains the logged-in users info: req.user
-      //console.log(req.user) to see everything
-      //Grabbing just the posts of the logged-in user
-      const recipes = await Favorite.find({ user: req.user.id }).populate('recipe');
-
-      console.log(recipes)
-
-      //Sending post data from mongodb and user data to ejs template
-      res.render("favorites.ejs", { recipes: recipes, user: req.user });
+      // Fetching favorites and populating the associated recipe data
+      const recipes = await Favorite.find({ user: req.user.id })
+                                    .populate('recipe', 'name ingredients imageUrl')  // Limit fields if necessary
+                                    .sort({ createdAt: -1 });  // Optional: Sort by most recent favorites
+  
+      // Check if the user has any favorites
+      if (!recipes.length) {
+        return res.render("profile.ejs", {
+          message: "You haven't favorited any recipes yet.",  // Optional: Message if no favorites
+          user: req.user
+        });
+      }
+  
+      // Send the favorites to the profile page
+      res.render("profile.ejs", { recipes, user: req.user });
+  
     } catch (err) {
-      console.log(err);
+      console.log('Error fetching favorites:', err);
+      // Optionally redirect to an error page or send an error message
+      res.status(500).render("error.ejs", { message: "There was an error retrieving your favorites." });
     }
   },
   getRecipe: async (req, res) => {

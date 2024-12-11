@@ -84,34 +84,30 @@
 
 
           <div class="recipe-history">
-            <h3>Your Recipes</h3>
             <div class="recipe-cards-container">
-                <% recipes.forEach(recipe => { %>
-                <div class="recipe-card">
-                    <a href="/recipe/<%= recipe._id %>" class="recipe-link">
-                        <img src="<%= recipe.image %>" alt="<%= recipe.name %>" class="recipe-card-image">
-                        <div class="recipe-card-info">
-                            <h4 class="recipe-card-title"><%= recipe.name %></h4>
-                            <p class="recipe-card-summary">
-                                <span><i class="fa-regular fa-user"></i> <%= recipe.servings %> Servings</span>
-                                <span><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %> Minutes</span>
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <% }) %>
+                <h2>Your Favorite Recipes</h2>
+
+                <% if (message) { %>
+                  <p><%= message %></p>  <!-- Display the message if no favorites are found -->
+                <% } else { %>
+                  <% recipes.forEach(recipe => { %>
+                    <div class="recipe-card">
+                      <h3><%= recipe.recipe.name %></h3>
+                      <img src="<%= recipe.recipe.imageUrl %>" alt="<%= recipe.recipe.name %>">
+                      <p>Ingredients: <%= recipe.recipe.ingredients.join(', ') %></p>
+                    </div>
+                  <% }) %>
+                <% } %>
             </div>
         </div>
-
+<!-- Profile Card  End-->
 
       
         
         <!-- Create Recipes  -->
 <div class="create-container mt-5">
-    <h1>Cooking in progress..</h1>
     <div class="create-content">
-        <h2>Add a Recipe</h2>
-        
+        <h1>"Create Your Perfect Recipe"..</h1>
         <!-- Cooking animation: Initially hidden -->
         <div id="cookingAnimation">
             <div id="cooking">

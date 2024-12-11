@@ -10,6 +10,10 @@ const FavoriteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // Reference to the User model
   },
+  spoonacularId: {
+    type: String, // Add spoonacularId field to store external reference
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
