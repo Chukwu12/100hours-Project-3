@@ -111,48 +111,38 @@
                         <li class="glide__slide">
                             <div class="glide-card" style="background-image: url('<%= recipe.image %>');">
                                 <div class="glide-card-container">
-                                    <div class="glide-card-info">
-                                        <h2><%= recipe.title %></h2>
-                                        <div class="glide-icons">
-                                            <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i> <%= recipe.servings %></span></p>
-                                            <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %></span></p>
-                                            <p>Ingredients:<span class="card-icons"><i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></span> </p>
-                                        </div>
-                                   
-                                          <!-- View Recipe Button -->
-                                          <form action="/recipeInfo/<%= recipe.id %>" method="GET">
-                                            <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
-                                        </form>
+                                  <div class="glide-card-info">
+                                    <h2><%= recipe.title %></h2>
+                                    <div class="glide-icons">
+                                      <p>Servings: <span class="card-icons"><i class="fa-regular fa-user"></i> <%= recipe.servings %></span></p>
+                                      <p>Minutes: <span class="card-icons"><i class="fa-solid fa-clock"></i> <%= recipe.readyInMinutes %></span></p>
+                                      <p>Ingredients: <span class="card-icons"><i class="fa-solid fa-book"></i> <%= recipe.numberOfIngredients %></span></p>
                                     </div>
-                                    
-                                           
-
-                                    <div class="glide-card-memory">
-                                            <!-- Like Recipe Form -->
-                                        <form class="col" action="/recipe/likeRecipe/<%= recipe.id %>?_method=PUT" method="POST">
-                                            <button class="btn card-btn  animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
-                                              <!-- Favorite Recipe Form -->
-                                        <form class="col" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-star custom-icon"></i>
-                                            </button>
-                                        </form>
-                                             <!-- Delete Recipe Form (conditional) -->
-                                             <!-- <% if (recipe.user && recipe.user.id === user.id) { %>
-                                                <form action="/recipe/deleteRecipe/<%= recipe.id %>?_method=DELETE" method="POST" style="display:inline;">
-                                                    <button class="btn btn-primary" type="submit">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                        <%= recipe.likes %></button>
-                                                </form>
-                                            <% } %> -->
-                                        <!-- <button class=" btn btn-primary "  type="submit"> <%= recipe.likes %>
-                                            <i class="fa-solid fa-trash"></i> -->
-                                    </div>
-                                </div>  
-                            </div>
+                              
+                                    <!-- View Recipe Button -->
+                                    <form action="/recipeInfo/<%= recipe.id %>" method="GET">
+                                      <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View Recipe</button>
+                                    </form>
+                                  </div>
+                              
+                                  <div class="glide-card-memory">
+                                    <!-- Like Recipe Form -->
+                                    <form class="col" id="like-form-<%= recipe.id %>" action="/recipe/likeRecipe/<%= recipe.id %>?_method=PUT" method="POST" onsubmit="event.preventDefault(); likeRecipe('<%= recipe.id %>');">
+                                      <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                        <i class="fa-solid fa-heart custom-icon2"></i>
+                                      </button>
+                                    </form>
+                              
+                                   <!-- Favorite Recipe Form -->
+<form class="col" id="favorite-form-<%= recipe.id %>" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= recipe.id %>');">
+    <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+      <i class="fa-solid fa-star custom-icon"></i>
+    </button>
+  </form>
+  
+                                  </div>
+                                </div>
+                              </div>
                         </li>
                     <% }); %>
                 </ul>
@@ -318,6 +308,85 @@
 
     <!-- Glide.js -->
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+         <!-- Include SweetAlert2 -->
+                              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                              
+                              <script>
+                                // Function to handle the "Like" button click and form submission
+                                function likeRecipe(recipeId) {
+                                  const form = document.getElementById(`like-form-${recipeId}`);
+                                  fetch(form.action, {
+                                    method: form.method,
+                                    headers: {
+                                      'Content-Type': 'application/json',
+                                    },
+                                    body: new FormData(form),
+                                  })
+                                  .then(response => response.json())
+                                  .then(data => {
+                                    if (data.message) {
+                                      Swal.fire({
+                                        title: 'Success!',
+                                        text: data.message,
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                      });
+                                    }
+                                  })
+                                  .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire({
+                                      title: 'Error',
+                                      text: 'There was an error liking this recipe. Please try again.',
+                                      icon: 'error',
+                                      confirmButtonText: 'OK'
+                                    });
+                                  });
+                                }
+                              
+                                // Function to handle the "Favorite" button click and form submission
+function favoriteRecipe(recipeId) {
+  const form = document.getElementById(`favorite-form-${recipeId}`);
+  const button = form.querySelector('button'); // Get the button element
+  
+  // Disable the button to prevent multiple clicks
+  button.disabled = true;
+  
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),  // No need to set 'Content-Type' when using FormData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      Swal.fire({
+        title: 'Success!',
+        text: data.message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Optional: Disable the button after success and change the icon/text
+        button.innerHTML = '<i class="fa-solid fa-star custom-icon"></i> Favorited';  // Change button text/icon
+        button.disabled = true;  // Disable button so it can't be clicked again
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    Swal.fire({
+      title: 'Error',
+      text: 'There was an error adding this recipe to your favorites. Please try again.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      // Re-enable the button on error so the user can try again
+      button.disabled = false;
+    });
+  });
+}
+
+                             
+                              </script>  
     <!-- Initialize Glide -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -374,6 +443,74 @@
     }).mount();
 });
     </script>
+
+         <!-- Include SweetAlert2 -->
+         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                              
+         <script>
+           // Function to handle the "Like" button click and form submission
+           function likeRecipe(recipeId) {
+             const form = document.getElementById(`like-form-${recipeId}`);
+             fetch(form.action, {
+               method: form.method,
+               headers: {
+                 'Content-Type': 'application/json',
+               },
+               body: new FormData(form),
+             })
+             .then(response => response.json())
+             .then(data => {
+               if (data.message) {
+                 Swal.fire({
+                   title: 'Success!',
+                   text: data.message,
+                   icon: 'success',
+                   confirmButtonText: 'OK'
+                 });
+               }
+             })
+             .catch(error => {
+               console.error('Error:', error);
+               Swal.fire({
+                 title: 'Error',
+                 text: 'There was an error liking this recipe. Please try again.',
+                 icon: 'error',
+                 confirmButtonText: 'OK'
+               });
+             });
+           }
+         
+           // Function to handle the "Favorite" button click and form submission
+           function favoriteRecipe(recipeId) {
+            fetch(`/recipe/favoriteRecipe/${recipeId}`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json'  // Make sure the content-type is JSON
+    },
+    body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
+  })
+             .then(response => response.json())
+             .then(data => {
+               if (data.message) {
+                 Swal.fire({
+                   title: 'Success!',
+                   text: data.message,
+                   icon: 'success',
+                   confirmButtonText: 'OK'
+                 });
+               }
+             })
+             .catch(error => {
+               console.error('Error:', error);
+               Swal.fire({
+                 title: 'Error',
+                 text: 'There was an error adding this recipe to your favorites. Please try again.',
+                 icon: 'error',
+                 confirmButtonText: 'OK'
+               });
+             });
+           }
+         </script>  
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

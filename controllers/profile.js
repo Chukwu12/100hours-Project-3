@@ -126,7 +126,7 @@ module.exports = {
       // Check if the user has any favorites
       if (!recipes.length) {
         return res.render("profile.ejs", {
-          message: "You haven't favorited any recipes yet.",  // Optional: Message if no favorites
+          // message: "You haven't favorited any recipes yet.",  // Optional: Message if no favorites
           user: req.user
         });
       }

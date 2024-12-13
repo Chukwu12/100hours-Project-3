@@ -15,7 +15,7 @@ router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 router.put('/likeRecipe/:id', recipeController.likeRecipe);
 
 // Route to get favorite recipes
-router.get('/recipe/favoriteRecipe/:id', recipeController.favoriteRecipe); // 
+router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 
 // Route to get a recipe by Spoonacular ID
 router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId);

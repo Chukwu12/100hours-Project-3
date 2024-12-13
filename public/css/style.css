@@ -1157,6 +1157,8 @@ transform: translateX(-150%);
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
+    position: relative;
+    z-index: 1;
 }
 
 .glide-card-container{
@@ -1351,6 +1353,7 @@ position: relative;
     text-decoration: none;
     overflow: hidden;
     border-radius: 100%; 
+    z-index: 5;
     }
 
 
@@ -2098,6 +2101,16 @@ a[href="/api"]:hover {
     display: flex;
     height: auto;
 }
+/* Recipe Info page */
+.recipeInfo-details{
+    flex-direction: column;
+}
+.recipeInfo-container h1{
+    font-size: 1.5em;
+}
+.recipe-details h2{
+    font-size: 1.5em;
+}
 }
 
 
@@ -2129,6 +2142,16 @@ a[href="/api"]:hover {
     .hero-content h2{
         font-family: "Raleway", sans-serif;
     }
+    /* Recipe Info page */
+.recipeInfo-details{
+    flex-direction: column;
+}
+.recipeInfo-container h1{
+    font-size: 1.5em;
+}
+.recipe-details h2{
+    font-size: 1.5em;
+}
 }
 
 @media (mix-width: 577px) and (max-width: 767px){
@@ -2145,6 +2168,16 @@ a[href="/api"]:hover {
     .glide-card-memory{
         gap: 30px;
     }
+    /* Recipe Info page */
+.recipeInfo-details{
+    flex-direction: column;
+}
+.recipeInfo-container h1{
+    font-size: 1.5em;
+}
+.recipe-details h2{
+    font-size: 1.5em;
+}
 }
 
 @media (mix-width: 768px) and (max-width: 991px)
