@@ -187,17 +187,21 @@
                                     
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
-                                        <form class="col" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                            <form class="col" id="like-form-<%= dessert.id %>" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST" onsubmit="event.preventDefault(); likeRecipe('<%= dessert.id %>');">
+                                              <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
+                                              </button>
+                                            </form>
+
                                               <!-- Favorite Recipe Form -->
-                                        <form class="col" action="/recipe/favoriteRecipe/<%= dessert.id %>" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-star custom-icon"></i>
-                                            </button>
-                                        </form>
+                                              <form class="col" id="favorite-form-<%= dessert.id %>" action="/recipe/favoriteRecipe/<%= dessert.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= dessert.id %>');">
+                                                <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                                  <i class="fa-solid fa-star custom-icon"></i>
+                                                </button>
+                                              </form>
+
+
+                                      
                                              <!-- Delete Recipe Form (conditional) -->
                                              <!-- <% if (dessert.user && dessert.user.id === user.id) { %>
                                                 <form action="/recipe/deleteRecipe/<%= dessert.id %>?_method=DELETE" method="POST" style="display:inline;">
@@ -256,17 +260,21 @@
                                     
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
-                                        <form class="col" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                            <form class="col" id="like-form-<%= tip.id %>" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST" onsubmit="event.preventDefault(); likeRecipe('<%= tip.id %>');">
+                                              <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
+                                              </button>
+                                            </form>
+        
                                               <!-- Favorite Recipe Form -->
-                                        <form class="col" action="/recipe/favoriteRecipe/<%= tip.id %>" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-star custom-icon"></i>
-                                            </button>
-                                        </form>
+                                              <form class="col" id="favorite-form-<%= tip.id %>" action="/recipe/favoriteRecipe/<%= tip.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= tip.id %>');">
+                                                <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                                  <i class="fa-solid fa-star custom-icon"></i>
+                                                </button>
+                                              </form>
+
+
+                                        
                                              <!-- Delete Recipe Form (conditional) -->
                                              <!-- <% if (tip.user && tip.user.id === user.id) { %>
                                                 <form action="/recipe/deleteRecipe/<%= tip.id %>?_method=DELETE" method="POST" style="display:inline;">
@@ -311,82 +319,7 @@
          <!-- Include SweetAlert2 -->
                               <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                               
-                              <script>
-                                // Function to handle the "Like" button click and form submission
-                                function likeRecipe(recipeId) {
-                                  const form = document.getElementById(`like-form-${recipeId}`);
-                                  fetch(form.action, {
-                                    method: form.method,
-                                    headers: {
-                                      'Content-Type': 'application/json',
-                                    },
-                                    body: new FormData(form),
-                                  })
-                                  .then(response => response.json())
-                                  .then(data => {
-                                    if (data.message) {
-                                      Swal.fire({
-                                        title: 'Success!',
-                                        text: data.message,
-                                        icon: 'success',
-                                        confirmButtonText: 'OK'
-                                      });
-                                    }
-                                  })
-                                  .catch(error => {
-                                    console.error('Error:', error);
-                                    Swal.fire({
-                                      title: 'Error',
-                                      text: 'There was an error liking this recipe. Please try again.',
-                                      icon: 'error',
-                                      confirmButtonText: 'OK'
-                                    });
-                                  });
-                                }
-                              
-                                // Function to handle the "Favorite" button click and form submission
-function favoriteRecipe(recipeId) {
-  const form = document.getElementById(`favorite-form-${recipeId}`);
-  const button = form.querySelector('button'); // Get the button element
-  
-  // Disable the button to prevent multiple clicks
-  button.disabled = true;
-  
-  fetch(form.action, {
-    method: form.method,
-    body: new FormData(form),  // No need to set 'Content-Type' when using FormData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.message) {
-      Swal.fire({
-        title: 'Success!',
-        text: data.message,
-        icon: 'success',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        // Optional: Disable the button after success and change the icon/text
-        button.innerHTML = '<i class="fa-solid fa-star custom-icon"></i> Favorited';  // Change button text/icon
-        button.disabled = true;  // Disable button so it can't be clicked again
-      });
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    Swal.fire({
-      title: 'Error',
-      text: 'There was an error adding this recipe to your favorites. Please try again.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    }).then(() => {
-      // Re-enable the button on error so the user can try again
-      button.disabled = false;
-    });
-  });
-}
-
                              
-                              </script>  
     <!-- Initialize Glide -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {

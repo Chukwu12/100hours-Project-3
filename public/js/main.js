@@ -216,48 +216,18 @@ const transform = (element, blur, height, zoom) => {
   element.style.height = `${height}px`;
   element.style.transform = `scale(${zoom}, ${zoom})`;
 };
-// ===================================like button models =====================================//
-// Function to handle the "Like" button click and form submission
-  function likeRecipe(recipeId) {
-    const form = document.getElementById(`like-form-${recipeId}`);
-    fetch(form.action, {
-      method: form.method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: new FormData(form),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message) {
-        Swal.fire({
-          title: 'Success!',
-          text: data.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'There was an error liking this recipe. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-    });
-  }
+// ===================================like/ favorite button models =====================================//
 
   // Function to handle the "Like" button click and form submission
   function likeRecipe(recipeId) {
     const form = document.getElementById(`like-form-${recipeId}`);
+    
     fetch(form.action, {
       method: form.method,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json',  // Adjust according to the server-side requirements
       },
-      body: new FormData(form),
+      body: JSON.stringify(Object.fromEntries(new FormData(form))) // Convert FormData to JSON
     })
     .then(response => response.json())
     .then(data => {
@@ -281,33 +251,44 @@ const transform = (element, blur, height, zoom) => {
     });
   }
 
-    // Function to handle the "Favorite" button click and form submission
-    function favoriteRecipe(recipeId) {
-        fetch(`/recipe/favoriteRecipe/${recipeId}`, {
-method: 'POST',
-headers: { 
-  'Content-Type': 'application/json'  // Make sure the content-type is JSON
-},
-body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
-})
-         .then(response => response.json())
-         .then(data => {
-           if (data.message) {
-             Swal.fire({
-               title: 'Success!',
-               text: data.message,
-               icon: 'success',
-               confirmButtonText: 'OK'
-             });
-           }
-         })
-         .catch(error => {
-           console.error('Error:', error);
-           Swal.fire({
-             title: 'Error',
-             text: 'There was an error adding this recipe to your favorites. Please try again.',
-             icon: 'error',
-             confirmButtonText: 'OK'
-           });
-         });
-       }
+  // Function to handle the "Favorite" button click and form submission
+  function favoriteRecipe(recipeId) {
+    const form = document.getElementById(`favorite-form-${recipeId}`);
+    const button = form.querySelector('button'); // Get the button element
+
+    // Disable the button to prevent multiple clicks
+    button.disabled = true;
+
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),  // Let FormData set the appropriate content type
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        Swal.fire({
+          title: 'Success!',
+          text: data.message,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Optional: Disable the button after success and change the icon/text
+          button.innerHTML = '<i class="fa-solid fa-star custom-icon"></i> Favorited';  // Change button text/icon
+          button.disabled = true;  // Disable button so it can't be clicked again
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'There was an error adding this recipe to your favorites. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Re-enable the button on error so the user can try again
+        button.disabled = false;
+      });
+    });
+  }
+

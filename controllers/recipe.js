@@ -98,95 +98,98 @@ const getRecipeDetails = async (req, res) => {
   };
 
 
-
-const favoriteRecipe = async (req, res) => {
+  const favoriteRecipe = async (userId, recipeId) => {
     try {
-      // Get the spoonacularId from the request parameters
-    const spoonacularId = req.params.id;
-
-    // First, find the recipe by its spoonacularId
-    const recipe = await Recipe.findOne({ spoonacularId: spoonacularId });
-
-    if (!recipe) {
-      return res.status(404).json({ message: 'Recipe not found' });
-    }
-
-    // Check if this recipe has already been favorited by the user (to avoid duplicates)
-    const existingFavorite = await Favorite.findOne({
-      user: req.user.id,
-      spoonacularId: spoonacularId,  // Check for the same spoonacularId for the user
-    });
-
-    if (existingFavorite) {
-      return res.status(400).json({ message: 'You have already favorited this recipe' });
-    }
-
-    // Now create a new favorite with the recipe's MongoDB ObjectId and spoonacularId
-    const favorite = await Favorite.create({
-      user: req.user.id,       // assuming the user is attached to the request (via authentication)
-      recipe: recipe._id,      // Store the MongoDB ObjectId (not the spoonacularId)
-      spoonacularId: spoonacularId,  // Store the spoonacularId for external reference
-    });
-
-    console.log('Favorite has been added!');
-    // Respond with a success message and favorite data
-    res.status(201).json({
-      message: 'Recipe has been added to favorites!',
-      favorite: favorite,  // Optionally include the favorite object in the response
-    });
-
-  } catch (err) {
-    console.error('Error adding favorite:', err);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
+      // Try to find the recipe in the MongoDB collection first
+      let recipe = await Recipe.findOne( recipeId );
   
-
-  const likeRecipe = async (req, res) => {
-    try {
-      const spoonacularId = req.params.id;  // Spoonacular ID from URL parameter
-  
-      // Find the recipe by its spoonacularId and increment the likes by 1
-      const recipe = await Recipe.findOneAndUpdate(
-        { spoonacularId: spoonacularId },   // Match by spoonacularId
-        { $inc: { likes: 1 } },              // Increment the likes field
-        { new: true }                        // Return the updated recipe
-      );
-  
+      // If the recipe is not found in MongoDB, fetch it from the API
       if (!recipe) {
-        return res.status(404).json({ message: 'Recipe not found' });  // Return 404 if recipe is not found
+        console.log('Recipe not found in MongoDB, fetching from API...');
+        const apiRecipe = await getRecipeBySpoonacularId(recipeId); // Fetch from API
+        if (!apiRecipe || !apiRecipe.data) {
+            throw new Error('Error fetching recipe from the API');
+        }
+        recipe = await saveRecipe(apiRecipe.data); // Save the recipe to MongoDB
+        console.log('Recipe saved to MongoDB!');
       }
   
-      // Return the updated recipe
-      res.status(200).json({ message: 'Recipe liked successfully!', recipe });
-    } catch (err) {
-      console.error('Error liking recipe:', err);
-      res.status(500).json({ message: 'Server error' });
+      // Check if the user has already favorited this recipe
+      let favorite = await Favorite.findOne({  user: userId, recipe: recipe._id  });
+  
+      if (!favorite) {
+        // If not, create a new favorite entry
+        favorite = new Favorite({
+          user: userId,
+          recipe: recipe._id, // Use the _id of the saved recipe
+          spoonacularId: recipe.spoonacularId, // Store spoonacularId for reference
+        });
+  
+        await favorite.save(); // Save the favorite to MongoDB
+        console.log('Recipe favorited successfully!');
+      } else {
+        console.log('Recipe is already favorited!');
+      }
+  
+      return recipe; // Return the recipe (could also return the favorite if needed)
+  
+    } catch (error) {
+      console.error('Error favoriting recipe:', error.message);
+      throw new Error('Error favoriting recipe');
     }
   };
   
-  
+
+
+const likeRecipe = async (recipeId) => {
+    try {
+        // Try to find the recipe in the MongoDB collection first
+        let recipe = await Recipe.findOne({ spoonacularId: recipeId });
+
+        // If not found, fetch from API and save to MongoDB
+        if (!recipe) {
+            console.log('Recipe not found in MongoDB, fetching from API...');
+            const apiRecipe = await getRecipeBySpoonacularId(recipeId); // Fetch from API
+            apiRecipe.likes = 1; // Set initial likes
+            recipe = await saveRecipe(apiRecipe); // Save to MongoDB
+            console.log('Recipe liked and saved!');
+        } else {
+            console.log('Recipe found in MongoDB, updating likes...');
+            // Update the likes if the recipe is found in MongoDB
+            recipe.likes += 1;
+            await recipe.save();
+            console.log('Recipe liked successfully!');
+        }
+
+        return recipe;
+
+    } catch (error) {
+        console.error('Error liking recipe:', error.message);
+        throw new Error('Error liking recipe');
+    }
+};
+
 
 const saveRecipe = async (recipeData) => {
     const { id, servings, readyInMinutes, instructions, ingredients, likes = 0, user, createdAt = new Date() } = recipeData;
 
-     // Create a new Recipe instance
-     const newRecipe = new Recipe({
-        spoonacularId: id, // Use the Spoonacular ID
+    // Create a new Recipe instance
+    const newRecipe = new Recipe({
+        spoonacularId: id, // Store the Spoonacular ID as a reference
         servings,
         readyInMinutes,
-        instructions, // Ensure this field is included
+        instructions,
         ingredients, // Directly assign the ingredients array
         likes,
         user,
         createdAt,
         // Other fields can be added here if needed
     });
-    
+
     try {
         const savedRecipe = await newRecipe.save(); // Save to the database
         console.log('Recipe saved successfully:', savedRecipe);
-        return savedRecipe; // Return the saved recipe
+        return savedRecipe; // Return the saved recipe with MongoDB's _id
     } catch (error) {
         console.error('Error saving recipe:', error.message);
         throw new Error('Could not save recipe'); // Rethrow for further handling
@@ -194,18 +197,49 @@ const saveRecipe = async (recipeData) => {
 };
 
 
+
    // Function to get a recipe by Spoonacular ID
    const getRecipeBySpoonacularId = async (spoonacularId) => {
     try {
-        const recipe = await Recipe.findOne({ spoonacularId });
+        // Attempt to find the recipe in MongoDB first
+        let recipe = await Recipe.findOne({ spoonacularId });
+
         if (!recipe) {
-            throw new Error('Recipe not found');
+            // If the recipe is not found in the database, fetch it from Spoonacular
+            console.log('Fetching recipe from Spoonacular API...');
+            const response = await axios.get(`https://api.spoonacular.com/recipes/${spoonacularId}/information`, {
+                params: {
+                    apiKey: RECIPES_API_KEY,
+                },
+            });
+
+            if (!response.data) {
+                throw new Error('Recipe data not found from Spoonacular');
+            }
+
+            // Assuming the response contains the full recipe details, save it to MongoDB
+            recipe = await Recipe.create({
+                spoonacularId: spoonacularId,
+                title: response.data.title,
+                image: response.data.image,
+                servings: response.data.servings,
+                readyInMinutes: response.data.readyInMinutes,
+                instructions: response.data.instructions,
+                ingredients: response.data.extendedIngredients,
+                likes: 0, // Start with 0 likes
+                user: null, // Set user if needed
+            });
+            console.log('Recipe saved to MongoDB');
         }
+
         return recipe;
     } catch (error) {
-        console.error('Error retrieving recipe:', error.message);
+        console.error('Error retrieving recipe by Spoonacular ID:', error.message);
+        throw error;
     }
 };
+
+
 
  const deleteRecipe = async (req, res) => {
     try {
