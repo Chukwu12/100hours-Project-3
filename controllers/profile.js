@@ -214,4 +214,36 @@ module.exports = {
       res.redirect("/profile");
     }
   },
+
+   getUserProfile: async (req, res) => {
+    try {
+      const userId = req.user._id; // Get the logged-in user's ID
+  
+      // Find all favorite recipes for the user
+      const favorites = await Favorite.find({ user: userId })
+        .populate('recipe')  // Populate the `recipe` field to get full recipe details
+        .exec();
+  
+      if (!favorites) {
+        return res.status(404).json({ message: 'No favorite recipes found' });
+      }
+  
+      // Extract recipe details
+      const favoriteRecipes = favorites.map(favorite => favorite.recipe);
+  
+      // Return the user's profile data, including their favorite recipes
+      res.status(200).json({
+        message: 'User profile fetched successfully',
+        profile: {
+          name: req.user.name,  // Assuming `req.user` contains user details
+          email: req.user.email,
+          favorites: favoriteRecipes,  // Array of favorite recipes
+        },
+      });
+    } catch (err) {
+      console.error('Error fetching profile:', err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  },
 };
+

@@ -166,45 +166,12 @@ hr ~ * {
 }
 
 /* profile hero */
-/* // n is number of stars required */
-/* Define the number of stars and box-shadow function */
 /* Profile Hero Section */
 .profile-hero {
   height: 60vh;
   background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
   overflow: hidden;
   position: relative;
-}
-
-/* Star fields */
-#stars, #stars2, #stars3 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 1px;
-  height: 1px;
-  background: transparent;
-}
-
-#stars {
-  box-shadow: 0px 0px 1000px #FFF, 2000px 2000px #FFF, 3000px 3000px #FFF, 1500px 1500px #FFF, 1000px 1000px #FFF; /* 700 random shadows for small stars */
-  animation: animStar 50s linear infinite;
-}
-
-#stars2 {
-  width: 2px;
-  height: 2px;
-  box-shadow: 0px 0px 500px #FFF, 2000px 2000px #FFF, 1500px 1500px #FFF; /* 200 random shadows for medium stars */
-  animation: animStar 100s linear infinite;
-}
-
-#stars3 {
-  width: 3px;
-  height: 3px;
-  box-shadow: 0px 0px 200px #FFF, 2000px 2000px #FFF; /* 100 random shadows for big stars */
-  animation: animStar 150s linear infinite;
 }
 
 /* Title styling */
@@ -229,15 +196,6 @@ hr ~ * {
   -webkit-text-fill-color: transparent;
 }
 
-/* Star animation keyframes */
-@keyframes animStar {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-2000px);
-  }
-}
 .recipe-card-1 {
   background-repeat: no-repeat;
   background-size: cover;
@@ -548,5 +506,111 @@ hr ~ * {
   100% {
     transform: scale(1, 1);
     opacity: 0.25;
+  }
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.recipe-history {
+  background-color: #f3f3f3;
+  padding: 50px 20px;
+}
+.recipe-history h2 {
+  text-align: center;
+  font-family: "Pacifico", cursive;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+.recipe-history .recipe-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.recipe-history .favorite-card {
+  background-color: #fdfefe;
+  width: 100%;
+  max-width: 550px;
+  min-height: 400px;
+  box-shadow: 8px 12px 30px #b3b3b3;
+  border-radius: 8px;
+  overflow: hidden;
+  color: #919495;
+  font-weight: normal;
+  font-size: 18px;
+}
+.recipe-history .favorite-card .favorite-details {
+  padding: 20px;
+}
+.recipe-history .favorite-card .favorite-details h3 {
+  font-family: "Pacifico", cursive;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+.recipe-history .favorite-card .favorite-details img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.recipe-history .favorite-card .favorite-details .glide-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.recipe-history .favorite-card .favorite-details .glide-icons p {
+  font-size: 18px;
+  color: #555;
+}
+.recipe-history .favorite-card .favorite-details .glide-icons p .card-icons {
+  margin-left: 10px;
+  color: #337AB7;
+}
+.recipe-history .favorite-card .favorite-details .glide-icons p .card-icons i {
+  margin-right: 5px;
+}
+.recipe-history .favorite-card .favorite-details button {
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  background-color: #337AB7;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.recipe-history .favorite-card .favorite-details button:hover {
+  background-color: #173853;
+}
+
+@media (max-width: 768px) {
+  .recipe-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .favorite-card {
+    max-width: 90%;
+  }
+}
+@media (max-width: 480px) {
+  .favorite-card {
+    font-size: 16px;
+  }
+  .favorite-card .favorite-details {
+    padding: 15px;
+  }
+  .favorite-card .favorite-details h3 {
+    font-size: 1.25rem;
+  }
+  .favorite-card .favorite-details button {
+    width: 100%;
+    height: 45px;
   }
 }/*# sourceMappingURL=styles.css.map */

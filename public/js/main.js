@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const encodedQuery = encodeURIComponent(query);
-                const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&apiKey=${apiKey}`);
+                const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&API_KEY=${API_KEY}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -218,68 +218,58 @@ const transform = (element, blur, height, zoom) => {
 };
 // ===================================like button models =====================================//
 // Function to handle the "Like" button click and form submission
-  function likeRecipe(recipeId) {
-    const form = document.getElementById(`like-form-${recipeId}`);
-    fetch(form.action, {
-      method: form.method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: new FormData(form),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message) {
-        Swal.fire({
-          title: 'Success!',
-          text: data.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
+function likeRecipe(recipeId) {
+  const form = document.getElementById(`like-form-${recipeId}`);
+
+  // If the form doesn't exist or has issues, return early
+  if (!form) {
       Swal.fire({
-        title: 'Error',
-        text: 'There was an error liking this recipe. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'OK'
+          title: 'Error',
+          text: 'Form not found.',
+          icon: 'error',
+          confirmButtonText: 'OK'
       });
-    });
+      return;
   }
 
-  // Function to handle the "Like" button click and form submission
-  function likeRecipe(recipeId) {
-    const form = document.getElementById(`like-form-${recipeId}`);
-    fetch(form.action, {
-      method: form.method,
+  // You don't really need to collect FormData here if you just want to send the recipeId
+  const data = { recipeId };
+
+  // Send the form data as JSON
+  fetch(form.action, {
+      method: 'PUT', // Use the PUT method as you are updating the likes
       headers: {
-        'Content-Type': 'application/json',
+          'Content-Type': 'application/json', // Ensure we are sending JSON
       },
-      body: new FormData(form),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message) {
-        Swal.fire({
-          title: 'Success!',
-          text: data.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
+      body: JSON.stringify(data), // Send the recipeId in the body
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Failed to like recipe');
       }
-    })
-    .catch(error => {
+      return response.json();
+  })
+  .then(data => {
+      if (data.message) {
+          Swal.fire({
+              title: 'Success!',
+              text: data.message || 'Recipe liked successfully!',
+              icon: 'success',
+              confirmButtonText: 'OK'
+          });
+      }
+  })
+  .catch(error => {
       console.error('Error:', error);
       Swal.fire({
-        title: 'Error',
-        text: 'There was an error liking this recipe. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'OK'
+          title: 'Error',
+          text: 'There was an error liking this recipe. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK'
       });
-    });
-  }
+  });
+}
+
 
     // Function to handle the "Favorite" button click and form submission
     function favoriteRecipe(recipeId) {
@@ -311,3 +301,4 @@ body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
            });
          });
        }
+// =================================profile-hero====================//

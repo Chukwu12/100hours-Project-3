@@ -11,6 +11,7 @@ router.get('/recipeInfo/:id', recipeController.getRecipeDetails);
 // Route to mark a recipe as favorite
 router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 
+
 // Route to like a recipe
 router.put('/likeRecipe/:id', recipeController.likeRecipe);
 

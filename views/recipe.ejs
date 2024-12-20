@@ -55,20 +55,24 @@
     </header>
     
           <!-- Hero Section  -->
-          <div class="hero-section">
-           
-        </div>
+        <section>
+          <div class="hero-container">
+            <div class="hero-content">
+              
+            </div>
+          </div>
+        </section>
             <!-- Hero End -->
           
         
     <div class="search-bar">
         <div class="form">
-            <i class="fa fa-search"></i>
+            <i class="fa fa-search" id="search-button"></i>
             <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
            
                 <span class="left-pan">
                     <i class="fa fa-microphone"></i>
-                
+                  </span>
         </div>
         <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
     </div>
@@ -134,11 +138,11 @@
                                     </form>
                               
                                    <!-- Favorite Recipe Form -->
-<form class="col" id="favorite-form-<%= recipe.id %>" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= recipe.id %>');">
-    <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-      <i class="fa-solid fa-star custom-icon"></i>
-    </button>
-  </form>
+                                    <form class="col" id="favorite-form-<%= recipe.id %>" action="/recipe/favoriteRecipe/<%= recipe.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= recipe.id %>');">
+                                        <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                          <i class="fa-solid fa-star custom-icon"></i>
+                                        </button>
+                                      </form>
   
                                   </div>
                                 </div>
@@ -187,17 +191,20 @@
                                     
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
-                                        <form class="col" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                            <form class="col" id="like-form-<%= dessert.id %>" action="/recipe/likeRecipe/<%= dessert.id %>?_method=PUT" method="POST" onsubmit="event.preventDefault(); likeRecipe('<%= dessert.id %>');">
+                                              <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
                                                 <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
+                                              </button>
+                                            </form>
+
+                                      
                                               <!-- Favorite Recipe Form -->
-                                        <form class="col" action="/recipe/favoriteRecipe/<%= dessert.id %>" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-star custom-icon"></i>
-                                            </button>
+                                        <form class="col" id="favorite-form-<%= dessert.id %>" action="/recipe/favoriteRecipe/<%= dessert.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= dessert.id %>');">
+                                          <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                            <i class="fa-solid fa-star custom-icon"></i>
+                                          </button>
                                         </form>
+                                        
                                              <!-- Delete Recipe Form (conditional) -->
                                              <!-- <% if (dessert.user && dessert.user.id === user.id) { %>
                                                 <form action="/recipe/deleteRecipe/<%= dessert.id %>?_method=DELETE" method="POST" style="display:inline;">
@@ -256,17 +263,21 @@
                                     
                                     <div class="glide-card-memory">
                                             <!-- Like Recipe Form -->
-                                        <form class="col" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
+                                        <form class="col" id="like-form-<%= tip.id %>" action="/recipe/likeRecipe/<%= tip.id %>?_method=PUT" method="POST" onsubmit="event.preventDefault(); likeRecipe('<%= tip.id %>');">
+                                          <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                            <i class="fa-solid fa-heart custom-icon2"></i>
+                                          </button>
                                         </form>
+                                        
                                               <!-- Favorite Recipe Form -->
-                                        <form class="col" action="/recipe/favoriteRecipe/<%= tip.id %>" method="POST">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-star custom-icon"></i>
-                                            </button>
+                                        <form class="col" id="favorite-form-<%= tip.id %>" action="/recipe/favoriteRecipe/<%= tip.id %>" method="POST" onsubmit="event.preventDefault(); favoriteRecipe('<%= tip.id %>');">
+                                          <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
+                                            <i class="fa-solid fa-star custom-icon"></i>
+                                          </button>
                                         </form>
+                                        
+
+                                        
                                              <!-- Delete Recipe Form (conditional) -->
                                              <!-- <% if (tip.user && tip.user.id === user.id) { %>
                                                 <form action="/recipe/deleteRecipe/<%= tip.id %>?_method=DELETE" method="POST" style="display:inline;">

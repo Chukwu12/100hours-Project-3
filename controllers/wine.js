@@ -1,5 +1,5 @@
 // const axios = require('axios');
-// const Wine = require('../models/Wine'); // Import the wine model
+ const Wine = require('../models/Wine'); // Import the wine model
 // const WINE_DESCRIPTION_API = 'https://api.spoonacular.com/food/wine/description';
 // const WINE_PARING_API = 'https://api.spoonacular.com/food/wine/pairing';
 // const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
@@ -83,3 +83,25 @@
 //         res.status(500).json({ message: 'Error fetching wine details' });
 //     }
 // };
+// wineController.js
+
+const Wine = require('../models/Wine'); // Assuming the Wine model is correctly imported
+
+// Function to get a random wine
+exports.getRandomWine = async (req, res) => {
+  try {
+    const count = await Wine.countDocuments();  // Get the total number of wines in the database
+    const randomIndex = Math.floor(Math.random() * count);  // Generate a random index within the range of document count
+
+    const randomWine = await Wine.findOne().skip(randomIndex);  // Skip to the random index and fetch the wine
+
+    if (!randomWine) {
+      return res.status(404).json({ message: 'No wine found' });
+    }
+
+    res.json(randomWine);  // Return the random wine as JSON
+  } catch (err) {
+    console.error('Error fetching random wine:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

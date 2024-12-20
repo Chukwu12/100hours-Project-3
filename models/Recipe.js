@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Define Recipe schema and model
 const RecipeSchema = new mongoose.Schema({
     spoonacularId: {
-        type: Number, // Store the Spoonacular ID as a number
+        type: string,
         required: true,
         unique: true, // Ensure it's unique to avoid duplicates
     },
@@ -43,11 +43,12 @@ const RecipeSchema = new mongoose.Schema({
     }],
     likes: {
         type: Number,
-        required: true,
+        default: 0, // Default to 0 if not provided
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "User", // Reference to the User model
+        required: true,
     },
     createdAt: {
         type: Date,
@@ -56,16 +57,16 @@ const RecipeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-      },
-      cloudinaryId: {
+    },
+    cloudinaryId: {
         type: String,
-        require: true,
-      },
-      directions: {
+        required: false, // Make optional if not using Cloudinary
+    },
+    directions: {
         type: String,
         required: true,
-      },
-});
+    },
+}, { timestamps: true }); // Adds createdAt and updatedAt fields automatically
 
-// MongoDB Collection named here - will give lowercase plural of name 
+// MongoDB Collection named here - will give lowercase plural of name
 module.exports = mongoose.model("Recipe", RecipeSchema);
