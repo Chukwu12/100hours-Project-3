@@ -226,33 +226,36 @@ const likeRecipe = async (req, res) => {
 }
 };
   
-  
+
+
+
 
 const saveRecipe = async (recipeData) => {
     const { id, servings, readyInMinutes, instructions, ingredients, likes = 0, user, createdAt = new Date() } = recipeData;
 
-     // Create a new Recipe instance
-     const newRecipe = new Recipe({
-        spoonacularId: id, // Use the Spoonacular ID
+    // Create a new Recipe instance
+    const newRecipe = new Recipe({
+        spoonacularId: id, // Store the Spoonacular ID as a reference
         servings,
         readyInMinutes,
-        instructions, // Ensure this field is included
+        instructions,
         ingredients, // Directly assign the ingredients array
         likes,
         user,
         createdAt,
         // Other fields can be added here if needed
     });
-    
+
     try {
         const savedRecipe = await newRecipe.save(); // Save to the database
         console.log('Recipe saved successfully:', savedRecipe);
-        return savedRecipe; // Return the saved recipe
+        return savedRecipe; // Return the saved recipe with MongoDB's _id
     } catch (error) {
         console.error('Error saving recipe:', error.message);
         throw new Error('Could not save recipe'); // Rethrow for further handling
     }
 };
+
 
 
    // Function to get a recipe by Spoonacular ID
