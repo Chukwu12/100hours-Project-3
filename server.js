@@ -23,7 +23,7 @@ const mainRoutes = require('./routes/main');
 const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
 const createRoutes = require('./routes/create');
-//  const wineRoutes = require('./routes/wine');
+  const wineRoutes = require('./routes/wine');
 
 // Import controllers
  const cuisineController = require('./controllers/cuisine');
@@ -95,7 +95,7 @@ app.use('/', recipeRoutes);
   app.use('/', mainRoutes);
  app.use('/profile', profileRoutes);
  app.use('/', createRoutes);
-  // app.use('/wine', wineRoutes);
+   app.use('/wine', wineRoutes);
 
   // Define your route directly if necessary
 app.get('/cuisine/:type', cuisineController.getCuisineRecipes);

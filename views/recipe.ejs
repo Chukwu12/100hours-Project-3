@@ -58,7 +58,21 @@
         <section>
           <div class="hero-container">
             <div class="hero-content">
-              
+                <h2>Wine of the Day: <%= wine.name %></h2>
+                <p><strong>Category:</strong> <%= wine.category %></p>
+                <p><strong>Description:</strong> <%= wine.description %></p>
+                
+                <h2>Food Pairings</h2>
+                <% if (Array.isArray(wine.pairing) && wine.pairing.length > 0) { %>
+                    <ul>
+                        <% wine.pairing.forEach(pairing => { %>
+                            <li><%= pairing %></li>
+                        <% }) %>
+                    </ul>
+                <% } else { %>
+                    <p>No food pairings available.</p>
+                <% } %>
+                
             </div>
           </div>
         </section>

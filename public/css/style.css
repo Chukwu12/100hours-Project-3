@@ -1725,7 +1725,7 @@ a[href="/api"]:hover {
 /* Create Recipe */
 .create-container{
     position: relative;
-    width: 70vw;
+    width: 50vw;
     height: 90vh;
     background: #fff;
     border-radius: 15px;
@@ -1733,7 +1733,7 @@ a[href="/api"]:hover {
     overflow: hidden;
     color: white;
     margin: auto;
-    background-color: #ffde6b;
+    background-color: #ffffff;
 }
 
 

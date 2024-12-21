@@ -15,23 +15,25 @@ const wineSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
-    // List of wine types (e.g., 'chardonnay', 'pinot_noir', etc.)
-    types: [
-        { 
-            type: String,  // Specific wine type (e.g., 'assyrtiko', 'pinot_grigio')
-            required: true
-        }
-    ],
 
-    // List of flavors associated with the wine (e.g., 'fruity', 'spicy', etc.)
-    flavors: [String], // e.g., ['fruity', 'spicy']
+    // Wine types grouped by subcategory (using a Map for efficiency)
+    types: {
+        type: Map,
+        of: [String], // Map of subcategory to array of wine types
+        required: true
+    },
 
-    // Wine region (e.g., 'Bordeaux', 'Champagne')
-    region: String, // Optional
+    // Wine description (from Spoonacular API)
+    description: { 
+        type: String, 
+        required: false
+    },
 
-    // Vintage year (Optional)
-    vintage: Number // Optional
+    // Wine pairing (dishes that go well with this wine)
+    pairing: [{ 
+        type: String,  // e.g., ['grilled chicken', 'salmon']
+        required: false
+    }]
 });
 
 // Export the Wine model using the defined schema

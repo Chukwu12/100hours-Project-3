@@ -86,24 +86,7 @@
           
 
           <!-- Recipe history -->
-          <section>
-            <div class="recipe-history">
-              <% if (favorites && favorites.length > 0) { %> <!-- Check if favorites exist -->
-                <div class="recipe-cards-container">
-                  <% favorites.forEach(favorite => { %>
-                    <div class="recipe-card">
-                      <h3><%= favorite.recipe.title %></h3>
-                      <img src="<%= favorite.recipe.image %>" alt="<%= favorite.recipe.title %>">
-                      <p>Ingredients: <%= favorite.recipe.ingredients.join(', ') %></p>
-                    </div>
-                  <% }); %>
-                </div>
-              <% } else { %>
-                <p>No favorite recipes found.</p>
-              <% } %>
-            </div>
-          </section>
-          
+ 
 
 
         
