@@ -21,4 +21,9 @@ router.delete("/deleteRecipe/:id", profileController.deleteRecipe);
 // Get user favorites
 router.get("/profile", ensureAuth, profileController.getFavorites)
 
+// Route to fetch favorite recipe to profile
+router.get('/profile', ensureAuth, recipeController.fetchFavorite);
+ // Fetch favorites
+
+
 module.exports = router;

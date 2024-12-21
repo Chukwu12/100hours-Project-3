@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Define Recipe schema and model
 const RecipeSchema = new mongoose.Schema({
     spoonacularId: {
-        type: string,
+        type: String,
         required: true,
         unique: true, // Ensure it's unique to avoid duplicates
     },

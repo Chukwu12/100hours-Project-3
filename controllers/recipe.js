@@ -184,18 +184,22 @@ const getRecipeDetails = async (req, res) => {
 
 const fetchFavorite = async (req, res) => {
     try {
-        const userId = req.user.id; // Ensure the user is authenticated
-    
-        const favorites = await Favorite.find({ user: userId })
-          .populate('recipe', 'name imageUrl ingredients') // Populate only needed fields
-          .select('createdAt spoonacularId'); // Include only relevant fields
-    
-        res.status(200).json({ favorites });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "An error occurred while fetching favorites." });
-      }
+      const userId = req.user.id; // Ensure the user is authenticated
+
+          // Fetch the user's favorite recipes
+      const favorites = await Favorite.find({ user: userId })
+        .populate('recipe', 'title image ingredients')
+        .select('createdAt spoonacularId');
+        console.log(favorites);
+  
+        // Render the profile page with the fetched favorites
+      res.render('profile', { user: req.user, favorites }); // Pass `favorites` to the template
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('An error occurred while fetching favorites.');
+    }
   };
+  
   
 
 
