@@ -9,23 +9,30 @@ const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 exports.getRandomWine = async (req, res) => {
   try {
     // Define the wine categories based on your model
-    const wineCategories = ['white_wine', 'red_wine', 'dessert_wine', 'rose_wine', 'sparkling_wine', 'sherry', 'vermouth', 'fruit_wine', 'mead'];
-    
+    const wineCategories = ['white_wine', 'red_wine', 'dessert_wine', 'rose_wine', 'sparkling_wine', 'sherry', 'vermouth', 'fruit_wine'];
+
     // Randomly select a category
     const randomCategory = wineCategories[Math.floor(Math.random() * wineCategories.length)];
-    
-    // Find a wine with a random subcategory (example: 'dry_white_wine', 'sweet_white_wine')
-    // First, we'll look for the wine subcategory in the 'types' map
-    const randomSubcategory = Object.keys(Wine.schema.obj.types.obj).find(subcategory => subcategory.includes(randomCategory));  // This matches your categories like 'dry_white_wine'
 
-    if (!randomSubcategory) {
-      return res.status(500).json({ message: 'No subcategory found for this category.' });
+    // Get all the subcategories of the selected category
+    const wineCategoryData = await Wine.findOne({}, `${randomCategory}`).exec();
+
+    if (!wineCategoryData || !wineCategoryData[randomCategory]) {
+      return res.status(500).json({ message: 'No wines found in the selected category.' });
     }
 
-    // Get the wine types for that subcategory
-    const wineTypes = randomSubcategory ? Wine.schema.obj.types.get(randomSubcategory) : [];
+    // Randomly select a subcategory within the category (e.g., dry_white_wine, mueller_thurgau)
+    const subcategoryKeys = Object.keys(wineCategoryData[randomCategory]);
+    const randomSubcategory = subcategoryKeys[Math.floor(Math.random() * subcategoryKeys.length)];
 
-    // Randomly select a wine type from the list
+    // Get the wine types for that subcategory
+    const wineTypes = wineCategoryData[randomCategory][randomSubcategory];
+    
+    if (!wineTypes || wineTypes.length === 0) {
+      return res.status(500).json({ message: 'No wines found in the selected subcategory.' });
+    }
+
+    // Randomly select a wine from the wine types
     const randomWineType = wineTypes[Math.floor(Math.random() * wineTypes.length)];
 
     // Fetch wine pairing suggestion from Spoonacular API
@@ -54,10 +61,12 @@ exports.getRandomWine = async (req, res) => {
       pairing: pairedRecipes.length > 0 ? pairedRecipes : 'No pairings available.',
     };
 
-    // Render the page and pass the wine data
+    // Log responses for debugging (optional)
     console.log('Pairing Response:', pairingResponse.data);
     console.log('Description Response:', descriptionResponse.data);
-    console.log('Wine Data:', wineData);  // Add this line to check if wineData has the expected structure
+    console.log('Wine Data:', wineData);  // Log the combined wine data for debugging
+
+    // Render the page and pass the wine data
     res.render('recipe', {  
       wine: wineData,
     });
