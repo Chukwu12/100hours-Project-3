@@ -58,38 +58,24 @@
         <section>
           <div class="hero-container">
             <div class="hero-content">
-                <h2>Wine of the Day: <%= wine.name %></h2>
-                <p><strong>Category:</strong> <%= wine.category %></p>
-                <p><strong>Description:</strong> <%= wine.description %></p>
-                
-                <h2>Food Pairings</h2>
-                <% if (Array.isArray(wine.pairing) && wine.pairing.length > 0) { %>
-                    <ul>
-                        <% wine.pairing.forEach(pairing => { %>
-                            <li><%= pairing %></li>
-                        <% }) %>
-                    </ul>
-                <% } else { %>
-                    <p>No food pairings available.</p>
-                <% } %>
-                
+          
             </div>
           </div>
         </section>
             <!-- Hero End -->
           
         
-    <div class="search-bar">
-        <div class="form">
-            <i class="fa fa-search" id="search-button"></i>
-            <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
-           
-                <span class="left-pan">
-                    <i class="fa fa-microphone"></i>
-                  </span>
-        </div>
-        <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
+   <!-- HTML: Search Bar -->
+<div class="search-bar">
+    <div class="form">
+        <i class="fa fa-search" id="search-button"></i>
+        <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
+        <span class="left-pan">
+            <i class="fa fa-microphone"></i>
+        </span>
     </div>
+    <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
+</div>
 
     <header id="second-nav">
         <nav id="cuisenes">
@@ -462,9 +448,13 @@
            }
          </script>  
 
+
+    <!-- Include Axios from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Custom JS -->
-    <script src="js/main.js"></script>
+    <script  type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -1,75 +1,4 @@
 
-const deleteBtn = document.querySelectorAll('.del')
-const todoItem = document.querySelectorAll('span.not')
-const todoComplete = document.querySelectorAll('span.completed')
-
-
-Array.from(deleteBtn).forEach((el)=>{
-    el.addEventListener('click', deleteTodo)
-})
-
-Array.from(todoItem).forEach((el)=>{
-    el.addEventListener('click', markComplete)
-})
-
-Array.from(todoComplete).forEach((el)=>{
-    el.addEventListener('click', markIncomplete)
-})
-
-async function deleteTodo(){
-    const todoId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('todos/deleteTodo', {
-            method: 'delete',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'todoIdFromJSFile': todoId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
-    }
-}
-
-async function markComplete(){
-    const todoId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('todos/markComplete', {
-            method: 'put',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'todoIdFromJSFile': todoId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
-    }
-}
-
-async function markIncomplete(){
-    const todoId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('todos/markIncomplete', {
-            method: 'put',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'todoIdFromJSFile': todoId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
-    }
-}
-
 // --------------------------Sign-in Form------------------------------------//
 document.addEventListener('DOMContentLoaded', () => {
     // Cache the buttons and container
@@ -112,79 +41,108 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
 // --------------------------------------  SearchBar ----------------------------------//
+
 document.addEventListener('DOMContentLoaded', () => {
     const inputBox = document.getElementById('input-box');
     const suggestionsBox = document.getElementById('suggestions');
     const searchButton = document.getElementById('search-button');
     let timeoutId;
+    let API_KEY = '';
+    
 
-    // Ensure elements exist before adding event listeners
-    if (inputBox && suggestionsBox && searchButton) {
-        // Debounce function to limit the number of API calls
-        function debounce(func, delay) {
-            return function(...args) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => func.apply(this, args), delay);
-            };
+
+    // Fetch API key from server
+    async function loadApiKey() {
+        try {
+            const response = await axios.get('/api-key');
+            API_KEY = response.data.apiKey;
+        } catch (error) {
+            console.error('Error loading API Key:', error);
+        }
+    }
+    
+
+    // Debounce function to limit the number of API calls
+    function debounce(func, delay) {
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    // Function to fetch and display suggestions using axios
+    const fetchSuggestions = async () => {
+        const query = inputBox.value.trim();
+        if (query.length < 2) {
+            suggestionsBox.style.display = 'none'; // Hide suggestions if input is too short
+            return;
         }
 
-        // Function to fetch and display suggestions
-        const fetchSuggestions = async () => {
-            const query = inputBox.value.trim();
-            if (query.length < 2) {
-                suggestionsBox.style.display = 'none'; // Hide suggestions if input is too short
-                return;
-            }
+        try {
+            const encodedQuery = encodeURIComponent(query);
 
-            try {
-                const encodedQuery = encodeURIComponent(query);
-                const response = await fetch(`https://api.spoonacular.com/recipes/autocomplete?query=${encodedQuery}&number=5&API_KEY=${API_KEY}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+            // Using axios to make the API call
+            const response = await axios.get(`https://api.spoonacular.com/recipes/autocomplete`, {
+                params: {
+                    query: encodedQuery,
+                    number: 5,
+                    apiKey: API_KEY
                 }
-                const data = await response.json();
+            });
 
-                // Clear previous suggestions
-                suggestionsBox.innerHTML = '';
+            const data = response.data;
 
-                // Populate new suggestions
-                if (Array.isArray(data)) {
-                    data.forEach(item => {
-                        const suggestionItem = document.createElement('div');
-                        suggestionItem.className = 'suggestion-item';
-                        suggestionItem.textContent = item.title;
-                        suggestionItem.tabIndex = 0; // Make items focusable
-                        suggestionItem.addEventListener('click', () => {
+            // Clear previous suggestions
+            suggestionsBox.innerHTML = '';
+
+            // Populate new suggestions
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(item => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.textContent = item.title;
+                    suggestionItem.tabIndex = 0; // Make items focusable
+                    suggestionItem.addEventListener('click', () => {
+                        inputBox.value = item.title;
+                        suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                    });
+                    suggestionItem.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
                             inputBox.value = item.title;
                             suggestionsBox.style.display = 'none'; // Hide suggestions after selection
-                        });
-                        suggestionItem.addEventListener('keydown', (e) => {
-                            if (e.key === 'Enter') {
-                                inputBox.value = item.title;
-                                suggestionsBox.style.display = 'none'; // Hide suggestions after selection
-                            }
-                        });
-                        suggestionsBox.appendChild(suggestionItem);
+                        }
                     });
-                    suggestionsBox.style.display = 'block'; // Show suggestions
-                } else {
-                    console.error('Unexpected response format:', data);
-                }
-            } catch (error) {
-                console.error('Error fetching suggestions:', error);
-                suggestionsBox.innerHTML = '<div class="error-message">Failed to load suggestions.</div>';
-                suggestionsBox.style.display = 'block'; // Show error message
+                    suggestionsBox.appendChild(suggestionItem);
+                });
+                suggestionsBox.style.display = 'block'; // Show suggestions
+            } else {
+                suggestionsBox.innerHTML = '<div class="error-message">No suggestions found</div>';
+                suggestionsBox.style.display = 'block';
             }
-        };
+        } catch (error) {
+            console.error('Error fetching suggestions:', error);
+            suggestionsBox.innerHTML = '<div class="error-message">Failed to load suggestions.</div>';
+            suggestionsBox.style.display = 'block'; // Show error message
+        }
+    };
 
-        // Apply debounce to input event
-        inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
+    // Apply debounce to input event
+    inputBox.addEventListener('input', debounce(fetchSuggestions, 300));
 
-        // Fetch suggestions when the search button is clicked
-        searchButton.addEventListener('click', fetchSuggestions);
-    } else {
-        console.error('Required elements are not found in the DOM');
-    }
+    // Fetch suggestions when the search button is clicked
+    searchButton.addEventListener('click', fetchSuggestions);
+
+    // Hide suggestions when the input loses focus
+    inputBox.addEventListener('blur', () => {
+        setTimeout(() => { // Timeout allows clicks on suggestion items
+            suggestionsBox.style.display = 'none';
+        }, 200);
+    });
+
+    // Load the API key before using it
+    loadApiKey().then(() => {
+        console.log('API Key loaded:');
+    });
 });
 
 // --------------------------------Profile Card ---------------------------------------------------------//

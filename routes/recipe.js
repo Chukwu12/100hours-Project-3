@@ -3,6 +3,9 @@ const router = express.Router();
 const recipeController = require('../controllers/recipe');
 
 
+
+
+
 // router.get('/', recipeController.getRandomRecipes); 
 
 // Route to fetch recipe details by ID
@@ -24,9 +27,10 @@ router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId)
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
 // router.delete("/deleteRecipe/:id", recipesController.deleteRecipe);
 
-
-
-
-
+// Endpoint to send the API Key to the client
+router.get('/api-key', (req, res) => {
+    res.json({ apiKey: process.env.RECIPES_API_KEY });
+});
+   
 
 module.exports = router;

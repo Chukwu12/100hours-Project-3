@@ -42,7 +42,7 @@ const getDessertRecipes = async () => {
     }
 };
 
-
+// Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {
     try {
            // Check for API key

@@ -2,10 +2,10 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
-// const Wine = require('../models/Wine'); // Import the wine model
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY ;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
+const API_KEY = process.env.API_KEY;
 
 
 console.log('API Key:', process.env.RECIPES_API_KEY);
@@ -94,8 +94,9 @@ const getRecipeDetails = async (req, res) => {
                 apiKey: RECIPES_API_KEY,
             }
         });
-        console.log('API Response:', response.data); // Add this line to log the full response
+        
         const recipe = response.data;
+        console.log('API Response:', response.data); // Add this line to log the full response
   
         // Validate that the recipe data contains the expected fields
       if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {
@@ -317,6 +318,8 @@ const saveRecipe = async (recipeData) => {
       res.redirect("/profile");
     }
   };
+
+
 
 
 
