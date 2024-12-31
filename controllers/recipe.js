@@ -124,14 +124,14 @@ const getRecipeDetails = async (req, res) => {
 
   const favoriteRecipe = async (req, res) => {
     try {
-        const { id: spoonacularId } = req.params;
+        const { recipeId } = req.params;
 
-        // Try to find the recipe in MongoDB by spoonacularId
-        let recipe = await Recipe.findOne({ spoonacularId });
+        // Try to find the recipe in MongoDB by recipeId
+        let recipe = await Recipe.findOne({ recipeId });
 
         // If the recipe isn't found in the database, fetch it from the API and save it
         if (!recipe) {
-            const response = await axios.get(`https://api.spoonacular.com/recipes/${spoonacularId}/information`, {
+            const response = await axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information`, {
                 params: { apiKey: RECIPES_API_KEY },
             });
 
@@ -139,18 +139,17 @@ const getRecipeDetails = async (req, res) => {
                 const apiRecipe = response.data;
 
                 // Create a new recipe document using the API data
-                recipe = new Recipe({
-                    spoonacularId: apiRecipe.id,
-                    title: apiRecipe.title,
-                    image: apiRecipe.image,
-                    instructions: apiRecipe.instructions || '',
-                    servings: apiRecipe.servings,
-                    readyInMinutes: apiRecipe.readyInMinutes,
-                    ingredients: apiRecipe.extendedIngredients?.map(ing => ing.original) || [],
+                const newFavorite = new Favorite({
+                    user: userId,  // The authenticated user
+                    recipe: recipeId,  // The recipe ID
+                    spoonacularId: recipe.spoonacularId,  // Assuming you're saving this ID
+                    ingredients: recipe.ingredients,  // Ensure ingredients are passed as an array of objects
+                    directions: recipe.directions,  // Ensure directions are available in the recipe object
+                    name: recipe.name,  // Ensure the name is available
                 });
 
-                // Save the recipe to MongoDB
-                await recipe.save();
+                // Save the favorite recipe to the database
+        await newFavorite.save();
             } else {
                 return res.status(404).json({ message: 'Recipe not found in API or database' });
             }

@@ -231,32 +231,33 @@ function likeRecipe(recipeId) {
 
     // Function to handle the "Favorite" button click and form submission
     function favoriteRecipe(recipeId) {
-        fetch(`/recipe/favoriteRecipe/${recipeId}`, {
-method: 'POST',
-headers: { 
-  'Content-Type': 'application/json'  // Make sure the content-type is JSON
-},
-body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
-})
-         .then(response => response.json())
-         .then(data => {
-           if (data.message) {
-             Swal.fire({
-               title: 'Success!',
-               text: data.message,
-               icon: 'success',
-               confirmButtonText: 'OK'
-             });
-           }
-         })
-         .catch(error => {
-           console.error('Error:', error);
-           Swal.fire({
-             title: 'Error',
-             text: 'There was an error adding this recipe to your favorites. Please try again.',
-             icon: 'error',
-             confirmButtonText: 'OK'
-           });
-         });
-       }
+      fetch(`/recipe/favoriteRecipe/${recipeId}`, {
+          method: 'POST',
+          headers: { 
+              'Content-Type': 'application/json'  // Ensure the content-type is JSON
+          },
+          body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.message) {
+              Swal.fire({
+                  title: 'Success!',
+                  text: data.message,
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+              });
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          Swal.fire({
+              title: 'Error',
+              text: 'There was an error adding this recipe to your favorites. Please try again.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          });
+      });
+  }
+  
 // =================================profile-hero====================//

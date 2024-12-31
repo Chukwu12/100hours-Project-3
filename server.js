@@ -98,17 +98,18 @@ app.use('/', recipeRoutes);
    app.use('/wines', wineRoutes);
 
   // Define your route directly if necessary
-app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
-app.get('/dessert', dessertController.getDessertRecipes);
-app.get('/dessert', dessertController.getRecipeDetails )
-app.get('/health', healthyController.getHealthyDetails);
-app.use('recipe', recipeController.getRandomRecipes);
-app.get('/recipe/:id', recipeInfoController.getRecipeDetails);
-app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
-app.get('/createRecipes', createController.createRecipe);
- app.get('/login', authController.getLogin);
-app.get('/profile', profileController.getProfile);
-app.get('/', mainController.combinedData);  // For combined recipes and wine pairing
+// app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
+// app.get('/dessert', dessertController.getDessertRecipes);
+// app.get('/dessert', dessertController.getRecipeDetails )
+// app.get('/health', healthyController.getHealthyDetails);
+// app.use('recipe', recipeController.getRandomRecipes);
+// app.get('/recipe/:id', recipeInfoController.getRecipeDetails);
+// app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
+// app.get('/createRecipes', createController.createRecipe);
+//  app.get('/login', authController.getLogin);
+// app.get('/profile', profileController.getProfile);
+// app.get('/', mainController.combinedData);  // For combined recipes and wine pairing
+// app.get('/', recipeController.fetchFavorite);
 
 
 

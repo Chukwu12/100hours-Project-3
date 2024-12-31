@@ -86,7 +86,26 @@
           
 
           <!-- Recipe history -->
- 
+          <!-- Favorite Recipes Section -->
+          <section class="mb-5">
+            <h4 class="text-center mb-4">Your Favorite Recipes</h4>
+            <% if (favorites && favorites.length > 0) { %>
+                <div class="row">
+                    <% favorites.forEach(favorites => { %>
+                        <div class="col-md-4 mb-4">
+                            <div class="favorite-recipe-card">
+                                <img src="<%= favorite.recipe.image %>" alt="<%= favorite.recipe.title %>" class="favorite-recipe-image">
+                                <h5><%= favorites.recipe.title %></h5>
+                                <a href="/recipe/<%= favorite.recipe.spoonacularId %>" class="btn btn-primary">View Recipe</a>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p class="text-center">You have no favorite recipes yet.</p>
+            <% } %>
+        </section>
+        
 
 
         
