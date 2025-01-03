@@ -66,7 +66,7 @@ gap: 5px;
 .shadow{
   max-width: 400px;
   height: 400px;
-  transform: translateY(-50%);
+
 }
 
 #header{
@@ -74,7 +74,7 @@ gap: 5px;
   max-width:400px;
   min-width:300px;
   height:180px;
-  background:url(http://i.imgur.com/woUbg3p.jpg);
+  background:url(/image/pexels-jj-jordan-44924743-7881123.jpg);
   background-size:cover;
   background-position: center center;
   transition: all .08s linear;
@@ -177,9 +177,10 @@ gap: 5px;
 }
 .profile-hero {
   height: 60vh;
-  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-  overflow: hidden;
-  position: relative;
+  background-image: url(/image/top-view-open-notepad-with-flour-egg-orange-lime-juice-whisk-spoon-jam-bread-slice-orange-zest-grater-black-background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  object-fit: cover;
 }
 
 

@@ -47,62 +47,124 @@
     </header>
 
 
-    <!-- Profile Hero -->
-     <section>
-        <div class="profile-hero">
-            <div class="hero-container">
-                
-            </div>
-        </div>
-           
-        </div>
-     </section>
 
 
 <!-- Profile Card -->
-    <div class="profile-container">
-        <div class="shadow overflow">
-            <div id="header"></div>
-            <div id="profile">
-              <div class="profile-image">
-                 <!-- Display the user's profile image or the default image -->
-                 <img src="<%= user.profileImage || '/image/user-profilepic.png' %>" alt="<%= user.userName %>'s profile" id="profile-image-display">
-                 <!-- File input for uploading the image -->
-                <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" autocomplete="on" onchange="previewImage(event)" />
-                 <!-- Label to trigger the file input -->
-                <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
-              </div>
-              <div class="user-info">
-                <i class="fa-solid fa-user"> <p><strong>User Name</strong>: <%= user.userName %></p></i>
-                <i class="fa-solid fa-envelope"> <p><strong>Email</strong>: <%= user.email %></p></i>
-              </div>    
-              <div class="description">
+ <section id="user-card">
+    <div class="profile-container-fluid">
+        <div class="row">
+            <div class="col">
+                <!-- Profile Card -->
+                <div class="shadow overflow">
+                    <div id="header"></div>
+                    <div id="profile">
+                      <div class="profile-image">
+                         <!-- Display the user's profile image or the default image -->
+                         <img src="<%= user.profileImage || '/image/user-profilepic.png' %>" alt="<%= user.userName %>'s profile" id="profile-image-display">
+                         <!-- File input for uploading the image -->
+                        <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" autocomplete="on" onchange="previewImage(event)" />
+                         <!-- Label to trigger the file input -->
+                        <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
+                      </div>
+                      <div class="user-info">
+                        <i class="fa-solid fa-user"> <p><strong>User Name</strong>: <%= user.userName %></p></i>
+                        <i class="fa-solid fa-envelope"> <p><strong>Email</strong>: <%= user.email %></p></i>
+                      </div>    
+                      <div class="description">
+                    
+                      </div>
+                      <div class="bottom">
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <!-- Food Triva -->
+            <div class="col-md">
+                <div class="fun-facts">
+                    <h2>Food Facts Triva</h2>
+                </div>
             
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xl">
+          <!-- Favorite Recipes Section -->
+          <!-- Favorite Recipes  -->
+    <div class="favorite-glide">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <div class="favorite-recipe">
+              <div class="card__img card__img--hover"></div>
+              <div class="card__info">
+                <div class="card__category">Dessert</div>
+                <h3 class="card__title">Brownie Recipe</h3>
+                <p class="card__by">By <a href="#" class="card__author">John Doe</a></p>
+                <div class="card__clock-info">
+                  <svg class="card__clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                  </svg>
+                  <span class="card__time">15 mins</span>
+                </div>
               </div>
-              <div class="bottom">
+              <div class="card__info-hover">
+                <p class="card__description">A delicious chocolate brownie recipe...</p>
               </div>
             </div>
-          </div>
-          
+          </li>
+          <li class="glide__slide">
+            <div class="card card--2">
+              <div class="card__img card__img--hover"></div>
+              <div class="card__info">
+                <div class="card__category">Main Course</div>
+                <h3 class="card__title">Grilled Chicken</h3>
+                <p class="card__by">By <a href="#" class="card__author">Jane Smith</a></p>
+                <div class="card__clock-info">
+                  <svg class="card__clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                  </svg>
+                  <span class="card__time">25 mins</span>
+                </div>
+              </div>
+              <div class="card__info-hover">
+                <p class="card__description">A savory grilled chicken recipe...</p>
+              </div>
+            </div>
+          </li>
+          <li class="glide__slide">
+            <div class="card card--3">
+              <div class="card__img card__img--hover"></div>
+              <div class="card__info">
+                <div class="card__category">Salad</div>
+                <h3 class="card__title">Caesar Salad</h3>
+                <p class="card__by">By <a href="#" class="card__author">Alice Green</a></p>
+                <div class="card__clock-info">
+                  <svg class="card__clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                  </svg>
+                  <span class="card__time">10 mins</span>
+                </div>
+              </div>
+              <div class="card__info-hover">
+                <p class="card__description">A fresh and healthy Caesar salad...</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="glide__arrows" data-glide-el="controls">
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+      </div>
+    </div>
+            </div>
+        </div>
 
-          <!-- Recipe history -->
-          <!-- Favorite Recipes Section -->
-          <section class="mb-5">
-            <h4 class="text-center mb-4">Your Favorite Recipes</h4>
-            
-        </section>
-        
-
-
-        
-        
-
-    
-<!-- Profile Card  End-->
-
-      
-        
-        <!-- Create Recipes  -->
+        <div class="row">
+            <div class="col">
+                        <!-- Create Recipes  -->
 <div class="create-container mt-5">
     <div class="create-content">
         <h1>"Create Your Perfect Recipe"..</h1>
@@ -157,7 +219,23 @@
         </form>
     </div>
 </div>
-         
+            </div>
+
+            </div>
+        </div>
+   
+    </div>
+
+    
+        
+        
+<!-- Profile Card  End-->
+
+      
+        
+   
+   
+        
   
   
 
