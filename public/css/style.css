@@ -149,7 +149,11 @@ nav ul li a:hover {
 }
 
 #main-nav{
-    padding: 0 15px;
+
+}
+
+#main-nav .container-fluid {
+    padding: 0;
 }
 
 .recipe-hero{
@@ -2298,19 +2302,64 @@ height: 500px;
 
 
 /* User Profile Page */
+
+.background-wrapper{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
 #user-card{
     height: 100%;
     width: 90%;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.1);
-    -webkit-backdrop-filter: blur(35px);
-    backdrop-filter: blur(35px);
+    /* -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); */
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
     padding: 30px 30px 30px 30px;
     overflow: hidden;
     margin: 0 auto;
+    margin-top: 100px;
 }
+
+.user-card{
+    height: 100%;
+    width: 90%;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    /* -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+    padding: 30px 30px 30px 30px;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.user-card2{
+    height: 100%;
+    width: 90%;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    /* -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+    padding: 30px 30px 30px 30px;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.background-wrapper {
+    background-image: url('/image/beautiful-delicious-dessert-copy-space-notepad.jpg');
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    min-height: 100vh; /* Ensures the background spans the entire viewport height */
+    width: 100%;
+}
+
 
 .hero-container {
     display: flex;
