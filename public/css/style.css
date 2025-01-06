@@ -2492,6 +2492,7 @@ code {
   
   .nft{
     user-select:none;
+    -webkit-user-select:none;
     max-width: 300px;
     margin: 5rem auto;
     border: 1px solid #ffffff22;
