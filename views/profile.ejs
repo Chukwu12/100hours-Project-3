@@ -49,10 +49,11 @@
 
 
 
-<!-- Profile Card -->
+
   <!-- Background Wrapper -->
   <div class="background-wrapper">
-    <section class="user-card2">
+    
+
          <!-- Profile Card -->
          <div class="shadow overflow">
           <div id="header"></div>
@@ -69,18 +70,20 @@
               <i class="fa-solid fa-user"> <p><strong>User Name</strong>: <%= user.userName %></p></i>
               <i class="fa-solid fa-envelope"> <p><strong>Email</strong>: <%= user.email %></p></i>
             </div>    
-            <div class="description">
-          
-            </div>
+            <!-- Badge Example -->
+              <div class="badge">
+                <span class="badge-text">Verified</span>
+              </div>
             <div class="bottom">
             </div>
           </div>
         </div>
+ 
 
-
+          <!-- Favorite Recipes Section -->
+          <section class="user-card2">
         <div class="row">
           <div class="col-xl">
-        <!-- Favorite Recipes Section -->
         <!-- Favorite Recipes  -->
          <h2>Favorite Recipes</h2>
   <div class="favorite-glide">
@@ -161,94 +164,94 @@
   </div>
           </div>
       </div>
-    </section>
+          </section>
 
-   
+
+   <!-- Profile Triva section -->
+    <section id="user-card3">
+        <div class="row">
+          <div class="col">
+                <!-- Food Triva -->
+                  <div class="fun-facts">
+                    <h2>Welcome to the Food Trivia Game</h2>
+                    <p class="trivia-question"></p>
+                    <button id="next-trivia">Next Trivia</button>
+                  </div>   
+              </div>
+            </div>
+          </section>
+
+          <!-- Profile Create Recipe Section -->
+          <section id="user-card">
+            <div class="row">
+              <div class="col">
+                                  <!-- Create Recipes  -->
+          <div class="create-container">
+              <div class="create-content">
+                  <h1>"Create Your Perfect Recipe"..</h1>
+                  <!-- Cooking animation: Initially hidden -->
+                  <div id="cookingAnimation">
+                      <div id="cooking">
+                          <div class="bubble"></div>
+                          <div class="bubble"></div>
+                          <div class="bubble"></div>
+                          <div class="bubble"></div>
+                          <div class="bubble"></div>
+                          <div id="area">
+                              <div id="sides">
+                                  <div id="pan"></div>
+                                  <div id="handle"></div>
+                              </div>
+                              <div id="pancake">
+                                  <div id="pastry"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+          
+                  <!-- Recipe Form -->
+                  <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on" onsubmit="showCookingAnimation()">
+                      <div class="mb-3">
+                          <label for="name" class="form-label">Recipe Name</label>
+                          <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required autocomplete="recipe-name">
+                      </div>
+                      <div class="mb-3">
+                          <label for="ingredients" class="form-label">Ingredients</label>
+                          <div id="ingredientsList">
+                              <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredient" required autocomplete="ingredients">
+                          </div>
+                          <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Another Ingredient</button>
+                      </div>
+                      <div class="mb-3">
+                          <label for="directions" class="form-label">Cooking Directions</label>
+                          <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..." required autocomplete="directions"></textarea>
+                      </div>
+                      <div class="mb-3">
+                          <label for="imageUpload" class="form-label">Upload Recipe Image</label>
+                          <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required autocomplete="off">
+                          <small class="form-text text-muted">Upload a clear image of your recipe.</small>
+                      </div>
+                      <div class="mb-3">
+                          <label for="spoonacularId" class="form-label">Spoonacular ID</label>
+                          <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" placeholder="e.g., 12345" required autocomplete="spoonacular-id">
+                          <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+              </div>
+          </div>
+                   
+          
+                      </div>
+                  </div>
+           </section>
+
+
+
+
+      </div>
+<!-- Background Wrapper End -->
     
- 
-
-
- <section id="user-card">
-    <div class="profile-container-fluid">
-        <div class="row">
-            <div class="col">
-            
-            </div>
-            <!-- Food Triva -->
-            <div class="col-md">
-                <div class="fun-facts">
-                    <h2>Food Facts Triva</h2>
-                </div>
-            
-            </div>
-        </div>
-
-
-        
-
-        <div class="row">
-            <div class="col">
-                        <!-- Create Recipes  -->
-<div class="create-container mt-5">
-    <div class="create-content">
-        <h1>"Create Your Perfect Recipe"..</h1>
-        <!-- Cooking animation: Initially hidden -->
-        <div id="cookingAnimation">
-            <div id="cooking">
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div id="area">
-                    <div id="sides">
-                        <div id="pan"></div>
-                        <div id="handle"></div>
-                    </div>
-                    <div id="pancake">
-                        <div id="pastry"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recipe Form -->
-        <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on" onsubmit="showCookingAnimation()">
-            <div class="mb-3">
-                <label for="name" class="form-label">Recipe Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required autocomplete="recipe-name">
-            </div>
-            <div class="mb-3">
-                <label for="ingredients" class="form-label">Ingredients</label>
-                <div id="ingredientsList">
-                    <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredient" required autocomplete="ingredients">
-                </div>
-                <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Another Ingredient</button>
-            </div>
-            <div class="mb-3">
-                <label for="directions" class="form-label">Cooking Directions</label>
-                <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..." required autocomplete="directions"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="imageUpload" class="form-label">Upload Recipe Image</label>
-                <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required autocomplete="off">
-                <small class="form-text text-muted">Upload a clear image of your recipe.</small>
-            </div>
-            <div class="mb-3">
-                <label for="spoonacularId" class="form-label">Spoonacular ID</label>
-                <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" placeholder="e.g., 12345" required autocomplete="spoonacular-id">
-                <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div>
-            </div>
-
-            </div>
-        </div>
- </section>
-    </div>
 
     
         

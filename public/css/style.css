@@ -1731,7 +1731,7 @@ a[href="/api"]:hover {
 .create-container{
     position: relative;
     width: 100%;
-    height: 90vh;
+    height: 100%;
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
@@ -1746,7 +1746,6 @@ a[href="/api"]:hover {
 .create-content {
     position: relative;
     z-index: 2; /* Bring content to front */
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -2303,11 +2302,7 @@ height: 500px;
 
 /* User Profile Page */
 
-.background-wrapper{
-    display: flex;
-    flex-direction: row;
-    column-gap: 20px;
-}
+
 #user-card{
     height: 100%;
     width: 90%;
@@ -2320,11 +2315,11 @@ height: 500px;
     padding: 30px 30px 30px 30px;
     overflow: hidden;
     margin: 0 auto;
-    margin-top: 100px;
+    
 }
 
-.user-card{
-    height: 100%;
+#user-card3{
+    height: 50%;
     width: 90%;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.1);
@@ -2334,7 +2329,6 @@ height: 500px;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
     padding: 30px 30px 30px 30px;
     overflow: hidden;
-    margin-top: 100px;
 }
 
 .user-card2{
@@ -2348,7 +2342,7 @@ height: 500px;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
     padding: 30px 30px 30px 30px;
     overflow: hidden;
-    margin-top: 100px;
+   
 }
 
 .background-wrapper {
@@ -2358,7 +2352,46 @@ height: 500px;
     background-position: center; /* Centers the image */
     min-height: 100vh; /* Ensures the background spans the entire viewport height */
     width: 100%;
+    display: grid;
+    row-gap: 20px;
+    column-gap: 20px;
+    grid-template-columns: 500px 1fr;
+    padding: 20px 20px;
+    justify-items: center;
+    align-items: center;
+    position: relative;
 }
+
+.background-wrapper::before {
+    content: "";
+    position: absolute; /* Position the overlay on top of the content */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* Black overlay with 50% opacity */
+    z-index: 1; /* Ensure the overlay is on top of the background but below the content */
+  }
+
+  .background-wrapper > * {
+    position: relative;
+    z-index: 2; /* Ensure the actual content is above the overlay */
+  }
+  
+ 
+  .badge {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .badge-text {
+    font-weight: bold;
+  }
 
 
 .hero-container {
@@ -2751,4 +2784,34 @@ code {
  
  
 
+ /* Profile triva questions */
+ .fun-facts{
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+ }
+
+ .fun-facts h2{
+    font-size: 2em;
+    margin-bottom: 20px;
+ }
+
+ .fun-facts button{
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+ }
  
+
+ .fun-facts:hover {
+    background-color: #45a049;
+}

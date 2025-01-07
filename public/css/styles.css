@@ -104,7 +104,6 @@ gap: 5px;
   background:white;
   position:relative;
   box-sizing:border-box;
-  padding-top:40px;
   padding-left:25px;
   font-family: 'Open Sans', sans-serif;
   .profile-image{
@@ -114,10 +113,11 @@ gap: 5px;
     position:absolute;
     border:3px solid hotpink;
     top:-50px;
-    left: 20px;
+    left: 35%;
+    z-index: 2;
     height:80px;
     width:80px;
-    border-radius:10px;
+    border-radius:100%;
     img{
       width:40px;
       height:40px;
@@ -147,6 +147,9 @@ gap: 5px;
     }
   }
 }
+
+
+
 
 .shadow{
   box-shadow: 0px 0px 10px 1px rgba(black,0.5);

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const profileController = require('../controllers/profile');
 const recipeController = require("../controllers/recipe");
+const createController = require("../controllers/create");
  const { ensureAuth } = require("../middleware/auth");
 
 
@@ -23,7 +24,9 @@ router.get("/profile", ensureAuth, profileController.getFavorites)
 
 // Route to fetch favorite recipe to profile
 router.get('/profile', ensureAuth, recipeController.fetchFavorite);
- // Fetch favorites
+ 
+// Fetch  Triva Questions
+router.get('/profile', ensureAuth, createController.foodFacts);
 
 
 module.exports = router;
