@@ -7,38 +7,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.container');
     const sign_up_btn2 = document.querySelector('#sign_up_btn2');
     const sign_in_btn2 = document.querySelector('#sign-in-btn2');
-  
+
     // Check if all required elements are present
     if (sign_up_btn && sign_in_btn && container) {
-      // Add event listener for the "Sign up" button
-      sign_up_btn.addEventListener('click', () => {
-        container.classList.add('sign-up-mode');
-        container.classList.remove('sign-up-mode2'); // Remove the second mode if it's active
-      });
-  
-      // Add event listener for the "Sign in" button
-      sign_in_btn.addEventListener('click', () => {
-        container.classList.remove('sign-up-mode');
-        container.classList.remove('sign-up-mode2');
-      });
-  
-      // Add event listener for the second "Sign up" button (from another form)
-      sign_up_btn2.addEventListener('click', () => {
-        container.classList.add('sign-up-mode2');
-        container.classList.remove('sign-up-mode'); // Remove the first mode if it's active
-      });
-  
-      // Add event listener for the second "Sign in" button (from another form)
-      sign_in_btn2.addEventListener('click', () => {
-        container.classList.remove('sign-up-mode2');
-        container.classList.remove('sign-up-mode');
-      });
-  
+        // Add event listener for the "Sign up" button
+        sign_up_btn.addEventListener('click', () => {
+            container.classList.add('sign-up-mode');
+            container.classList.remove('sign-up-mode2'); // Remove the second mode if it's active
+        });
+
+        // Add event listener for the "Sign in" button
+        sign_in_btn.addEventListener('click', () => {
+            container.classList.remove('sign-up-mode');
+            container.classList.remove('sign-up-mode2');
+        });
+
+        // Add event listener for the second "Sign up" button (from another form)
+        sign_up_btn2.addEventListener('click', () => {
+            container.classList.add('sign-up-mode2');
+            container.classList.remove('sign-up-mode'); // Remove the first mode if it's active
+        });
+
+        // Add event listener for the second "Sign in" button (from another form)
+        sign_in_btn2.addEventListener('click', () => {
+            container.classList.remove('sign-up-mode2');
+            container.classList.remove('sign-up-mode');
+        });
+
     } else {
-      console.error('Required elements are not found in the DOM');
+        console.error('Required elements are not found in the DOM');
     }
-  });
-  
+});
+
 
 // --------------------------------------  SearchBar ----------------------------------//
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById('search-button');
     let timeoutId;
     let API_KEY = '';
-    
+
 
 
     // Fetch API key from server
@@ -60,11 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error loading API Key:', error);
         }
     }
-    
+
 
     // Debounce function to limit the number of API calls
     function debounce(func, delay) {
-        return function(...args) {
+        return function (...args) {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(() => func.apply(this, args), delay);
         };
@@ -149,117 +149,125 @@ document.addEventListener('DOMContentLoaded', () => {
 const header = document.getElementById('header');
 
 window.addEventListener('wheel', (event) => {
-  let delta = (event.deltaY + 3) * -1;
-  animate(delta > 0, delta);
+    let delta = (event.deltaY + 3) * -1;
+    animate(delta > 0, delta);
 });
 
 const animate = (check, delta) => {
-  const MIN_HEIGHT = 80;
-  const HEIGHT = 150;
-  const MAX_ZOOM = 3;
-  const MAX_BLUR = 3;
-  
-  if (check) {
-    let blur = 1 + delta / 150 < MAX_BLUR ? Math.ceil(1 + delta / 150) : MAX_BLUR;
-    let height = HEIGHT - delta / 10 > MIN_HEIGHT ? Math.ceil(HEIGHT - delta / 10) : MIN_HEIGHT;
-    let zoom = 1 + delta / 200 <= MAX_ZOOM ? 1 + delta / 200 : MAX_ZOOM;
-    requestAnimationFrame(() => transform(header, blur, height, zoom));
-  } else {
-    requestAnimationFrame(() => transform(header, 0, 150, 1));
-  }
+    const MIN_HEIGHT = 80;
+    const HEIGHT = 150;
+    const MAX_ZOOM = 3;
+    const MAX_BLUR = 3;
+
+    if (check) {
+        let blur = 1 + delta / 150 < MAX_BLUR ? Math.ceil(1 + delta / 150) : MAX_BLUR;
+        let height = HEIGHT - delta / 10 > MIN_HEIGHT ? Math.ceil(HEIGHT - delta / 10) : MIN_HEIGHT;
+        let zoom = 1 + delta / 200 <= MAX_ZOOM ? 1 + delta / 200 : MAX_ZOOM;
+        requestAnimationFrame(() => transform(header, blur, height, zoom));
+    } else {
+        requestAnimationFrame(() => transform(header, 0, 150, 1));
+    }
 };
 
 const transform = (element, blur, height, zoom) => {
-  element.style.filter = `blur(${blur}px)`;
-  element.style.height = `${height}px`;
-  element.style.transform = `scale(${zoom}, ${zoom})`;
+    element.style.filter = `blur(${blur}px)`;
+    element.style.height = `${height}px`;
+    element.style.transform = `scale(${zoom}, ${zoom})`;
 };
 // ===================================like button models =====================================//
 // Function to handle the "Like" button click and form submission
 function likeRecipe(recipeId) {
-  const form = document.getElementById(`like-form-${recipeId}`);
+    const form = document.getElementById(`like-form-${recipeId}`);
+    
+    if (!form) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Form not found.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
 
-  // If the form doesn't exist or has issues, return early
-  if (!form) {
-      Swal.fire({
-          title: 'Error',
-          text: 'Form not found.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-      });
-      return;
-  }
-
-  // You don't really need to collect FormData here if you just want to send the recipeId
-  const data = { recipeId };
-
-  // Send the form data as JSON
-  fetch(form.action, {
-      method: 'PUT', // Use the PUT method as you are updating the likes
-      headers: {
-          'Content-Type': 'application/json', // Ensure we are sending JSON
-      },
-      body: JSON.stringify(data), // Send the recipeId in the body
-  })
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('Failed to like recipe');
-      }
-      return response.json();
-  })
-  .then(data => {
-      if (data.message) {
-          Swal.fire({
-              title: 'Success!',
-              text: data.message || 'Recipe liked successfully!',
-              icon: 'success',
-              confirmButtonText: 'OK'
-          });
-      }
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      Swal.fire({
-          title: 'Error',
-          text: 'There was an error liking this recipe. Please try again.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-      });
-  });
+    // Send the request using the action URL (which includes ?_method=PUT)
+    fetch(form.action, {
+        method: 'POST', // Use POST because method-override will convert it to PUT
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ recipeId }) // Send any additional data you may need
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to like recipe');
+        }
+        return response.json();
+    })
+    .then(data => {
+        Swal.fire({
+            title: 'Success!',
+            text: data.message || 'Recipe liked successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'There was an error liking this recipe. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    });
 }
 
 
-    // Function to handle the "Favorite" button click and form submission
-    function favoriteRecipe(recipeId) {
-      fetch(`/recipe/favoriteRecipe/${recipeId}`, {
-          method: 'POST',
-          headers: { 
-              'Content-Type': 'application/json'  // Ensure the content-type is JSON
-          },
-          body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.message) {
-              Swal.fire({
-                  title: 'Success!',
-                  text: data.message,
-                  icon: 'success',
-                  confirmButtonText: 'OK'
-              });
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          Swal.fire({
-              title: 'Error',
-              text: 'There was an error adding this recipe to your favorites. Please try again.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-          });
-      });
-  }
-  
+
+
+// Function to handle the "Favorite" button click and form submission
+function favoriteRecipe(recipeId) {
+    const button = document.querySelector(`#favorite-form-${recipeId} button`);
+    const icon = button.querySelector('i');
+
+    // Disable button to prevent multiple clicks
+    button.disabled = true;
+
+    fetch(`/recipe/favoriteRecipe/${recipeId}`, {
+        method: 'POST',
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                // Update the icon to show it's favorited (gold star)
+                icon.classList.remove('fa-star');           // regular star
+                icon.classList.add('fa-star', 'text-warning'); // filled star with gold/yellow color
+            } else {
+                // Re-enable the button if something went wrong
+                button.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'There was an error adding this recipe to your favorites. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+
+            // Re-enable the button so user can try again
+            button.disabled = false;
+        });
+}
+
+
 // =================================profile-hero====================//
 
 
@@ -267,4 +275,3 @@ function likeRecipe(recipeId) {
 //============================Favorite cards Glide ====================//
 
 
-  

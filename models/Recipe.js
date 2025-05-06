@@ -48,7 +48,7 @@ const RecipeSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", // Reference to the User model
-        required: true,
+        required: false,
     },
     createdAt: {
         type: Date,
@@ -56,7 +56,7 @@ const RecipeSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true,
+        required: false,
     },
     cloudinaryId: {
         type: String,
@@ -64,7 +64,7 @@ const RecipeSchema = new mongoose.Schema({
     },
     directions: {
         type: String,
-        required: true,
+        required: false,
     },
 }, { timestamps: true }); // Adds createdAt and updatedAt fields automatically
 
