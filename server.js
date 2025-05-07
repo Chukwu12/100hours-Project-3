@@ -24,6 +24,7 @@ const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
 // const createRoutes = require('./routes/create');
 const wineRoutes = require('./routes/wine');
+const trivaRoutes = require('./routes/triva');
 
 
 // Import controllers
@@ -97,6 +98,7 @@ app.use('/', recipeRoutes);
  app.use('/profile', profileRoutes);
 //  app.use('/', createRoutes);
    app.use('/wines', wineRoutes);
+   app.use('/triva', trivaRoutes);
 
   // Define your route directly if necessary
 // app.get('/cuisine/:type', cuisineController.getCuisineRecipes);

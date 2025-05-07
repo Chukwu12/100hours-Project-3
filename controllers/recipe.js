@@ -97,7 +97,7 @@ const getRecipeDetails = async (req, res) => {
         });
         
         const recipe = response.data;
-        console.log('API Response:', response.data); // Add this line to log the full response
+    
   
         // Validate that the recipe data contains the expected fields
       if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {

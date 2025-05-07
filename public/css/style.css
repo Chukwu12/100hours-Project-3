@@ -1719,6 +1719,28 @@ a[href="/api"]:hover {
     height: 20px;
      margin-right: 10px;
 }
+
+#recipeReturn-btn {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#recipeReturn-btn a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #ff6b6b;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#recipeReturn-btn a:hover {
+    background-color: #ff4c4c;
+    transform: scale(1.05);
+}
+
 /* RecipeInfo End */
 
 
@@ -2387,6 +2409,8 @@ height: 500px;
     border-radius: 12px;
     font-size: 14px;
     margin-top: 10px;
+    position: relative;
+    left: 10%;
   }
   
   .badge-text {
@@ -2812,6 +2836,6 @@ code {
  }
  
 
- .fun-facts:hover {
+ .fun-facts button:hover {
     background-color: #45a049;
 }

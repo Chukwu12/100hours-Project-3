@@ -54,7 +54,7 @@
 .user-info{
   display: flex;
   flex-direction: column;
-  margin-top: 90px;
+  padding-top: 30px;
 }
 
 .user-info  .fa-user,
@@ -75,11 +75,10 @@ gap: 5px;
   width:50vw;
   max-width:400px;
   min-width:300px;
-  height:180px;
   background:url(/image/pexels-jj-jordan-44924743-7881123.jpg);
   background-size:cover;
-  background-position: center center;
   transition: all .08s linear;
+  background-position: center;
 }
 
 .profile-label{
@@ -88,10 +87,19 @@ gap: 5px;
     justify-content: center;
     align-items: center;
     height: 40px;
+    top: 20%;
     background: pink;
     border-radius: 5px;
     position: absolute;
     left: 150px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.profile-label:hover{
+  background: pink;  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
 }
 
 #profile{
@@ -112,9 +120,9 @@ gap: 5px;
     justify-content: center;
     position:absolute;
     border:3px solid hotpink;
-    top:-50px;
-    left: 35%;
+    top:0px;
     z-index: 2;
+    margin: 10px;
     height:80px;
     width:80px;
     border-radius:100%;

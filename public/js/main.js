@@ -155,7 +155,7 @@ window.addEventListener('wheel', (event) => {
 
 const animate = (check, delta) => {
     const MIN_HEIGHT = 80;
-    const HEIGHT = 150;
+    const HEIGHT = 200;
     const MAX_ZOOM = 3;
     const MAX_BLUR = 3;
 
@@ -268,10 +268,47 @@ function favoriteRecipe(recipeId) {
 }
 
 
-// =================================profile-hero====================//
+// =================================triva button====================//
+
+document.getElementById('next-trivia').addEventListener('click', async function() {
+    try {
+        const response = await fetch('/triva/random');
+        
+        // If the response is not OK (i.e., status code is not 2xx), throw an error
+        if (!response.ok) {
+            throw new Error(`Failed to fetch trivia: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        document.querySelector('.trivia-question').textContent = data.trivia;
+    } catch (error) {
+        console.error('Error fetching trivia:', error);
+        document.querySelector('.trivia-question').textContent = 'Oops! Something went wrong. Please try again.';
+    }
+});
 
 
 
-//============================Favorite cards Glide ====================//
 
-
+//============================JS for previewing the image ====================//
+// Define the previewImage function here
+function previewImage(event) {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imagePreview = document.getElementById('profile-image-display');
+        imagePreview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+  // add event listeners to the input element
+  document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById('profile-image-upload');
+    if (fileInput) {
+      fileInput.addEventListener('change', previewImage);
+    }
+  });
