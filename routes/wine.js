@@ -1,10 +1,8 @@
- const express = require('express');
- const router = express.Router();
- const wineController = require('../controllers/wine');
+// const express = require('express');
+// const router = express.Router();
+// const wineController = require('../controllers/wine');
 
-// // Define your wine routes
-router.get('/random', wineController.getChardonnayWine);  // Route to get random wine
+// // Route to get a random wine with description and pairings
+// router.get('/random', wineController.getRandomWine);
 
-
-
- module.exports = router;
+// module.exports = router;

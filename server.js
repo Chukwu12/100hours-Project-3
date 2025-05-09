@@ -95,7 +95,7 @@ app.use('/', recipeRoutes);
   app.use('/', mainRoutes);
  app.use('/profile', profileRoutes);
  app.use('/', createRoutes);
-   app.use('/wines', wineRoutes);
+  //  app.use('/wine', wineRoutes);
 
   // Define your route directly if necessary
 // app.get('/cuisine/:type', cuisineController.getCuisineRecipes);

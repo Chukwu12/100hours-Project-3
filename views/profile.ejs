@@ -82,83 +82,45 @@
           <div class="col-xl">
         <!-- Favorite Recipes Section -->
         <!-- Favorite Recipes  -->
-         <h2>Favorite Recipes</h2>
-  <div class="favorite-glide">
-    <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides">
-        <li class="glide__slide">
-          <div class="favorite-recipe-card">
-           <figure>
-            <img src="image/calum-lewis-vA1L1jRTM70-unsplash.jpg" alt="favorite recipe image">
-           </figure>
-            <div class="favorite-recipe-content">
-              <span>
-                <div class="ratings">
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star"></i>
-              </div>
-              </span>
-              <div class="favorite-nutrition">
-                food facts goes here!!!
-              </div>
-              <button>View Recipe</button>
-            </div>
-            
+        <h2>Favorite Recipes</h2>
+        <div class="favorite-glide">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+              <% recipes.forEach(fav => { %>
+                <li class="glide__slide">
+                  <div class="favorite-recipe-card">
+                    <figure>
+                      <img src="<%= fav.recipe.image || '/image/default-recipe.jpg' %>" alt="<%= fav.recipe.title %> image">
+                    </figure>
+                    <div class="favorite-recipe-content">
+                      <span>
+                        <div class="ratings">
+                          <i class="fa fa-star rating-color"></i>
+                          <i class="fa fa-star rating-color"></i>
+                          <i class="fa fa-star rating-color"></i>
+                          <i class="fa fa-star rating-color"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </span>
+                      <div class="favorite-nutrition">
+                        <strong><%= fav.recipe.title %></strong><br>
+                        <small>
+                          <% if (fav.recipe.ingredients && fav.recipe.ingredients.length > 0) { %>
+                            <%= fav.recipe.ingredients.slice(0, 3).join(', ') %>...
+                          <% } %>
+                        </small>
+                      </div>
+                      <form action="/recipe/<%= fav.recipe._id || fav.spoonacularId %>" method="GET">
+                        <button type="submit" class="btn btn-primary mt-2">View Recipe</button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+              <% }) %>
+            </ul>      
           </div>
-        </li>
-        <li class="glide__slide">
-          <div class="favorite-recipe-card">
-            <figure>
-             <img src="image/calum-lewis-vA1L1jRTM70-unsplash.jpg" alt="favorite recipe image">
-            </figure>
-             <div class="favorite-recipe-content">
-               <span>
-                 <div class="ratings">
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star"></i>
-               </div>
-               </span>
-               <div class="favorite-nutrition">
-                 food facts goes here!!!
-               </div>
-               <button>View Recipe</button>
-             </div>
-             
-           </div>
-        </li>
-        <li class="glide__slide">
-          <div class="favorite-recipe-card">
-            <figure>
-             <img src="image/calum-lewis-vA1L1jRTM70-unsplash.jpg" alt="favorite recipe image">
-            </figure>
-             <div class="favorite-recipe-content">
-               <span>
-                 <div class="ratings">
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star rating-color"></i>
-                   <i class="fa fa-star"></i>
-               </div>
-               </span>
-               <div class="favorite-nutrition">
-                 food facts goes here!!!
-               </div>
-               <button>View Recipe</button>
-             </div>
-             
-           </div>
-        </li>
-      </ul>
-    </div>
-  
-  </div>
+        </div>
+        
           </div>
       </div>
     </section>
@@ -256,29 +218,32 @@
 <!-- Profile Card  End-->
 
       <!-- Initialize Glide -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-      new Glide('.favorite-glide', {
-        type: 'carousel',
-        startAt: 0,
-        perView: 3, // Default for extra small screens
-        autoplay: 3000, // optional for auto sliding
-        hoverpause: true, // pauses autoplay on hover
-        breakpoints: {
-            576: {
-                perView: 1 // For extra small screens
-            },
-            900: {
-                perView: 2 // For small devices (tablets)
-            },
-            992: {
-                perView: 3 // For larger devices (desktops)
-            }
-        }
-    }).mount();
-});
-    </script>
-
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const glideEl = document.querySelector('.favorite-glide');
+          if (glideEl) {
+            new Glide('.favorite-glide', {
+              type: 'carousel',
+              startAt: 0,
+              perView: 3,
+              autoplay: 3000,
+              hoverpause: true,
+              breakpoints: {
+                576: {
+                  perView: 1
+                },
+                900: {
+                  perView: 2
+                },
+                992: {
+                  perView: 3
+                }
+              }
+            }).mount();
+          }
+        });
+      </script>
+      
     <!-- Glide.js -->
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
 

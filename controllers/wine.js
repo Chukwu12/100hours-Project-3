@@ -1,50 +1,50 @@
+// const Wine = require('../models/Wine');
 // const axios = require('axios');
- const Wine = require('../models/Wine'); // Import the wine model
-const WINE_DESCRIPTION_API = 'https://api.spoonacular.com/food/wine/description';
-const WINE_PARING_API = 'https://api.spoonacular.com/food/wine/pairing';
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+// const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
+// const WINE_DESCRIPTION_API = 'https://api.spoonacular.com/food/wine/description';
+// const WINE_PARING_API = 'https://api.spoonacular.com/food/wine/pairing';
 
+// const getRandomWineInfo = async () => {
+//   try {
+//     // Get the single wine document
+//     const wineDoc = await Wine.findOne();
 
-exports.getChardonnayWine = async (req, res) => {
-  try {
-    // Hardcoded Chardonnay wine
-    const wineName = 'chardonnay';
-    const wineCategory = 'white_wine'; // Chardonnay is a white wine
+//     if (!wineDoc) throw new Error('No wine data found');
 
-    // Fetch wine description from Spoonacular API
-    const descriptionResponse = await axios.get(WINE_DESCRIPTION_API, {
-      params: {
-        apiKey: RECIPES_API_KEY,
-        wine: wineName,  // Chardonnay wine
-      }
-    });
+//     // Flatten all nested wine arrays into one array
+//     const allWines = Object.values(wineDoc.toObject()).flatMap(value =>
+//       typeof value === 'object' && !Array.isArray(value)
+//         ? Object.values(value).flat()
+//         : Array.isArray(value)
+//         ? value
+//         : []
+//     );
 
-    // Fetch food pairing for Chardonnay from Spoonacular API
-    const pairingResponse = await axios.get(WINE_PARING_API, {
-      params: {
-        apiKey: RECIPES_API_KEY,
-        wine: wineName,  // Chardonnay wine
-      }
-    });
+//     const randomWine = allWines[Math.floor(Math.random() * allWines.length)];
 
-    const pairedRecipes = pairingResponse.data.pairings || []; // Get pairings, default to empty array
+//     const [descRes, pairRes] = await Promise.all([
+//       axios.get(WINE_DESCRIPTION_API, {
+//         params: { wine: randomWine, apiKey: RECIPES_API_KEY },
+//       }),
+//       axios.get(WINE_PARING_API, {
+//         params: { food: randomWine, apiKey: RECIPES_API_KEY },
+//       }),
+//     ]);
 
-    // Prepare wine data
-    const wineData = {
-      name: wineName,
-      category: wineCategory,
-      description: descriptionResponse.data.text || 'No description available.',
-      pairing: pairedRecipes.length > 0 ? pairedRecipes : 'No pairings available.',
-    };
+//     return {
+//       wine: randomWine,
+//       description: descRes.data.wineDescription || 'No description found.',
+//       pairings: pairRes.data.pairedWines || [],
+//     };
+//   } catch (err) {
+//     console.error('Wine selection error:', err.message);
+//     return {
+//       wine: 'Unknown',
+//       description: 'Wine info currently unavailable.',
+//       pairings: [],
+//     };
+//   }
+// };
 
-    // Render the page and pass the wine data to EJS
-    res.render('recipe', {
-      wine: wineData,
-    });
-
-  } catch (error) {
-    console.error('Error fetching Chardonnay wine details:', error.message);
-    res.status(500).json({ message: 'Error fetching Chardonnay wine details.' });
-  }
-};
+// module.exports = { getRandomWineInfo };
