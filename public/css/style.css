@@ -2368,7 +2368,7 @@ height: 500px;
 }
 
 .background-wrapper {
-    background-image: url('/image/beautiful-delicious-dessert-copy-space-notepad.jpg');
+    background-image: url('/image/form-bg.jpg');
     background-size: cover; /* Ensures the image covers the entire viewport */
     background-repeat: no-repeat; /* Prevents tiling */
     background-position: center; /* Centers the image */

@@ -97,8 +97,8 @@ app.use('/', recipeRoutes);
   app.use('/', mainRoutes);
  app.use('/profile', profileRoutes);
 //  app.use('/', createRoutes);
-   app.use('/wines', wineRoutes);
-   app.use('/triva', trivaRoutes);
+  //  app.use('/wines', wineRoutes);
+  //  app.use('/triva', trivaRoutes);
 
   // Define your route directly if necessary
 // app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
