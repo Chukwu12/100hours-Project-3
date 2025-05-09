@@ -2,6 +2,7 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
+const User = require('../models/User');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
@@ -96,7 +97,7 @@ const getRecipeDetails = async (req, res) => {
         });
         
         const recipe = response.data;
-        console.log('API Response:', response.data); // Add this line to log the full response
+    
   
         // Validate that the recipe data contains the expected fields
       if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {
@@ -124,12 +125,17 @@ const getRecipeDetails = async (req, res) => {
 
   const favoriteRecipe = async (req, res) => {
     try {
+        const userId = req.user?.id;
+        if (!userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
         const { recipeId } = req.params;
 
-        // Try to find the recipe in MongoDB by recipeId
-        let recipe = await Recipe.findOne({ recipeId });
+        // 1. Look up recipe by spoonacularId
+        let recipe = await Recipe.findOne({ spoonacularId: recipeId });
 
-        // If the recipe isn't found in the database, fetch it from the API and save it
+        // 2. If not found, fetch from Spoonacular API and save locally
         if (!recipe) {
             const response = await axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information`, {
                 params: { apiKey: RECIPES_API_KEY },
@@ -138,38 +144,42 @@ const getRecipeDetails = async (req, res) => {
             if (response && response.data) {
                 const apiRecipe = response.data;
 
-                // Create a new recipe document using the API data
-                const newFavorite = new Favorite({
-                    user: userId,  // The authenticated user
-                    recipe: recipeId,  // The recipe ID
-                    spoonacularId: recipe.spoonacularId,  // Assuming you're saving this ID
-                    ingredients: recipe.ingredients,  // Ensure ingredients are passed as an array of objects
-                    directions: recipe.directions,  // Ensure directions are available in the recipe object
-                    name: recipe.name,  // Ensure the name is available
+                // Create and save new recipe
+                recipe = await Recipe.create({
+                    spoonacularId: apiRecipe.id.toString(), // Ensure it's a string
+                    title: apiRecipe.title,
+                    name: apiRecipe.title, // Used because 'name' is required by schema
+                    image: apiRecipe.image,
+                    instructions: apiRecipe.instructions || '',
+                    directions: apiRecipe.instructions || '',
+                    servings: apiRecipe.servings,
+                    readyInMinutes: apiRecipe.readyInMinutes,
+                    ingredients: apiRecipe.extendedIngredients?.map(ing => ({
+                        name: ing.name,
+                        amount: ing.amount,
+                        unit: ing.unit
+                    })) || [],
                 });
-
-                // Save the favorite recipe to the database
-        await newFavorite.save();
             } else {
-                return res.status(404).json({ message: 'Recipe not found in API or database' });
+                return res.status(404).json({ message: 'Recipe not found in Spoonacular API' });
             }
         }
 
-        // Check if the user has already favorited this recipe
+        // 3. Check if favorite already exists
         const existingFavorite = await Favorite.findOne({
-            user: req.user.id,
-            recipe: recipe._id,  // Use MongoDB _id here
+            user: userId,
+            spoonacularId: recipe.spoonacularId,
         });
 
         if (existingFavorite) {
             return res.status(400).json({ message: 'You have already favorited this recipe' });
         }
 
-        // Create a new favorite for the user
+        // 4. Create new favorite
         const favorite = await Favorite.create({
-            user: req.user.id,
-            recipe: recipe._id,  // Store MongoDB _id as the reference
-            spoonacularId: recipe.spoonacularId,  // Keep the spoonacularId for external reference
+            user: userId,
+            recipe: recipe._id,
+            spoonacularId: recipe.spoonacularId,
         });
 
         res.status(201).json({
@@ -177,10 +187,11 @@ const getRecipeDetails = async (req, res) => {
             favorite,
         });
     } catch (error) {
-        console.error('Error adding favorite:', error);
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error adding favorite:', error.message);
+        res.status(500).json({ message: 'Server error while favoriting recipe' });
     }
 };
+
 
 const fetchFavorite = async (req, res) => {
     try {
@@ -188,14 +199,17 @@ const fetchFavorite = async (req, res) => {
 
           // Fetch the user's favorite recipes
       const favorites = await Favorite.find({ user: userId })
-        .populate('recipe', 'title image ingredients')
+        .populate('recipe', 'title image ingredients readyInMinutes servings')
         .select('createdAt spoonacularId');
         console.log(favorites);
+
+          // Optional: filter out null recipes (just in case)
+          const validFavorites = favorites.filter(fav => fav.recipe);
   
         // Render the profile page with the fetched favorites
-      res.render('profile', { user: req.user, favorites }); // Pass `favorites` to the template
+      res.render('profile', { user: req.user, validFavorites }); // Pass `favorites` to the template
     } catch (error) {
-      console.error(error);
+        console.error('Error fetching favorites:', error.message);
       res.status(500).send('An error occurred while fetching favorites.');
     }
   };

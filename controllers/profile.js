@@ -168,7 +168,7 @@ module.exports = {
         user: req.user.id,
       });
       console.log("Post has been added!");
-      res.redirect("/profile");
+      res.redirect("profile.ejs");
     } catch (err) {
       console.log(err);
     }
