@@ -17,7 +17,7 @@ const getDessertRecipes = async () => {
                 apiKey: RECIPES_API_KEY,
                 number: 5,
                 tags: 'dessert', // Filter to only include desserts
-                includeNutrition: true,
+               
             }
         });
 

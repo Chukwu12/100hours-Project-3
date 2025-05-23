@@ -272,7 +272,8 @@ function favoriteRecipe(recipeId) {
 
 document.getElementById('next-trivia').addEventListener('click', async function() {
     try {
-        const response = await fetch('/triva/random');
+        const response = await fetch('/api/triva/random');
+
         
         // If the response is not OK (i.e., status code is not 2xx), throw an error
         if (!response.ok) {

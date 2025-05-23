@@ -1,4 +1,5 @@
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
 // Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {
@@ -9,6 +10,7 @@ const getRecipeDetails = async (req, res) => {
         }
 
         const recipeId = req.params.id;
+        
         if (!recipeId) {
             return res.status(400).send('Recipe ID is required');
         }

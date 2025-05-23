@@ -3,6 +3,7 @@ const axios = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/random';
+const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
 require('dotenv').config({ path: './config/.env' });
 
 const getHealthRecipes = async () => {
@@ -17,7 +18,7 @@ const getHealthRecipes = async () => {
                 apiKey: RECIPES_API_KEY,
                 number: 5,
                 tags: 'vegetarian', // Filter to only include healthy options
-                includeNutrition: true,
+               
             }
         });
 

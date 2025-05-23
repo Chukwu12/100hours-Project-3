@@ -1,14 +1,14 @@
 const axios = require('axios');
 // Define the trivia API URL
 const TRIVA_API_URL = 'https://api.spoonacular.com/food/trivia/random';
-const API_KEY = process.env.API_KEY;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
 const randomTriva = async (req, res) => {
     try {
         // Fetch random trivia from the API
         const response = await axios.get(TRIVA_API_URL, {
             params: {
-                apiKey: API_KEY 
+                apiKey: RECIPES_API_KEY 
             }
         });
 
