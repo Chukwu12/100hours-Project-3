@@ -1,50 +1,71 @@
-const Wine = require('../models/Wine');
+// controllers/wine.js
 const axios = require('axios');
+const Wine = require('../models/Wine');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 
-const WINE_DESCRIPTION_API = 'https://api.spoonacular.com/food/wine/description';
-const WINE_PARING_API = 'https://api.spoonacular.com/food/wine/pairing';
-
-const getRandomWineInfo = async () => {
+const getRandomWineData = async () => {
   try {
-    // Get the single wine document
-    const wineDoc = await Wine.findOne();
+    const allWines = await Wine.find();
 
-    if (!wineDoc) throw new Error('No wine data found');
+    const wineNames = allWines.reduce((acc, wine) => {
+      Object.values(wine.toObject()).forEach((arr) => {
+        if (Array.isArray(arr)) {
+          acc.push(...arr);
+        }
+      });
+      return acc;
+    }, []);
 
-    // Flatten all nested wine arrays into one array
-    const allWines = Object.values(wineDoc.toObject()).flatMap(value =>
-      typeof value === 'object' && !Array.isArray(value)
-        ? Object.values(value).flat()
-        : Array.isArray(value)
-        ? value
-        : []
+    if (wineNames.length === 0) {
+      throw new Error('No wines found in database');
+    }
+
+    const randomWine = wineNames[Math.floor(Math.random() * wineNames.length)];
+    console.log('Selected wine:', randomWine);
+
+     // Get wine description
+    const descriptionRes = await axios.get(
+      'https://api.spoonacular.com/food/wine/description',
+      {
+        params: {
+          wine: randomWine,
+          apiKey: RECIPES_API_KEY,
+        },
+        timeout: 5000, // optional timeout
+      }
     );
 
-    const randomWine = allWines[Math.floor(Math.random() * allWines.length)];
+        // Get wine pairing (for image, price, etc.)
+        const pairingRes = await axios.get('https://api.spoonacular.com/food/wine/pairing', {
+          params: {
+            food: randomWine,
+            apiKey: RECIPES_API_KEY,
+          },
+        });
 
-    const [descRes, pairRes] = await Promise.all([
-      axios.get(WINE_DESCRIPTION_API, {
-        params: { wine: randomWine, apiKey: RECIPES_API_KEY },
-      }),
-      axios.get(WINE_PARING_API, {
-        params: { food: randomWine, apiKey: RECIPES_API_KEY },
-      }),
-    ]);
+      // Extract product info
+      const product = pairingRes.data.productMatches?.[0]; // Grab first match if exists
 
     return {
       wine: randomWine,
-      description: descRes.data.wineDescription || 'No description found.',
-      pairings: pairRes.data.pairedWines || [],
+      description: descriptionRes.data.wineDescription,
+      imageUrl: product?.imageUrl || null,
+      price: product?.price || null,
+      productTitle: product?.title || null,
     };
-  } catch (err) {
-    console.error('Wine selection error:', err.message);
+
+  } catch (error) {
+    console.error('Error in getRandomWineData:', error.response?.data || error.message);
     return {
-      wine: 'Unknown',
-      description: 'Wine info currently unavailable.',
-      pairings: [],
+      wine: 'unknown',
+      description: 'No description available.',
+      imageUrl: null,
+      price: null,
+      productTitle: null,
     };
   }
 };
 
-module.exports = { getRandomWineInfo };
+module.exports = {
+  getRandomWineData,
+};

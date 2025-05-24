@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const wineController = require('../controllers/wine');
+const { getRandomWineData } = require('../controllers/wine');
 
-// Route to get a random wine with description and pairings
-router.get('/random', wineController.getRandomWineInfo);
+router.get('/random-wine-pairing', getRandomWineData);
 
 module.exports = router;

@@ -65,17 +65,12 @@ gap: 5px;
 
 
 .shadow{
-  max-width: 400px;
-  height: 400px;
   margin: 0 auto;
 
 }
 
 #header{
-  width:50vw;
-  max-width:400px;
-  min-width:300px;
-  background:url(/image/profile-banner.jpg);
+  background:url(/image/profilebanner.png);
   background-size:cover;
   transition: all .08s linear;
   background-position: center;
@@ -104,15 +99,14 @@ gap: 5px;
 
 #profile{
   display: flex;
-  align-items: center;
-  width:50vw;
-  max-width:400px;
-  min-width:300px;
+  justify-content: center;
+  align-items: flex-end;
+  width:100%;
   height:250px;
   background:white;
   position:relative;
   box-sizing:border-box;
-  padding-left:25px;
+  padding:20px;
   font-family: 'Open Sans', sans-serif;
   .profile-image{
     display: flex;
@@ -126,6 +120,7 @@ gap: 5px;
     height:80px;
     width:80px;
     border-radius:100%;
+    left: 40px;
     img{
       width:40px;
       height:40px;

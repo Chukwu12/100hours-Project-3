@@ -55,15 +55,26 @@
         </div>
     </header>
 
-    <!-- Hero Section  -->
-    <section>
-        <div class="hero-container">
-            <div class="hero-content">
-
-            </div>
+  <!-- Hero Section -->
+  <% if (wine) { %>
+    <section class="wine-info" style="padding: 2rem; background-color: #fdf3f0; border-radius: 1rem;">
+      <h2>🍷 Wine of the Day: <%= wine.wine %></h2>
+      <p><%= wine.description %></p>
+  
+      <% if (wine.imageUrl && wine.productTitle) { %>
+        <div style="display: flex; align-items: center; margin-top: 1rem;">
+          <img src="<%= wine.imageUrl %>" alt="<%= wine.productTitle %>" style="width: 120px; border-radius: 8px; margin-right: 1rem;">
+          <div>
+            <h4><%= wine.productTitle %></h4>
+            <p><strong>Price:</strong> <%= wine.price %></p>
+          </div>
         </div>
+      <% } %>
     </section>
-    <!-- Hero End -->
+  <% } %>
+  
+  
+  
 
 
     <!-- HTML: Search Bar -->
@@ -106,6 +117,8 @@
             </div>
         </nav>
     </header>
+
+    
 
 
     <section id="trending">

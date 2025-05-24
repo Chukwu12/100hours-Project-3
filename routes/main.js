@@ -3,6 +3,7 @@ const router = express.Router();
  const recipeController = require('../controllers/recipe');
 const dessertController = require('../controllers/dessert');
 const healthController = require('../controllers/health');
+const { getRandomWineData } = require('../controllers/wine');
 // const { ensureAuth } = require('../middleware/auth');  // Uncomment if using authentication
 
 router.get('/recipe', async(req, res) => {
@@ -11,12 +12,14 @@ router.get('/recipe', async(req, res) => {
          const recipes = await recipeController.getRandomRecipes();
         const desserts = await dessertController.getDessertRecipes();
         const healthTips = await healthController.getHealthRecipes();
+        const wineData = await getRandomWineData();
 
         // Combine the data
         const combinedData = {
             recipes: recipes || [],  // Ensure default if no recipes found
             desserts: desserts || [],
             healthTips: healthTips || [],
+            wine:  wineData,
             user: req.user || null,  // Pass user data if needed
         };
 

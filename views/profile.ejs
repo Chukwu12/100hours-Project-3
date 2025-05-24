@@ -60,43 +60,47 @@
   <div class="background-wrapper">
 
     <!-- Profile Card -->
-    <div class="shadow overflow">
-      <div id="header"></div>
-      <div id="profile">
-        <div class="profile-image">
-          <!-- Display the user's profile image or the default image -->
-          <img src="<%= user.profileImage || '/image/user-profilepic.png' %>" alt="<%= user.userName %>'s profile"
-            id="profile-image-display">
-          <!-- File input for uploading the image -->
-          <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" autocomplete="on"
-            onchange="previewImage(event)" />
-          <!-- Label to trigger the file input -->
-          <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
-        </div>
-        <div class="user-info">
-          <i class="fa-solid fa-user">
-            <p><strong>User Name</strong>: <%= user.userName %>
-            </p>
-          </i>
-          <i class="fa-solid fa-envelope">
-            <p><strong>Email</strong>: <%= user.email %>
-            </p>
-          </i>
-        </div>
-        <!-- Badge Example -->
-        <div class="badge">
-          <span class="badge-text">Verified</span>
-        </div>
-        <div class="bottom">
+    <section id="user-card">
+      <div class="shadow overflow">
+        <div id="header"></div>
+        <div id="profile">
+          <div class="profile-image">
+            <!-- Display the user's profile image or the default image -->
+            <img src="<%= user.profileImage || '/image/user-profilepic.png' %>" alt="<%= user.userName %>'s profile"
+              id="profile-image-display">
+            <!-- File input for uploading the image -->
+            <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" autocomplete="on"
+              onchange="previewImage(event)" />
+            <!-- Label to trigger the file input -->
+            <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
+          </div>
+          <div class="user-info">
+            <i class="fa-solid fa-user">
+              <p><strong>User Name</strong>: <%= user.userName %>
+              </p>
+            </i>
+            <i class="fa-solid fa-envelope">
+              <p><strong>Email</strong>: <%= user.email %>
+              </p>
+            </i>
+              <!-- Badge Example -->
+          <div class="badge">
+            <span class="badge-text">Verified</span>
+          </div>
+          <div class="bottom">
+          </div>
+          </div>
+        
         </div>
       </div>
-    </div>
+    </section>
 
-    
+
+
 
 
     <!-- Favorite Recipes Section -->
-    <section class="user-card2">
+    <section id="user-card2">
       <div class="row">
         <div class="col-xl">
           <!-- Favorite Recipes  -->
@@ -188,7 +192,7 @@
         <div class="col">
           <!-- Food Trivia -->
           <div class="fun-facts">
-            <h2>Welcome to the Food Trivia Game</h2>
+            <h2>Welcome to the Food Trivia Facts</h2>
             <p class="trivia-question">Click the button to get a trivia fact!</p>
             <button id="next-trivia">Next Trivia</button>
           </div>
@@ -198,7 +202,7 @@
 
 
     <!-- Profile Create Recipe Section -->
-    <section id="user-card">
+    <section id="user-card4">
       <div class="row">
         <div class="col">
           <!-- Create Recipes  -->
@@ -274,7 +278,7 @@
 
   </div>
   <!-- Background Wrapper End -->
- 
+
 
 
 

@@ -154,10 +154,10 @@ window.addEventListener('wheel', (event) => {
 });
 
 const animate = (check, delta) => {
-    const MIN_HEIGHT = 80;
-    const HEIGHT = 200;
-    const MAX_ZOOM = 3;
-    const MAX_BLUR = 3;
+  const MIN_HEIGHT = 80;
+  const HEIGHT = 150;
+  const MAX_ZOOM = 3;
+  const MAX_BLUR = 3;
 
     if (check) {
         let blur = 1 + delta / 150 < MAX_BLUR ? Math.ceil(1 + delta / 150) : MAX_BLUR;
@@ -272,7 +272,7 @@ function favoriteRecipe(recipeId) {
 
 document.getElementById('next-trivia').addEventListener('click', async function() {
     try {
-        const response = await fetch('/api/triva/random');
+        const response = await fetch('/trivia/random');
 
         
         // If the response is not OK (i.e., status code is not 2xx), throw an error

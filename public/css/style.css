@@ -51,6 +51,9 @@ nav{
    
 }
 
+.navbar{
+    padding: 10px;
+}
 
 
 nav img{
@@ -815,6 +818,41 @@ transform: translateX(-150%);
 /* Home page End */
 
 /* Recipe Page */
+
+.wine-hero {
+  background: linear-gradient(to right, #7b1fa2, #e1bee7);
+  color: #fff;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.wine-hero .hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.wine-hero .hero-description,
+.wine-hero .hero-pairing {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.wine-hero .suggested-dishes ul {
+  list-style: none;
+  padding: 0;
+  display: inline-block;
+}
+
+.wine-hero .suggested-dishes li {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
 .search-bar{
     position: relative;
     width: 90%;
@@ -1269,6 +1307,17 @@ transform: scaleX(0);
     background-color: var(--bs-code-color);
 }
 
+.glide__bullet:hover{
+    border: 1.5px solid black;
+    background-color: black;
+}
+
+.glide__bullet:hover,
+.glide__bullet:focus {
+    border: none !important;
+    background-color: black !important;
+}
+
 .glide__bullets {
 bottom: 0%;
 padding: 40px 0;
@@ -1278,8 +1327,8 @@ position: relative;
 
 
 .glide__bullet--active{
-    background-color: burlywood;
-    border: 1px solid black;
+    background-color: black!important;
+    border: 1.5px solid black;
 }
 
 
@@ -1749,6 +1798,8 @@ a[href="/api"]:hover {
 
 /* Cussine Page End */
 
+
+/* Profile Page */
 /* Create Recipe */
 .create-container{
     position: relative;
@@ -2341,7 +2392,7 @@ height: 500px;
 }
 
 #user-card3{
-    height: 50%;
+    height: 70%;
     width: 90%;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.1);
@@ -2351,9 +2402,12 @@ height: 500px;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
     padding: 30px 30px 30px 30px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.user-card2{
+#user-card2{
     height: 100%;
     width: 90%;
     border-radius: 20px;
@@ -2367,8 +2421,21 @@ height: 500px;
    
 }
 
+#user-card4{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    /* -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    margin: 0 auto;
+}
+
 .background-wrapper {
-    background-image: url('/image/form-bg.jpg');
+    background-image: url('/image/beautiful-delicious-dessert-copy-space-notepad.jpg');
     background-size: cover; /* Ensures the image covers the entire viewport */
     background-repeat: no-repeat; /* Prevents tiling */
     background-position: center; /* Centers the image */
@@ -2377,7 +2444,7 @@ height: 500px;
     display: grid;
     row-gap: 20px;
     column-gap: 20px;
-    grid-template-columns: 500px 1fr;
+    grid-template-columns: minmax(300px, 1fr) 1fr;
     padding: 20px 20px;
     justify-items: center;
     align-items: center;
@@ -2400,7 +2467,50 @@ height: 500px;
     z-index: 2; /* Ensure the actual content is above the overlay */
   }
   
- 
+ @media only screen and (max-width: 600px) and (min-width: 400px)  {
+    .background-wrapper{
+        grid-template-columns: 1fr;
+    }
+    #user-card3{
+        height: 100%;
+    }
+ }
+
+ /* Mobile-first responsiveness */
+@media (max-width: 768px) {
+  .background-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+#user-card,
+  #user-card2,
+  #user-card3,
+  #user-card {
+   
+  }
+
+  #user-card {
+    margin-top: 100px;
+  }
+  
+
+  .create-container {
+    padding: 10px;
+  }
+}
+
+.background-wrapper img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+
+
   .badge {
     display: inline-block;
     background-color: #4CAF50;
@@ -2410,7 +2520,7 @@ height: 500px;
     font-size: 14px;
     margin-top: 10px;
     position: relative;
-    left: 10%;
+    
   }
   
   .badge-text {
@@ -2447,96 +2557,22 @@ height: 500px;
 }
 
 
-.profile-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px; 
-}
 
 
-    /* Styling for the profile container and its inner components */
-.profile-container .shadow {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 8px;
-  }
+ 
+
   
-  .profile-container #header {
-    background-color: #f4f4f4; /* Light background for the header */
-    height: 200px;
-    border-radius: 8px;
-    /* Other styles for your header (e.g., background image, effects) */
-  }
-  
-  .profile-container #profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .profile-container .image img {
-    width: 100%;
-    border-radius: 8px;
-  }
-  
-  .profile-container .location i {
-    margin-right: 5px;
-  }
-  
-  .profile-container .bottom {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
+
+
+
   
   /* Recipe history grid layout */
   
-  .recipe-history .recipe-cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid for recipe cards */
-    gap: 20px;
-  }
-  
-  .recipe-history .recipe-card {
-    background: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .recipe-history .recipe-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .recipe-history .recipe-card-info {
-    margin-top: 10px;
-  }
-  
-  .recipe-history .recipe-card-title {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
+
+
   
   
   
-  /* Responsiveness for small screens */
-  @media (max-width: 768px) {
-    .profile-container {
-      grid-template-columns: 1fr; /* Stack columns on smaller screens */
-    }
-  
-    .recipe-history .recipe-cards-container {
-      grid-template-columns: 1fr; /* Make recipe cards stack vertically */
-    }
-  
-    .create-container {
-      grid-column: 1; /* Ensure create section is full width */
-    }
-  }
 
 
 
@@ -2546,8 +2582,6 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
   }
-
-
   
   .nft{
     user-select:none;
@@ -2819,7 +2853,7 @@ code {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
-    height: 100%;
+    height:100%;
  }
 
  .fun-facts h2{

@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require("connect-mongo");
@@ -11,7 +11,7 @@ const connectDB = require('./config/database');
 const methodOverride = require("method-override");
 
 const path = require('path');
-  
+
 
 // Import routes
 const homeRoutes = require('./routes/home');
@@ -24,19 +24,19 @@ const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
 // const createRoutes = require('./routes/create');
 const wineRoutes = require('./routes/wine');
-const trivaRoutes = require('./routes/triva');
+const triviaRoutes = require('./routes/trivia');
 
 
 // Import controllers
- const cuisineController = require('./controllers/cuisine');
- const dessertController = require('./controllers/dessert');
- const healthyController = require('./controllers/health');
- const recipeInfoController = require('./controllers/recipeInfo');
- const recipeController = require('./controllers/recipe');
- const mainController = require('./controllers/main');
- const authController = require('./controllers/auth'); 
- const profileController = require('./controllers/profile');
- const createController = require('./controllers/create');
+const cuisineController = require('./controllers/cuisine');
+const dessertController = require('./controllers/dessert');
+const healthyController = require('./controllers/health');
+const recipeInfoController = require('./controllers/recipeInfo');
+const recipeController = require('./controllers/recipe');
+const mainController = require('./controllers/main');
+const authController = require('./controllers/auth');
+const profileController = require('./controllers/profile');
+const createController = require('./controllers/create');
 
 
 // Load environment variables
@@ -47,14 +47,14 @@ require("./config/passport")(passport);
 
 
 // Connect to database
-  connectDB();
+connectDB();
 
 // Body Parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Logging
-  app.use(logger("dev")); 
+app.use(logger("dev"));
 
 // Sessions
 app.use(
@@ -75,32 +75,32 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public')); // Serve static files
 app.use(express.urlencoded({ extended: true }))
- app.use(express.json())
- app.use(logger('dev'))
- app.use(methodOverride("_method")); // Comment out if not needed
+app.use(express.json())
+app.use(logger('dev'))
+app.use(methodOverride("_method")); // Comment out if not needed
 
 // Passport middleware
-    app.use(passport.initialize());
-     app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Use flash messages for errors, info, etc...
-      app.use(flash());
+app.use(flash());
 
 // Setup Routes For Which The Server Is Listening
 app.use('/', homeRoutes);
 app.use('/', recipeRoutes);
-  app.use('/recipe', recipeRoutes);
- app.use('/dessert', dessertRoutes);
- app.use('/health', healthRoutes);
-  app.use('/recipeInfo', recipeInfoRoutes);
-  app.use('/cuisine', cuisineRoutes);
-  app.use('/', mainRoutes);
- app.use('/profile', profileRoutes);
+app.use('/recipe', recipeRoutes);
+app.use('/dessert', dessertRoutes);
+app.use('/health', healthRoutes);
+app.use('/recipeInfo', recipeInfoRoutes);
+app.use('/cuisine', cuisineRoutes);
+app.use('/', mainRoutes);
+app.use('/profile', profileRoutes);
 //  app.use('/', createRoutes);
-    app.use('/wines', wineRoutes);
-  app.use('/api/triva', trivaRoutes);
+app.use('/', wineRoutes);
+app.use('/trivia', triviaRoutes);
 
-  // Define your route directly if necessary
+// Define your route directly if necessary
 // app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
 // app.get('/dessert', dessertController.getDessertRecipes);
 // app.get('/dessert', dessertController.getRecipeDetails )
