@@ -100,34 +100,39 @@
 
 
     <!-- Favorite Recipes Section -->
-   <section id="user-card2">
+  <!-- Favorite Recipes Section -->
+<section id="user-card2">
   <div class="row">
     <div class="col-xl">
-      <!-- Favorite Recipes  -->
-     <h2>Favorite Recipes</h2>
-<ul class="glide__slides">
-  <% if (validFavorites.length > 0) { %>
-    <% validFavorites.forEach(fav => { %>
-      <li class="glide__slide">
-        <div class="favorite-recipe-card">
-          <figure>
-            <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
-          </figure>
-          <div class="favorite-recipe-content">
-            <h4><%= fav.recipe.title %></h4>
-            <p><strong>Servings:</strong> <%= fav.recipe.servings %></p>
-            <p><strong>Ready in:</strong> <%= fav.recipe.readyInMinutes %> mins</p>
-            <form method="POST" action="/profile/recipe/favoriteRecipe/<%= fav.spoonacularId %>">
-              <button type="submit">Remove Favorite</button>
-            </form>
-          </div>
+      <h2>Favorite Recipes</h2>
+
+      <div class="glide favorite-glide">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides">
+            <% if (validFavorites.length > 0) { %>
+              <% validFavorites.forEach(fav => { %>
+                <li class="glide__slide">
+                  <div class="favorite-recipe-card">
+                    <figure>
+                      <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
+                    </figure>
+                    <div class="favorite-recipe-content">
+                      <h4><%= fav.recipe.title %></h4>
+                      <p><strong>Servings:</strong> <%= fav.recipe.servings %></p>
+                      <p><strong>Ready in:</strong> <%= fav.recipe.readyInMinutes %> mins</p>
+                      <form method="POST" action="/profile/recipe/favoriteRecipe/<%= fav.spoonacularId %>">
+                        <button type="submit">Remove Favorite</button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+              <% }) %>
+            <% } else { %>
+              <li>No favorite recipes yet.</li>
+            <% } %>
+          </ul>
         </div>
-      </li>
-    <% }) %>
-  <% } else { %>
-    <li>No favorite recipes yet.</li>
-  <% } %>
-</ul>
+      </div>
 
     </div>
   </div>
@@ -274,7 +279,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <!-- Custom JS -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/profile.js"></script>
 </body>
 
 </html>
