@@ -87,69 +87,67 @@ nav ul li a:hover {
 
 /* Home page */
 /* Hero Section Styling */
-.hero {
-    background: url('wine-hero-bg.jpg') no-repeat center center/cover; /* Replace with your background image */
-    color: white;
+
+.wine-hero{
+    padding: 3rem 2rem;
+    background: url('/image/wine-bg-hero.jpg') no-repeat center center/cover;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 80px 20px;
-    position: relative;
 }
 
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-    z-index: 1;
+.wine-description{
+    max-width: 700px;
+    color: red;
+}
+.wine-title {
+  font-family: 'Georgia', serif;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
 }
 
-.hero-title {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
+.wine-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-.hero-description {
-    font-size: 1.25rem;
-    margin: 10px 0;
+.wine-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }
 
-.hero-description strong {
-    font-weight: bold;
+.wine-image {
+  width: 150px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  height: 300px;
 }
 
-.recipe-suggestions {
-    margin-top: 30px;
+.wine-details {
+  text-align: center;
+  color: red;
 }
 
-.recipe-suggestions h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+.wine-product-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 
-#recipe-list {
-    list-style: none;
-    padding: 0;
-}
-
-#recipe-list li {
-    margin: 15px 0;
-}
-
-.recipe-link {
-    font-size: 1.25rem;
-    color: #ffb900; /* Gold color for wine theme */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.recipe-link:hover {
-    text-decoration: underline;
+.wine-price {
+  font-size: 1.1rem;
 }
 
 
-#hero-section{
-    position: relative;
-    width: 100%;
-}
+
+
+
+
 
 #main-nav{
 
@@ -159,61 +157,7 @@ nav ul li a:hover {
     padding: 0;
 }
 
-.recipe-hero{
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    background: url(/image/hero-bg.png)  no-repeat center center;
-    background-size: cover;
-    position: relative;
-    width: 100%;
-    justify-content: space-evenly;
-}
 
-.recipe-hero * {
-    position: relative;
-    z-index: 2; /* Ensures content is above the overlay */
-}
-
-
-.recipe-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-}
-
-
-
-.hero-content{
-    display: flex;
-    flex-direction: column;
-    text-align: center; 
-}
-
-.hero-content h2{
-    font-size:  5em;
-    animation: HeroHeader 1s ease-in-out;
-    font-family: "Raleway", sans-serif;
-    font-weight: 500;
-    color: antiquewhite;
-    margin-bottom: 20px;
-    text-align: center;
-    
-}
-
-.hero-content p {
-    color: antiquewhite;
-    font-size: 1.3rem;
-    text-align: center;
-    margin: 10px 0;
-    line-height: 1.6;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
 
 @keyframes HeroHeader {
     0%{
@@ -756,6 +700,7 @@ transform: translateX(-150%);
         z-index: 1;
     }
 
+
     50.1%, 100%{
         opacity: 1;
         z-index: 5;
@@ -819,39 +764,6 @@ transform: translateX(-150%);
 
 /* Recipe Page */
 
-.wine-hero {
-  background: linear-gradient(to right, #7b1fa2, #e1bee7);
-  color: #fff;
-  padding: 3rem 2rem;
-  text-align: center;
-  border-radius: 1rem;
-  margin-bottom: 2rem;
-}
-
-.wine-hero .hero-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.wine-hero .hero-description,
-.wine-hero .hero-pairing {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.wine-hero .suggested-dishes ul {
-  list-style: none;
-  padding: 0;
-  display: inline-block;
-}
-
-.wine-hero .suggested-dishes li {
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0.25rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  display: inline-block;
-}
 
 .search-bar{
     position: relative;

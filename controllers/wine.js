@@ -1,4 +1,3 @@
-// controllers/wine.js
 const axios = require('axios');
 const Wine = require('../models/Wine');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
@@ -20,38 +19,60 @@ const getRandomWineData = async () => {
       throw new Error('No wines found in database');
     }
 
-    const randomWine = wineNames[Math.floor(Math.random() * wineNames.length)];
-    console.log('Selected wine:', randomWine);
+    let tries = 0;
+    let randomWine = null;
+    let descriptionRes = null;
+    let product = null;
 
-     // Get wine description
-    const descriptionRes = await axios.get(
-      'https://api.spoonacular.com/food/wine/description',
-      {
-        params: {
-          wine: randomWine,
-          apiKey: RECIPES_API_KEY,
-        },
-        timeout: 5000, // optional timeout
-      }
-    );
+    // Try up to 5 wines until we get a valid product recommendation
+    while (!product && tries < 5) {
+      tries++;
+      randomWine = wineNames[Math.floor(Math.random() * wineNames.length)];
+      console.log('Selected wine:', randomWine);
 
-        // Get wine pairing (for image, price, etc.)
-        const pairingRes = await axios.get('https://api.spoonacular.com/food/wine/pairing', {
+      try {
+        // Get wine description
+        descriptionRes = await axios.get('https://api.spoonacular.com/food/wine/description', {
           params: {
-            food: randomWine,
+            wine: randomWine,
             apiKey: RECIPES_API_KEY,
           },
         });
 
-      // Extract product info
-      const product = pairingRes.data.productMatches?.[0]; // Grab first match if exists
+        // Get wine product recommendation
+        const recommendationRes = await axios.get('https://api.spoonacular.com/food/wine/recommendation', {
+          params: {
+            wine: randomWine,
+            number: 1,
+            apiKey: RECIPES_API_KEY,
+          },
+        });
 
+        product = recommendationRes.data.recommendedWines?.[0];
+
+        if (product) {
+          return {
+            wine: randomWine,
+            description: descriptionRes.data.wineDescription,
+            imageUrl: product.imageUrl,
+            price: product.price,
+            productTitle: product.title,
+            link: product.link || null,
+          };
+        }
+      } catch (innerError) {
+        console.warn(`Try ${tries} failed for wine "${randomWine}":`, innerError.response?.data?.message || innerError.message);
+      }
+    }
+
+    // If no valid wine with product found after 5 tries
     return {
-      wine: randomWine,
-      description: descriptionRes.data.wineDescription,
-      imageUrl: product?.imageUrl || null,
-      price: product?.price || null,
-      productTitle: product?.title || null,
+      wine: randomWine || 'unknown',
+      description: descriptionRes?.data?.wineDescription || 'No description available.',
+      imageUrl: null,
+      price: null,
+      productTitle: null,
+      link: null,
     };
 
   } catch (error) {
@@ -62,6 +83,7 @@ const getRandomWineData = async () => {
       imageUrl: null,
       price: null,
       productTitle: null,
+      link: null,
     };
   }
 };

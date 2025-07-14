@@ -55,323 +55,353 @@
         </div>
     </header>
 
-  <!-- Hero Section -->
-  <% if (wine) { %>
-    <section class="wine-info" style="padding: 2rem; background-color: #fdf3f0; border-radius: 1rem;">
-      <h2>🍷 Wine of the Day: <%= wine.wine %></h2>
-      <p><%= wine.description %></p>
-  
-      <% if (wine.imageUrl && wine.productTitle) { %>
-        <div style="display: flex; align-items: center; margin-top: 1rem;">
-          <img src="<%= wine.imageUrl %>" alt="<%= wine.productTitle %>" style="width: 120px; border-radius: 8px; margin-right: 1rem;">
-          <div>
-            <h4><%= wine.productTitle %></h4>
-            <p><strong>Price:</strong> <%= wine.price %></p>
-          </div>
-        </div>
-      <% } %>
-    </section>
-  <% } %>
-  
-  
-  
+    <!-- Hero Section -->
+   <% if (wine) { %>
+<section class="wine-hero">
+  <div class="wine-description">
+    <h2 class="wine-title">
+      🍷 <em>Wine of the Day:</em> <strong><%= wine.wine %></strong>
+    </h2>
 
+    <% if (wine.description) { %>
+      <p class="wine-text">
+        <%= wine.description %>
+      </p>
+    <% } %>
+  </div>
 
-    <!-- HTML: Search Bar -->
-    <div class="search-bar">
-        <div class="form">
-            <i class="fa fa-search" id="search-button"></i>
-            <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
-            <span class="left-pan">
-                <i class="fa fa-microphone"></i>
-            </span>
-        </div>
-        <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
+  <% if (wine.imageUrl && wine.productTitle) { %>
+  <div class="wine-product">
+    <img src="<%= wine.imageUrl %>" alt="<%= wine.productTitle %>" class="wine-image">
+    <div class="wine-details">
+      <h4 class="wine-product-title"><%= wine.productTitle %></h4>
+      <p class="wine-price"><strong>Price:</strong> <%= wine.price %></p>
     </div>
+  </div>
+  <% } %>
+</section>
+<% } %>
+        <!-- Hero End -->
 
-    <header id="second-nav">
-        <nav id="cuisenes">
-            <div class="cuisenes">
-                <div class="cuisnes-list">
-                    <div>
-                        <h2>African</h2>
-                        <a href="/cuisine/african"><img src="/image/african-icon.gif" alt="african food icon"
-                                animate__animated animate__bounce></a>
+
+
+
+
+
+            <!-- HTML: Search Bar -->
+            <div class="search-bar">
+                <div class="form">
+                    <i class="fa fa-search" id="search-button"></i>
+                    <input type="text" id="input-box" placeholder="Search Recipes" autocomplete="off">
+                    <span class="left-pan">
+                        <i class="fa fa-microphone"></i>
+                    </span>
+                </div>
+                <div id="suggestions" class="suggestions-box"></div> <!-- Suggestions box -->
+            </div>
+
+            <header id="second-nav">
+                <nav id="cuisenes">
+                    <div class="cuisenes">
+                        <div class="cuisnes-list">
+                            <div>
+                                <h2>African</h2>
+                                <a href="/cuisine/african"><img src="/image/african-icon.gif" alt="african food icon"
+                                        animate__animated animate__bounce></a>
+                            </div>
+                            <div>
+                                <h2>American</h2>
+                                <a href="/cuisine/american"><img src="/image/american-icon.gif" alt="american food icon"
+                                        animate__animated animate__bounce></a>
+                            </div>
+                            <div>
+                                <h2>Asian</h2>
+                                <a href="/cuisine/asian"><img src="/image/asian-icon.gif" alt="asian food icon"
+                                        animate__animated animate__bounce></a>
+                            </div>
+                            <div>
+                                <h2>Mexican</h2>
+                                <a href="/cuisine/mexican"><img src="/image/mexican-icon.gif" alt="mexican food icon"
+                                        animate__animated animate__bounce></a>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h2>American</h2>
-                        <a href="/cuisine/american"><img src="/image/american-icon.gif" alt="american food icon"
-                                animate__animated animate__bounce></a>
+                </nav>
+            </header>
+
+
+
+
+            <section id="trending">
+                <div class="recipe-headers random">
+                    <h1 class="titles" data-text="Recipes">Flavor of the Day</h1>
+                </div>
+                <!-- Glide -->
+                <div class="glide">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <% recipes.forEach(recipe=> { %>
+                                <li class="glide__slide">
+                                    <div class="glide-card" style="background-image: url('<%= recipe.image %>');">
+                                        <div class="glide-card-container">
+                                            <div class="glide-card-info">
+                                                <h2>
+                                                    <%= recipe.title %>
+                                                </h2>
+                                                <div class="glide-icons">
+                                                    <p>Servings: <span class="card-icons"><i
+                                                                class="fa-regular fa-user"></i>
+                                                            <%= recipe.servings %>
+                                                        </span></p>
+                                                    <p>Minutes: <span class="card-icons"><i
+                                                                class="fa-solid fa-clock"></i>
+                                                            <%= recipe.readyInMinutes %>
+                                                        </span></p>
+                                                    <p>Ingredients: <span class="card-icons"><i
+                                                                class="fa-solid fa-book"></i>
+                                                            <%= recipe.numberOfIngredients %>
+                                                        </span></p>
+                                                </div>
+
+                                                <!-- View Recipe Button -->
+                                                <form action="/recipeInfo/<%= recipe.spoonacularId || recipe._id %>"
+                                                    method="GET">
+
+                                                    <button class="view-recipe-btn"
+                                                        data-recipe-id="<%= recipe.id %>">View
+                                                        Recipe</button>
+                                                </form>
+                                            </div>
+
+                                            <div class="glide-card-memory">
+                                                <!-- Like Recipe Form -->
+                                                <form class="col" id="like-form-<%= recipe._id %>"
+                                                    action="/recipe/likeRecipe/<%= recipe._id %>?_method=PUT"
+                                                    method="POST"
+                                                    onsubmit="event.preventDefault(); likeRecipe('<%= recipe._id %>');">
+
+                                                    <button class="btn card-btn animate__animated animate__heartBeat"
+                                                        type="submit">
+                                                        <i class="fa-solid fa-heart custom-icon2"></i>
+                                                    </button>
+                                                </form>
+
+                                                <!-- Favorite Recipe Form -->
+                                                <form class="col"
+                                                    id="favorite-form-<%= recipe.spoonacularId || recipe.id %>"
+                                                    action="/recipe/favoriteRecipe/<%= recipe.spoonacularId || recipe.id %>"
+                                                    method="POST"
+                                                    onsubmit="event.preventDefault(); favoriteRecipe('<%= recipe.spoonacularId || recipe.id %>');">
+                                                    <button class="btn card-btn animate__animated animate__heartBeat"
+                                                        type="submit">
+                                                        <i class="fa-solid fa-star custom-icon text-warning"></i>
+                                                    </button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }); %>
+                        </ul>
                     </div>
-                    <div>
-                        <h2>Asian</h2>
-                        <a href="/cuisine/asian"><img src="/image/asian-icon.gif" alt="asian food icon"
-                                animate__animated animate__bounce></a>
-                    </div>
-                    <div>
-                        <h2>Mexican</h2>
-                        <a href="/cuisine/mexican"><img src="/image/mexican-icon.gif" alt="mexican food icon"
-                                animate__animated animate__bounce></a>
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        <button class="glide__bullet" data-glide-dir="=0"></button>
+                        <button class="glide__bullet" data-glide-dir="=1"></button>
+                        <button class="glide__bullet" data-glide-dir="=2"></button>
+                        <button class="glide__bullet" data-glide-dir="=3"></button>
+                        <button class="glide__bullet" data-glide-dir="=4"></button>
+
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-
-    
+            </section>
 
 
-    <section id="trending">
-        <div class="recipe-headers random">
-            <h1 class="titles" data-text="Recipes">Flavor of the Day</h1>
-        </div>
-        <!-- Glide -->
-        <div class="glide">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides">
-                    <% recipes.forEach(recipe=> { %>
-                        <li class="glide__slide">
-                            <div class="glide-card" style="background-image: url('<%= recipe.image %>');">
-                                <div class="glide-card-container">
-                                    <div class="glide-card-info">
-                                        <h2>
-                                            <%= recipe.title %>
-                                        </h2>
-                                        <div class="glide-icons">
-                                            <p>Servings: <span class="card-icons"><i class="fa-regular fa-user"></i>
-                                                    <%= recipe.servings %>
-                                                </span></p>
-                                            <p>Minutes: <span class="card-icons"><i class="fa-solid fa-clock"></i>
-                                                    <%= recipe.readyInMinutes %>
-                                                </span></p>
-                                            <p>Ingredients: <span class="card-icons"><i class="fa-solid fa-book"></i>
-                                                    <%= recipe.numberOfIngredients %>
-                                                </span></p>
-                                        </div>
+            <section id="trending-desserts">
+                <div class="recipe-headers dessert">
+                    <h1 class="titles" data-text="Dessert Recipes"> Dessert Recipes</h1>
+                </div>
+                <!-- Glide -->
+                <div class="glide-desserts">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <% desserts.forEach(dessert=> { %>
+                                <li class="glide__slide">
+                                    <div class="glide-card" style="background-image: url('<%= dessert.image %>');">
+                                        <div class="glide-card-container">
+                                            <div class="glide-card-info">
+                                                <h2>
+                                                    <%= dessert.title %>
+                                                </h2>
+                                                <div class="glide-icons">
+                                                    <p>Servings:<span class="card-icons"><i
+                                                                class="fa-regular fa-user"></i>
+                                                            <%= dessert.servings %>
+                                                        </span></p>
+                                                    <p>minutes:<span class="card-icons"><i
+                                                                class="fa-solid fa-clock"></i>
+                                                            <%= dessert.readyInMinutes %>
+                                                        </span></p>
+                                                    <p>Ingredients:<span class="card-icons"><i
+                                                                class="fa-solid fa-book"></i>
+                                                            <%= dessert.numberOfIngredients %>
+                                                        </span> </p>
+                                                </div>
 
-                                        <!-- View Recipe Button -->
-                                        <form action="/recipeInfo/<%= recipe.id %>" method="GET">
-                                            <button class="view-recipe-btn" data-recipe-id="<%= recipe.id %>">View
-                                                Recipe</button>
-                                        </form>
-                                    </div>
+                                                <!-- View Recipe Button -->
+                                                <form action="/recipeInfo/<%= dessert.id %>" method="GET">
+                                                    <button class="view-recipe-btn"
+                                                        data-recipe-id="<%= dessert.id %>">View
+                                                        Recipe</button>
+                                                </form>
+                                            </div>
 
-                                    <div class="glide-card-memory">
-                                        <!-- Like Recipe Form -->
-                                        <form class="col" id="like-form-<%= recipe._id %>"
-                                            action="/recipe/likeRecipe/<%= recipe._id %>?_method=PUT" method="POST"
-                                            onsubmit="event.preventDefault(); likeRecipe('<%= recipe._id %>');">
-                                            
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
-
-                                        <!-- Favorite Recipe Form -->
-                                        <form class="col" id="favorite-form-<%= recipe.spoonacularId || recipe.id %>"
-                                            action="/recipe/favoriteRecipe/<%= recipe.spoonacularId || recipe.id %>"
-                                            method="POST"
-                                            onsubmit="event.preventDefault(); favoriteRecipe('<%= recipe.spoonacularId || recipe.id %>');">
-                                            <button class="btn card-btn animate__animated animate__heartBeat"
-                                                type="submit">
-                                                <i class="fa-solid fa-star custom-icon text-warning"></i>
-                                            </button>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <% }); %>
-                </ul>
-            </div>
-            <div class="glide__bullets" data-glide-el="controls[nav]">
-                <button class="glide__bullet" data-glide-dir="=0"></button>
-                <button class="glide__bullet" data-glide-dir="=1"></button>
-                <button class="glide__bullet" data-glide-dir="=2"></button>
-                <button class="glide__bullet" data-glide-dir="=3"></button>
-                <button class="glide__bullet" data-glide-dir="=4"></button>
-
-            </div>
-        </div>
-    </section>
+                                            <div class="glide-card-memory">
+                                                <!-- Like Recipe Form -->
+                                                <form class="col" id="like-form-<%= dessert._id %>"
+                                                    action="/recipe/likeRecipe/<%= dessert._id %>?_method=PUT"
+                                                    method="POST"
+                                                    onsubmit="event.preventDefault(); likeRecipe('<%= dessert._id %>');">
+                                                    <button class="btn card-btn animate__animated animate__heartBeat"
+                                                        type="submit">
+                                                        <i class="fa-solid fa-heart custom-icon2"></i>
+                                                    </button>
+                                                </form>
 
 
-    <section id="trending-desserts">
-        <div class="recipe-headers dessert">
-            <h1 class="titles" data-text="Dessert Recipes"> Dessert Recipes</h1>
-        </div>
-        <!-- Glide -->
-        <div class="glide-desserts">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides">
-                    <% desserts.forEach(dessert=> { %>
-                        <li class="glide__slide">
-                            <div class="glide-card" style="background-image: url('<%= dessert.image %>');">
-                                <div class="glide-card-container">
-                                    <div class="glide-card-info">
-                                        <h2>
-                                            <%= dessert.title %>
-                                        </h2>
-                                        <div class="glide-icons">
-                                            <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i>
-                                                    <%= dessert.servings %>
-                                                </span></p>
-                                            <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i>
-                                                    <%= dessert.readyInMinutes %>
-                                                </span></p>
-                                            <p>Ingredients:<span class="card-icons"><i class="fa-solid fa-book"></i>
-                                                    <%= dessert.numberOfIngredients %>
-                                                </span> </p>
-                                        </div>
+                                                <!-- Favorite Recipe Form -->
+                                                <form class="col"
+                                                    id="favorite-form-<%= dessert.spoonacularId || dessert.id %>"
+                                                    action="/recipe/favoriteRecipe/<%= dessert.spoonacularId || dessert.id %>"
+                                                    method="POST"
+                                                    onsubmit="event.preventDefault(); favoriteRecipe('<%= dessert.spoonacularId || dessert.id %>');">
+                                                    <button class="btn card-btn animate__animated animate__heartBeat"
+                                                        type="submit">
+                                                        <i class="fa-solid fa-star custom-icon text-warning"></i>
+                                                    </button>
+                                                </form>
 
-                                        <!-- View Recipe Button -->
-                                        <form action="/recipeInfo/<%= dessert.id %>" method="GET">
-                                            <button class="view-recipe-btn" data-recipe-id="<%= dessert.id %>">View
-                                                Recipe</button>
-                                        </form>
-                                    </div>
-
-                                    <div class="glide-card-memory">
-                                        <!-- Like Recipe Form -->
-                                        <form class="col" id="like-form-<%= dessert._id %>"
-                                            action="/recipe/likeRecipe/<%= dessert._id %>?_method=PUT" method="POST"
-                                            onsubmit="event.preventDefault(); likeRecipe('<%= dessert._id %>');">
-                                            <button class="btn card-btn animate__animated animate__heartBeat"
-                                                type="submit">
-                                                <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
-
-
-                                        <!-- Favorite Recipe Form -->
-                                        <form class="col" id="favorite-form-<%= dessert.spoonacularId || dessert.id %>"
-                                            action="/recipe/favoriteRecipe/<%= dessert.spoonacularId || dessert.id %>"
-                                            method="POST"
-                                            onsubmit="event.preventDefault(); favoriteRecipe('<%= dessert.spoonacularId || dessert.id %>');">
-                                            <button class="btn card-btn animate__animated animate__heartBeat"
-                                                type="submit">
-                                                <i class="fa-solid fa-star custom-icon text-warning"></i>
-                                            </button>
-                                        </form>
-
-                                        <!-- Delete Recipe Form (conditional) -->
-                                        <!-- <% if (dessert.user && dessert.user.id === user.id) { %>
+                                                <!-- Delete Recipe Form (conditional) -->
+                                                <!-- <% if (dessert.user && dessert.user.id === user.id) { %>
                                                 <form action="/recipe/deleteRecipe/<%= dessert.id %>?_method=DELETE" method="POST" style="display:inline;">
                                                     <button class="btn btn-primary" type="submit">
                                                         <i class="fa-solid fa-trash"></i>
                                                         <%= recipe.likes %></button>
                                                 </form>
                                             <% } %> -->
-                                        <!-- <button class=" btn btn-primary "  type="submit"> <%= dessert.likes %>
+                                                <!-- <button class=" btn btn-primary "  type="submit"> <%= dessert.likes %>
                                             <i class="fa-solid fa-trash"></i> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <% }); %>
-                </ul>
-            </div>
-            <div class="glide__bullets" data-glide-el="controls[nav]">
-                <button class="glide__bullet" data-glide-dir="=0"></button>
-                <button class="glide__bullet" data-glide-dir="=1"></button>
-                <button class="glide__bullet" data-glide-dir="=2"></button>
-                <button class="glide__bullet" data-glide-dir="=3"></button>
-                <button class="glide__bullet" data-glide-dir="=4"></button>
-
-            </div>
-        </div>
-    </section>
-
-
-    <section id="trending-healthy">
-        <div class="recipe-headers healthy">
-            <h1 class="titles" data-text="Healthy Recipes"> Healthy Recipes</h1>
-
-        </div>
-        <!-- Glide -->
-        <div class="glide-healthy">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides">
-                    <% healthTips.forEach(tip=> { %>
-                        <li class="glide__slide">
-                            <div class="glide-card" style="background-image: url('<%= tip.image %>');">
-                                <div class="glide-card-container">
-                                    <div class="glide-card-info">
-                                        <h2>
-                                            <%= tip.title %>
-                                        </h2>
-                                        <div class="glide-icons">
-                                            <p>Servings:<span class="card-icons"><i class="fa-regular fa-user"></i>
-                                                    <%= tip.servings %>
-                                                </span></p>
-                                            <p>minutes:<span class="card-icons"><i class="fa-solid fa-clock"></i>
-                                                    <%= tip.readyInMinutes %>
-                                                </span></p>
-                                            <p>Ingredients:<span class="card-icons"><i class="fa-solid fa-book"></i>
-                                                    <%= tip.numberOfIngredients %>
-                                                </span> </p>
+                                            </div>
                                         </div>
-
-                                        <!-- View Recipe Button -->
-                                        <form action="/recipeInfo/<%= tip.id %>" method="GET">
-                                            <button class="view-recipe-btn" data-recipe-id="<%= tip.id %>">View
-                                                Recipe</button>
-                                        </form>
                                     </div>
+                                </li>
+                                <% }); %>
+                        </ul>
+                    </div>
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        <button class="glide__bullet" data-glide-dir="=0"></button>
+                        <button class="glide__bullet" data-glide-dir="=1"></button>
+                        <button class="glide__bullet" data-glide-dir="=2"></button>
+                        <button class="glide__bullet" data-glide-dir="=3"></button>
+                        <button class="glide__bullet" data-glide-dir="=4"></button>
 
-                                    <div class="glide-card-memory">
-                                        <!-- Like Recipe Form -->
-                                        <form class="col" id="like-form-<%= tip._id %>"
-                                            action="/recipe/likeRecipe/<%= tip._id %>?_method=PUT" method="POST"
-                                            onsubmit="event.preventDefault(); likeRecipe('<%= tip._id %>');">
-                                            <button class="btn card-btn animate__animated animate__heartBeat"
-                                                type="submit">
-                                                <i class="fa-solid fa-heart custom-icon2"></i>
-                                            </button>
-                                        </form>
-
-                                        <!-- Favorite Recipe Form -->
-                                        <form class="col" id="favorite-form-<%= tip.spoonacularId || tip.id %>"
-                                            action="/recipe/favoriteRecipe/<%= tip.spoonacularId || tip.id %>"
-                                            method="POST"
-                                            onsubmit="event.preventDefault(); favoriteRecipe('<%= tip.spoonacularId || tip.id %>');">
-                                            <button class="btn card-btn animate__animated animate__heartBeat" type="submit">
-                                                <i class="fa-solid fa-star custom-icon text-warning"></i>
-                                            </button>
-                                        </form>
-                                        
+                    </div>
+                </div>
+            </section>
 
 
+            <section id="trending-healthy">
+                <div class="recipe-headers healthy">
+                    <h1 class="titles" data-text="Healthy Recipes"> Healthy Recipes</h1>
 
-                                        <!-- Delete Recipe Form (conditional) -->
-                                        <!-- <% if (tip.user && tip.user.id === user.id) { %>
+                </div>
+                <!-- Glide -->
+                <div class="glide-healthy">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <% healthTips.forEach(tip=> { %>
+                                <li class="glide__slide">
+                                    <div class="glide-card" style="background-image: url('<%= tip.image %>');">
+                                        <div class="glide-card-container">
+                                            <div class="glide-card-info">
+                                                <h2>
+                                                    <%= tip.title %>
+                                                </h2>
+                                                <div class="glide-icons">
+                                                    <p>Servings:<span class="card-icons"><i
+                                                                class="fa-regular fa-user"></i>
+                                                            <%= tip.servings %>
+                                                        </span></p>
+                                                    <p>minutes:<span class="card-icons"><i
+                                                                class="fa-solid fa-clock"></i>
+                                                            <%= tip.readyInMinutes %>
+                                                        </span></p>
+                                                    <p>Ingredients:<span class="card-icons"><i
+                                                                class="fa-solid fa-book"></i>
+                                                            <%= tip.numberOfIngredients %>
+                                                        </span> </p>
+                                                </div>
+
+                                                <!-- View Recipe Button -->
+                                                <form action="/recipeInfo/<%= tip.id %>" method="GET">
+                                                    <button class="view-recipe-btn" data-recipe-id="<%= tip.id %>">View
+                                                        Recipe</button>
+                                                </form>
+                                            </div>
+
+                                            <div class="glide-card-memory">
+                                                <!-- Like Recipe Form -->
+                                                <form class="col" id="like-form-<%= tip._id %>"
+                                                    action="/recipe/likeRecipe/<%= tip._id %>?_method=PUT" method="POST"
+                                                    onsubmit="event.preventDefault(); likeRecipe('<%= tip._id %>');">
+                                                    <button class="btn card-btn animate__animated animate__heartBeat"
+                                                        type="submit">
+                                                        <i class="fa-solid fa-heart custom-icon2"></i>
+                                                    </button>
+                                                </form>
+
+                                                <!-- Favorite Recipe Form -->
+                                                <form class="col" id="favorite-form-<%= tip.spoonacularId || tip.id %>"
+                                                    action="/recipe/favoriteRecipe/<%= tip.spoonacularId || tip.id %>"
+                                                    method="POST"
+                                                    onsubmit="event.preventDefault(); favoriteRecipe('<%= tip.spoonacularId || tip.id %>');">
+                                                    <button class="btn card-btn animate__animated animate__heartBeat"
+                                                        type="submit">
+                                                        <i class="fa-solid fa-star custom-icon text-warning"></i>
+                                                    </button>
+                                                </form>
+
+
+
+
+                                                <!-- Delete Recipe Form (conditional) -->
+                                                <!-- <% if (tip.user && tip.user.id === user.id) { %>
                                                 <form action="/recipe/deleteRecipe/<%= tip.id %>?_method=DELETE" method="POST" style="display:inline;">
                                                     <button class="btn btn-primary" type="submit">
                                                         <i class="fa-solid fa-trash"></i>
                                                         <%= recipe.likes %></button>
                                                 </form>
                                             <% } %> -->
-                                        <!-- <button class=" btn btn-primary "  type="submit"> <%= tip.likes %>
+                                                <!-- <button class=" btn btn-primary "  type="submit"> <%= tip.likes %>
                                             <i class="fa-solid fa-trash"></i> -->
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                        <% }); %>
-                </ul>
-            </div>
-            <div class="glide__bullets" data-glide-el="controls[nav]">
-                <button class="glide__bullet" data-glide-dir="=0"></button>
-                <button class="glide__bullet" data-glide-dir="=1"></button>
-                <button class="glide__bullet" data-glide-dir="=2"></button>
-                <button class="glide__bullet" data-glide-dir="=3"></button>
-                <button class="glide__bullet" data-glide-dir="=4"></button>
-            </div>
-        </div>
-    </section>
+                                </li>
+                                <% }); %>
+                        </ul>
+                    </div>
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        <button class="glide__bullet" data-glide-dir="=0"></button>
+                        <button class="glide__bullet" data-glide-dir="=1"></button>
+                        <button class="glide__bullet" data-glide-dir="=2"></button>
+                        <button class="glide__bullet" data-glide-dir="=3"></button>
+                        <button class="glide__bullet" data-glide-dir="=4"></button>
+                    </div>
+                </div>
+            </section>
 
-    <!-- <footer>
+            <!-- <footer>
         <h2>Onice Gourmet Guide</h2>
         <p>Find and share recipes with ease. Explore thousands of mouth-watering dishes and save your favorites.</p>
         <p>Your Guide to Flavorful Journeys.</p>
@@ -383,147 +413,147 @@
 
 
 
-    <!-- Glide.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
-    <!-- Include SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <!-- Glide.js -->
+            <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+            <!-- Include SweetAlert2 -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <!-- Initialize Glide -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            new Glide('.glide', {
-                type: 'carousel',
-                startAt: 0,
-                perView: 3, // Default for extra small screens
-                breakpoints: {
-                    576: {
-                        perView: 1 // For extra small screens
-                    },
-                    900: {
-                        perView: 2 // For small devices (tablets)
-                    },
-                    992: {
-                        perView: 3 // For larger devices (desktops)
-                    }
-                }
-            }).mount();
+            <!-- Initialize Glide -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    new Glide('.glide', {
+                        type: 'carousel',
+                        startAt: 0,
+                        perView: 3, // Default for extra small screens
+                        breakpoints: {
+                            576: {
+                                perView: 1 // For extra small screens
+                            },
+                            900: {
+                                perView: 2 // For small devices (tablets)
+                            },
+                            992: {
+                                perView: 3 // For larger devices (desktops)
+                            }
+                        }
+                    }).mount();
 
 
-            new Glide('.glide-desserts', {
-                type: 'carousel',
-                startAt: 0,
-                perView: 3, // Default for extra small screens
-                breakpoints: {
-                    576: {
-                        perView: 1 // For extra small screens
-                    },
-                    900: {
-                        perView: 2 // For small devices (tablets)
-                    },
-                    992: {
-                        perView: 3 // For larger devices (desktops)
-                    }
-                }
-            }).mount();
+                    new Glide('.glide-desserts', {
+                        type: 'carousel',
+                        startAt: 0,
+                        perView: 3, // Default for extra small screens
+                        breakpoints: {
+                            576: {
+                                perView: 1 // For extra small screens
+                            },
+                            900: {
+                                perView: 2 // For small devices (tablets)
+                            },
+                            992: {
+                                perView: 3 // For larger devices (desktops)
+                            }
+                        }
+                    }).mount();
 
-            new Glide('.glide-healthy', {
-                type: 'carousel',
-                startAt: 0,
-                perView: 3, // Default for extra small screens
-                breakpoints: {
-                    576: {
-                        perView: 1 // For extra small screens
-                    },
-                    900: {
-                        perView: 2 // For small devices (tablets)
-                    },
-                    992: {
-                        perView: 3 // For larger devices (desktops)
-                    }
-                }
-            }).mount();
-        });
-    </script>
-
-    <!-- Include SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        // Function to handle the "Like" button click and form submission
-        function likeRecipe(recipeId) {
-            const form = document.getElementById(`like-form-${recipeId}`);
-            fetch(form.action, {
-                method: form.method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: new FormData(form),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: data.message,
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'There was an error liking this recipe. Please try again.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
+                    new Glide('.glide-healthy', {
+                        type: 'carousel',
+                        startAt: 0,
+                        perView: 3, // Default for extra small screens
+                        breakpoints: {
+                            576: {
+                                perView: 1 // For extra small screens
+                            },
+                            900: {
+                                perView: 2 // For small devices (tablets)
+                            },
+                            992: {
+                                perView: 3 // For larger devices (desktops)
+                            }
+                        }
+                    }).mount();
                 });
-        }
+            </script>
 
-        // Function to handle the "Favorite" button click and form submission
-        function favoriteRecipe(recipeId) {
-            fetch(`/recipe/favoriteRecipe/${recipeId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'  // Make sure the content-type is JSON
-                },
-                body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: data.message,
-                            icon: 'success',
-                            confirmButtonText: 'OK'
+            <!-- Include SweetAlert2 -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script>
+                // Function to handle the "Like" button click and form submission
+                function likeRecipe(recipeId) {
+                    const form = document.getElementById(`like-form-${recipeId}`);
+                    fetch(form.action, {
+                        method: form.method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: new FormData(form),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: data.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'There was an error liking this recipe. Please try again.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
                         });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'There was an error adding this recipe to your favorites. Please try again.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                });
-        }
-    </script>
+                }
+
+                // Function to handle the "Favorite" button click and form submission
+                function favoriteRecipe(recipeId) {
+                    fetch(`/recipe/favoriteRecipe/${recipeId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'  // Make sure the content-type is JSON
+                        },
+                        body: JSON.stringify({ recipeId: recipeId }),  // Send recipeId in the body
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: data.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'There was an error adding this recipe to your favorites. Please try again.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        });
+                }
+            </script>
 
 
-    <!-- Include Axios from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <!-- Include Axios from CDN -->
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <!-- Custom JS -->
-    <script type="module" src="js/main.js"></script>
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                crossorigin="anonymous"></script>
+            <!-- Custom JS -->
+            <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

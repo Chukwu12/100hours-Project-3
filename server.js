@@ -27,17 +27,6 @@ const wineRoutes = require('./routes/wine');
 const triviaRoutes = require('./routes/trivia');
 
 
-// Import controllers
-const cuisineController = require('./controllers/cuisine');
-const dessertController = require('./controllers/dessert');
-const healthyController = require('./controllers/health');
-const recipeInfoController = require('./controllers/recipeInfo');
-const recipeController = require('./controllers/recipe');
-const mainController = require('./controllers/main');
-const authController = require('./controllers/auth');
-const profileController = require('./controllers/profile');
-const createController = require('./controllers/create');
-
 
 // Load environment variables
 require('dotenv').config({ path: './config/.env' });
@@ -74,8 +63,6 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public')); // Serve static files
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
 app.use(logger('dev'))
 app.use(methodOverride("_method")); // Comment out if not needed
 
@@ -86,9 +73,8 @@ app.use(passport.session());
 // Use flash messages for errors, info, etc...
 app.use(flash());
 
-// Setup Routes For Which The Server Is Listening
+// Routes
 app.use('/', homeRoutes);
-app.use('/', recipeRoutes);
 app.use('/recipe', recipeRoutes);
 app.use('/dessert', dessertRoutes);
 app.use('/health', healthRoutes);
@@ -99,21 +85,6 @@ app.use('/profile', profileRoutes);
 //  app.use('/', createRoutes);
 app.use('/', wineRoutes);
 app.use('/trivia', triviaRoutes);
-
-// Define your route directly if necessary
-// app.get('/cuisine/:type', cuisineController.getCuisineRecipes);
-// app.get('/dessert', dessertController.getDessertRecipes);
-// app.get('/dessert', dessertController.getRecipeDetails )
-// app.get('/health', healthyController.getHealthyDetails);
-// app.use('recipe', recipeController.getRandomRecipes);
-// app.get('/recipe/:id', recipeInfoController.getRecipeDetails);
-// app.get('/recipeInfo', recipeInfoController.getRecipeDetails);
-// app.get('/createRecipes', createController.createRecipe);
-//  app.get('/login', authController.getLogin);
-// app.get('/profile', profileController.getProfile);
-// app.get('/', mainController.combinedData);  // For combined recipes and wine pairing
-// app.get('/', recipeController.fetchFavorite);
-
 
 
 

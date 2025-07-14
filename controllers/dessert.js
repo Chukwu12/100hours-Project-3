@@ -30,6 +30,7 @@ const getDessertRecipes = async () => {
         // Extract recipes and add the readyInMinutes field
         const dessertRecipes = recipes.map(recipe => ({
             ...recipe,
+             spoonacularId: recipe.id.toString(),
             servings: recipe.servings,  // Get the number of servings
             readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
             numberOfIngredients: recipe.extendedIngredients ? recipe.extendedIngredients.length : 0  // Number of ingredients

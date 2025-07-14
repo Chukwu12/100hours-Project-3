@@ -83,14 +83,14 @@
               <p><strong>Email</strong>: <%= user.email %>
               </p>
             </i>
-              <!-- Badge Example -->
-          <div class="badge">
-            <span class="badge-text">Verified</span>
+            <!-- Badge Example -->
+            <div class="badge">
+              <span class="badge-text">Verified</span>
+            </div>
+            <div class="bottom">
+            </div>
           </div>
-          <div class="bottom">
-          </div>
-          </div>
-        
+
         </div>
       </div>
     </section>
@@ -100,90 +100,39 @@
 
 
     <!-- Favorite Recipes Section -->
-    <section id="user-card2">
-      <div class="row">
-        <div class="col-xl">
-          <!-- Favorite Recipes  -->
-          <h2>Favorite Recipes</h2>
-          <div class="favorite-glide">
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides">
-                <li class="glide__slide">
-                  <div class="favorite-recipe-card">
-                    <figure>
-                      <img src="image/calum-lewis-vA1L1jRTM70-unsplash.jpg" alt="favorite recipe image">
-                    </figure>
-                    <div class="favorite-recipe-content">
-                      <span>
-                        <div class="ratings">
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                      </span>
-                      <div class="favorite-nutrition">
-                        food facts goes here!!!
-                      </div>
-                      <button>View Recipe</button>
-                    </div>
-
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="favorite-recipe-card">
-                    <figure>
-                      <img src="image/calum-lewis-vA1L1jRTM70-unsplash.jpg" alt="favorite recipe image">
-                    </figure>
-                    <div class="favorite-recipe-content">
-                      <span>
-                        <div class="ratings">
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                      </span>
-                      <div class="favorite-nutrition">
-                        food facts goes here!!!
-                      </div>
-                      <button>View Recipe</button>
-                    </div>
-
-                  </div>
-                </li>
-                <li class="glide__slide">
-                  <div class="favorite-recipe-card">
-                    <figure>
-                      <img src="image/calum-lewis-vA1L1jRTM70-unsplash.jpg" alt="favorite recipe image">
-                    </figure>
-                    <div class="favorite-recipe-content">
-                      <span>
-                        <div class="ratings">
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star rating-color"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                      </span>
-                      <div class="favorite-nutrition">
-                        food facts goes here!!!
-                      </div>
-                      <button>View Recipe</button>
-                    </div>
-
-                  </div>
-                </li>
-              </ul>
-            </div>
-
+   <section id="user-card2">
+  <div class="row">
+    <div class="col-xl">
+      <!-- Favorite Recipes  -->
+     <h2>Favorite Recipes</h2>
+<ul class="glide__slides">
+  <% if (validFavorites.length > 0) { %>
+    <% validFavorites.forEach(fav => { %>
+      <li class="glide__slide">
+        <div class="favorite-recipe-card">
+          <figure>
+            <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
+          </figure>
+          <div class="favorite-recipe-content">
+            <h4><%= fav.recipe.title %></h4>
+            <p><strong>Servings:</strong> <%= fav.recipe.servings %></p>
+            <p><strong>Ready in:</strong> <%= fav.recipe.readyInMinutes %> mins</p>
+            <form method="POST" action="/profile/recipe/favoriteRecipe/<%= fav.spoonacularId %>">
+              <button type="submit">Remove Favorite</button>
+            </form>
           </div>
         </div>
-      </div>
-    </section>
+      </li>
+    <% }) %>
+  <% } else { %>
+    <li>No favorite recipes yet.</li>
+  <% } %>
+</ul>
+
+    </div>
+  </div>
+</section>
+
 
 
     <!-- Profile Triva section -->

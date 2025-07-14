@@ -1,6 +1,5 @@
 // controllers/healthController.js
 const axios = require('axios');
-
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
@@ -28,6 +27,7 @@ const getHealthRecipes = async () => {
         // Map the health recipes to add necessary fields
         const mappedHealthRecipes = healthRecipes.map(recipe => ({
             ...recipe,
+             spoonacularId: recipe.id.toString(),
             servings: recipe.servings,
             readyInMinutes: recipe.readyInMinutes,
             numberOfIngredients: recipe.extendedIngredients ? recipe.extendedIngredients.length : 0,

@@ -2,72 +2,74 @@
 const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
-const User = require('../models/User');
+// const User = require('../models/User');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
-const API_KEY = process.env.API_KEY;
+// const API_KEY = process.env.API_KEY;
 
 
 console.log('API Key:', process.env.RECIPES_API_KEY);
 
+
+
 const getRandomRecipes = async () => {
-  try {
-      const requiredRecipes = 5;
+    try {
+        const requiredRecipes = 5;
 
-      // Step 1: Fetch recipes from MongoDB
-      let recipes = await Recipe.aggregate([
-          { $match: { image: { $exists: true, $ne: null } } }, // Ensure recipes have an image
-          { $sample: { size: requiredRecipes } }              // Get a random sample
-      ]);
+        // Step 1: Fetch recipes from MongoDB
+        let recipes = await Recipe.aggregate([
+            { $match: { image: { $exists: true, $ne: null } } }, // Ensure recipes have an image
+            { $sample: { size: requiredRecipes } }              // Get a random sample
+        ]);
 
-      // Step 2: If MongoDB doesn't have enough recipes, fetch from the API
-      if (recipes.length < requiredRecipes) {
-          console.log(`Found ${recipes.length} recipes in MongoDB. Fetching more from API...`);
+        // Step 2: If MongoDB doesn't have enough recipes, fetch from the API
+        if (recipes.length < requiredRecipes) {
+            console.log(`Found ${recipes.length} recipes in MongoDB. Fetching more from API...`);
 
-          const remainingCount = requiredRecipes - recipes.length;
+            const remainingCount = requiredRecipes - recipes.length;
 
-          const response = await axios.get(RECIPES_API_URL, {
-              params: {
-                  apiKey: RECIPES_API_KEY,
-                  number: remainingCount,
-                  includeNutrition: true,
-                  limitLicense: true,
-              }
-          });
+            const response = await axios.get(RECIPES_API_URL, {
+                params: {
+                    apiKey: RECIPES_API_KEY,
+                    number: remainingCount,
+                    includeNutrition: true,
+                    limitLicense: true,
+                }
+            });
 
-          if (response && response.data && response.data.recipes) {
-              const apiRecipes = response.data.recipes.filter(recipe => recipe.image);
+            if (response && response.data && response.data.recipes) {
+                const apiRecipes = response.data.recipes.filter(recipe => recipe.image);
 
-              // Save new API recipes to MongoDB
-              const savedRecipes = await Recipe.insertMany(
-                  apiRecipes.map(recipe => ({
-                      spoonacularId: recipe.id,
-                      title: recipe.title,
-                      image: recipe.image,
-                      instructions: recipe.instructions || '',
-                      servings: recipe.servings,
-                      readyInMinutes: recipe.readyInMinutes,
-                      ingredients: recipe.extendedIngredients?.map(ing => ing.original) || [],
-                  })),
-                  { ordered: false } // Ignore duplicate errors if recipes already exist
-              );
+                // Save new API recipes to MongoDB
+                const savedRecipes = await Recipe.insertMany(
+                    apiRecipes.map(recipe => ({
+                        spoonacularId: recipe.id,
+                        title: recipe.title,
+                        image: recipe.image,
+                        instructions: recipe.instructions || '',
+                        servings: recipe.servings,
+                        readyInMinutes: recipe.readyInMinutes,
+                        ingredients: recipe.extendedIngredients?.map(ing => ing.original) || [],
+                    })),
+                    { ordered: false } // Ignore duplicate errors if recipes already exist
+                );
 
-              console.log(`Fetched and saved ${savedRecipes.length} recipes from API.`);
+                console.log(`Fetched and saved ${savedRecipes.length} recipes from API.`);
 
-              // Add the newly fetched recipes to the final result
-              recipes = recipes.concat(savedRecipes);
-          } else {
-              console.log('No recipes found from API.');
-          }
-      }
+                // Add the newly fetched recipes to the final result
+                recipes = recipes.concat(savedRecipes);
+            } else {
+                console.log('No recipes found from API.');
+            }
+        }
 
-      // Step 3: Return the final combined list of recipes
-      return recipes;
-  } catch (error) {
-      console.error('Error fetching random recipes:', error.message);
-      throw new Error(error.message);
-  }
+        // Step 3: Return the final combined list of recipes
+        return recipes;
+    } catch (error) {
+        console.error('Error fetching random recipes:', error.message);
+        throw new Error(error.message);
+    }
 };
 
 
@@ -79,32 +81,32 @@ module.exports = { getRandomRecipes };
 // Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {
     try {
-           // Check for API key
-           if (!RECIPES_API_KEY) {
+        // Check for API key
+        if (!RECIPES_API_KEY) {
             return res.status(401).json({ message: 'API key is missing' });
         }
         const recipeId = req.params.id;
-  
+
         if (!recipeId) {
-          return res.status(400).send('Recipe ID is required');
+            return res.status(400).send('Recipe ID is required');
         }
-  
+
         // Fetch recipe details from the API
         const response = await axios.get(RECIPE_DETAILS_API_URL.replace('{id}', recipeId), {
             params: {
                 apiKey: RECIPES_API_KEY,
             }
         });
-        
+
         const recipe = response.data;
-    
-  
+
+
         // Validate that the recipe data contains the expected fields
-      if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {
-        return res.status(500).send('Recipe data is incomplete');
-      }
-  
-  
+        if (!recipe.title || !recipe.image || !recipe.servings || !recipe.readyInMinutes || !recipe.instructions || !Array.isArray(recipe.extendedIngredients)) {
+            return res.status(500).send('Recipe data is incomplete');
+        }
+
+
         // Render the recipe details page
         res.render('recipeInfo', {
             recipe: {
@@ -120,17 +122,20 @@ const getRecipeDetails = async (req, res) => {
         console.error('Error fetching recipe details:', error.message);
         res.status(500).send('Error fetching recipe details');
     }
-  };
+};
 
 
-  const favoriteRecipe = async (req, res) => {
+const favoriteRecipe = async (req, res) => {
     try {
         const userId = req.user?.id;
+        const  recipeId  = req.params.id;
+
+        console.log('🔸 User ID:', userId);
+        console.log('🔸 Recipe ID Param:', recipeId);
+
         if (!userId) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-
-        const { recipeId } = req.params;
 
         // 1. Look up recipe by spoonacularId
         let recipe = await Recipe.findOne({ spoonacularId: recipeId });
@@ -195,51 +200,53 @@ const getRecipeDetails = async (req, res) => {
 
 const fetchFavorite = async (req, res) => {
     try {
-      const userId = req.user.id; // Ensure the user is authenticated
+        const userId = req.user.id; // Ensure the user is authenticated
 
-          // Fetch the user's favorite recipes
-      const favorites = await Favorite.find({ user: userId })
-        .populate('recipe', 'title image ingredients readyInMinutes servings')
-        .select('createdAt spoonacularId');
+        // Fetch the user's favorite recipes
+        const favorites = await Favorite.find({ user: userId })
+            .populate('recipe', 'title image ingredients readyInMinutes servings')
+            .select('createdAt spoonacularId');
         console.log(favorites);
 
-          // Optional: filter out null recipes (just in case)
-          const validFavorites = favorites.filter(fav => fav.recipe);
-  
+        
+
+        // Optional: filter out null recipes (just in case)
+        const validFavorites = favorites.filter(fav => fav.recipe);
+
         // Render the profile page with the fetched favorites
-      res.render('profile', { user: req.user, validFavorites }); // Pass `favorites` to the template
+        res.render('profile', { user: req.user, validFavorites }); // Pass `favorites` to the template
     } catch (error) {
-        console.error('Error fetching favorites:', error.message);
-      res.status(500).send('An error occurred while fetching favorites.');
+        console.error('Error fetching favorites:', error);
+        res.status(500).json({ message: 'Server error while favoriting recipe' });
     }
-  };
-  
-  
+};
 
 
-  
-  
+
+
+
+
 
 const likeRecipe = async (req, res) => {
-  try {
-    const recipeId = req.params.id;
-    const recipe = await Recipe.findById(recipeId);
+    try {
+        const recipeId = req.params.id;
+        const recipe = await Recipe.findById(recipeId);
 
-    if (!recipe) {
-        return res.status(404).json({ message: 'Recipe not found' });
+        if (!recipe) {
+            return res.status(404).json({ message: 'Recipe not found' });
+        }
+
+        // Increment the like count (if likes field exists)
+        recipe.likes = (recipe.likes || 0) + 1;
+        await recipe.save();
+
+        res.status(200).json({ message: 'Recipe liked successfully!' });
+    } catch (error) {
+        console.error('Error liking recipe:', error);
+        res.status(500).json({ message: 'Error liking recipe' });
     }
-
-    // Increment the like count (if likes field exists)
-    recipe.likes = (recipe.likes || 0) + 1;
-    await recipe.save();
-
-    res.status(200).json({ message: 'Recipe liked successfully!' });
-} catch (error) {
-    console.error('Error liking recipe:', error);
-    res.status(500).json({ message: 'Error liking recipe' });
-}
 };
-  
+
 
 
 
@@ -272,15 +279,15 @@ const saveRecipe = async (recipeData) => {
 
 
 
-   // Function to get a recipe by Spoonacular ID
-   const getRecipeBySpoonacularId = async (spoonacularId) => {
+// Function to get a recipe by Spoonacular ID
+const getRecipeBySpoonacularId = async (spoonacularId) => {
     try {
         // Check MongoDB for the recipe first
         let recipe = await Recipe.findOne({ spoonacularId });
 
         if (!recipe) {
             console.log('Recipe not found in database. Fetching from API...');
-            
+
             // Fetch the recipe from the API
             const response = await axios.get(`https://api.spoonacular.com/recipes/${spoonacularId}/information`, {
                 params: {
@@ -317,20 +324,20 @@ const saveRecipe = async (recipeData) => {
 };
 
 
- const deleteRecipe = async (req, res) => {
+const deleteRecipe = async (req, res) => {
     try {
-      // Find post by id
-      let recipe = await Recipe.findById({ _id: req.params.id });
-      // Delete image from cloudinary
-      await cloudinary.uploader.destroy(recipe.cloudinaryId);
-      // Delete post from db
-      await Recipe.remove({ _id: req.params.id });
-      console.log("Deleted Recipe");
-      res.redirect("/profile");
+        // Find post by id
+        let recipe = await Recipe.findById({ _id: req.params.id });
+        // Delete image from cloudinary
+        await cloudinary.uploader.destroy(recipe.cloudinaryId);
+        // Delete post from db
+        await Recipe.remove({ _id: req.params.id });
+        console.log("Deleted Recipe");
+        res.redirect("/profile");
     } catch (err) {
-      res.redirect("/profile");
+        res.redirect("/profile");
     }
-  };
+};
 
 
 
@@ -342,11 +349,11 @@ const saveRecipe = async (recipeData) => {
 
 module.exports = {
     getRandomRecipes,
-    getRecipeDetails, 
+    getRecipeDetails,
     favoriteRecipe,
     fetchFavorite,
     likeRecipe,
     saveRecipe,
-    getRecipeBySpoonacularId, 
-    deleteRecipe,  
+    getRecipeBySpoonacularId,
+    deleteRecipe,
 };
