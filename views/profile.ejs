@@ -241,30 +241,29 @@
 
 
   <!-- Initialize Glide -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const favoriteSlides = document.querySelectorAll('.favorite-glide .glide__slide');
+    if (favoriteSlides.length > 0) {
       new Glide('.favorite-glide', {
         type: 'carousel',
         startAt: 0,
-        perView: 3, // Default for extra small screens
-        autoplay: 3000, // optional for auto sliding
-        hoverpause: true, // pauses autoplay on hover
+        perView: 2,
+        autoplay: 3000,
+        hoverpause: true,
         breakpoints: {
-          576: {
-            perView: 1 // For extra small screens
+         992: {
+            perView: 2 // For tablets and small laptops
           },
-          900: {
-            perView: 2 // For small devices (tablets)
-          },
-          992: {
-            perView: 3 // For larger devices (desktops)
+          768: {
+            perView: 1 // For mobile and small tablets
           }
         }
       }).mount();
-    });
+    }
+  });
+</script>
 
-
-  </script>
 
 
   <!-- Glide.js -->

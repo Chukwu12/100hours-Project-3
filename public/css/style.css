@@ -2711,13 +2711,37 @@ code {
 }
 
  /* Profile Favorite Recipes  */
+
+ .favorite-glide {
+    max-width: 900px;
+  margin: 0 auto;
+    padding: 0 15px;
+  position: relative;
+}
+.favorite-glide  .glide__slides{
+  display: flex;
+  padding: 0;
+  list-style: none;
+
+}
+
+ .favorite-glide .glide__slide {
+  transition: transform 0.3s ease;
+   max-width: 400px; 
+    flex: 0 0 auto;
+    width: 100%;
+ }
+
  .favorite-recipe-card{
-    display: flex;
-    flex-direction: column;
-    background: white;
-    border-radius: 25px;
-    height: 200px;
-    justify-content: start;
+     display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  border-radius: 25px;
+  height: 100%;
+  min-height: 350px;   
+height: 100%;
+  overflow: hidden;
  }
 
  .favorite-recipe-card figure {
@@ -2725,7 +2749,6 @@ code {
     height: 150px;
     margin: 0;
     overflow: hidden;
-    background: wheat;
     border-radius: 25px;  
  }
 
@@ -2733,6 +2756,24 @@ code {
     width: 100%;
     height: 150px;
     border-radius: 25px;
+     object-fit: cover;
+ }
+
+ .favorite-recipe-content{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+ }
+
+ .favorite-recipe-content h4{
+    font-size: 1.1rem;
+    text-align: center;
+     white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
  }
 
  .col-xl h2 {
@@ -2742,6 +2783,8 @@ code {
     justify-content: center;
     margin: 50px 0;
  }
+
+ 
  
  /* Profile page Gilde button */
  .glide__arrows{
