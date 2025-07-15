@@ -106,15 +106,31 @@ float: left;
 // }
 
 /* Profile card  */
-#header{
-  width:50vw;
-  max-width:400px;
-  min-width:300px;
-  height:150px;
-  background:url(http://i.imgur.com/woUbg3p.jpg);
-  background-size:cover;
+#user-card {
+    height: 100%;
+    width: 90%;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+    padding: 30px 30px 30px 30px;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#header {
+  width: 50vw;
+  max-width: 400px;
+  min-width: 300px;
+  height: 150px;
+  background: url(/image/profilebanner.png);
+  background-size: cover;
   background-position: center center;
-  transition: all .08s linear;
+  transition: all 0.08s linear;
 }
 
 .profile-label{
@@ -141,21 +157,23 @@ float: left;
   padding-top:40px;
   padding-left:25px;
   font-family: 'Open Sans', sans-serif;
-  .image{
+  .profile-image{
     display: flex;
     justify-content: center;
     align-items: center;
     position:absolute;
-    border:3px solid black;
+    border:3px solid pink;
     top:5px;
     left: 20px;
     height:80px;
     width:80px;
     border-radius:10px;
+      z-index: 10;
     img{
-      width:40px;
-      height:40px;
-      border-radius:8px;
+       width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
     }
   }
   .name{
@@ -184,10 +202,12 @@ float: left;
 
 .shadow{
   box-shadow: 0px 0px 10px 1px rgba(black,0.5);
+    max-width: 400px;
 }
 
 .overflow{
   overflow:hidden;
+
 }
 
 .following,

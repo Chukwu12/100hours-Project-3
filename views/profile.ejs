@@ -73,8 +73,7 @@
               onchange="previewImage(event)" />
             <!-- Label to trigger the file input -->
             <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
-          </div>
-          <div class="user-info">
+             <div class="user-info">
             <i class="fa-solid fa-user">
               <p><strong>User Name</strong>: <%= user.userName %>
               </p>
@@ -90,6 +89,8 @@
             <div class="bottom">
             </div>
           </div>
+          </div>
+         
 
         </div>
       </div>
@@ -253,7 +254,7 @@
         hoverpause: true,
         breakpoints: {
          992: {
-            perView: 2 // For tablets and small laptops
+            perView: 1 // For tablets and small laptops
           },
           768: {
             perView: 1 // For mobile and small tablets
