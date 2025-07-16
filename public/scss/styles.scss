@@ -16,7 +16,7 @@ $color: #333; // the rest
 /* Recipes Headers animations */
 .random {
   animation: sliding-background 50s linear infinite;
-  background: url(/public/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left / 120%;
+  background: url(/image/calum-lewis-vA1L1jRTM70-unsplash.jpg) no-repeat left / 120%;
 
 }
 
@@ -142,20 +142,17 @@ float: left;
     background: pink;
     border-radius: 5px;
     position: absolute;
-    left: 150px;
+    top: 5%;
 }
 
 
 #profile{
-  width:50vw;
   max-width:400px;
   min-width:300px;
-  height: 250px;
+  height: 300px;
   background:white;
   position:relative;
   box-sizing:border-box;
-  padding-top:40px;
-  padding-left:25px;
   font-family: 'Open Sans', sans-serif;
   .profile-image{
     display: flex;
@@ -170,8 +167,8 @@ float: left;
     border-radius:10px;
       z-index: 10;
     img{
-       width: 80px;
-      height: 80px;
+       width: 50px;
+      height: 50px;
       border-radius: 50%;
       object-fit: cover;
     }
@@ -199,6 +196,22 @@ float: left;
     }
   }
 }
+
+.user-info{
+    display: flex;
+    justify-content: flex-end;
+    height: 250px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-info i {
+  display: flex;
+  gap: 5px;
+}
+
+
+
 
 .shadow{
   box-shadow: 0px 0px 10px 1px rgba(black,0.5);

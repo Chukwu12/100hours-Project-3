@@ -164,3 +164,36 @@ function previewImage(event) {
       fileInput.addEventListener('change', previewImage);
     }
   });
+//=======================================================delete favorite button ===================================================================//
+ document.querySelectorAll('.remove-fav-btn').forEach(button => {
+    button.addEventListener('click', async () => {
+      const id = button.dataset.id;
+
+      const confirmed = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'Remove this recipe from favorites?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'Cancel',
+      });
+
+      if (confirmed.isConfirmed) {
+        try {
+          const response = await fetch(`/profile/recipe/favoriteRecipe/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          if (response.ok) {
+            Swal.fire('Removed!', 'Recipe has been removed from your favorites.', 'success')
+              .then(() => window.location.reload());
+          } else {
+            throw new Error('Delete failed');
+          }
+        } catch (error) {
+          Swal.fire('Error', 'Failed to remove the recipe.', 'error');
+        }
+      }
+    });
+  });

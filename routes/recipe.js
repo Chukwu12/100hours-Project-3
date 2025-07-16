@@ -11,7 +11,7 @@ require('dotenv').config();
 // router.get('/', recipeController.getRandomRecipes); 
 
 // Route to fetch recipe details by ID
-router.get('/recipeInfo/:id', recipeController.getRecipeDetails);
+router.get('/:id', recipeController.getRecipeDetails);
 
 // Route to like a recipe
 router.put('/likeRecipe/:id', recipeController.likeRecipe);
@@ -23,7 +23,7 @@ router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId);
 
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
-// router.delete("/deleteRecipe/:id", recipesController.deleteRecipe);
+router.delete('/recipe/favoriteRecipe/:id', ensureAuth, profileController.deleteFavoriteRecipe);
 
 // Endpoint to send the API Key to the client
 router.get('/api-key', (req, res) => {

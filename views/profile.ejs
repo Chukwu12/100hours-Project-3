@@ -71,9 +71,9 @@
             <!-- File input for uploading the image -->
             <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" autocomplete="on"
               onchange="previewImage(event)" />
-            <!-- Label to trigger the file input -->
-            <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
-             <div class="user-info">
+          </div>
+
+          <div class="user-info">
             <i class="fa-solid fa-user">
               <p><strong>User Name</strong>: <%= user.userName %>
               </p>
@@ -89,9 +89,9 @@
             <div class="bottom">
             </div>
           </div>
-          </div>
-         
 
+          <!-- Label to trigger the file input -->
+          <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
         </div>
       </div>
     </section>
@@ -101,43 +101,52 @@
 
 
     <!-- Favorite Recipes Section -->
-  <!-- Favorite Recipes Section -->
-<section id="user-card2">
-  <div class="row">
-    <div class="col-xl">
-      <h2>Favorite Recipes</h2>
+    <!-- Favorite Recipes Section -->
+    <section id="user-card2">
+      <div class="row">
+        <div class="col-xl">
+          <h2>Favorite Recipes</h2>
 
-      <div class="glide favorite-glide">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
-            <% if (validFavorites.length > 0) { %>
-              <% validFavorites.forEach(fav => { %>
-                <li class="glide__slide">
-                  <div class="favorite-recipe-card">
-                    <figure>
-                      <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
-                    </figure>
-                    <div class="favorite-recipe-content">
-                      <h4><%= fav.recipe.title %></h4>
-                      <p><strong>Servings:</strong> <%= fav.recipe.servings %></p>
-                      <p><strong>Ready in:</strong> <%= fav.recipe.readyInMinutes %> mins</p>
-                      <form method="POST" action="/profile/recipe/favoriteRecipe/<%= fav.spoonacularId %>">
-                        <button type="submit">Remove Favorite</button>
-                      </form>
-                    </div>
-                  </div>
-                </li>
-              <% }) %>
-            <% } else { %>
-              <li>No favorite recipes yet.</li>
-            <% } %>
-          </ul>
+          <div class="glide favorite-glide">
+            <div class="glide__track" data-glide-el="track">
+              <ul class="glide__slides">
+                <% if (validFavorites.length> 0) { %>
+                  <% validFavorites.forEach(fav=> { %>
+                    <li class="glide__slide">
+                      <div class="favorite-recipe-card">
+                        <figure>
+                          <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
+                        </figure>
+                        <div class="favorite-recipe-content">
+                          <h4>
+                            <%= fav.recipe.title %>
+                          </h4>
+                          <p><strong>Servings:</strong>
+                            <%= fav.recipe.servings %>
+                          </p>
+                          <p><strong>Ready in:</strong>
+                            <%= fav.recipe.readyInMinutes %> mins
+                          </p>
+                          <button class="remove-fav-btn animate__animated animate__pulse"
+                            data-id="<%= fav.spoonacularId %>">
+                             <i class="fa-solid fa-trash"></i>
+                          </button>
+
+
+                        </div>
+                      </div>
+                    </li>
+                    <% }) %>
+                      <% } else { %>
+                        <li>No favorite recipes yet.</li>
+                        <% } %>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
-
-    </div>
-  </div>
-</section>
+    </section>
 
 
 
@@ -242,26 +251,61 @@
 
 
   <!-- Initialize Glide -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const favoriteSlides = document.querySelectorAll('.favorite-glide .glide__slide');
-    if (favoriteSlides.length > 0) {
-      new Glide('.favorite-glide', {
-        type: 'carousel',
-        startAt: 0,
-        perView: 2,
-        autoplay: 3000,
-        hoverpause: true,
-        breakpoints: {
-         992: {
-            perView: 1 // For tablets and small laptops
-          },
-          768: {
-            perView: 1 // For mobile and small tablets
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const favoriteSlides = document.querySelectorAll('.favorite-glide .glide__slide');
+      if (favoriteSlides.length > 0) {
+        new Glide('.favorite-glide', {
+          type: 'carousel',
+          startAt: 0,
+          perView: 2,
+          autoplay: 3000,
+          hoverpause: true,
+          breakpoints: {
+            992: {
+              perView: 1 // For tablets and small laptops
+            },
+            768: {
+              perView: 1 // For mobile and small tablets
+            }
           }
+        }).mount();
+      }
+    });
+  </script>
+
+  <script>
+  document.querySelectorAll('.remove-fav-btn').forEach(button => {
+    button.addEventListener('click', async () => {
+      const id = button.dataset.id;
+
+      const confirmed = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'Remove this recipe from favorites?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'Cancel',
+      });
+
+      if (confirmed.isConfirmed) {
+        try {
+          const response = await fetch(`/profile/recipe/favoriteRecipe/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          if (response.ok) {
+            Swal.fire('Removed!', 'Recipe has been removed from your favorites.', 'success')
+              .then(() => window.location.reload());
+          } else {
+            throw new Error('Delete failed');
+          }
+        } catch (error) {
+          Swal.fire('Error', 'Failed to remove the recipe.', 'error');
         }
-      }).mount();
-    }
+      }
+    });
   });
 </script>
 
@@ -272,6 +316,9 @@
 
   <!-- Include Axios from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweetalerts -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
   <!-- Bootstrap JS -->
