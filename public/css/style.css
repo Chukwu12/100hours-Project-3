@@ -1255,7 +1255,6 @@ text-transform: uppercase; */
     cursor: pointer;
     border: 1px solid;
     text-transform: uppercase;
-    background: azure;
     padding: 5px 5px;
     transition: color 0.4s linear;
     position: relative;
@@ -1807,6 +1806,117 @@ a[href="/api"]:hover {
 
 /* Profile Page */
 /* Create Recipe */
+
+/* wine section */
+
+.hero-wine-section {
+    padding: 3rem 1rem;
+  background-image: url(/image/wine-bg-hero.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  }
+
+  .hero-wine-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1); /* adjust for desired darkness */
+    z-index: -1;
+  }
+  
+  .hero-wine-content {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .hero-wine-text {
+    flex: 1 1 300px;
+    max-width: 600px;
+    color: #333;
+  }
+  
+  .hero-wine-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #8b0000;
+  }
+  
+  .hero-wine-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .hero-wine-image {
+    flex: 1 1 250px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .hero-wine-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-wine-image h4 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #444;
+  }
+  
+  .hero-wine-image p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .btn-hero {
+    display: inline-block;
+    background-color: #8b0000;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-hero:hover {
+    background-color: #a52a2a;
+  }
+
+  /* Responsive for smaller devices */
+@media (max-width: 768px) {
+    .hero-wine-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .hero-wine-text, .hero-wine-image {
+      max-width: 100%;
+    }
+  
+    .hero-wine-text h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* wine section end */
+  
 .create-container {
     position: relative;
     width: 100%;
@@ -2656,27 +2766,7 @@ a[href="/api"]:hover {
     background-color: #3498db;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* Recipe history grid layout */
-
-
-
-
-
-
-
-
-
-
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -2825,6 +2915,10 @@ code {
         font-size: 20rem;
         filter: opacity(0.5);
     }
+}
+
+#favorite-btn{
+    display: flex;
 }
 
 /* User Profile Page End  */

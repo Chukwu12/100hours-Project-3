@@ -29,98 +29,6 @@ const transform = (element, blur, height, zoom) => {
 };
 
 
-// ===================================like button models =====================================//
-// Function to handle the "Like" button click and form submission
-function likeRecipe(recipeId) {
-    const form = document.getElementById(`like-form-${recipeId}`);
-    
-    if (!form) {
-        Swal.fire({
-            title: 'Error',
-            text: 'Form not found.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-        return;
-    }
-
-    // Send the request using the action URL (which includes ?_method=PUT)
-    fetch(form.action, {
-        method: 'POST', // Use POST because method-override will convert it to PUT
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ recipeId }) // Send any additional data you may need
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to like recipe');
-        }
-        return response.json();
-    })
-    .then(data => {
-        Swal.fire({
-            title: 'Success!',
-            text: data.message || 'Recipe liked successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            title: 'Error',
-            text: 'There was an error liking this recipe. Please try again.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-    });
-}
-
-
-
-
-// Function to handle the "Favorite" button click and form submission
-function favoriteRecipe(recipeId) {
-    const button = document.querySelector(`#favorite-form-${recipeId} button`);
-    const icon = button.querySelector('i');
-
-    // Disable button to prevent multiple clicks
-    button.disabled = true;
-
-    fetch(`/recipe/favoriteRecipe/${recipeId}`, {
-        method: 'POST',
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: data.message,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-                // Update the icon to show it's favorited (gold star)
-                icon.classList.remove('fa-star');           // regular star
-                icon.classList.add('fa-star', 'text-warning'); // filled star with gold/yellow color
-            } else {
-                // Re-enable the button if something went wrong
-                button.disabled = false;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                title: 'Error',
-                text: 'There was an error adding this recipe to your favorites. Please try again.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-
-            // Re-enable the button so user can try again
-            button.disabled = false;
-        });
-}
 
 // =================================triva button====================//
 
@@ -197,3 +105,56 @@ function previewImage(event) {
       }
     });
   });
+  // --------------------------------------------------------View recipe btn---------------------------------------------------//
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.view-recipe-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const recipe = JSON.parse(button.getAttribute('data-recipe'));
+  
+        Swal.fire({
+          title: recipe.title,
+          html: `
+            <img src="${recipe.image}" alt="${recipe.title}" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+            <p><strong>Servings:</strong> ${recipe.servings}</p>
+            <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+            <p><strong>Ingredients:</strong></p>
+            <ul style="text-align: left; max-height: 150px; overflow-y: auto;">
+              ${recipe.ingredients.map(ing => `
+                <li>${ing.amount || ''} ${ing.unit || ''} ${ing.name || ing}</li>
+              `).join('')}
+            </ul>
+            <p><strong>Instructions:</strong> ${recipe.instructions || 'No instructions available.'}</p>
+          `,
+          width: 600,
+          confirmButtonText: 'Close',
+          showCloseButton: true
+        });
+      });
+    });
+  });
+  
+// ==============================================================favoriteGlife===================================================//
+// Include Glide.js library
+  // Initialize Glide
+    document.addEventListener('DOMContentLoaded', function () {
+      const favoriteSlides = document.querySelectorAll('.favorite-glide .glide__slide');
+      if (favoriteSlides.length > 0) {
+        new Glide('.favorite-glide', {
+          type: 'carousel',
+          startAt: 0,
+          perView: 2,
+          autoplay: 3000,
+          hoverpause: true,
+          breakpoints: {
+            992: {
+              perView: 1 // For tablets and small laptops
+            },
+            768: {
+              perView: 1 // For mobile and small tablets
+            }
+          }
+        }).mount();
+      }
+    });
+

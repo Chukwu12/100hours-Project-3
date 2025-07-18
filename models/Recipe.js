@@ -38,7 +38,7 @@ const RecipeSchema = new mongoose.Schema({
         },
         unit: {
             type: String,
-            required: true,
+            required: false, 
         }
     }],
     likes: {

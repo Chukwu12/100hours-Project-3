@@ -23,7 +23,7 @@ router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);
 router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId);
 
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
-router.delete('/recipe/favoriteRecipe/:id', ensureAuth, profileController.deleteFavoriteRecipe);
+router.delete('/recipe/favoriteRecipe/:id', recipeController.deleteFavoriteRecipe);
 
 // Endpoint to send the API Key to the client
 router.get('/api-key', (req, res) => {

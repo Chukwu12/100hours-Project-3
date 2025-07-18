@@ -162,7 +162,7 @@ const favoriteRecipe = async (req, res) => {
                     ingredients: apiRecipe.extendedIngredients?.map(ing => ({
                         name: ing.name,
                         amount: ing.amount,
-                        unit: ing.unit
+                        unit: ing.unit || "" 
                     })) || [],
                 });
             } else {

@@ -58,7 +58,9 @@ const getRandomWineData = async () => {
             price: product.price,
             productTitle: product.title,
             link: product.link || null,
+            averageRating: product.averageRating || null,
           };
+          
         }
       } catch (innerError) {
         console.warn(`Try ${tries} failed for wine "${randomWine}":`, innerError.response?.data?.message || innerError.message);
