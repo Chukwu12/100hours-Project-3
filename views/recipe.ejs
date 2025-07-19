@@ -94,7 +94,8 @@
               
       
               <% if (wine.averageRating) { %>
-                <p><strong>Average Rating:</strong> <%= wine.averageRating %></p>
+                <p><strong>Average Rating:</strong> <%= (wine.averageRating).toFixed(2) %></p>
+
               <% } %>
       
               <% if (wine.link) { %>

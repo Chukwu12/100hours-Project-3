@@ -22,7 +22,7 @@ const dessertRoutes = require('./routes/dessert');
 const mainRoutes = require('./routes/main');
 const profileRoutes = require('./routes/profile');
 const cuisineRoutes = require('./routes/cuisine');
-// const createRoutes = require('./routes/create');
+const createRoutes = require('./routes/create');
 const wineRoutes = require('./routes/wine');
 const triviaRoutes = require('./routes/trivia');
 
@@ -82,7 +82,7 @@ app.use('/recipeInfo', recipeRoutes);
 app.use('/cuisine', cuisineRoutes);
 app.use('/', mainRoutes);
 app.use('/profile', profileRoutes);
-//  app.use('/', createRoutes);
+app.use('/recipe', createRoutes);
 app.use('/', wineRoutes);
 app.use('/trivia', triviaRoutes);
 

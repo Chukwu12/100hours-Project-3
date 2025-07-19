@@ -90,14 +90,19 @@ module.exports = {
         directions: req.body.directions,
         likes: 0,
         user: req.user.id,
+        spoonacularId: req.body.spoonacularId
       });
-      console.log("Post has been added!");
-      res.redirect("/profile");
+  
+      req.flash('success', 'Recipe created successfully!');
+      res.redirect('/profile');
     } catch (err) {
-      console.error("Error creating recipe:", err);
-      res.status(500).send("Error creating recipe");
+      console.error('Error creating recipe:', err);
+      req.flash('error', 'There was an error creating the recipe.');
+      res.redirect('/profile');
     }
   },
+  
+  
 
   likeRecipe: async (req, res) => {
     try {

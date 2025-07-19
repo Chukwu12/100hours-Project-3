@@ -94,73 +94,7 @@
           <label for="profile-image-upload" class="profile-label mt-2"><span>Add Photo</span></label>
         </div>
       </div>
-    </section>
 
-
-
-
-
-
-    <!-- Favorite Recipes Section -->
-    <section id="user-card2">
-      <div class="row">
-        <div class="col-xl">
-          <h2>Favorite Recipes</h2>
-
-          <div class="glide favorite-glide">
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides">
-                <% if (validFavorites.length> 0) { %>
-                  <% validFavorites.forEach(fav=> { %>
-                    <li class="glide__slide">
-                      <div class="favorite-recipe-card">
-                        <figure>
-                          <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
-                        </figure>
-                        <div class="favorite-recipe-content">
-                          <h4>
-                            <%= fav.recipe.title %>
-                          </h4>
-                          <p><strong>Servings:</strong>
-                            <%= fav.recipe.servings %>
-                          </p>
-                          <p><strong>Ready in:</strong>
-                            <%= fav.recipe.readyInMinutes %> mins
-                          </p>
-                          <div id="favorite-btn">
-                            <button class="remove-fav-btn animate__animated animate__pulse"
-                            data-id="<%= fav.spoonacularId %>">
-                             <i class="fa-solid fa-trash"></i>
-                          </button>
-                           <!-- View Button -->
-                            <button class="view-recipe-btn animate__animated animate__pulse"
-                            data-recipe='<%- JSON.stringify(fav.recipe).replace(/'/g, "&#39;") %>'>
-                            <i class="fa-solid fa-eye"></i> View
-                          </button>
-                          </div>
-                          <!-- trash btn -->
-                         
-
-
-                        </div>
-                      </div>
-                    </li>
-                    <% }) %>
-                      <% } else { %>
-                        <li>No favorite recipes yet.</li>
-                        <% } %>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-
-    <!-- Profile Triva section -->
-    <section id="user-card3">
       <div class="row">
         <div class="col">
           <!-- Food Trivia -->
@@ -171,6 +105,64 @@
           </div>
         </div>
       </div>
+    </section>
+
+
+
+
+
+<!-- Favorite Recipes Section -->
+<section id="user-card2">
+  <div class="row">
+    <div class="col-xl">
+      <h2 class="section-title animate__animated animate__fadeInDown">Favorite Recipes</h2>
+
+      <div class="glide favorite-glide">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides">
+            <% if (validFavorites.length > 0) { %>
+              <% validFavorites.forEach(fav => { %>
+                <li class="glide__slide animate__animated animate__fadeInUp">
+                  <div class="favorite-recipe-card">
+                    <div class="card-header">
+                      <img src="<%= fav.recipe.image %>" alt="<%= fav.recipe.title %>">
+                    </div>
+                    <div class="card-body">
+                      <h4 class="food-title"><%= fav.recipe.title %></h4>
+                      <p><i class="fa-solid fa-users"></i> Servings: <%= fav.recipe.servings %></p>
+                      <p><i class="fa-regular fa-clock"></i> Ready in: <%= fav.recipe.readyInMinutes %> mins</p>
+                      <div class="btn-group">
+                        <button class="remove-fav-btn"><i class="fa-solid fa-trash"></i></button>
+                        <button class="view-recipe-btn" data-recipe='<%- JSON.stringify(fav.recipe).replace(/'/g, "&#39;") %>'>
+                          <i class="fa-solid fa-eye"></i> View
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </li>
+              <% }) %>
+            <% } else { %>
+              <li class="glide__slide">
+                <div class="favorite-recipe-card empty">
+                  <p>No favorite recipes yet.</p>
+                </div>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+    <!-- Profile Triva section -->
+    <section id="user-card3">
+     
     </section>
 
 
@@ -203,43 +195,52 @@
               </div>
 
               <!-- Recipe Form -->
-              <form action="/recipe/createRecipe" enctype="multipart/form-data" method="POST" autocomplete="on"
-                onsubmit="showCookingAnimation()">
+              <form action="/createRecipe" enctype="multipart/form-data" method="POST" id="recipeForm">
                 <div class="mb-3">
                   <label for="name" class="form-label">Recipe Name</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required
-                    autocomplete="recipe-name">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="e.g., Recipe Name" required>
                 </div>
+    
                 <div class="mb-3">
                   <label for="ingredients" class="form-label">Ingredients</label>
                   <div id="ingredientsList">
-                    <input type="text" class="form-control" name="ingredients[]" placeholder="e.g., Ingredient" required
-                      autocomplete="ingredients">
+                    <input type="text" class="form-control mb-2" name="ingredients[]" placeholder="e.g., Ingredient" required>
                   </div>
-                  <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Another
-                    Ingredient</button>
+                  <button type="button" class="btn btn-secondary" onclick="addIngredient()">Add Ingredient</button>
                 </div>
+    
                 <div class="mb-3">
-                  <label for="directions" class="form-label">Cooking Directions</label>
-                  <textarea class="form-control" id="directions" name="directions" placeholder="Cooking Directions..."
-                    required autocomplete="directions"></textarea>
+                  <label for="directions" class="form-label">Directions</label>
+                  <textarea class="form-control" id="directions" name="directions" rows="4" required></textarea>
                 </div>
+    
                 <div class="mb-3">
-                  <label for="imageUpload" class="form-label">Upload Recipe Image</label>
-                  <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required
-                    autocomplete="off">
-                  <small class="form-text text-muted">Upload a clear image of your recipe.</small>
+                  <label for="imageUpload" class="form-label">Recipe Image</label>
+                  <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*" required>
                 </div>
+    
                 <div class="mb-3">
                   <label for="spoonacularId" class="form-label">Spoonacular ID</label>
-                  <input type="text" class="form-control" id="spoonacularId" name="spoonacularId"
-                    placeholder="e.g., 12345" required autocomplete="spoonacular-id">
-                  <small class="form-text text-muted">Find this ID on the Spoonacular website for reference.</small>
+                  <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+    
+                <button type="submit" class="btn btn-success">Submit</button>
               </form>
+    
             </div>
           </div>
+          <% if (locals.success) { %>
+            <script>
+              Swal.fire('Success!', '<%= success %>', 'success');
+            </script>
+          <% } %>
+          
+          <% if (locals.error) { %>
+            <script>
+              Swal.fire('Oops!', '<%= error %>', 'error');
+            </script>
+          <% } %>
+          
 
 
         </div>
@@ -257,6 +258,19 @@
 
 
   <!-- Profile Card  End-->
+  <script>
+    function addIngredient() {
+      const ingredientsList = document.getElementById('ingredientsList');
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = 'ingredients[]';
+      input.placeholder = 'e.g., Ingredient';
+      input.classList.add('form-control', 'mb-2');
+      input.required = true;
+      ingredientsList.appendChild(input);
+    }
+  </script>
+  
 
   <!-- Glide.js -->
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>

@@ -72,6 +72,25 @@ function previewImage(event) {
       fileInput.addEventListener('change', previewImage);
     }
   });
+
+//=======================================================edit profile button ===================================================================//
+
+Swal.mixin({
+  customClass: {
+    popup: 'custom-popup',
+    title: 'custom-title',
+    confirmButton: 'custom-confirm-btn',
+    cancelButton: 'custom-cancel-btn'
+  },
+  buttonsStyling: false,
+  background: '#fdf6f0',
+  color: '#333',
+  confirmButtonColor: '#8a1538'
+});
+
+
+
+
 //=======================================================delete favorite button ===================================================================//
  document.querySelectorAll('.remove-fav-btn').forEach(button => {
     button.addEventListener('click', async () => {
@@ -158,3 +177,27 @@ function previewImage(event) {
       }
     });
 
+//========================================================Create Recipe===================================================================//
+
+  function addIngredient() {
+    const list = document.getElementById("ingredientsList");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.name = "ingredients[]";
+    input.placeholder = "e.g., Ingredient";
+    input.className = "form-control mb-2";
+    input.required = true;
+    list.appendChild(input);
+  }
+
+  // Optional: Submit loader + disable button
+  document.getElementById("recipeForm").addEventListener("submit", function (e) {
+    Swal.fire({
+      title: "Creating Recipe...",
+      html: "Please wait while we save your recipe.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  });
