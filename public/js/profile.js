@@ -162,12 +162,14 @@ Swal.mixin({
         new Glide('.favorite-glide', {
           type: 'carousel',
           startAt: 0,
-          perView: 2,
+          perView: 3,
           autoplay: 3000,
           hoverpause: true,
           breakpoints: {
+            1200: { 
+              perView: 3 },
             992: {
-              perView: 1 // For tablets and small laptops
+              perView: 2 // For tablets and small laptops
             },
             768: {
               perView: 1 // For mobile and small tablets
@@ -201,3 +203,29 @@ Swal.mixin({
       }
     });
   });
+
+   // ✅ Show success or error alert after redirect
+  const params = new URLSearchParams(window.location.search);
+  const success = params.get('success');
+  const error = params.get('error');
+
+  if (success) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: success
+    });
+  }
+
+  if (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: error
+    });
+  }
+
+  // 🚿 Clean the URL so the message doesn't show again on refresh
+  if (success || error) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }

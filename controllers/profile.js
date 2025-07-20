@@ -84,8 +84,21 @@ module.exports = {
   createRecipe: async (req, res) => {
     try {
       // Upload image to Cloudinary
+       console.log("🧪 Entered createRecipe");
+      console.log("req.file:", req.file);
+      console.log("req.body:", req.body);
+
+       // Guard clause if no file
+      if (!req.file) {
+        console.error("❌ No file uploaded");
+        req.flash('error', 'Please upload an image.');
+        return res.redirect('/profile');
+      }
+      // Upload image to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
-      // Create user-submitted recipe using new schema
+       console.log("✅ Cloudinary upload success:", result.secure_url);
+      
+        // Create new recipe
       await UserRecipe.create({
         name: req.body.name,
         image: result.secure_url,
@@ -99,12 +112,10 @@ module.exports = {
         spoonacularId: req.body.spoonacularId
       });
 
-      req.flash('success', 'Recipe created successfully!');
-    res.redirect('/profile');
+   res.redirect('/profile?success=Recipe created successfully!');
   } catch (err) {
     console.error('🔥 Error in createRecipe:', err); // 🛠 Add this line
-    req.flash('error', 'There was an error creating the recipe.');
-    res.redirect('/profile');
+    res.redirect('/profile?error=There was an error creating the recipe.');
   }
 },
 
