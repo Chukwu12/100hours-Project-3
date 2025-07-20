@@ -2,6 +2,8 @@ const axios = require("axios");
 const cloudinary = require("../middleware/cloudinary");
 const Recipe = require("../models/Recipe");
 const Favorite = require("../models/Favorite");
+const UserRecipe = require('../models/UserRecipe');
+
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -81,28 +83,32 @@ module.exports = {
 
   createRecipe: async (req, res) => {
     try {
+      // Upload image to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
-      await Recipe.create({
+      // Create user-submitted recipe using new schema
+      await UserRecipe.create({
         name: req.body.name,
         image: result.secure_url,
         cloudinaryId: result.public_id,
-        ingredients: req.body.ingredients,
+        ingredients: Array.isArray(req.body.ingredients)
+        ? req.body.ingredients
+        : [req.body.ingredients], // array of strings
         directions: req.body.directions,
         likes: 0,
         user: req.user.id,
         spoonacularId: req.body.spoonacularId
       });
-  
+
       req.flash('success', 'Recipe created successfully!');
-      res.redirect('/profile');
-    } catch (err) {
-      console.error('Error creating recipe:', err);
-      req.flash('error', 'There was an error creating the recipe.');
-      res.redirect('/profile');
-    }
-  },
-  
-  
+    res.redirect('/profile');
+  } catch (err) {
+    console.error('🔥 Error in createRecipe:', err); // 🛠 Add this line
+    req.flash('error', 'There was an error creating the recipe.');
+    res.redirect('/profile');
+  }
+},
+
+
 
   likeRecipe: async (req, res) => {
     try {

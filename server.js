@@ -81,8 +81,7 @@ app.use('/health', healthRoutes);
 app.use('/recipeInfo', recipeRoutes);
 app.use('/cuisine', cuisineRoutes);
 app.use('/', mainRoutes);
-app.use('/profile', profileRoutes);
-app.use('/recipe', createRoutes);
+app.use('/', profileRoutes);
 app.use('/', wineRoutes);
 app.use('/trivia', triviaRoutes);
 

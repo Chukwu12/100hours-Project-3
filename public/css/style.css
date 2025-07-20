@@ -2956,7 +2956,8 @@ code {
 
 .favorite-recipe-card {
   background: #fff;
-  max-width: 500px;
+  max-width: 300px;
+  height: 450px;
   border-radius: 15px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -2970,7 +2971,7 @@ code {
 
 .card-header {
   position: relative;
-  height: 250px;
+  height: 225px;
   overflow: hidden;
 }
 
@@ -2998,7 +2999,7 @@ code {
 }
 
 .card-body .food-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
