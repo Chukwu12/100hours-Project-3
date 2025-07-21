@@ -36,10 +36,11 @@ $color: #333; // the rest
 .recipe-headers {
   & .titles {
     background: var(--primary);
-    font-size: 8rem !important;
+    font-size: 8rem;
     text-align: center;
     letter-spacing: 1vw;
     margin: 0;
+    overflow: hidden;
     mix-blend-mode: lighten;
     text-transform: uppercase;
     $text-shadow: ();

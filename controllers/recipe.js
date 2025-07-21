@@ -81,6 +81,7 @@ module.exports = { getRandomRecipes };
 // Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {
     try {
+         console.log('Fetching recipe with ID:', req.params.id); 
         // Check for API key
         if (!RECIPES_API_KEY) {
             return res.status(401).json({ message: 'API key is missing' });

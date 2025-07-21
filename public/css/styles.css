@@ -18,9 +18,10 @@
 
 .recipe-headers .titles {
   background: var(--primary);
-  font-size: 8rem !important;
+  font-size: 8rem;
   text-align: center;
   letter-spacing: 1vw;
+  overflow: hidden;
   margin: 0;
   mix-blend-mode: lighten;
   text-transform: uppercase;

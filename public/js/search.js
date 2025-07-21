@@ -10,18 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Fetch API key from server
-   // Fetch API key from server
 async function loadApiKey() {
   try {
-    const response = await axios.get('/recipe/api-key'); 
+    console.log('🌐 Requesting API key...');
+    const response = await axios.get('/recipe/api-key');
     API_KEY = response.data.apiKey;
-    console.log('API Key loaded:', API_KEY);
+    console.log('✅ API Key loaded:', API_KEY);
   } catch (error) {
-    console.error('Error loading API Key:', error);
+    console.error('🚫 Error loading API Key:', error);
   }
 }
-
-
 
     // Debounce function to limit the number of API calls
     function debounce(func, delay) {
@@ -40,15 +38,12 @@ async function loadApiKey() {
         }
 
         try {
-            const encodedQuery = encodeURIComponent(query);
-
-            // Using axios to make the API call
-            const response = await axios.get(`https://api.spoonacular.com/recipes/autocomplete`, {
-                params: {
-                    query: encodedQuery,
-                    number: 5,
-                    apiKey: API_KEY
-                }
+      const response = await axios.get('https://api.spoonacular.com/recipes/autocomplete', {
+        params: {
+          query: query,
+          number: 5,
+          apiKey: API_KEY
+        }
             });
 
             const data = response.data;
@@ -64,13 +59,11 @@ async function loadApiKey() {
                     suggestionItem.textContent = item.title;
                     suggestionItem.tabIndex = 0; // Make items focusable
                     suggestionItem.addEventListener('click', () => {
-                        inputBox.value = item.title;
-                        suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                          window.location.href = `/recipes/${item.id}/information`;
                     });
                     suggestionItem.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter') {
-                            inputBox.value = item.title;
-                            suggestionsBox.style.display = 'none'; // Hide suggestions after selection
+                             window.location.href = `/recipes/${item.id}/information`;
                         }
                     });
                     suggestionsBox.appendChild(suggestionItem);
@@ -100,8 +93,8 @@ async function loadApiKey() {
         }, 200);
     });
 
-    // Load the API key before using it
+   // Load the API key before using it
     loadApiKey().then(() => {
-        console.log('API Key loaded:');
+        console.log('🔐 API key fetch attempt complete.');
     });
 });

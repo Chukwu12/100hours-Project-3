@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const recipeController = require('../controllers/recipe');
+const searchController = require('../controllers/search');
+
 
 // Load environment variable
 require('dotenv').config();
 
 
-
+// Endpoint to send the API Key to the client
+router.get('/api-key', searchController.getApiKey);
 
 // router.get('/', recipeController.getRandomRecipes); 
+
+// Route to fetch items from SearchBar
+// router.get('/recipes/:id/information', recipeController.getRecipeDetails);
 
 // Route to fetch recipe details by ID
 router.get('/:id', recipeController.getRecipeDetails);
@@ -25,10 +31,5 @@ router.get('/recipe/spoonacular/:id', recipeController.getRecipeBySpoonacularId)
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
 router.delete('/recipe/favoriteRecipe/:id', recipeController.deleteFavoriteRecipe);
 
-// Endpoint to send the API Key to the client
-router.get('/api-key', (req, res) => {
-    res.json({ apiKey: process.env.RECIPES_API_KEY });
-});
-   
 
 module.exports = router;

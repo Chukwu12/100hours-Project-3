@@ -28,8 +28,10 @@ const triviaRoutes = require('./routes/trivia');
 
 
 
+
 // Load environment variables
 require('dotenv').config({ path: './config/.env' });
+
 
 // Passport config
 require("./config/passport")(passport);
@@ -84,6 +86,7 @@ app.use('/', mainRoutes);
 app.use('/', profileRoutes);
 app.use('/', wineRoutes);
 app.use('/trivia', triviaRoutes);
+
 
 
 
