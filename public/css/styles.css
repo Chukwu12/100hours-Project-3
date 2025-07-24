@@ -78,6 +78,13 @@ hr ~ * {
   background-repeat: no-repeat;
 }
 
+#user-card2{
+  /* background-image: url(/image/favorite-recipe.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; */
+}
+
 
 #header {
   width: 50vw;
