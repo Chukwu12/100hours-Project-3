@@ -1,37 +1,66 @@
 // ===================================like button models =====================================//
 // Function to handle the "Like" button click and form submission
-function likeRecipe(recipeId) {
-    const actionUrl = `/recipe/likeRecipe/${recipeId}`;
-  
-    fetch(actionUrl, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({}) // Body is optional for this request
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-like-recipe-id]').forEach(button => {
+    button.addEventListener('click', () => {
+      const recipeId = button.getAttribute('data-like-recipe-id');
+      likeRecipe(recipeId, button);
+    });
+  });
+});
+
+
+function likeRecipe(recipeId, button) {
+  const actionUrl = `/recipe/likeRecipe/${recipeId}`;
+
+  fetch(actionUrl, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({})
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to like recipe');
+      return res.json();
     })
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to like recipe');
-        return res.json();
-      })
-      .then(data => {
-        Swal.fire({
-          title: 'Liked!',
-          text: data.message || 'Recipe liked successfully!',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-      })
-      .catch(err => {
-        console.error('Like error:', err);
-        Swal.fire({
-          title: 'Error',
-          text: 'There was an error liking this recipe.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
+    .then(data => {
+      Swal.fire({
+        title: 'Liked!',
+        text: data.message || 'Recipe liked successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK'
       });
-  }
+
+      // ✅ Update the like button in the DOM
+      const btn = document.querySelector(`button[onclick="likeRecipe('${recipeId}')"]`);
+      if (btn) {
+        btn.classList.add('liked'); // optional: CSS class
+        btn.disabled = true;
+
+        // Update heart icon color
+        const heartIcon = btn.querySelector('i');
+        if (heartIcon) {
+          heartIcon.classList.remove('custom-icon2');
+          heartIcon.classList.add('text-danger'); // or your liked color
+        }
+
+        // Optional: replace onclick to prevent accidental clicks
+        btn.removeAttribute('onclick');
+      }
+    })
+    .catch(err => {
+      console.error('Like error:', err);
+      Swal.fire({
+        title: 'Error',
+        text: 'There was an error liking this recipe.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    });
+}
+
   
   
   
@@ -78,4 +107,4 @@ function likeRecipe(recipeId) {
               button.disabled = false;
           });
   }
-  
+

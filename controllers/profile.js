@@ -3,6 +3,8 @@ const cloudinary = require("../middleware/cloudinary");
 const Recipe = require("../models/Recipe");
 const Favorite = require("../models/Favorite");
 const UserRecipe = require('../models/UserRecipe');
+const User = require('../models/User');
+const Like = require('../models/Like');
 
 
 module.exports = {
@@ -84,11 +86,11 @@ module.exports = {
   createRecipe: async (req, res) => {
     try {
       // Upload image to Cloudinary
-       console.log("🧪 Entered createRecipe");
+      console.log("🧪 Entered createRecipe");
       console.log("req.file:", req.file);
       console.log("req.body:", req.body);
 
-       // Guard clause if no file
+      // Guard clause if no file
       if (!req.file) {
         console.error("❌ No file uploaded");
         req.flash('error', 'Please upload an image.');
@@ -96,39 +98,52 @@ module.exports = {
       }
       // Upload image to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
-       console.log("✅ Cloudinary upload success:", result.secure_url);
-      
-        // Create new recipe
+      console.log("✅ Cloudinary upload success:", result.secure_url);
+
+      // Create new recipe
       await UserRecipe.create({
         name: req.body.name,
         image: result.secure_url,
         cloudinaryId: result.public_id,
         ingredients: Array.isArray(req.body.ingredients)
-        ? req.body.ingredients
-        : [req.body.ingredients], // array of strings
+          ? req.body.ingredients
+          : [req.body.ingredients], // array of strings
         directions: req.body.directions,
         likes: 0,
         user: req.user.id,
         spoonacularId: req.body.spoonacularId
       });
 
-   res.redirect('/profile?success=Recipe created successfully!');
-  } catch (err) {
-    console.error('🔥 Error in createRecipe:', err); // 🛠 Add this line
-    res.redirect('/profile?error=There was an error creating the recipe.');
-  }
-},
-
+      res.redirect('/profile?success=Recipe created successfully!');
+    } catch (err) {
+      console.error('🔥 Error in createRecipe:', err); // 🛠 Add this line
+      res.redirect('/profile?error=There was an error creating the recipe.');
+    }
+  },
 
 
   likeRecipe: async (req, res) => {
     try {
-      await Recipe.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } });
-      console.log("Likes +1");
-      res.redirect(`/recipe/${req.params.id}`);
+      const userId = req.user._id;  // Getting the user ID from session or token
+      const recipeId = req.params.id;  // Getting the recipe ID from the route parameters
+
+      // Check if the recipe is already liked by the user using the `Like` model
+      const existingLike = await Like.findOne({ user: userId, recipe: recipeId });
+      if (existingLike) {
+        return res.status(400).json({ message: 'You already liked this recipe' });
+      }
+
+      // Create a new "Like" document
+      const newLike = new Like({ user: userId, recipe: recipeId });
+      await newLike.save();
+
+      // Optionally, update the likes count in the Recipe model
+      await Recipe.findByIdAndUpdate(recipeId, { $inc: { likes: 1 } });
+
+      res.status(200).json({ message: 'Recipe liked successfully!' });
     } catch (err) {
       console.error("Error liking recipe:", err);
-      res.status(500).send("Error liking recipe");
+      res.status(500).json({ message: "Error liking recipe" });
     }
   },
 
@@ -146,28 +161,28 @@ module.exports = {
     }
   },
 
-  getUserProfile: async (req, res) => {
-    try {
-      const userId = req.user._id;
-      const favorites = await Favorite.find({ user: userId }).populate("recipe");
+    getUserProfile: async (req, res) => {
+      try {
+        const userId = req.user._id;
+        const favorites = await Favorite.find({ user: userId }).populate("recipe");
 
-      if (!favorites.length) {
-        return res.status(404).json({ message: "No favorite recipes found" });
+        if (!favorites.length) {
+          return res.status(404).json({ message: "No favorite recipes found" });
+        }
+
+        const favoriteRecipes = favorites.map(fav => fav.recipe);
+
+        res.status(200).json({
+          message: "User profile fetched successfully",
+          profile: {
+            name: req.user.name,
+            email: req.user.email,
+            favorites: favoriteRecipes,
+          },
+        });
+      } catch (err) {
+        console.error("Error fetching user profile:", err);
+        res.status(500).json({ message: "Server error" });
       }
-
-      const favoriteRecipes = favorites.map(fav => fav.recipe);
-
-      res.status(200).json({
-        message: "User profile fetched successfully",
-        profile: {
-          name: req.user.name,
-          email: req.user.email,
-          favorites: favoriteRecipes,
-        },
-      });
-    } catch (err) {
-      console.error("Error fetching user profile:", err);
-      res.status(500).json({ message: "Server error" });
-    }
-  },
+    },
 };

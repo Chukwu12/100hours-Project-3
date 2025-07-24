@@ -7,7 +7,7 @@ const upload = require('../middleware/multer');
 
 
 // Get user profile
-router.get("/", ensureAuth, profileController.getProfile); // Make sure to create this method in your controller
+router.get("/", ensureAuth, profileController.getProfile);
 
 
 // Like Recipe
