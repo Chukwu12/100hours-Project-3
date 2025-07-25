@@ -2487,7 +2487,7 @@ a[href="/api"]:hover {
 #user-card3,
 #user-card4 {
   min-height: auto; /* Let content define height */
-  width: 100%;
+  width: 90%;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.1);
@@ -2527,11 +2527,9 @@ a[href="/api"]:hover {
 .background-wrapper::before {
   content: "";
   position: absolute;
-  /* Position the overlay on top of the content */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.2);
   /* Black overlay with 50% opacity */
   z-index: 1;
@@ -2925,29 +2923,16 @@ code {
 
 /* Profile Favorite Recipes  */
 
-.favorite-glide {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 15px;
-  position: relative;
-}
-
 .favorite-glide .glide__slides {
   display: flex;
-  padding: 0;
-  list-style: none;
-}
-
-.favorite-glide .glide__slide {
-  transition: transform 0.3s ease;
-  flex: 0 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .favorite-recipe-card {
   background: #fff;
   max-width: 300px;
-  height: 450px;
+  height: 500px;
   border-radius: 15px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -2955,8 +2940,16 @@ code {
   transition: transform 0.3s ease;
 }
 
+
 .favorite-recipe-card:hover {
   transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+  .favorite-recipe-card {
+    max-width: 90vw;
+    height: auto;
+  }
 }
 
 .card-header {
@@ -3014,7 +3007,7 @@ code {
 
 .btn-group button {
   padding: 10px 15px;
-  background: #ef3e36;
+  background: #4caf50;
   color: white;
   border: none;
   border-radius: 8px;
@@ -3031,7 +3024,7 @@ code {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-  color: #8a1538;
+  color: #4caf50;
 }
 
 .col-xl h2 {
@@ -3055,13 +3048,13 @@ code {
 
 /* Profile page Gilde button */
 .glide__arrows {
-  position: relative;
+  position: inherit;
   top: 0;
   width: 100%;
 }
 
 .glide__arrows button {
-  background: pink;
+  background: #4caf50;
 }
 
 /* Profile triva questions */

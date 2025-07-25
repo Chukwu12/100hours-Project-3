@@ -126,6 +126,14 @@ float: left;
     background-repeat: no-repeat;
 }
 
+@media (max-width: 768px) {
+  #user-card {
+    flex-direction: column;
+    row-gap: 30px;
+  }
+}
+
+
 
 
 #header {

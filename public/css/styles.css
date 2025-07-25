@@ -78,11 +78,21 @@ hr ~ * {
   background-repeat: no-repeat;
 }
 
+@media (max-width: 768px) {
+  #user-card {
+    flex-direction: column;
+    row-gap: 30px;
+  }
+}
+
+
 #user-card2{
   /* background-image: url(/image/favorite-recipe.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 

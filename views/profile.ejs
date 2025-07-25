@@ -117,7 +117,7 @@
     <div class="col-xl">
       <h2 class="section-title animate__animated animate__fadeInDown">Favorite Recipes</h2>
 
-      <div class="glide favorite-glide">
+      <div class="favorite-glide">
         <div class="glide__track" data-glide-el="track">
           <ul class="glide__slides">
             <% if (validFavorites.length > 0) { %>
@@ -150,6 +150,14 @@
               </li>
             <% } %>
           </ul>
+        </div>
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+            <i class="fa-solid fa-arrow-left fa-beat"></i>
+          </button>
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+            <i class="fa-solid fa-arrow-right fa-beat"></i>
+          </button>
         </div>
       </div>
 
