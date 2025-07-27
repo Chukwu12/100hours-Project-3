@@ -3,6 +3,7 @@ const axios = require('axios');
 const Favorite = require("../models/Favorite");
 const Recipe = require("../models/Recipe"); // Assuming you have a Recipe model
 // const User = require('../models/User');
+const formatRecipeData = require('../utils/formatRecipeData.js');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/random';
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
@@ -37,31 +38,11 @@ const getRandomRecipes = async () => {
                     limitLicense: true,
                 }
             });
-
-            if (response && response.data && response.data.recipes) {
-                const apiRecipes = response.data.recipes.filter(recipe => recipe.image);
-
-                // Save new API recipes to MongoDB
-                const savedRecipes = await Recipe.insertMany(
-                    apiRecipes.map(recipe => ({
-                        spoonacularId: recipe.id,
-                        title: recipe.title,
-                        image: recipe.image,
-                        instructions: recipe.instructions || '',
-                        servings: recipe.servings,
-                        readyInMinutes: recipe.readyInMinutes,
-                        ingredients: recipe.extendedIngredients?.map(ing => ing.original) || [],
-                    })),
-                    { ordered: false } // Ignore duplicate errors if recipes already exist
-                );
-
-                console.log(`Fetched and saved ${savedRecipes.length} recipes from API.`);
-
-                // Add the newly fetched recipes to the final result
-                recipes = recipes.concat(savedRecipes);
-            } else {
-                console.log('No recipes found from API.');
-            }
+            const apiRecipes = response.data.recipes.filter(recipe => recipe.image);
+            const formattedApiRecipes = apiRecipes.map(formatRecipeData);
+      
+            await Recipe.insertMany(formattedApiRecipes, { ordered: false });
+            recipes = recipes.concat(formattedApiRecipes);
         }
 
         // Step 3: Return the final combined list of recipes
@@ -224,25 +205,25 @@ const fetchFavorite = async (req, res) => {
 
 
 
-const likeRecipe = async (req, res) => {
-    try {
-        const recipeId = req.params.id;
-        const recipe = await Recipe.findById(recipeId);
+// const likeRecipe = async (req, res) => {
+//     try {
+//         const recipeId = req.params.id;
+//         const recipe = await Recipe.findById(recipeId);
 
-        if (!recipe) {
-            return res.status(404).json({ message: 'Recipe not found' });
-        }
+//         if (!recipe) {
+//             return res.status(404).json({ message: 'Recipe not found' });
+//         }
 
-        // Increment the like count (if likes field exists)
-        recipe.likes = (recipe.likes || 0) + 1;
-        await recipe.save();
+//         // Increment the like count (if likes field exists)
+//         recipe.likes = (recipe.likes || 0) + 1;
+//         await recipe.save();
 
-        res.status(200).json({ message: 'Recipe liked successfully!' });
-    } catch (error) {
-        console.error('Error liking recipe:', error);
-        res.status(500).json({ message: 'Error liking recipe' });
-    }
-};
+//         res.status(200).json({ message: 'Recipe liked successfully!' });
+//     } catch (error) {
+//         console.error('Error liking recipe:', error);
+//         res.status(500).json({ message: 'Error liking recipe' });
+//     }
+// };
 
 
 
@@ -355,7 +336,6 @@ module.exports = {
     getRecipeDetails,
     favoriteRecipe,
     fetchFavorite,
-    likeRecipe,
     saveRecipe,
     getRecipeBySpoonacularId,
     deleteFavoriteRecipe,

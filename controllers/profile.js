@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cloudinary = require("../middleware/cloudinary");
+const mongoose = require('mongoose');
 const Recipe = require("../models/Recipe");
 const Favorite = require("../models/Favorite");
 const UserRecipe = require('../models/UserRecipe');
@@ -122,25 +123,47 @@ module.exports = {
   },
 
 
-  likeRecipe: async (req, res) => {
+ likeRecipe: async (req, res) => {
     try {
-      const userId = req.user._id;  // Getting the user ID from session or token
-      const recipeId = req.params.id;  // Getting the recipe ID from the route parameters
-
-      // Check if the recipe is already liked by the user using the `Like` model
-      const existingLike = await Like.findOne({ user: userId, recipe: recipeId });
+      const userId = req.user._id;
+      const recipeParam = req.params.id;
+  
+      // Try to find the recipe from either MongoDB or Spoonacular
+      let recipe = null;
+  
+      if (mongoose.Types.ObjectId.isValid(recipeParam)) {
+        recipe = await Recipe.findById(recipeParam);
+      }
+  
+      if (!recipe) {
+        recipe = await Recipe.findOne({ spoonacularId: recipeParam });
+      }
+  
+      if (!recipe) {
+        return res.status(404).json({ message: 'Recipe not found' });
+      }
+  
+      const recipeIdToSave = recipe._id.toString(); // Save consistent recipe ID as string
+  
+      // Check if user already liked this recipe
+      const existingLike = await Like.findOne({
+        user: userId,
+        recipeId: recipeIdToSave,
+      });
+  
       if (existingLike) {
         return res.status(400).json({ message: 'You already liked this recipe' });
       }
-
-      // Create a new "Like" document
-      const newLike = new Like({ user: userId, recipe: recipeId });
-      await newLike.save();
-
-      // Optionally, update the likes count in the Recipe model
-      await Recipe.findByIdAndUpdate(recipeId, { $inc: { likes: 1 } });
-
+  
+      // Save like
+      await Like.create({ user: userId, recipeId: recipeIdToSave });
+  
+      // Update like count in the recipe model
+      recipe.likes = (recipe.likes || 0) + 1;
+      await recipe.save();
+  
       res.status(200).json({ message: 'Recipe liked successfully!' });
+  
     } catch (err) {
       console.error("Error liking recipe:", err);
       res.status(500).json({ message: "Error liking recipe" });

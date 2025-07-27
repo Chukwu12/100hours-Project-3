@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const recipeController = require('../controllers/recipe');
 const searchController = require('../controllers/search');
+const profileController = require('../controllers/profile');
 
 
 // Load environment variable
@@ -20,7 +21,7 @@ router.get('/api-key', searchController.getApiKey);
 router.get('/:id', recipeController.getRecipeDetails);
 
 // Route to like a recipe
-router.put('/likeRecipe/:id', recipeController.likeRecipe);
+router.put('/likeRecipe/:id', profileController.likeRecipe);
 
 // Route to get favorite recipes
 router.post('/favoriteRecipe/:id', recipeController.favoriteRecipe);

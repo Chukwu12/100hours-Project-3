@@ -1,7 +1,8 @@
 // controllers/dessertController.js
 const axios = require('axios');
+const { RANDOM_API_URL } = require('../config/api');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
-const DESSERT_API_URL = 'https://api.spoonacular.com/recipes/random';
+const formatRecipeData = require('../utils/formatRecipeData.js');
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
 
 // require('dotenv').config({ path: './config/.env' });
@@ -12,36 +13,27 @@ const getDessertRecipes = async () => {
             throw new Error('API key is missing');
         }
 
-        const response = await axios.get(DESSERT_API_URL, {
+        const response = await axios.get(RANDOM_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
                 number: 5,
-                tags: 'dessert', // Filter to only include desserts
-               
+                tags: 'dessert', // Filter to only include desserts       
             }
         });
 
-        // If no recipes are found, return an empty array
-        const recipes = response.data.recipes;
-        if (!recipes || recipes.length === 0) {
-            return []; // Return empty array if no recipes found
-        }
+        const recipes = response.data.recipes || [];
 
-        // Extract recipes and add the readyInMinutes field
-        const dessertRecipes = recipes.map(recipe => ({
-            ...recipe,
-             spoonacularId: recipe.id.toString(),
-            servings: recipe.servings,  // Get the number of servings
-            readyInMinutes: recipe.readyInMinutes,  // Get the preparation time
-            numberOfIngredients: recipe.extendedIngredients ? recipe.extendedIngredients.length : 0  // Number of ingredients
-        }));
-
-        return dessertRecipes;
-    } catch (error) {
+        return recipes.map(formatRecipeData);
+      } catch (error) {
         console.error('Error fetching dessert recipes:', error.message);
-        throw new Error('Error fetching dessert recipes');
-    }
-};
+        return []; // Return empty array on error
+      }
+    };
+    
+
+
+   
+   
 
 // Fetch detailed recipe information
 const getRecipeDetails = async (req, res) => {

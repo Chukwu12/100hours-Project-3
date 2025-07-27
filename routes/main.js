@@ -13,16 +13,19 @@ router.get('/recipe', ensureAuth, async (req, res) => {
     // Fetch data from each controller
     const recipes = await recipeController.getRandomRecipes();
     const desserts = await dessertController.getDessertRecipes();
-    const healthTips = await healthController.getHealthRecipes();
+    const healthyRecipes = await healthController.getHealthRecipes();
     const wineData = await getRandomWineData();
     const likedRecipes = await Like.find({ user: req.user._id }).select('recipe');
-    const likedRecipeIds = likedRecipes.map(like => like.recipe.toString());
+    const likedRecipeIds = likedRecipes
+    .map(like => like.recipe ? like.recipe.toString() : null)
+    .filter(id => id !== null);
+  
 
     // Combine the data
     const combinedData = {
       recipes: recipes || [],  // Ensure default if no recipes found
       desserts: desserts || [],
-      healthTips: healthTips || [],
+      healthyRecipes: healthyRecipes || [],
       wine: wineData,
       user: req.user || null,
       likedRecipeIds,  // Pass user data if needed

@@ -1,9 +1,10 @@
 // controllers/healthController.js
 const axios = require('axios');
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
-const HEALTHY_API_URL = 'https://api.spoonacular.com/recipes/random';
+const { RANDOM_API_URL } = require('../config/api');
+const formatRecipeData = require('../utils/formatRecipeData.js');
 const RECIPE_DETAILS_API_URL = 'https://api.spoonacular.com/recipes/{id}/information';
-require('dotenv').config({ path: './config/.env' });
+
 
 const getHealthRecipes = async () => {
     try {
@@ -12,7 +13,7 @@ const getHealthRecipes = async () => {
         }
 
         // Fetch healthy recipes from the API
-        const response = await axios.get(HEALTHY_API_URL, {
+        const response = await axios.get(RANDOM_API_URL, {
             params: {
                 apiKey: RECIPES_API_KEY,
                 number: 5,
@@ -21,24 +22,16 @@ const getHealthRecipes = async () => {
             }
         });
 
-        // If no recipes are found, return an empty array
         const healthRecipes = response.data.recipes || [];
-        
-        // Map the health recipes to add necessary fields
-        const mappedHealthRecipes = healthRecipes.map(recipe => ({
-            ...recipe,
-             spoonacularId: recipe.id.toString(),
-            servings: recipe.servings,
-            readyInMinutes: recipe.readyInMinutes,
-            numberOfIngredients: recipe.extendedIngredients ? recipe.extendedIngredients.length : 0,
-        }));
 
-        return mappedHealthRecipes;
-    } catch (error) {
+        return healthRecipes.map(formatRecipeData);
+      } catch (error) {
         console.error('Error fetching health recipes:', error.message);
-        throw new Error('Error fetching health recipes');
-    }
-};
+        return [];
+      }
+    };
+
+
 
 
 const getHealthyDetails = async (req, res) => {
