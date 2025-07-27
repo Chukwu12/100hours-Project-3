@@ -1850,7 +1850,7 @@ a[href="/api"]:hover {
   overflow: hidden;
   color: white;
   margin: auto;
-  background-color: #ffffff;
+  background-color: whitesmoke;
 }
 
 .create-content {
@@ -2826,6 +2826,10 @@ code {
   font-size: 1rem;
   margin-left: 10px;
   border: none;
+}
+
+#recipeForm .mb-3 h6{
+   color:black;
 }
 
 /* User Profile Page End  */

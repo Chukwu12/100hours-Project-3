@@ -2,6 +2,7 @@
 
 function formatRecipeData(recipe) {
     return {
+      id: recipe.id.toString(),
       spoonacularId: recipe.id.toString(),
       title: recipe.title,
       image: recipe.image,

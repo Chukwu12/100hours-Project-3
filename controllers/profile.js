@@ -170,19 +170,23 @@ module.exports = {
     }
   },
 
-  deleteRecipe: async (req, res) => {
-    try {
-      const recipe = await Recipe.findById(req.params.id);
-      if (!recipe) return res.status(404).send("Recipe not found");
-      await cloudinary.uploader.destroy(recipe.cloudinaryId);
-      await Recipe.findByIdAndDelete(req.params.id);
-      console.log("Deleted Recipe");
-      res.redirect("/profile");
-    } catch (err) {
-      console.error("Error deleting recipe:", err);
-      res.status(500).send("Error deleting recipe");
+  deleteFavorite: async (req, res) => {
+  try {
+    const favorite = await Favorite.findOneAndDelete({
+      user: req.user.id,
+      spoonacularId: req.params.id,
+    });
+
+    if (!favorite) {
+      return res.status(404).json({ message: 'Favorite not found' });
     }
-  },
+
+    res.status(200).json({ message: 'Favorite deleted' });
+  } catch (err) {
+    console.error('Delete favorite error:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+},
 
     getUserProfile: async (req, res) => {
       try {

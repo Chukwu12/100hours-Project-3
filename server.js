@@ -25,6 +25,8 @@ const cuisineRoutes = require('./routes/cuisine');
 const createRoutes = require('./routes/create');
 const wineRoutes = require('./routes/wine');
 const triviaRoutes = require('./routes/trivia');
+const searchRoutes = require('./routes/searchbar');
+
 
 
 
@@ -86,6 +88,7 @@ app.use('/', mainRoutes);
 app.use('/', profileRoutes);
 app.use('/', wineRoutes);
 app.use('/trivia', triviaRoutes);
+app.use('/', searchRoutes);
 
 
 

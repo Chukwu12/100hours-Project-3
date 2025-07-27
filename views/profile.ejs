@@ -132,7 +132,9 @@
                       <p><i class="fa-solid fa-users"></i> Servings: <%= fav.recipe.servings %></p>
                       <p><i class="fa-regular fa-clock"></i> Ready in: <%= fav.recipe.readyInMinutes %> mins</p>
                       <div class="btn-group">
-                        <button class="remove-fav-btn"><i class="fa-solid fa-trash"></i></button>
+                        <button class="remove-fav-btn"
+                            data-id="<%= fav.spoonacularId || fav.recipe.spoonacularId || fav.recipe._id %>">
+                          <i class="fa-solid fa-trash"></i></button>
                         <button class="view-recipe-btn" data-recipe='<%- JSON.stringify(fav.recipe).replace(/'/g, "&#39;") %>'>
                           <i class="fa-solid fa-eye"></i> View
                         </button>
@@ -218,6 +220,7 @@
                 </div>
     
                 <div class="mb-3">
+                   <h6>Directions</h6>
                   <label for="directions" class="form-label">Directions</label>
                   <textarea class="form-control" id="directions" name="directions" rows="4" required></textarea>
                 </div>
@@ -228,7 +231,8 @@
                 </div>
     
                 <div class="mb-3">
-                  <label for="spoonacularId" class="form-label">Spoonacular ID</label>
+                  <h6>Spoonacular ID</h6>
+                  <label for="spoonacularId" class="form-label"> Enter 6 digit Spoonacular ID</label>
                   <input type="text" class="form-control" id="spoonacularId" name="spoonacularId" required>
                 </div>
     

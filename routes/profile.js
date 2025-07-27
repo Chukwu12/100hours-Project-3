@@ -15,7 +15,8 @@ router.put("/likeRecipe/:id", profileController.likeRecipe);
 
 
 // Delete Recipe
-router.delete("/deleteRecipe/:id", ensureAuth, profileController.deleteRecipe);
+router.delete('/recipe/favoriteRecipe/:id', ensureAuth, profileController.deleteFavorite);
+
 
 
 // Toggle add/remove favorite by Spoonacular ID
